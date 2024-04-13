@@ -1,4 +1,6 @@
 .btn {
+    --bs-btn-font-weight: 600;
+    --bs-btn-padding-y: 0.5rem;
     &-primary {
         --bs-btn-color: var(--bs-white);
         --bs-btn-disabled-color: var(--bs-white);

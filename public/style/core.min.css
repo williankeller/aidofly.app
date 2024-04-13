@@ -11976,6 +11976,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.btn {
+  --bs-btn-font-weight: 600;
+  --bs-btn-padding-y: 0.5rem;
+}
 .btn-primary {
   --bs-btn-color: var(--bs-white);
   --bs-btn-disabled-color: var(--bs-white);
@@ -11994,4 +11998,10 @@ textarea.form-control-lg {
 
 .form-control {
   height: 3rem;
+}
+
+.toast {
+  --bs-toast-bg: var(--bs-body-color);
+  --bs-toast-color: var(--bs-white);
+  --bs-toast-font-size: var(--bs-font-size-base);
 }

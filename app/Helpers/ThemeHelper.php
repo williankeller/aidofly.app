@@ -59,7 +59,6 @@ if (!function_exists('preconnect')) {
         if ($crossorigin) {
             return '<link rel="preconnect" href="' . $asset . '" crossorigin>';
         }
-
         return '<link rel="preconnect" href="' . $asset . '">';
     }
 }
@@ -80,7 +79,28 @@ if (!function_exists('preload')) {
         if ($type) {
             return '<link rel="preload" as="' . $as . '" type="' . $type . '" href="' . $asset . '">';
         }
-
         return '<link rel="preload" as="' . $as . '" href="' . $asset . '">';
+    }
+}
+
+
+if (!function_exists('javascript')) {
+
+    /**
+     * Return cost per hour base on time.
+     *
+     * @param string $asset
+     * @param bool|null $defer
+     */
+    function javascript(string $asset, ?bool $defer = false): string
+    {
+        $asset = asset($asset) . versioning('?v=');
+        $nonce = nonce();
+
+        if ($defer) {
+            return "<script nonce=\"{$nonce}\" src=\"{$asset}\" defer></script>";
+        }
+
+        return "<script nonce=\"{}\" src=\"{$asset}\"></script>";
     }
 }
