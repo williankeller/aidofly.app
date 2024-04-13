@@ -1,0 +1,15 @@
+.form-label {
+    font-weight: 700;
+    &.required {
+        &:after {
+            font-size: 0.75rem;
+            line-height: 1rem;
+            color: var(--bs-danger);
+            content: "*";
+        }
+    }
+}
+
+.form-control {
+    height: 3rem;
+}
