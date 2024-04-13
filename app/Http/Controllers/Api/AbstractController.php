@@ -8,10 +8,9 @@ abstract class AbstractController
     {
         return response()->json([
             'status' => $status,
-            'response' => [
-                'data' => $data,
-                'message' => $message
-            ],
+            'data' => $data,
+            'message' => $message
+
         ], $status);
     }
 
@@ -19,9 +18,7 @@ abstract class AbstractController
     {
         return response()->json([
             'status' => $status,
-            'response' => [
-                'message' => $message
-            ],
+            'message' => $message
         ], $status);
     }
 }

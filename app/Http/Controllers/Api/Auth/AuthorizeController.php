@@ -20,11 +20,10 @@ class AuthorizeController extends AbstractController
         if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
             $user = Auth::user();
-            $token = $user->createToken('authToken')->plainTextToken;
+            $token = $user->createToken('auth')->plainTextToken;
 
             return $this->success([
-                'user' => $user,
-                'token' => $token
+                'xtoken' => $token
             ], 'Authorized');
         }
 

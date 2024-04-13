@@ -12,7 +12,8 @@
                         <span></span>
                     </h2>
                 </div>
-                <form id="signup" class="needs-validation">
+                <form method="POST" id="signup" class="needs-validation" action="{{ route('auth.signup.store') }}">
+                    @csrf
                     <div class="mb-3 row">
                         <div class="col-sm-6">
                             <x-form.label-input type="text" :label="__('First name')" id="firstname" :placeholder="__('Your first name')" required
@@ -33,13 +34,13 @@
                     </div>
                     <div>
                         <x-button variant="primary" reference="signup" class="w-100">
-                            <span>@lang("Sign Up")</span>
+                            <span>@lang("Sign up")</span>
                         </x-button>
                     </div>
                 </form>
                 <div class="text-center mt-5 text-sm text-muted">
                     <span>@lang("Already have an account?")</span>
-                    <a href="{{ route('auth.signup') }}" class="fw-semibold">@lang('Sign In')</a>
+                    <a href="{{ route('auth.signin') }}" class="fw-semibold">@lang('Sign in')</a>
                 </div>
                 {{-- <div class="py-5 text-center"><span class="text-xs text-uppercase fw-semibold">or</span></div>
                 <div class="row g-2">

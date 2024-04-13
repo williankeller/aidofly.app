@@ -12,7 +12,7 @@ const setupButtonActions = () => {
 
         setTimeout(() => {
             $button.prop("disabled", false).removeClass("disabled loading");
-        }, 5000);
+        }, 3000);
     });
 };
 

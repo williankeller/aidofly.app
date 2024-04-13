@@ -29,14 +29,14 @@ class RegisterController extends AbstractController
             'status' => 1,
         ]);
 
-        // Generate token
-        $token = $user->createToken('auth_token')->plainTextToken;
-
         // Authenticate user immediately after registration
         Auth::login($user);
 
+        // Generate token
+        $token = $user->createToken('auth')->plainTextToken;
+
         return $this->success([
-            'token' => $token,
-        ], __('User successfully registered'));
+            'xtoken' => $token,
+        ], __('Registered'));
     }
 }

@@ -25,7 +25,8 @@
                         <span>👋</span>
                     </h2>
                 </div>
-                <form id="signin" class="needs-validation">
+                <form id="signin" class="needs-validation" action="{{ route('auth.signin.authorize') }}" method="post">
+                    @csrf
                     <div class="mb-3">
                         <x-form.label-input type="email" :label="__('Email address')" id="email" :placeholder="__('Your email')" required
                             autocomplete="email" />
@@ -45,7 +46,7 @@
                     </div>
                     <div>
                         <x-button variant="primary" reference="signin" class="w-100">
-                            <span>@lang('Sign In')</span>
+                            <span>@lang('Sign in')</span>
                         </x-button>
                     </div>
                 </form>

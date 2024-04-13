@@ -11,7 +11,6 @@ const validateRequiredFields = () => {
             return false; // Break the loop
         }
     });
-
     $actionableButton.prop("disabled", !allFilled);
 };
 
