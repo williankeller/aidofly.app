@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\SigninController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\RecoverController;
 
+use App\Http\Controllers\Features\CoderController;
+
 Route::name('auth.')->group(function () {
     Route::controller(SigninController::class)->group(function () {
         Route::get('/signin', 'index')->name('signin');
@@ -26,10 +28,14 @@ Route::middleware('auth')->name('auth.')->group(function () {
     Route::post('/signout', [SigninController::class, 'signout'])->name('signout');
 });
 
-Route::get('/', function () {
-    return view('pages.home.index');
-})->name('home.index');
-
 Route::middleware('auth')->group(function () {
-   
+    Route::get('/', function () {
+        return view('pages.home.index');
+    })->name('home.index');
+
+    Route::name('feature.')->group(function () {
+        Route::controller(CoderController::class)->name('coder.')->group(function () {
+            Route::get('/coder', 'index')->name('index');
+        });
+    });
 });

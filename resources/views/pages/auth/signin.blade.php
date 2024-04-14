@@ -52,7 +52,7 @@
                 </form>
                 <div class="text-center mt-5 text-sm text-muted">
                     <span>@lang("Don't have an account?")</span>
-                    <a href="{{ route('auth.signup') }}" class="fw-semibold">@lang('Sign up')</a>
+                    <a href="{{ route('auth.signup.index') }}" class="fw-semibold">@lang('Sign up')</a>
                 </div>
                 {{-- <div class="py-5 text-center"><span class="text-xs text-uppercase fw-semibold">or</span></div>
                 <div class="row g-2">

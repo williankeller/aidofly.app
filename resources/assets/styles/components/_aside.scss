@@ -1,0 +1,16 @@
+.aside {
+    --bs-aside-bg-color: #f9f9f9;
+    width: 16rem;
+    background-color: var(--bs-aside-bg-color);
+
+    .nav-link {
+        @extend .p-2;
+        &:hover,
+        &:focus,
+        &.active {
+            color: var(--bs-nav-link-hover-color);
+            background-color: var(--bs-white);
+            @extend .rounded;
+        }
+    }
+}

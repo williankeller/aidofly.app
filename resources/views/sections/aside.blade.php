@@ -1,3 +1,41 @@
-<aside class="aside">
-    
-</aside>
+<div class="logo-wrapper px-3">
+    <a href="{{ route('home.index') }}" class="d-flex align-items-center text-decoration-none">
+        <x-image src="img/logo/aidofly.png" :alt="config('app.name')" width="40" height="40" />
+        <h1 class="m-2 ms-2 logo-name text-body">{{ config('app.name') }}</h1>
+    </a>
+</div>
+<nav class="d-flex flex-column mt-4 px-3">
+    <ul class="list-unstyled">
+        <x-aside.item route="home.index">
+            <i class="h4 mb-0 ti ti-home"></i>
+            <span class="ms-2">@lang('Home')</span>
+        </x-aside.item>
+        <x-aside.item route="home.index">
+            <i class="h3 mb-0 ti ti-stack"></i>
+            <span class="ms-2">@lang('Themes')</span>
+        </x-aside.item>
+    </ul>
+    <ul class="list-unstyled">
+        <li class="nav-item mb-1">
+            <strong>@lang('Features')</strong>
+        </li>
+        <x-aside.item route="home.index">
+            <span class="bg-warning bg-gradient rounded p-1">
+                <i class="h5 mb-0 text-white ti ti-text-caption"></i>
+            </span>
+            <span class="ms-2">@lang('Content writer')</span>
+        </x-aside.item>
+        <x-aside.item route="feature.coder.index">
+            <span class="bg-danger bg-gradient rounded p-1">
+                <i class="h5 mb-0 text-white ti ti-code"></i>
+            </span>
+            <span class="ms-2">@lang('Code writer')</span>
+        </x-aside.item>
+        <x-aside.item route="home.index">
+            <span class="bg-success bg-gradient rounded p-1">
+                <i class="h5 mb-0 text-white ti ti-speakerphone"></i>
+            </span>
+            <span class="ms-2">@lang('Voice over')</span>
+        </x-aside.item>
+    </ul>
+</nav>
