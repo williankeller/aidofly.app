@@ -1,0 +1,13 @@
+.w-md-50 {
+    width: 50%;
+}
+
+a {
+    @extend .text-decoration-none;
+}
+
+
+hr {
+    border-color: var(--bs-border-color-dimmed);
+    opacity: 1;
+}

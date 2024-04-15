@@ -33,16 +33,18 @@ class Handler
         /** @var Count */
         $cost = $resp->getReturn();
 
+        // The $title will be the prompt the user sent max of 255 characters
+        $title = Str::limit($params['prompt'], 255);
+
         return [
             'object' => 'document',
             'id' => Str::uuid(),
-            'model' => 'gpt-3.5-turbo',
+            'model' => $model,
             'visibility' => 'public',
-            'cost' => .4,
-            'created_at' => date('Y-m-d\TH:i:s\Z'),
+            'cost' => $cost,
             'params' => $params,
-            'title' => 'Hello, I\'m your assistant. How can I help you today?',
-            'content' => 'fasdfsdf',
+            'title' => $title,
+            'content' => $content,
             'user' => [],
         ];
     }

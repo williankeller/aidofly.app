@@ -7,7 +7,7 @@
     </section>
 
     <section class="p-5 card" data-bs-toggle="collapse" x-show="showForm">
-        <h3 class="h5">Prompts</h3>
+        <h3 class="h5">@lang('Prompts')</h3>
         <div id="responseAi"></div>
         <form is="x-form" x-ref="form" @submit.prevent="submit(null)" class="needs-validation d-grid gap-3 mt-3">
             <div class="mb-3">
@@ -16,7 +16,7 @@
                     placeholder="{{ __('Describe the task you want to accomplish.') }}" rows="3" autocomplete="off" required></textarea>
                 <div class="mt-2 d-flex align-items-center text-sm text-muted">
                     <i class="ti ti-help-square-rounded-filled"></i>
-                    <small class="ms-1 text-muted">The more details you provide, the better the result will be.</small>
+                    <small class="ms-1 text-muted">@lang('The more details you provide, the better the result will be.')</small>
                 </div>
             </div>
             <div class="mb-4">
@@ -26,7 +26,7 @@
                 <x-button type="submit" class="btn-primary" class="w-100 d-flex align-items-center justify-content-center"
                     reference="codeWriter">
                     <i class="ti ti-sparkles h5 mb-0"></i>
-                    <span class="ms-2">Generate code</span>
+                    <span class="ms-2">@lang('Generate code')</span>
                 </x-button>
             </div>
         </form>
@@ -34,154 +34,137 @@
 
     <template x-if="docs.length > 0 && docs[index]">
         <div class="p-5 card relative">
-            <div class="flex flex-col gap-4 box" data-density="comfortable">
-                <template x-if="docs.length > 1">
-                    <div class="flex items-center gap-1 text-xs text-content-dimmed">
-                        <button type="button" :disabled="index == 0" @click="index--" ; class="hover:text-content">
-                            <i class="text-xs ti ti-chevron-left"></i>
-                        </button>
 
-                        <span>
-                            <span x-text="index+1"></span>
-                            <span>/</span>
-                            <span x-text="docs.length"></span>
-                        </span>
+            <template x-if="docs.length > 1">
+                <div class="d-flex align-items-center gap-1 text-sm mb-3">
+                    <button type="button" :disabled="index == 0" @click="index--" ;
+                        class="btn btn-white p-0 d-flex align-items-center">
+                        <i class="text-xs ti ti-chevron-left text-muted text-sm"></i>
+                    </button>
 
-                        <button type="button" :disabled="index + 1 >= docs.length" @click="index++" ;
-                            class="hover:text-content">
-                            <i class="text-xs ti ti-chevron-right"></i>
-                        </button>
+                    <small class="text-muted">
+                        <span x-text="index+1"></span>
+                        <span>/</span>
+                        <span x-text="docs.length"></span>
+                    </small>
+
+                    <button type="button" :disabled="index + 1 >= docs.length" @click="index++" ;
+                        class="btn btn-white p-0 d-flex align-items-center">
+                        <i class="text-xs ti ti-chevron-right text-muted text-sm"></i>
+                    </button>
+                </div>
+            </template>
+
+            <div class="row d-flex align-items-center">
+                <template x-if="docs[index].id">
+                    <div class="col-lg-10">
+                        <div class="h4 autogrow-textarea mb-0" :data-replicated-value="docs[index].title">
+                            <textarea placeholder="{{ __('Untitled document') }}" autocomplete="off" x-model="docs[index].title" rows="1"
+                                @input.debounce.750ms="saveDocument(docs[index])" class="d-block w-100 p-0 text-body border-0"></textarea>
+                        </div>
                     </div>
                 </template>
 
-                <div class="flex items-start justify-between gap-4">
-                    <template x-if="docs[index].id">
-                        <div class="grow">
-                            <div class="text-xl autogrow-textarea font-editor-heading"
-                                :data-replicated-value="docs[index].title">
-                                <textarea placeholder="{{ __('Untitled document') }}" autocomplete="off" x-model="docs[index].title" rows="1"
-                                    @input.debounce.750ms="saveDocument(docs[index])"
-                                    class="block w-full px-0 py-0 transition-colors bg-transparent border-0 appearance-none resize-none focus:ring-0 placeholder:text-content-dimmed placeholder:opacity-50 read-only:text-content-dimmed"></textarea>
-                            </div>
-                        </div>
-                    </template>
+                <template x-if="!docs[index].id">
+                    <div class="col-lg-10 placeholder-wave">
+                        <div class="h2 placeholder rounded col-9"></div>
+                    </div>
+                </template>
 
-                    <template x-if="!docs[index].id">
-                        <div class="flex flex-col gap-3 placeholder-wave">
-                            <div class="h5 placeholder rounded col-7"></div>
+                <div class="col-lg-2 d-flex align-items-center justify-content-end">
+                    <button type="button"class="btn btn-white p-0 me-3" @click="showForm = !showForm"
+                        :class="{ 'text-content-dimmed': showForm }" x-tooltip.raw="{{ __('Toggle form') }}">
+                        <i class="ti ti-section h5"></i>
+                    </button>
 
-                            <div class="mb-1">
-                                <div class="h6 placeholder rounded col-4"></div>
-                            </div>
-                        </div>
-                    </template>
+                    <button class="btn btn-white p-0" type="button" @click="submit(docs[index].params)"
+                        x-tooltip.raw="{{ __('Regenerate') }}" :disabled="isProcessing">
+                        <i class="ti ti-rotate h5"></i>
+                    </button>
 
-                    <div class="flex items-center gap-2 shrink-0">
-                        <button type="button"class="btn btn-light" @click="showForm = !showForm"
-                            :class="{ 'text-content-dimmed': showForm }" x-tooltip.raw="{{ __('Toggle form') }}">
-                            <i class="ti ti-section"></i>
+                </div>
+            </div>
+
+            <hr>
+
+            <template x-if="docs[index].content">
+                <div class="editor" x-html="format(docs[index].content)"></div>
+            </template>
+
+            <template x-if="!docs[index].content">
+                <div class="placeholder-wave my-1">
+                    <div class="h6 placeholder rounded col-12"></div>
+                    <div class="h6 placeholder rounded col-12"></div>
+                    <div class="h6 placeholder rounded col-7"></div>
+                </div>
+            </template>
+
+            <template x-if="docs[index].id" data-think="docs[index].id">
+
+                <div class="d-flex justify-content-between mt-5">
+                    <div class="d-flex align-items-center mr-auto">
+                        <template x-if="docs[index].cost > 0">
+                            <span class="d-flex align-items-center text-sm text-muted">
+                                <i class="text-base ti ti-coins me-2"></i>
+                                <data is="x-credit" :value="docs[index].cost" format="{{ __(':count credits') }}"></data>
+                            </span>
+                        </template>
+
+                        <div class="audience" data-tbd="true"></div>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-white p-0 me-3" @click="copyDocumentContents(docs[index])">
+                            <i class="ti ti-copy h5"></i>
                         </button>
 
-                        <button class="btn btn-light" type="button" @click="submit(docs[index].params)"
-                            x-tooltip.raw="{{ __('Regenerate') }}" :disabled="isProcessing">
-                            <i class="ti ti-rotate"></i>
-                        </button>
+                        <div class="dropdown me-3" @click.away="$refs.downloadOptions.classList.remove('show')">
+                            <button type="button" class="btn btn-white p-0"
+                                @click="$refs.downloadOptions.classList.toggle('show')" aria-expanded="false">
+                                <i class="ti ti-download h5"></i>
+                            </button>
 
+                            <ul class="dropdown-menu" x-ref="downloadOptions" @click="$el.classList.remove('show')">
+                                <li class="dropdown-item">
+                                    <button class="w-full btn btn-white d-flex justify-content-center"
+                                        @click="download(docs[index], 'word')">
+                                        <i class="h5 ti ti-letter-w text-muted me-2 mb-0"></i>
+                                        <span>{{ __('Word document') }}</span>
+                                    </button>
+                                </li>
+
+                                <li class="dropdown-item">
+                                    <button class="w-full btn btn-white d-flex justify-content-center"
+                                        @click="download(docs[index], 'html')">
+                                        <i class="h5 ti ti-brand-html5 text-muted me-2 mb-0"></i>
+                                        <span>{{ __('HTML file') }}</span>
+                                    </button>
+                                </li>
+
+                                <li class="dropdown-item">
+                                    <button class="w-full btn btn-white d-flex justify-content-center"
+                                        @click="download(docs[index], 'markdown')">
+                                        <i class="h5 ti ti-markdown text-muted me-2 mb-0"></i>
+                                        <span>{{ __('Markdown') }}</span>
+                                    </button>
+                                </li>
+
+                                <li class="dropdown-item">
+                                    <button class="w-full btn btn-white d-flex justify-content-center"
+                                        @click="download(docs[index], 'text')">
+                                        <i class="h5 ti ti-txt text-muted me-2 mb-0"></i>
+                                        <span>{{ __('Text') }}</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <button class="btn btn-white p-0" @click="deleteDocument(docs[index])" @hover="$refs.trashHover.classList.toggle('text-danger')">
+                            <i class="ti ti-trash h5" x-ref="trashHover"></i>
+                        </button>
                     </div>
                 </div>
-
-                <hr>
-
-                <template x-if="docs[index].content">
-                    <div class="editor" x-html="format(docs[index].content)"></div>
-                </template>
-
-                <template x-if="!docs[index].content">
-                    <div class="placeholder-wave my-1">
-                        <div class="h6 placeholder rounded col-12"></div>
-                        <div class="h6 placeholder rounded col-12"></div>
-                        <div class="h6 placeholder rounded col-7"></div>
-                    </div>
-                </template>
-
-                <template x-if="docs[index].id">
-                    <div class="flex items-center gap-4 mt-4">
-                        <div class="flex items-center gap-4 mr-auto">
-                            <template x-if="docs[index].cost > 0">
-                                <span class="flex items-center gap-1 text-sm text-content-dimmed">
-                                    <i class="text-base ti ti-coins"></i>
-                                    <data is="x-credit" :value="docs[index].cost"
-                                        format="{{ __(':count credits') }}"></data>
-                                </span>
-                            </template>
-
-                            {% include "snippets/audience.twig" with {ref: 'docs[index]'} %}
-                        </div>
-
-                        <div class="flex items-center gap-4">
-                            <button @click="copyDocumentContents(docs[index])"
-                                class="transition-all text-content-dimmed hover:text-content">
-                                <i class="text-xl ti ti-copy"></i>
-                            </button>
-
-                            <div class="relative" @click.outside="$refs.downloadOptions.removeAttribute('data-open')">
-
-                                <button @click="$refs.downloadOptions.toggleAttribute('data-open')"
-                                    class="transition-all text-content-dimmed hover:text-content">
-                                    <i class="text-xl ti ti-download"></i>
-                                </button>
-
-                                <div class="menu menu-tr" x-ref="downloadOptions"
-                                    @click="$el.removeAttribute('data-open')">
-
-                                    <ul class="text-sm">
-                                        <li>
-                                            <button
-                                                class="flex items-center w-full gap-2 px-4 py-2 text-left hover:bg-intermediate"
-                                                @click="download(docs[index], 'word')">
-                                                <i class="text-lg text-content-dimmed ti ti-letter-w"></i>
-                                                <span>{{ __('Word document') }}</span>
-                                            </button>
-                                        </li>
-
-                                        <li>
-                                            <button
-                                                class="flex items-center w-full gap-2 px-4 py-2 text-left hover:bg-intermediate"
-                                                @click="download(docs[index], 'html')">
-                                                <i class="text-lg text-content-dimmed ti ti-brand-html5"></i>
-                                                <span>{{ __('HTML file') }}</span>
-                                            </button>
-                                        </li>
-
-                                        <li>
-                                            <button
-                                                class="flex items-center w-full gap-2 px-4 py-2 text-left hover:bg-intermediate"
-                                                @click="download(docs[index], 'markdown')">
-                                                <i class="text-lg text-content-dimmed ti ti-markdown"></i>
-                                                <span>{{ __('Markdown') }}</span>
-                                            </button>
-                                        </li>
-
-                                        <li>
-                                            <button
-                                                class="flex items-center w-full gap-2 px-4 py-2 text-left hover:bg-intermediate"
-                                                @click="download(docs[index], 'text')">
-                                                <i class="text-lg text-content-dimmed ti ti-txt"></i>
-                                                <span>{{ __('Text') }}</span>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <button @click="deleteDocument(docs[index])"
-                                class="transition-all text-content-dimmed hover:text-content">
-                                <i class="text-xl ti ti-trash group-hover:text-failure"></i>
-                            </button>
-                        </div>
-                    </div>
-                </template>
-            </div>
+            </template>
         </div>
     </template>
 @endsection

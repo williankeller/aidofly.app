@@ -6,4 +6,11 @@
         --bs-btn-disabled-color: var(--bs-white);
         --bs-btn-hover-color: var(--bs-white);
     }
+
+    &-white {
+        --bs-btn-disabled-border-color: var(--bs-white);
+        &:disabled {
+            border: 1px solid var(--bs-btn-disabled-border-color);
+        }
+    }
 }

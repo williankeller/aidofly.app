@@ -20,19 +20,19 @@
             <strong>@lang('Features')</strong>
         </li>
         <x-aside.item route="home.index">
-            <span class="bg-warning bg-gradient rounded p-1">
+            <span class="bg-warning bg-gradient rounded px-2 py-1 d-flex align-items-center">
                 <i class="h5 mb-0 text-white ti ti-text-caption"></i>
             </span>
             <span class="ms-2">@lang('Content writer')</span>
         </x-aside.item>
         <x-aside.item route="feature.coder.index">
-            <span class="bg-danger bg-gradient rounded p-1">
+            <span class="bg-danger bg-gradient rounded px-2 py-1 d-flex align-items-center">
                 <i class="h5 mb-0 text-white ti ti-code"></i>
             </span>
             <span class="ms-2">@lang('Code writer')</span>
         </x-aside.item>
         <x-aside.item route="home.index">
-            <span class="bg-success bg-gradient rounded p-1">
+            <span class="bg-success bg-gradient rounded px-2 py-1 d-flex align-items-center">
                 <i class="h5 mb-0 text-white ti ti-speakerphone"></i>
             </span>
             <span class="ms-2">@lang('Voice over')</span>

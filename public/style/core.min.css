@@ -1,12 +1,11 @@
 @import url(https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap);
 @import url(https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.36.0/tabler-icons.min.css);
+.tippy-box[data-placement^=top]>.tippy-backdrop{transform-origin:0 25%;border-radius:40% 40% 0 0}.tippy-box[data-placement^=top]>.tippy-backdrop[data-state=visible]{transform:scale(1) translate(-50%,-55%)}.tippy-box[data-placement^=top]>.tippy-backdrop[data-state=hidden]{transform:scale(.2) translate(-50%,-45%)}.tippy-box[data-placement^=bottom]>.tippy-backdrop{transform-origin:0 -50%;border-radius:0 0 30% 30%}.tippy-box[data-placement^=bottom]>.tippy-backdrop[data-state=visible]{transform:scale(1) translate(-50%,-45%)}.tippy-box[data-placement^=bottom]>.tippy-backdrop[data-state=hidden]{transform:scale(.2) translate(-50%)}.tippy-box[data-placement^=left]>.tippy-backdrop{transform-origin:50% 0;border-radius:50% 0 0 50%}.tippy-box[data-placement^=left]>.tippy-backdrop[data-state=visible]{transform:scale(1) translate(-50%,-50%)}.tippy-box[data-placement^=left]>.tippy-backdrop[data-state=hidden]{transform:scale(.2) translate(-75%,-50%)}.tippy-box[data-placement^=right]>.tippy-backdrop{transform-origin:-50% 0;border-radius:0 50% 50% 0}.tippy-box[data-placement^=right]>.tippy-backdrop[data-state=visible]{transform:scale(1) translate(-50%,-50%)}.tippy-box[data-placement^=right]>.tippy-backdrop[data-state=hidden]{transform:scale(.2) translate(-25%,-50%)}.tippy-box[data-animatefill]{background-color:transparent!important}.tippy-backdrop{position:absolute;background-color:#333;border-radius:50%;width:calc(110% + 32px);left:50%;top:50%;z-index:-1;transition:all cubic-bezier(.46,.1,.52,.98);backface-visibility:hidden}.tippy-backdrop[data-state=hidden]{opacity:0}.tippy-backdrop:after{content:"";float:left;padding-top:100%}.tippy-backdrop+.tippy-content{transition-property:opacity;will-change:opacity}.tippy-backdrop+.tippy-content[data-state=hidden]{opacity:0}
+.tippy-box[data-animation=shift-away][data-state=hidden]{opacity:0}.tippy-box[data-animation=shift-away][data-state=hidden][data-placement^=top]{transform:translateY(10px)}.tippy-box[data-animation=shift-away][data-state=hidden][data-placement^=bottom]{transform:translateY(-10px)}.tippy-box[data-animation=shift-away][data-state=hidden][data-placement^=left]{transform:translateX(10px)}.tippy-box[data-animation=shift-away][data-state=hidden][data-placement^=right]{transform:translateX(-10px)}
 @charset "UTF-8";
 :root {
   --bs-white: #fff;
-}
-
-.w-md-50 {
-  width: 50%;
+  --bs-border-color-dimmed: #f5f6f6;
 }
 
 .logo-name {
@@ -11986,6 +11985,104 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.tippy-box[data-animation=fade][data-state=hidden] {
+  opacity: 0;
+}
+
+[data-tippy-root] {
+  max-width: calc(100vw - 10px);
+}
+
+.tippy-box {
+  position: relative;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: normal;
+  outline: 0;
+  transition-property: transform, visibility, opacity;
+}
+
+.tippy-box[data-placement^=top] > .tippy-arrow {
+  bottom: 0;
+}
+
+.tippy-box[data-placement^=top] > .tippy-arrow:before {
+  bottom: -7px;
+  left: 0;
+  border-width: 8px 8px 0;
+  border-top-color: initial;
+  transform-origin: center top;
+}
+
+.tippy-box[data-placement^=bottom] > .tippy-arrow {
+  top: 0;
+}
+
+.tippy-box[data-placement^=bottom] > .tippy-arrow:before {
+  top: -7px;
+  left: 0;
+  border-width: 0 8px 8px;
+  border-bottom-color: initial;
+  transform-origin: center bottom;
+}
+
+.tippy-box[data-placement^=left] > .tippy-arrow {
+  right: 0;
+}
+
+.tippy-box[data-placement^=left] > .tippy-arrow:before {
+  border-width: 8px 0 8px 8px;
+  border-left-color: initial;
+  right: -7px;
+  transform-origin: center left;
+}
+
+.tippy-box[data-placement^=right] > .tippy-arrow {
+  left: 0;
+}
+
+.tippy-box[data-placement^=right] > .tippy-arrow:before {
+  left: -7px;
+  border-width: 8px 8px 8px 0;
+  border-right-color: initial;
+  transform-origin: center right;
+}
+
+.tippy-box[data-inertia][data-state=visible] {
+  transition-timing-function: cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+
+.tippy-arrow {
+  width: 16px;
+  height: 16px;
+  color: #333;
+}
+
+.tippy-arrow:before {
+  content: "";
+  position: absolute;
+  border-color: transparent;
+  border-style: solid;
+}
+
+.tippy-content {
+  position: relative;
+  padding: 5px 9px;
+  z-index: 1;
+}
+
+.w-md-50 {
+  width: 50%;
+}
+
+hr {
+  border-color: var(--bs-border-color-dimmed);
+  opacity: 1;
+}
+
 .aside {
   --bs-aside-bg-color: #f9f9f9;
   width: 16rem;
@@ -12005,9 +12102,15 @@ textarea.form-control-lg {
   --bs-btn-disabled-color: var(--bs-white);
   --bs-btn-hover-color: var(--bs-white);
 }
+.btn-white {
+  --bs-btn-disabled-border-color: var(--bs-white);
+}
+.btn-white:disabled {
+  border: 1px solid var(--bs-btn-disabled-border-color);
+}
 
 .card {
-  --bs-card-border-color: #f5f6f6;
+  --bs-card-border-color: var(--bs-border-color-dimmed);
 }
 .card .card-title {
   font-size: 1.125rem;
@@ -12020,9 +12123,20 @@ textarea.form-control-lg {
   margin-top: 1.75rem;
 }
 
+.autogrow-textarea textarea {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  resize: none;
+  overflow: hidden;
+  font: inherit;
+}
+
 .editor {
   max-width: none;
   font-family: var(--bs-body-font-family);
+  --bs-editor-pre-color: #fafbfb;
 }
 .editor h1, .editor .h1,
 .editor h2,
@@ -12052,10 +12166,13 @@ textarea.form-control-lg {
 .editor pre {
   padding: 1.5rem;
   position: relative;
-  border-radius: 0.5rem;
-  background-color: #f5f6f6;
-  border: 1px solid #fafbfb;
+  border-radius: var(--bs-border-radius);
+  background-color: var(--bs-editor-pre-color);
+  border: 1px solid var(--bs-editor-pre-color);
   white-space: pre-wrap;
+}
+.editor pre:has(.actions) {
+  padding-top: 0px;
 }
 .editor pre svg {
   position: absolute;
@@ -12064,7 +12181,7 @@ textarea.form-control-lg {
   width: 100%;
   height: 100%;
   border-radius: 0.5rem;
-  color: #f5f6f6;
+  color: var(--bs-border-color-dimmed);
   z-index: -10;
 }
 .editor pre svg:hover {
@@ -12080,7 +12197,7 @@ textarea.form-control-lg {
   gap: 0.5rem;
   padding: 0.25rem 1.5rem;
   margin-bottom: 1rem;
-  background-color: #f5f6f6;
+  background-color: var(--bs-border-color-dimmed);
   margin-left: -1.5rem;
   margin-right: -1.5rem;
 }
@@ -12088,9 +12205,13 @@ textarea.form-control-lg {
   text-transform: uppercase;
   pointer-events: none;
   font-size: 0.75rem;
+  color: var(--bs-gray-500);
 }
 .editor pre .copy {
   cursor: pointer;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--bs-gray-700);
 }
 .editor pre .copy:hover {
   color: var(--bs-body-color);

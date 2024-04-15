@@ -1,5 +1,5 @@
 .card {
-    --bs-card-border-color: #f5f6f6;
+    --bs-card-border-color: var(--bs-border-color-dimmed);
     .card-title {
         font-size: 1.125rem;
         font-weight: 800;
