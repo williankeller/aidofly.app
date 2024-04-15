@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\AbstractController;
 use App\Services\Stream\Streamer;
 use Generator;
 use App\Services\Agents\Coder\Handler;
-use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CodeCompletionController extends AbstractController
 {
@@ -17,8 +17,7 @@ class CodeCompletionController extends AbstractController
     ) {
     }
 
-
-    public function handle(Request $request)
+    public function handle(Request $request): StreamedResponse
     {
         $params = [
             'prompt' => $request->input('prompt'),
@@ -40,20 +39,18 @@ class CodeCompletionController extends AbstractController
             'Content-Type' => 'text/event-stream',
             'Cache-Control' => 'no-cache',
             'Connection' => 'keep-alive',
-            // Disable buffering for nginx servers to allow for streaming
-            // This is required for the event stream to work
             'X-Accel-Buffering' => 'no',
         ];
     }
 
     private function callbackTest(Generator $generator)
     {
-        return function() use ($generator) {
+        return function () use ($generator) {
             $this->streamer->stream($generator);
 
-            $doc = $generator->getReturn();
+            $document = $generator->getReturn();
 
-            $this->streamer->sendEvent('document', $doc);
+            $this->streamer->sendEvent('document', $document);
 
             $this->streamer->close();
         };

@@ -56,7 +56,7 @@
             </template>
 
             <div class="row d-flex align-items-center">
-                <template x-if="docs[index].id">
+                <template x-if="docs[index].uuid">
                     <div class="col-lg-10">
                         <div class="h4 autogrow-textarea mb-0" :data-replicated-value="docs[index].title">
                             <textarea placeholder="{{ __('Untitled document') }}" autocomplete="off" x-model="docs[index].title" rows="1"
@@ -65,7 +65,7 @@
                     </div>
                 </template>
 
-                <template x-if="!docs[index].id">
+                <template x-if="!docs[index].uuid">
                     <div class="col-lg-10 placeholder-wave">
                         <div class="h2 placeholder rounded col-9"></div>
                     </div>
@@ -99,7 +99,7 @@
                 </div>
             </template>
 
-            <template x-if="docs[index].id" data-think="docs[index].id">
+            <template x-if="docs[index].uuid" data-think="docs[index].uuid">
 
                 <div class="d-flex justify-content-between mt-5">
                     <div class="d-flex align-items-center mr-auto">

@@ -52,6 +52,11 @@ class User extends Authenticatable
         ];
     }
 
+    protected function library()
+    {
+        return $this->hasMany(Library::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

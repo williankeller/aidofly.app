@@ -7,6 +7,7 @@ use App\Integrations\OpenAi\CompletionService;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use Generator;
+use App\Models\Library;
 
 class Handler
 {
@@ -33,19 +34,19 @@ class Handler
         /** @var Count */
         $cost = $resp->getReturn();
 
-        // The $title will be the prompt the user sent max of 255 characters
-        $title = Str::limit($params['prompt'], 255);
+        $title = Str::limit($params['prompt'], 125, '...');
 
-        return [
+        $library = Library::create([
             'object' => 'document',
-            'id' => Str::uuid(),
             'model' => $model,
             'visibility' => 'public',
-            'cost' => $cost,
+            'cost' => $cost->jsonSerialize(),
             'params' => $params,
             'title' => $title,
             'content' => $content,
-            'user' => [],
-        ];
+            'user_id' => 1 //<-- This is the user_id that should be set to the authenticated user, 
+        ]);
+
+        return $library->makeHidden(['id', 'user_id', 'created_at', 'updated_at']);
     }
 }

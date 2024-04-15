@@ -26,7 +26,7 @@ Alpine.data("coder", (doc = null) => ({
         }
 
         this.$watch("index", (index) => {
-            if (this.docs[index].id) {
+            if (this.docs[index].uuid) {
                 this.select(this.docs[index]);
             }
         });
@@ -156,13 +156,13 @@ Alpine.data("coder", (doc = null) => ({
     },
 
     saveDocument(doc) {
-        api.post(`/library/code-documents/${doc.id}`, doc);
+        api.post(`/library/code-documents/${doc.uuid}`, doc);
     },
 
     deleteDocument(doc) {
-        api.delete(`/library/code-documents/${doc.id}`).then(() => {
+        api.delete(`/library/code-documents/${doc.uuid}`).then(() => {
             toast.success("Document deleted successfully!");
-            this.docs = this.docs.filter((d) => d.id != doc.id);
+            this.docs = this.docs.filter((d) => d.uuid != doc.uuid);
             this.index = this.docs.length > 1 ? this.docs.length - 1 : 0;
 
             if (this.docs.length == 0) {
@@ -173,7 +173,7 @@ Alpine.data("coder", (doc = null) => ({
 
     select(doc) {
         let url = new URL(window.location.href);
-        url.pathname = "/coder/" + (doc.id ?? "");
+        url.pathname = "/coder/" + (doc.uuid ?? "");
         window.history.pushState({}, "", url);
     },
 }));
