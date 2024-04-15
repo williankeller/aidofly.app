@@ -7,8 +7,7 @@
     </section>
 
     <section class="p-5 card" data-bs-toggle="collapse" x-show="showForm">
-        <h3 class="h5">@lang('Prompts')</h3>
-        <div id="responseAi"></div>
+        <h3 class="fw-bolder h5">@lang('Prompts')</h3>
         <form is="x-form" x-ref="form" @submit.prevent="submit(null)" class="needs-validation d-grid gap-3 mt-3">
             <div class="mb-3">
                 <label for="prompt" class="form-label required">Description</label>
@@ -159,7 +158,8 @@
                             </ul>
                         </div>
 
-                        <button class="btn btn-white p-0" @click="deleteDocument(docs[index])" @hover="$refs.trashHover.classList.toggle('text-danger')">
+                        <button class="btn btn-white p-0" @click="deleteDocument(docs[index])"
+                            @hover="$refs.trashHover.classList.toggle('text-danger')">
                             <i class="ti ti-trash h5" x-ref="trashHover"></i>
                         </button>
                     </div>

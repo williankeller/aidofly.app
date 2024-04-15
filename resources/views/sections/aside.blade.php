@@ -17,7 +17,7 @@
     </ul>
     <ul class="list-unstyled">
         <li class="nav-item mb-1">
-            <strong>@lang('Features')</strong>
+            <strong>@lang('Agents')</strong>
         </li>
         <x-aside.item route="home.index">
             <span class="bg-warning bg-gradient rounded px-2 py-1 d-flex align-items-center">
@@ -25,7 +25,7 @@
             </span>
             <span class="ms-2">@lang('Content writer')</span>
         </x-aside.item>
-        <x-aside.item route="feature.coder.index">
+        <x-aside.item route="agent.coder.index">
             <span class="bg-danger bg-gradient rounded px-2 py-1 d-flex align-items-center">
                 <i class="h5 mb-0 text-white ti ti-code"></i>
             </span>

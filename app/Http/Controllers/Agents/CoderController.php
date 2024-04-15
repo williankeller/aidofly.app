@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Features;
+namespace App\Http\Controllers\Agents;
 
 use App\Http\Controllers\AbstractController;
-use App\Services\Stream\Streamer;
 
 class CoderController extends AbstractController
 {
     public function index()
     {
-        return view('pages.features.coder.index', [
+        return view('pages.agents.coder.index', [
             'metaTitle' => __('Coding Assistant'),
             'metaDescription' => __('Generate high quality code in seconds.'),
             'xData' => 'coder(null)'

@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->hasMany(Library::class);
     }
 
+    protected function isAdmin(): bool
+    {
+        return $this->role === 1;
+    }
+
     protected static function boot()
     {
         parent::boot();

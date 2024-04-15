@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\SigninController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\RecoverController;
 
-use App\Http\Controllers\Features\CoderController;
+use App\Http\Controllers\Agents\CoderController;
 
 Route::name('auth.')->group(function () {
     Route::controller(SigninController::class)->group(function () {
@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
         return view('pages.home.index');
     })->name('home.index');
 
-    Route::name('feature.')->group(function () {
+    Route::name('agent.')->group(function () {
         Route::controller(CoderController::class)->name('coder.')->group(function () {
             Route::get('/coder', 'index')->name('index');
         });
