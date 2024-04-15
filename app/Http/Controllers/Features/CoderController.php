@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Features;
 
 use App\Http\Controllers\AbstractController;
+use App\Services\Stream\Streamer;
 
 class CoderController extends AbstractController
 {
@@ -10,7 +11,8 @@ class CoderController extends AbstractController
     {
         return view('pages.features.coder.index', [
             'metaTitle' => __('Coding Assistant'),
-            'metaDescription' => __('Generate high quality code in seconds.')
+            'metaDescription' => __('Generate high quality code in seconds.'),
+            'xData' => 'coder(null)'
         ]);
     }
 }

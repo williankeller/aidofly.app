@@ -4,7 +4,7 @@
 @include('layouts.snippets.head', ['robots' => $robots ?? 'index, follow'])
 
 <body>
-    <main class="main">
+    <main class="main-auth">
         @yield('content')
     </main>
     @include('layouts.snippets.scripts')

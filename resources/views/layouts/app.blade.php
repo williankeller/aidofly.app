@@ -8,7 +8,7 @@
         @include('sections.aside')
     </aside>
     <div class="vh-100 d-flex flex-column flex-grow-1">
-        <main role="main" class="main">
+        <main role="main" class="main" x-data="{{ $xData ?? '__' }}">
             @yield('content')
         </main>
         <footer class="footer">

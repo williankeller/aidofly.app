@@ -45,7 +45,7 @@
                         </a>
                     </div>
                     <div>
-                        <x-button variant="primary" reference="signin" class="w-100">
+                        <x-button variant="primary" class="w-100">
                             <span>@lang('Sign in')</span>
                         </x-button>
                     </div>

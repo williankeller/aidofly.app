@@ -2,3 +2,22 @@
     font-size: 1.5rem;
     font-weight: 900;
 }
+
+$display-font-sizes: (
+    1: 5rem,
+    2: 4.5rem,
+    3: 4rem,
+    4: 1.5rem,
+    5: 1.125rem,
+    6: 2.5rem,
+);
+
+.page-heading {
+    font-size: 1.5rem;
+    font-weight: 900;
+    line-height: 2rem;
+}
+
+.h5 {
+    font-weight: 800;
+}

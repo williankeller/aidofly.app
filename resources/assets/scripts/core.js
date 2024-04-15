@@ -1,13 +1,5 @@
-import { initBootstrap, setNonce } from "./globalSettings";
-import { setupFieldValidation } from "./formValidation";
-import { setupButtonActions } from "./buttonActions";
+`use strict`;
 
+import { FormElement } from "./base/form-element.js";
 
-jQuery(($) => {
-    initBootstrap();
-    setNonce();
-    setupButtonActions();
-    setupFieldValidation();
-});
-
-
+customElements.define("x-form", FormElement, { extends: "form" });

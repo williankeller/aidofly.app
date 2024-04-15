@@ -14,6 +14,16 @@
   font-weight: 900;
 }
 
+.page-heading {
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 2rem;
+}
+
+.h5 {
+  font-weight: 800;
+}
+
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
@@ -645,25 +655,20 @@ progress {
 }
 
 .display-4 {
-  font-size: calc(1.475rem + 2.7vw);
+  font-size: calc(1.275rem + 0.3vw);
   font-weight: 300;
   line-height: 1.2;
 }
 @media (min-width: 1200px) {
   .display-4 {
-    font-size: 3.5rem;
+    font-size: 1.5rem;
   }
 }
 
 .display-5 {
-  font-size: calc(1.425rem + 2.1vw);
+  font-size: 1.125rem;
   font-weight: 300;
   line-height: 1.2;
-}
-@media (min-width: 1200px) {
-  .display-5 {
-    font-size: 3rem;
-  }
 }
 
 .display-6 {
@@ -6763,7 +6768,7 @@ textarea.form-control-lg {
   vertical-align: middle;
   cursor: wait;
   background-color: currentcolor;
-  opacity: 0.5;
+  opacity: 0.1;
 }
 .placeholder.btn::before {
   display: inline-block;
@@ -12001,9 +12006,100 @@ textarea.form-control-lg {
   --bs-btn-hover-color: var(--bs-white);
 }
 
+.card {
+  --bs-card-border-color: #f5f6f6;
+}
+.card .card-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.75rem;
+}
+
 .main {
   max-width: 57rem;
   margin-top: 1.75rem;
+}
+
+.editor {
+  max-width: none;
+  font-family: var(--bs-body-font-family);
+}
+.editor h1, .editor .h1,
+.editor h2,
+.editor .h2,
+.editor h3,
+.editor .h3,
+.editor h4,
+.editor .h4 {
+  font-family: var(--bs-body-font-family);
+}
+.editor h1, .editor .h1 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+.editor h2, .editor .h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.editor h3, .editor .h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.editor h4, .editor .h4 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.editor pre {
+  padding: 1.5rem;
+  position: relative;
+  border-radius: 0.5rem;
+  background-color: #f5f6f6;
+  border: 1px solid #fafbfb;
+  white-space: pre-wrap;
+}
+.editor pre svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  color: #f5f6f6;
+  z-index: -10;
+}
+.editor pre svg:hover {
+  color: var(--bs-body-color);
+}
+.editor pre svg[data-selected=true] {
+  display: none;
+}
+.editor pre .actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.25rem 1.5rem;
+  margin-bottom: 1rem;
+  background-color: #f5f6f6;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+}
+.editor pre .lang {
+  text-transform: uppercase;
+  pointer-events: none;
+  font-size: 0.75rem;
+}
+.editor pre .copy {
+  cursor: pointer;
+}
+.editor pre .copy:hover {
+  color: var(--bs-body-color);
+}
+.editor > *:first-child {
+  margin-top: 0;
+}
+.editor > *:last-child {
+  margin-bottom: 0;
 }
 
 .form-label {
@@ -12017,7 +12113,232 @@ textarea.form-control-lg {
 }
 
 .form-control {
-  height: 3rem;
+  min-height: 3rem;
+}
+
+.hljs {
+  color: #383a42;
+  background: #fafafa;
+}
+
+.hljs::-moz-selection, .hljs ::-moz-selection {
+  background-color: #e5e5e6;
+  color: #383a42;
+}
+
+.hljs::selection,
+.hljs ::selection {
+  background-color: #e5e5e6;
+  color: #383a42;
+}
+
+/* purposely do not highlight these things */
+/* base03 - #a0a1a7 -  Comments, Invisibles, Line Highlighting */
+.hljs-comment {
+  color: #a0a1a7;
+}
+
+/* base04 - #696c77 -  Dark Foreground (Used for status bars) */
+.hljs-tag {
+  color: #696c77;
+}
+
+/* base05 - #383a42 -  Default Foreground, Caret, Delimiters, Operators */
+.hljs-subst,
+.hljs-punctuation,
+.hljs-operator {
+  color: #383a42;
+}
+
+.hljs-operator {
+  opacity: 0.7;
+}
+
+/* base08 - Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted */
+.hljs-bullet,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-selector-tag,
+.hljs-name,
+.hljs-deletion {
+  color: #ca1243;
+}
+
+/* base09 - Integers, Boolean, Constants, XML Attributes, Markup Link Url */
+.hljs-symbol,
+.hljs-number,
+.hljs-link,
+.hljs-attr,
+.hljs-variable.constant_,
+.hljs-literal {
+  color: #d75f00;
+}
+
+/* base0A - Classes, Markup Bold, Search Text Background */
+.hljs-title,
+.hljs-class .hljs-title,
+.hljs-title.class_ {
+  color: #c18401;
+}
+
+.hljs-strong {
+  font-weight: bold;
+  color: #c18401;
+}
+
+/* base0B - Strings, Inherited Class, Markup Code, Diff Inserted */
+.hljs-code,
+.hljs-addition,
+.hljs-title.class_.inherited__,
+.hljs-string {
+  color: #50a14f;
+}
+
+/* base0C - Support, Regular Expressions, Escape Characters, Markup Quotes */
+.hljs-built_in,
+.hljs-doctag,
+.hljs-quote,
+.hljs-keyword.hljs-atrule,
+.hljs-regexp {
+  color: #0184bc;
+}
+
+/* base0D - Functions, Methods, Attribute IDs, Headings */
+.hljs-function .hljs-title,
+.hljs-attribute,
+.ruby .hljs-property,
+.hljs-title.function_,
+.hljs-section {
+  color: #4078f2;
+}
+
+/* base0E - Keywords, Storage, Selector, Markup Italic, Diff Changed */
+.hljs-type,
+.hljs-template-tag,
+.diff .hljs-meta,
+.hljs-keyword {
+  color: #a626a4;
+}
+
+.hljs-emphasis {
+  color: #a626a4;
+  font-style: italic;
+}
+
+.hljs-meta,
+.hljs-meta .hljs-keyword,
+.hljs-meta .hljs-string {
+  color: #986801;
+}
+
+.hljs-meta .hljs-keyword,
+.hljs-meta-keyword {
+  font-weight: bold;
+}
+
+:root[data-mode=dark] {
+  /* purposely do not highlight these things */
+  /* base03 - #545862 -  Comments, Invisibles, Line Highlighting */
+  /* base04 - #565c64 -  Dark Foreground (Used for status bars) */
+  /* base05 - #abb2bf -  Default Foreground, Caret, Delimiters, Operators */
+  /* base08 - Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted */
+  /* base09 - Integers, Boolean, Constants, XML Attributes, Markup Link Url */
+  /* base0A - Classes, Markup Bold, Search Text Background */
+  /* base0B - Strings, Inherited Class, Markup Code, Diff Inserted */
+  /* base0C - Support, Regular Expressions, Escape Characters, Markup Quotes */
+  /* base0D - Functions, Methods, Attribute IDs, Headings */
+  /* base0E - Keywords, Storage, Selector, Markup Italic, Diff Changed */
+}
+:root[data-mode=dark] .hljs {
+  color: #abb2bf;
+  background: #282c34;
+}
+:root[data-mode=dark] .hljs::-moz-selection, :root[data-mode=dark] .hljs ::-moz-selection {
+  background-color: #3e4451;
+  color: #abb2bf;
+}
+:root[data-mode=dark] .hljs::selection,
+:root[data-mode=dark] .hljs ::selection {
+  background-color: #3e4451;
+  color: #abb2bf;
+}
+:root[data-mode=dark] .hljs-comment {
+  color: #545862;
+}
+:root[data-mode=dark] .hljs-tag {
+  color: #565c64;
+}
+:root[data-mode=dark] .hljs-subst,
+:root[data-mode=dark] .hljs-punctuation,
+:root[data-mode=dark] .hljs-operator {
+  color: #abb2bf;
+}
+:root[data-mode=dark] .hljs-operator {
+  opacity: 0.7;
+}
+:root[data-mode=dark] .hljs-bullet,
+:root[data-mode=dark] .hljs-variable,
+:root[data-mode=dark] .hljs-template-variable,
+:root[data-mode=dark] .hljs-selector-tag,
+:root[data-mode=dark] .hljs-name,
+:root[data-mode=dark] .hljs-deletion {
+  color: #e06c75;
+}
+:root[data-mode=dark] .hljs-symbol,
+:root[data-mode=dark] .hljs-number,
+:root[data-mode=dark] .hljs-link,
+:root[data-mode=dark] .hljs-attr,
+:root[data-mode=dark] .hljs-variable.constant_,
+:root[data-mode=dark] .hljs-literal {
+  color: #d19a66;
+}
+:root[data-mode=dark] .hljs-title,
+:root[data-mode=dark] .hljs-class .hljs-title,
+:root[data-mode=dark] .hljs-title.class_ {
+  color: #e5c07b;
+}
+:root[data-mode=dark] .hljs-strong {
+  font-weight: bold;
+  color: #e5c07b;
+}
+:root[data-mode=dark] .hljs-code,
+:root[data-mode=dark] .hljs-addition,
+:root[data-mode=dark] .hljs-title.class_.inherited__,
+:root[data-mode=dark] .hljs-string {
+  color: #98c379;
+}
+:root[data-mode=dark] .hljs-built_in,
+:root[data-mode=dark] .hljs-doctag,
+:root[data-mode=dark] .hljs-quote,
+:root[data-mode=dark] .hljs-keyword.hljs-atrule,
+:root[data-mode=dark] .hljs-regexp {
+  color: #56b6c2;
+}
+:root[data-mode=dark] .hljs-function .hljs-title,
+:root[data-mode=dark] .hljs-attribute,
+:root[data-mode=dark] .ruby .hljs-property,
+:root[data-mode=dark] .hljs-title.function_,
+:root[data-mode=dark] .hljs-section {
+  color: #61afef;
+}
+:root[data-mode=dark] .hljs-type,
+:root[data-mode=dark] .hljs-template-tag,
+:root[data-mode=dark] .diff .hljs-meta,
+:root[data-mode=dark] .hljs-keyword {
+  color: #c678dd;
+}
+:root[data-mode=dark] .hljs-emphasis {
+  color: #c678dd;
+  font-style: italic;
+}
+:root[data-mode=dark] .hljs-meta,
+:root[data-mode=dark] .hljs-meta .hljs-keyword,
+:root[data-mode=dark] .hljs-meta .hljs-string {
+  color: #be5046;
+}
+:root[data-mode=dark] .hljs-meta .hljs-keyword,
+:root[data-mode=dark] .hljs-meta-keyword {
+  font-weight: bold;
 }
 
 .toast {

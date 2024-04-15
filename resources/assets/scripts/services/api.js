@@ -1,4 +1,4 @@
-import { notification } from "./components/notification";
+import { notification } from "../components/notification";
 
 // Fetch.js
 const _apiHost = "/api";

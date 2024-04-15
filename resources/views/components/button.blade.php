@@ -1,7 +1,6 @@
 @props([
     'variant' => 'primary',
-    'reference' => null,
 ])
-<button {{ $attributes->merge(['class' => 'btn btn-actionable btn-' . $variant]) }} id="btn-{{ $reference }}" data-actionable="{{ $reference }}" disabled>
+<button {{ $attributes->merge(['class' => 'btn btn-' . $variant]) }} :processing="isProcessing">
     {{ $slot }}
 </button>
