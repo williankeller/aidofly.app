@@ -12083,6 +12083,10 @@ hr {
   opacity: 1;
 }
 
+[data-state=loaded] .placeholders {
+  display: none;
+}
+
 .aside {
   --bs-aside-bg-color: #f9f9f9;
   width: 16rem;

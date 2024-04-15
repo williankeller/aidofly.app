@@ -15,8 +15,10 @@ mix.js("resources/assets/scripts/core.js", `public/js/core.min.js`)
     .js(
         "resources/assets/scripts/pages/agents/coder.js",
         "public/js/agents/coder.min.js"
+    ).js(
+        "resources/assets/scripts/pages/library/list.js",
+        "public/js/library/list.min.js"
     )
-
     .sourceMaps();
 
 /**

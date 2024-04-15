@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\Agents;
 
+use Generator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\AbstractController;
 use App\Services\Stream\Streamer;
-use Generator;
 use App\Services\Agents\Coder\Handler;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class CodeCompletionController extends AbstractController
+class CoderController extends AbstractController
 {
     public function __construct(
         private Streamer $streamer,
@@ -27,7 +27,7 @@ class CodeCompletionController extends AbstractController
         $generator = $this->handler->handle('gpt-3.5-turbo', $params);
 
         return response()->stream(
-            $this->callbackTest($generator),
+            $this->callback($generator),
             200,
             $this->headers()
         );
@@ -43,7 +43,7 @@ class CodeCompletionController extends AbstractController
         ];
     }
 
-    private function callbackTest(Generator $generator)
+    private function callback(Generator $generator)
     {
         return function () use ($generator) {
             $this->streamer->stream($generator);
