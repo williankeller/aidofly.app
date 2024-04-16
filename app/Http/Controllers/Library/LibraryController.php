@@ -9,16 +9,19 @@ class LibraryController
     public function index(): View
     {
         return view('pages.library.index', [
-            'metaTitle' => 'Library',
-            'metaDescription' => 'View all content you created',
+            'metaTitle' => __('Library'),
+            'metaDescription' => __('View all content you created'),
         ]);
     }
 
     public function content(): View
     {
+        $data = json_encode(['delete_success' => __("Content has been deleted successfully.")]);
+
         return view('pages.library.content', [
-            'metaTitle' => 'Library Content',
-            'metaDescription' => 'View all content you created',
+            'metaTitle' => __('Content Library'),
+            'metaDescription' => __('View all content you created'),
+            'xData' => "list(\"/library/content\", {$data})",
         ]);
     }
 
@@ -27,9 +30,9 @@ class LibraryController
         $data = json_encode(['delete_success' => __("Content has been deleted successfully.")]);
 
         return view('pages.library.coder', [
-            'metaTitle' => 'Coder Library',
-            'metaDescription' => 'View all content you created',
-            'xData' => "list(\"/library/content\", {$data})",
+            'metaTitle' => __('Coder Library'),
+            'metaDescription' => __('View all content you created'),
+            'xData' => "list(\"/library/coder\", {$data})",
         ]);
     }
 }

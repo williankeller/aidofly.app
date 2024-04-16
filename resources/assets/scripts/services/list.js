@@ -2,8 +2,8 @@
 
 import Alpine from "alpinejs";
 
-import api from "../../services/api";
-import { notification } from "../../components/notification";
+import api from "./api";
+import { notification } from "../components/notification";
 
 Alpine.data("list", (basePath, strings = []) => ({
     state: "initial",
@@ -71,7 +71,8 @@ Alpine.data("list", (basePath, strings = []) => ({
                     : this.resources.concat(list.data);
 
                 if (this.resources.length > 0) {
-                    this.cursor = this.resources[this.resources.length - 1].uuid;
+                    this.cursor =
+                        this.resources[this.resources.length - 1].uuid;
                 } else {
                     this.state = "empty";
                 }

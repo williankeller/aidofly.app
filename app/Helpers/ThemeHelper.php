@@ -3,6 +3,7 @@
 use Illuminate\Support\Str;
 
 if (!function_exists('versioning')) {
+
     /**
      * Generate a version system pattern
      *
@@ -100,7 +101,6 @@ if (!function_exists('javascript')) {
         if ($defer) {
             return "<script nonce=\"{$nonce}\" src=\"{$asset}\" defer></script>";
         }
-
-        return "<script nonce=\"{}\" src=\"{$asset}\"></script>";
+        return "<script nonce=\"{$nonce}\" src=\"{$asset}\"></script>";
     }
 }

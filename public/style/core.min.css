@@ -12087,6 +12087,13 @@ hr {
   display: none;
 }
 
+[data-state=empty] .empty {
+  display: block;
+}
+[data-state=empty] .placeholders {
+  display: none;
+}
+
 .aside {
   --bs-aside-bg-color: #f9f9f9;
   width: 16rem;
@@ -12226,6 +12233,10 @@ hr {
 }
 .editor > *:last-child {
   margin-bottom: 0;
+}
+
+.empty {
+  display: none;
 }
 
 .form-label {
@@ -12471,4 +12482,9 @@ hr {
   --bs-toast-bg: var(--bs-body-color);
   --bs-toast-color: var(--bs-white);
   --bs-toast-font-size: var(--bs-font-size-base);
+}
+
+h5,
+.h5 {
+  font-size: 1.15rem;
 }

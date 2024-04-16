@@ -11,6 +11,17 @@ hr {
     opacity: 1;
 }
 
-[data-state="loaded"] .placeholders {
-    display: none;
+[data-state="loaded"] {
+    .placeholders {
+        display: none;
+    }
+}
+
+[data-state="empty"] {
+    .empty {
+        display: block;
+    }
+    .placeholders {
+        display: none;
+    }
 }

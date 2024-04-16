@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RecoverController;
 
 use App\Http\Controllers\Library\LibraryController;
 
+use App\Http\Controllers\Agents\ContentController;
 use App\Http\Controllers\Agents\CoderController;
 
 Route::name('auth.')->group(function () {
@@ -21,25 +22,28 @@ Route::name('auth.')->group(function () {
         Route::post('/signup', 'store')->name('store');
     });
     Route::get('/recover', [RecoverController::class, 'index'])->name('recover');
-
-    
 });
 
-Route::middleware('auth')->name('auth.')->group(function () {
-    Route::post('/signout', [SigninController::class, 'signout'])->name('signout');
-});
-
+/**
+ * Authenticated routes only
+ */
 Route::middleware('auth')->group(function () {
+    // Home route
     Route::get('/', function () {
         return view('pages.home.index');
     })->name('home.index');
 
+    // Agent routes
     Route::name('agent.')->prefix('/agent')->group(function () {
+        Route::controller(ContentController::class)->name('content.')->group(function () {
+            Route::get('/content', 'index')->name('index');
+        });
         Route::controller(CoderController::class)->name('coder.')->group(function () {
             Route::get('/coder', 'index')->name('index');
         });
     });
 
+    // Library routes
     Route::name('library.')->group(function () {
         Route::controller(LibraryController::class)->name('agent.')->group(function () {
             Route::get('/library', 'index')->name('index');
@@ -47,4 +51,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/library/coder', 'coder')->name('coder');
         });
     });
+
+    Route::post('/signout', [SigninController::class, 'signout'])->name('auth.signout');
 });

@@ -57,12 +57,13 @@
             </div>
         </div>
     </section>
+@endsection
+
+@push('script-stack-after')
 
     @if (session()->get('message'))
         <x-notification :message="session()->get('message')['content']" :show="true" />
     @endif
-@endsection
 
-@push('script-stack-after')
     {!! javascript('js/auth/auth.min.js') !!}
 @endpush

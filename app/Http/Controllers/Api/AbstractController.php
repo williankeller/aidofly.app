@@ -21,4 +21,12 @@ abstract class AbstractController
             'message' => $message
         ], $status);
     }
+
+    protected function listing($data, $status = 200)
+    {
+        return response()->json([
+            'object' => 'list',
+            'data' => $data
+        ], $status);
+    }
 }

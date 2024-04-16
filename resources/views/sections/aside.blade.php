@@ -25,7 +25,7 @@
         <li class="nav-item mb-1">
             <strong>@lang('Agents')</strong>
         </li>
-        <x-aside.item route="home.index">
+        <x-aside.item route="agent.content.index">
             <span class="bg-warning bg-gradient rounded p-1 d-flex align-items-center">
                 <i class="fs-4 text-white ti ti-file-text"></i>
             </span>
@@ -37,11 +37,11 @@
             </span>
             <span class="ms-2">@lang('Code writer')</span>
         </x-aside.item>
-        <x-aside.item route="home.index">
+        {{--<x-aside.item route="home.index">
             <span class="bg-success bg-gradient rounded p-1 d-flex align-items-center">
                 <i class="fs-4 text-white ti ti-speakerphone"></i>
             </span>
             <span class="ms-2">@lang('Voice over')</span>
-        </x-aside.item>
+        </x-aside.item>--}}
     </ul>
 </nav>

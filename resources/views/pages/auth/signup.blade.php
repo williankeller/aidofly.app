@@ -59,3 +59,16 @@
         </div>
     </section>
 @endsection
+
+@push('script-stack-after')
+
+    @if ($errors->has('email'))
+        <x-notification :message="$errors->first('email')" :show="true" />
+    @endif
+
+    @if (session()->get('message'))
+        <x-notification :message="session()->get('message')['content']" :show="true" />
+    @endif
+
+    {!! javascript('js/auth/auth.min.js') !!}
+@endpush
