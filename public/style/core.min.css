@@ -12103,6 +12103,7 @@ hr {
 }
 .btn-primary {
   --bs-btn-color: var(--bs-white);
+  --bs-btn-active-color: var(--bs-white);
   --bs-btn-disabled-color: var(--bs-white);
   --bs-btn-hover-color: var(--bs-white);
 }

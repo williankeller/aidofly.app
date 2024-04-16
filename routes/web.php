@@ -22,8 +22,7 @@ Route::name('auth.')->group(function () {
     });
     Route::get('/recover', [RecoverController::class, 'index'])->name('recover');
 
-    // Redirect /login to /signin
-    Route::redirect('/login', '/signin');
+    
 });
 
 Route::middleware('auth')->name('auth.')->group(function () {

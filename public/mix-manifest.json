@@ -2,5 +2,6 @@
     "/js/core.min.js": "/js/core.min.js",
     "/js/agents/coder.min.js": "/js/agents/coder.min.js",
     "/js/library/list.min.js": "/js/library/list.min.js",
+    "/js/auth/auth.min.js": "/js/auth/auth.min.js",
     "/style/core.min.css": "/style/core.min.css"
 }

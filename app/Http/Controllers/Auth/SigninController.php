@@ -3,12 +3,21 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\AbstractController;
+use App\Services\Auth\Token;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SigninController extends AbstractController
 {
+    private Token $token;
+
+    public function __construct(
+        Token $token
+    ) {
+        $this->token = $token;
+    }
+
     public function index()
     {
         return view('pages.auth.signin', [
@@ -28,17 +37,26 @@ class SigninController extends AbstractController
         if (Auth::attempt($request->only('email', 'password'), $request->remember)) {
             $request->session()->regenerate();
 
+            $this->setAuthToken($request);
+
             return $this->redirect(
                 'home.index',
-                'success',
                 __('Welcome back, :name.', ['name' => auth()->user()->firstname])
             );
         }
 
-        return $this->message(
+        return $this->redirect(
             'auth.signin',
+            __('The provided credentials are incorrect.'),
             'danger',
-            __('The provided credentials are incorrect.')
         );
+    }
+
+    private function setAuthToken(Request $request): void
+    {
+        $expires = $request->remember ? 604800 : 86400;
+        $jwtToken = $this->token->generate(auth()->user()->uuid, $expires);
+
+        cookie()->queue('token', $jwtToken, $expires);
     }
 }

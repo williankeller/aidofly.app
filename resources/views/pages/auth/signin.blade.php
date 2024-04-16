@@ -25,14 +25,14 @@
                         <span>👋</span>
                     </h2>
                 </div>
-                <form id="signin" class="needs-validation" action="{{ route('auth.signin.authorize') }}" method="post">
+                <form is="x-form" x-ref="form" method="post" action="{{ route('auth.signin.authorize') }}">
                     @csrf
                     <div class="mb-3">
-                        <x-form.label-input type="email" :label="__('Email address')" id="email" :placeholder="__('Your email')" required
+                        <x-form.input-field type="email" :label="__('Email address')" id="email" :placeholder="__('Your email')" required
                             autocomplete="email" />
                     </div>
                     <div class="mb-3">
-                        <x-form.label-input type="password" :label="__('Password')" id="password" :placeholder="__('Your password')" required
+                        <x-form.input-field type="password" :label="__('Password')" id="password" :placeholder="__('Your password')" required
                             autocomplete="current-password" />
                     </div>
                     <div class="d-flex justify-content-between gap-2 mb-4 align-items-center">
@@ -54,16 +54,15 @@
                     <span>@lang("Don't have an account?")</span>
                     <a href="{{ route('auth.signup.index') }}" class="fw-semibold">@lang('Sign up')</a>
                 </div>
-                {{-- <div class="py-5 text-center"><span class="text-xs text-uppercase fw-semibold">or</span></div>
-                <div class="row g-2">
-                    <div class="col-sm-6"><a href="#" class="btn btn-neutral w-100"><span
-                                class="icon icon-sm pe-2"><img src="../../img/social/github.svg" alt="...">
-                            </span>Github</a></div>
-                    <div class="col-sm-6"><a href="#" class="btn btn-neutral w-100"><span
-                                class="icon icon-sm pe-2"><img src="../../img/social/google.svg" alt="...">
-                            </span>Google</a></div>
-                </div> --}}
             </div>
         </div>
     </section>
+
+    @if (session()->get('message'))
+        <x-notification :message="session()->get('message')['content']" :show="true" />
+    @endif
 @endsection
+
+@push('script-stack-after')
+    {!! javascript('js/auth/auth.min.js') !!}
+@endpush

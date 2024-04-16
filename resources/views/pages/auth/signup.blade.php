@@ -12,7 +12,7 @@
                         <span></span>
                     </h2>
                 </div>
-                <form method="POST" id="signup" class="needs-validation" action="{{ route('auth.signup.store') }}">
+                <form is="x-form" x-ref="form" method="post" action="{{ route('auth.signup.store') }}">
                     @csrf
                     <div class="mb-3 row">
                         <div class="col-sm-6">
@@ -34,23 +34,14 @@
                     </div>
                     <div>
                         <x-button variant="primary" reference="signup" class="w-100">
-                            <span>@lang("Sign up")</span>
+                            <span>@lang('Sign up')</span>
                         </x-button>
                     </div>
                 </form>
                 <div class="text-center mt-5 text-sm text-muted">
-                    <span>@lang("Already have an account?")</span>
+                    <span>@lang('Already have an account?')</span>
                     <a href="{{ route('auth.signin') }}" class="fw-semibold">@lang('Sign in')</a>
                 </div>
-                {{-- <div class="py-5 text-center"><span class="text-xs text-uppercase fw-semibold">or</span></div>
-                <div class="row g-2">
-                    <div class="col-sm-6"><a href="#" class="btn btn-neutral w-100"><span
-                                class="icon icon-sm pe-2"><img src="../../img/social/github.svg" alt="...">
-                            </span>Github</a></div>
-                    <div class="col-sm-6"><a href="#" class="btn btn-neutral w-100"><span
-                                class="icon icon-sm pe-2"><img src="../../img/social/google.svg" alt="...">
-                            </span>Google</a></div>
-                </div> --}}
             </div>
         </div>
         <div

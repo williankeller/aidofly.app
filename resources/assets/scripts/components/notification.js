@@ -2,25 +2,25 @@
 import { Toast } from "bootstrap";
 
 const notification = (message, type = "error") => {
-    const toastElement = document.querySelector(
-        `[data-message="notification"]`
-    );
+    // get all toast elements by the .toast class
+    const toastElement = document.querySelector(".toast");
+
     const iconContainer = toastElement.querySelector(`[data-message="icon"]`);
     const messageContainer = toastElement.querySelector(
         `[data-message="content"]`
     );
-
-    const toast = new Toast(toastElement);
-
     messageContainer.innerHTML = message;
 
     if (type === "success") {
-        iconContainer.innerHTML = `<i class="ti ti-square-rounded-check-filled"></i>`;
+        iconContainer.classList.add("ti ti-square-rounded-check-filled");
     } else {
-        iconContainer.innerHTML = `<i class="ti ti-square-rounded-x-filled"></i>`;
+        iconContainer.classList.add("ti ti-square-rounded-x-filled");
     }
-
     toast.show();
+
+    setTimeout(() => {
+        toast.hide();
+    }, 3000);
 };
 
 export { notification };
