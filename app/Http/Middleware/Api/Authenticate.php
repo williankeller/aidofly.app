@@ -32,8 +32,6 @@ class Authenticate
         try {
             $credentials = $this->token->validate($token)->getUser();
 
-            $request->attributes->add(['uuid' => $credentials->uuid]);
-
             auth()->setUser($credentials);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Unauthorized: ' . $e->getMessage()], 401);

@@ -173,7 +173,7 @@ Alpine.data("coder", (doc = null) => ({
 
     select(doc) {
         let url = new URL(window.location.href);
-        url.pathname = "/coder/" + (doc.uuid ?? "");
+        url.pathname = `/agent/coder/${doc.uuid ?? ""}`;
         window.history.pushState({}, "", url);
     },
 }));

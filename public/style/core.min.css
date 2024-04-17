@@ -7311,7 +7311,7 @@ textarea.form-control-lg {
   display: inline-flex !important;
 }
 
-.d-none {
+.d-none, [data-state=initial] .free-form {
   display: none !important;
 }
 
@@ -12074,6 +12074,14 @@ textarea.form-control-lg {
   z-index: 1;
 }
 
+body {
+  max-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+}
+
 .w-md-50 {
   width: 50%;
 }
@@ -12098,6 +12106,9 @@ hr {
   --bs-aside-bg-color: #f9f9f9;
   width: 16rem;
   background-color: var(--bs-aside-bg-color);
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
 }
 .aside .nav-link:hover, .aside .nav-link:focus, .aside .nav-link.active {
   color: var(--bs-nav-link-hover-color);

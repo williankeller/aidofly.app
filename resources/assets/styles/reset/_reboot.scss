@@ -1,3 +1,11 @@
+body {
+    max-height: 100vh;
+}
+
+.app {
+    min-height: 100vh;
+}
+
 .w-md-50 {
     width: 50%;
 }
@@ -9,6 +17,12 @@ a {
 hr {
     border-color: var(--bs-border-color-dimmed);
     opacity: 1;
+}
+
+[data-state="initial"] {
+    .free-form {
+        @extend .d-none;
+    }
 }
 
 [data-state="loaded"] {

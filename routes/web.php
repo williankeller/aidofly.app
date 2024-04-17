@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
         });
         Route::controller(CoderController::class)->name('coder.')->group(function () {
             Route::get('/coder', 'index')->name('index');
+            // Route to see the details of a specific coder given its uuid
+            Route::get('/coder/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
         });
     });
 

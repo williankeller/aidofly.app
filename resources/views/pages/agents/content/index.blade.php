@@ -8,7 +8,7 @@
 
     <section class="group/list" data-state="initial" :data-state="state">
         <x-content.empty :title="__('There are no presets')" :subtitle="__('We do not have set ')" />
-        <x-content.placeholder :columns="true">
+        <x-content.placeholder :count="4" :columns="true">
             <div class="col-lg-4 d-flex align-items-stretch">
                 <div class="card mb-2 p-3 w-100">
                     <div class="d-inline-block">
@@ -24,6 +24,21 @@
             </div>
         </x-content.placeholder>
         <div class="row">
+            <div class="free-form col-lg-4 d-flex align-items-stretch">
+                <a class="card mb-2 p-3 d-block" href="">
+                    <div class="d-inline-block">
+                        <div class="bg-warning bg-gradient rounded p-2 d-flex align-items-center">
+                            <i class="fs-4 text-white ti ti-file-text"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="fw-bolder mb-0 text-body h5">
+                            <span>@lang('Free form AI')</span>
+                        </div>
+                        <small class="mt-2 text-sm text-muted d-block">@lang("Don't need a template? Start writing with our AI writer.")</small>
+                    </div>
+                </a>
+            </div>
             <template x-for="preset in resources" :key="preset.uuid">
                 <div class="col-lg-4 d-flex align-items-stretch">
                     <a class="card mb-2 p-3 d-block" x-bind:href="'/agent/content/' + preset.uuid">

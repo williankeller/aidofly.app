@@ -6,7 +6,8 @@
         <x-nav.page-title :title="__('Code writer')" :lead="__('Generate high quality code in seconds.')" />
     </section>
 
-    <section class="p-5 card" data-bs-toggle="collapse" x-show="showForm">
+    <section class="p-5 card mb-3" data-bs-toggle="collapse" x-show="showForm"
+        style="{{ $hasData ? 'display: none !important;' : '' }}">
         <h3 class="fw-bolder h5">@lang('Prompts')</h3>
         <form is="x-form" x-ref="form" @submit.prevent="submit(null)" class="needs-validation d-grid gap-3 mt-3">
             <div class="mb-3">
