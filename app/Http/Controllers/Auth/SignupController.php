@@ -3,22 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use App\Services\Auth\Token;
 use App\Http\Controllers\AbstractController;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 
-class SignupController extends AbstractController
+class SignupController extends AbstractAuthController
 {
-    private Token $token;
-
-    public function __construct(
-        Token $token
-    ) {
-        $this->token = $token;
-    }
-
     public function index()
     {
         return view('pages.auth.signup', [
@@ -47,7 +38,7 @@ class SignupController extends AbstractController
         try {
             auth()->login($user);
 
-            $this->setAuthToken();
+            $this->setAuthCookieToken();
 
             return $this->redirect(
                 'home.index',
@@ -60,12 +51,5 @@ class SignupController extends AbstractController
                 'danger',
             );
         }
-    }
-
-    private function setAuthToken($expires = 86400): void
-    {
-        $jwtToken = $this->token->generate(auth()->user()->uuid, $expires);
-
-        cookie()->queue('token', $jwtToken, $expires);
     }
 }

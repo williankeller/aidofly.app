@@ -1,4 +1,5 @@
 import { notification } from "../components/notification";
+import { getCookie, deleteCookie } from "../helpers/cookie";
 
 // Fetch.js
 const _apiHost = "/api";
@@ -41,11 +42,14 @@ async function request(method = "GET", url, options = {}) {
         },
     };
 
-    const token = "_TOKEN_";
-
-    if (token) {
-        opts.headers["Authorization"] = `Bearer ${token}`;
+    // Get token from cookie
+    const token = getCookie("token");
+    if (!token) {
+        console.error("Token not found");
+        window.location.href = "/signup";
+        return;
     }
+    opts.headers["Authorization"] = `Bearer ${token}`;
 
     url =
         url instanceof URL
@@ -84,6 +88,19 @@ async function request(method = "GET", url, options = {}) {
             return response;
         }
 
+        // if response 401, delete token cookie and redirect to login
+        if (response.status === 401) {
+            notification("Unauthorized", "error");
+
+            // delete token cookie
+            deleteCookie("token");
+
+            // redirect to login
+            window.location.href = "/signup";
+
+            return;
+        }
+
         let clone = response.clone();
 
         try {
@@ -95,6 +112,8 @@ async function request(method = "GET", url, options = {}) {
             }
         } catch (error) {
             console.error(error);
+
+            notification("An error occurred", "error");
         }
 
         throw response;

@@ -13,7 +13,7 @@ class Library extends Model
     protected $table = 'library';
 
     protected $fillable = [
-        'object',
+        'type',
         'visibility',
         'model',
         'cost',

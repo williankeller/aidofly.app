@@ -1,6 +1,3 @@
-// Import Toast form Bootstrap
-import { Toast } from "bootstrap";
-
 const notification = (message, type = "error") => {
     // get all toast elements by the .toast class
     const toastElement = document.querySelector(".toast");
@@ -12,15 +9,15 @@ const notification = (message, type = "error") => {
     messageContainer.innerHTML = message;
 
     if (type === "success") {
-        iconContainer.classList.add("ti ti-square-rounded-check-filled");
+        iconContainer.classList.add("ti-square-rounded-check-filled");
     } else {
-        iconContainer.classList.add("ti ti-square-rounded-x-filled");
+        iconContainer.classList.add("ti-square-rounded-x-filled");
     }
-    toast.show();
+    toastElement.classList.add("show");
 
     setTimeout(() => {
-        toast.hide();
-    }, 3000);
+        toastElement.classList.remove("show");
+    }, 5000);
 };
 
 export { notification };

@@ -23,7 +23,18 @@ class Handler
             throw new ValidationException('Model not supported');
         }
 
-        $resp = $this->completionService->generateCompletion($model, $params);
+        $data = [
+            'content' => $params['prompt'],
+            'sistem' => "You are a {$params['language']} programming expert.",
+            'prompt' => "You are a {$params['language']} programming expert. {$params['prompt']}",
+        ];
+
+        $resp = $this->completionService->generateCompletion($model, $data);
+
+        // Log the $data when in dev mode   
+        if (config('app.env') === 'local') {
+            logger($data);
+        }
 
         $content = '';
         foreach ($resp as $token) {
@@ -37,14 +48,14 @@ class Handler
         $title = Str::limit($params['prompt'], 125, '...');
 
         $library = Library::create([
-            'object' => 'document',
+            'type' => 'coder',
             'model' => $model,
             'visibility' => 'public',
             'cost' => $cost->jsonSerialize(),
             'params' => $params,
             'title' => $title,
             'content' => $content,
-            'user_id' => 1 //<-- This is the user_id that should be set to the authenticated user, 
+            'user_id' => auth()->user()->id,
         ]);
 
         return $library->makeHidden(['id', 'user_id', 'created_at', 'updated_at']);

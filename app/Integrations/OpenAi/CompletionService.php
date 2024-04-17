@@ -37,18 +37,18 @@ class CompletionService
     /**
      * @throws RuntimeException
      */
-    public function generateCompletion(string $model, array $params = []): Generator
+    public function generateCompletion(string $model, array $data = []): Generator
     {
         try {
             if ($model == 'gpt-3.5-turbo-instruct') {
-                return $this->generateInstructedCompletion($model, $params);
+                return $this->generateInstructedCompletion($model, $data);
             }
         } catch (ErrorException $th) {
             throw new Exception($th->getMessage(), previous: $th);
         }
 
         try {
-            return $this->generateChatCompletion($model, $params);
+            return $this->generateChatCompletion($model, $data);
         } catch (ErrorException $th) {
             throw new Exception($th->getMessage(), previous: $th);
         }
@@ -59,16 +59,14 @@ class CompletionService
      * @throws ErrorException
      * @throws RuntimeException
      */
-    private function generateInstructedCompletion(
-        string $model,
-        array $params = []
-    ): Generator {
-        $prompt = $params['prompt'] ?? '';
+    private function generateInstructedCompletion(string $model, array $data = []): Generator
+    {
+        $prompt = $data['prompt'] ?? '';
 
         $resp = $this->client->completions()->createStreamed([
             'model' => $model,
             'prompt' => $prompt,
-            'temperature' => (int)($params['temperature'] ?? 1),
+            'temperature' => (int)($data['temperature'] ?? 1),
         ]);
 
         $inputTokensCount = $this->tokenizer->count($prompt);
@@ -103,21 +101,24 @@ class CompletionService
      * @throws RuntimeException
      * @throws ErrorException
      */
-    private function generateChatCompletion(
-        string $model,
-        array $params = []
-    ): Generator {
-        $prompt = $params['prompt'] ?? '';
+    private function generateChatCompletion(string $model, array $data = []): Generator
+    {
+        $prompt = $data['content'] ?? '';
+        $sistem = $data['sistem'] ?? '';
 
         $resp = $this->client->chat()->createStreamed([
             'model' => $model,
             'messages' => [
                 [
+                    'role' => 'system',
+                    'content' => $sistem
+                ],
+                [
                     'role' => 'user',
                     'content' => $prompt
                 ],
             ],
-            'temperature' => (int)($params['temperature'] ?? 1),
+            'temperature' => (int)($data['temperature'] ?? 1),
         ]);
 
         $inputTokensCount = $this->tokenizer->count($prompt);

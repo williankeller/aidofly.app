@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('library', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->string('object', 32); // (document, code, audio, image.)
+            $table->string('type', 32); // (content, code, audio, image.)
             $table->enum('visibility', ['public', 'private'])->default('public');
             $table->string('model');
             $table->float('cost');
-            $table->text('params');
             $table->string('title', 128);
-            $table->text('content');
+            $table->longText('params');
+            $table->longText('content');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();

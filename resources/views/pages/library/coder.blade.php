@@ -7,8 +7,7 @@
     </section>
 
     <section class="group/list" data-state="initial" :data-state="state">
-        <x-empty icon="ti ti-server" title="{{ __("There are no codes yet") }}"
-            subtitle="{{ __("You haven't used the AI code assitent yet") }}" />
+        <x-content.empty :title="__('There are no codes yet')" :subtitle="__('You haven\'t used the AI code assitent yet')" />
         <div class="placeholders">
             @for ($i = 0; $i < 3; $i++)
                 <div class="card mb-2 p-3">

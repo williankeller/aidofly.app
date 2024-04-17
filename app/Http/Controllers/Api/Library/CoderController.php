@@ -10,7 +10,7 @@ class CoderController extends AbstractController
 {
     public function handle(Request $request)
     {
-        $library = Library::where('object', 'coder')->orderBy('created_at', 'desc')->get();
+        $library = Library::where('type', 'coder')->orderBy('created_at', 'desc')->get();
 
         return response()->json(
             [

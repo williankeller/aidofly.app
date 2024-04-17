@@ -10,7 +10,7 @@ class ContentController extends AbstractController
 {
     public function handle(Request $request)
     {
-        $library = Library::where('object', 'content')->orderBy('created_at', 'desc')->get();
+        $library = Library::where('type', 'content')->orderBy('created_at', 'desc')->get();
 
         return response()->json(
             [
