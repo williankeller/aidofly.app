@@ -17,11 +17,13 @@ class ContentController extends AbstractController
     ) {
     }
 
-    public function handle(Request $request): StreamedResponse
+    public function handle(Request $request, ?string $uuid = null): StreamedResponse
     {
-        $params = $request->only(['prompt', 'creativity']);
-
-        $generator = $this->handler->handle('gpt-3.5-turbo', $params);
+        $generator = $this->handler->handle(
+            'gpt-3.5-turbo',
+            $request->all(),
+            $uuid
+        );
 
         return response()->stream(
             $this->callback($generator),

@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Agents;
 
+use App\Models\Preset;
 use App\Http\Controllers\AbstractController;
+use App\Services\Agents\Preset\TemplateParser;
 use Illuminate\View\View;
 
 class ContentController extends AbstractController
 {
+    public function __construct(
+        private TemplateParser $parser
+    ) {
+    }
+
     public function index(): View
     {
         $config = json_encode([
@@ -44,6 +51,36 @@ class ContentController extends AbstractController
             'Write your own content from scratch',
             [
                 'xData' => 'content(null, null)',
+                'creativities' => [
+                    "0" => __("Minimal"),
+                    "0.5" => __("Balanced"),
+                    "1.0" => __("Creative"),
+                    "1.1" => __("Innovative"),
+                    "1.3" => __("Visionary"),
+                    "1.5" => __("Pioneering"),
+                    "1.8" => __("Genius"),
+                ]
+            ]
+        );
+    }
+
+    public function show(string $uuid): View
+    {
+        $preset = Preset::select('uuid', 'title', 'description', 'template', 'status')
+            ->where('uuid', $uuid)
+            ->where('visibility', 'public')
+            ->where('status', 1)
+            ->firstOrFail()
+            ->makeHidden(['id','template']);
+
+        return $this->view(
+            'pages.agents.content.show',
+            $preset->title,
+            $preset->description,
+            [
+                'xData' => "content({$preset->toJson()})",
+                'preset' => $preset,
+                'templates' => $this->parser->parse($preset->template),
                 'tones' => [
                     __('Professional'),
                     __('Funny'),
@@ -59,24 +96,13 @@ class ContentController extends AbstractController
                     __('Secretive')
                 ],
                 'creativities' => [
-                    "0.0" => __("Minimal"),
-                    "0.2" => __("Basic"),
-                    "0.3" => __("Modest"),
-                    "0.4" => __("Adequate"),
+                    "0" => __("Minimal"),
                     "0.5" => __("Balanced"),
-                    "0.6" => __("Intermediate"),
-                    "0.8" => __("Expressive"),
-                    "0.9" => __("Imaginative"),
                     "1.0" => __("Creative"),
                     "1.1" => __("Innovative"),
-                    "1.2" => __("Inspired"),
                     "1.3" => __("Visionary"),
                     "1.5" => __("Pioneering"),
-                    "1.6" => __("Artistic"),
-                    "1.7" => __("Radical"),
                     "1.8" => __("Genius"),
-                    "1.9" => __("Transcendent"),
-                    "2.0" => __("Boundless")
                 ]
             ]
         );

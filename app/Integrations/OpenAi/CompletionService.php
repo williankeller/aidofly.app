@@ -66,15 +66,13 @@ class CompletionService
      */
     private function generateInstructedCompletion(string $model, array $data = []): Generator
     {
-        $prompt = $data['prompt'] ?? '';
-
         $resp = $this->client->completions()->createStreamed([
             'model' => $model,
-            'prompt' => $prompt,
-            'temperature' => (int)($data['temperature'] ?? 1),
+            'prompt' => $data['prompt'],
+            'temperature' => $this->convertTemperature($data['temperature']),
         ]);
 
-        $inputTokensCount = $this->tokenizer->count($prompt);
+        $inputTokensCount = $this->tokenizer->count($data['prompt']);
         $outputTokensCount = 0;
 
         foreach ($resp as $item) {
@@ -108,16 +106,18 @@ class CompletionService
      */
     private function generateChatCompletion(string $model, array $data = []): Generator
     {
-        $prompt = $data['prompt'] ?? '';
-        $messages = $data['messages'] ?? '';
-
         $resp = $this->client->chat()->createStreamed([
             'model' => $model,
-            'messages' => $messages,
-            'temperature' => (int)($data['temperature'] ?? 1),
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => $data['prompt']
+                ],
+            ],
+            'temperature' => $this->convertTemperature($data['temperature']),
         ]);
 
-        $inputTokensCount = $this->tokenizer->count($prompt);
+        $inputTokensCount = $this->tokenizer->count($data['prompt']);
         $outputTokensCount = 0;
 
         foreach ($resp as $item) {
@@ -142,5 +142,19 @@ class CompletionService
         );
 
         return new Count($inputCost->value + $outputCost->value);
+    }
+
+    /**
+     * @return int|float
+     */
+    private function convertTemperature(string $temperature)
+    {
+        $floatVal = floatval($temperature);
+
+        if ((int) $floatVal == $floatVal) {
+            return (int) $floatVal;
+        } else {
+            return $floatVal;
+        }
     }
 }

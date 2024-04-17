@@ -15,7 +15,7 @@ class ContentController extends AbstractController
         return response()->json(
             [
                 "object" => "list",
-                "data" => $library->makeHidden(['id', 'object', 'user_id', 'updated_at'])
+                "data" => $library->makeHidden(['id', 'type', 'user_id', 'updated_at'])
             ]
         );
     }

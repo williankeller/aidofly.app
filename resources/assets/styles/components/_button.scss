@@ -1,11 +1,20 @@
 .btn {
     --bs-btn-font-weight: 600;
     --bs-btn-padding-y: 0.5rem;
+    outline-width: 1px;
+    outline-offset: 2px;
+
     &-primary {
         --bs-btn-color: var(--bs-white);
         --bs-btn-active-color: var(--bs-white);
         --bs-btn-disabled-color: var(--bs-white);
         --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: var(--bs-primary);
+        outline-color: var(--bs-primary);
+
+        &:hover {
+            outline-style: solid;
+        }
     }
 
     &-white {

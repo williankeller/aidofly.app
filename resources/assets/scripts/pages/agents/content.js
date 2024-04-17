@@ -29,7 +29,7 @@ Alpine.data("content", (preset = null, doc = null) => ({
         }
 
         this.$watch("index", (index) => {
-            if (this.docs[index].id) {
+            if (this.docs[index].uuid) {
                 this.select(this.docs[index]);
             }
         });
@@ -57,7 +57,7 @@ Alpine.data("content", (preset = null, doc = null) => ({
 
         try {
             let response = await api.post(
-                `/agent/completion/${this.preset ? this.preset.id : "content"}`,
+                `/agent/completion/${this.preset ? this.preset.uuid : ""}`,
                 params
             );
 
@@ -162,13 +162,13 @@ Alpine.data("content", (preset = null, doc = null) => ({
     },
 
     saveDocument(doc) {
-        api.post(`/library/documents/${doc.id}`, doc);
+        api.post(`/library/documents/${doc.uuid}`, doc);
     },
 
     deleteDocument(doc) {
-        api.delete(`/library/documents/${doc.id}`).then(() => {
+        api.delete(`/library/documents/${doc.uuid}`).then(() => {
             toast.success("Document deleted successfully!");
-            this.docs = this.docs.filter((d) => d.id != doc.id);
+            this.docs = this.docs.filter((d) => d.uuid != doc.uuid);
             this.index = this.docs.length > 1 ? this.docs.length - 1 : 0;
 
             if (this.docs.length == 0) {
@@ -179,7 +179,7 @@ Alpine.data("content", (preset = null, doc = null) => ({
 
     select(doc) {
         let url = new URL(window.location.href);
-        url.pathname = "/writer/" + (doc.id ?? "");
+        url.pathname = "/writer/" + (doc.uuid ?? "");
         window.history.pushState({}, "", url);
     },
 }));

@@ -35,9 +35,10 @@ Route::middleware('auth')->group(function () {
 
     // Agent routes
     Route::name('agent.')->prefix('/agent')->group(function () {
-        Route::controller(ContentController::class)->name('content.')->prefix('/content')->group(function () {
+        Route::controller(ContentController::class)->name('content.')->group(function () {
             Route::get('/presets', 'index')->name('index');
-            Route::get('/writer', 'create')->name('create');
+            Route::get('/preset/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+            Route::get('/content', 'create')->name('create');
         });
         Route::controller(CoderController::class)->name('coder.')->group(function () {
             Route::get('/coder', 'index')->name('index');

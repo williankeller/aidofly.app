@@ -11,8 +11,7 @@ use App\Http\Controllers\Api\Library\ContentController as ContentLibraryControll
 use App\Http\Controllers\Api\Library\CoderController as CoderLibraryController;
 
 Route::prefix('/agent')->group(function () {
-    Route::post('/completion/coder', [CoderAgentController::class, 'handle']);
-    Route::post('/completion/content', [ContentAgentController::class, 'handle']);
+    Route::post('/completion/{uuid?}', [ContentAgentController::class, 'handle']);
 
     Route::get('/content/presets', [PresetController::class, 'handle']);
     Route::get('/content/presets/count', function () {
@@ -23,11 +22,6 @@ Route::prefix('/agent')->group(function () {
 Route::prefix('/library')->group(function () {
     Route::get('/content', [ContentLibraryController::class, 'handle']);
     Route::get('/content/count', function () {
-        return response()->json(['count' => 10]);
-    });
-
-    Route::get('/coder', [CoderLibraryController::class, 'handle']);
-    Route::get('/coder/count', function () {
         return response()->json(['count' => 10]);
     });
 });

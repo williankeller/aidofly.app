@@ -41,7 +41,7 @@
             </div>
             <template x-for="preset in resources" :key="preset.uuid">
                 <div class="col-lg-4 d-flex align-items-stretch">
-                    <a class="card mb-2 p-3 d-block" x-bind:href="'/agent/content/' + preset.uuid">
+                    <a class="card mb-2 p-3 d-block" x-bind:href="'/agent/preset/' + preset.uuid">
                         <div class="d-inline-block">
                             <div class="bg-gradient rounded p-2 d-flex align-items-center"
                                 :style="{ backgroundColor: preset.color }">

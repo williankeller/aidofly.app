@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('library', function (Blueprint $table) {
+        Schema::create('libraries', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('type', 32); // (content, code, audio, image.)
@@ -22,6 +22,8 @@ return new class extends Migration
             $table->longText('params');
             $table->longText('content');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->nullable();
+            $table->foreignId('preset_id')->constrained('presets')->nullable();
 
             $table->timestamps();
         });

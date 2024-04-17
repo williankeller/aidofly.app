@@ -22,32 +22,12 @@ class CategoriesTableSeeder extends Seeder
                 ],
                 [
                     'uuid' => Str::uuid(),
-                    'title' => 'Ads',
-                    'created_at' => now(),
-                ],
-                [
-                    'uuid' => Str::uuid(),
-                    'title' => 'Business and Strategy',
-                    'created_at' => now(),
-                ],
-                [
-                    'uuid' => Str::uuid(),
-                    'title' => 'E-commerce',
-                    'created_at' => now(),
-                ],
-                [
-                    'uuid' => Str::uuid(),
-                    'title' => 'Email',
-                    'created_at' => now(),
-                ],
-                [
-                    'uuid' => Str::uuid(),
                     'title' => 'Social Media',
                     'created_at' => now(),
                 ],
                 [
                     'uuid' => Str::uuid(),
-                    'title' => 'Website',
+                    'title' => 'Coding',
                     'created_at' => now(),
                 ],
             ]

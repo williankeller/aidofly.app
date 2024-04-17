@@ -12118,12 +12118,19 @@ hr {
 .btn {
   --bs-btn-font-weight: 600;
   --bs-btn-padding-y: 0.5rem;
+  outline-width: 1px;
+  outline-offset: 2px;
 }
 .btn-primary {
   --bs-btn-color: var(--bs-white);
   --bs-btn-active-color: var(--bs-white);
   --bs-btn-disabled-color: var(--bs-white);
   --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: var(--bs-primary);
+  outline-color: var(--bs-primary);
+}
+.btn-primary:hover {
+  outline-style: solid;
 }
 .btn-white {
   --bs-btn-disabled-border-color: var(--bs-white);
@@ -12144,6 +12151,7 @@ hr {
 .main {
   max-width: 57rem;
   margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
 }
 
 .autogrow-textarea textarea {

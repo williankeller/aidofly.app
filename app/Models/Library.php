@@ -10,8 +10,6 @@ class Library extends Model
 {
     use HasFactory;
 
-    protected $table = 'library';
-
     protected $fillable = [
         'type',
         'visibility',
@@ -20,7 +18,9 @@ class Library extends Model
         'params',
         'title',
         'content',
-        'user_id'
+        'user_id',
+        'category_id',
+        'preset_id',
     ];
 
     protected $casts = [
@@ -31,6 +31,18 @@ class Library extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Define the relationship with Category
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    // Define the relationship with Preset
+    public function preset()
+    {
+        return $this->belongsTo(Preset::class, 'preset_id');
     }
 
     protected static function boot()

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('type', 32);
-            $table->enum('visibility', ['public', 'private'])->default('public');
             $table->boolean('status');
             $table->string('title', 128);
             $table->text('description');

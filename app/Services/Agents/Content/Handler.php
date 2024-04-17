@@ -4,34 +4,32 @@ namespace App\Services\Agents\Content;
 
 use App\Services\Agents\AbstractHandler;
 use App\Services\Stream\Streamer;
+use App\Models\Preset;
+use App\Services\Agents\Preset\TemplateParser;
 use App\Integrations\OpenAi\CompletionService;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Str;
 use Generator;
 
 class Handler extends AbstractHandler
 {
     public function __construct(
         private Streamer $streamer,
-        private CompletionService $completionService
+        private CompletionService $completionService,
+        private TemplateParser $parser
     ) {
     }
 
-    public function handle(string $model, array $params): Generator
+    public function handle(string $model, array $params, ?string $uuid = null): Generator
     {
         if (!$this->completionService->supportsModel($model)) {
             throw new ValidationException('Model not supported');
         }
 
+        $preset = $this->getPresetPrompt($params, $uuid);
+
         $resp = $this->completionService->generateCompletion($model, [
-            'prompt' => $params['prompt'],
-            'temperature' => $params['creativity'] ?? 1,
-            'messages' => [
-                [
-                    'role' => 'user',
-                    'content' => $params['prompt']
-                ],
-            ],
+            'prompt' => $preset['prompt'],
+            'temperature' => $params['creativity'] ?? 1
         ]);
 
         $content = '';
@@ -43,6 +41,27 @@ class Handler extends AbstractHandler
         /** @var Count */
         $cost = $resp->getReturn();
 
-        return $this->storeLibrary('content', $model, $cost->jsonSerialize(), $params, $content);
+        return $this->storeLibrary($model, $cost->jsonSerialize(), $params, $content, $preset['model']);
+    }
+
+    public function getPresetPrompt(array $params, ?string $uuid = null): array
+    {
+        $prompt = $params['prompt'] ?? '';
+
+        if ($uuid) {
+            $preset = Preset::select(['id', 'uuid', 'template', 'category_id'])
+                ->where('uuid', $uuid)
+                ->where('status', 1)
+                ->firstOrFail();
+
+            $prompt = $this->parser->fillTemplate(
+                $preset->template,
+                $params
+            );
+        }
+        return [
+            'prompt' => $prompt,
+            'model' => $preset ?? null
+        ];
     }
 }
