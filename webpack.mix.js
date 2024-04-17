@@ -13,10 +13,6 @@ if (fs.existsSync("resources/assets/images")) {
  */
 mix.js("resources/assets/scripts/core.js", `public/js/core.min.js`)
     .js(
-        "resources/assets/scripts/pages/agents/coder.js",
-        "public/js/agents/coder.min.js"
-    )
-    .js(
         "resources/assets/scripts/pages/agents/content.js",
         "public/js/agents/content.min.js"
     )
