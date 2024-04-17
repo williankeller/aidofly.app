@@ -17,6 +17,10 @@ mix.js("resources/assets/scripts/core.js", `public/js/core.min.js`)
         "public/js/agents/coder.min.js"
     )
     .js(
+        "resources/assets/scripts/pages/agents/content.js",
+        "public/js/agents/content.min.js"
+    )
+    .js(
         "resources/assets/scripts/services/list.js",
         "public/js/base/list.min.js"
     )

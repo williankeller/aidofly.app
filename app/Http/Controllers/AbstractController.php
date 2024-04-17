@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 abstract class AbstractController
 {
@@ -22,5 +23,14 @@ abstract class AbstractController
                 'content' => $message,
             ],
         ];
+    }
+
+    protected function view(string $view, string $title, string $description, array $data = []): View
+    {
+        return view($view, [
+            'metaTitle' => __($title),
+            'metaDescription' => __($description),
+            ...$data,
+        ]);
     }
 }

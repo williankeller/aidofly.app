@@ -39,6 +39,11 @@ class CompletionService
      */
     public function generateCompletion(string $model, array $data = []): Generator
     {
+        // Log the $data when in dev mode   
+        if (config('app.env') === 'local') {
+            logger($data);
+        }
+
         try {
             if ($model == 'gpt-3.5-turbo-instruct') {
                 return $this->generateInstructedCompletion($model, $data);
@@ -103,21 +108,12 @@ class CompletionService
      */
     private function generateChatCompletion(string $model, array $data = []): Generator
     {
-        $prompt = $data['content'] ?? '';
-        $sistem = $data['sistem'] ?? '';
+        $prompt = $data['prompt'] ?? '';
+        $messages = $data['messages'] ?? '';
 
         $resp = $this->client->chat()->createStreamed([
             'model' => $model,
-            'messages' => [
-                [
-                    'role' => 'system',
-                    'content' => $sistem
-                ],
-                [
-                    'role' => 'user',
-                    'content' => $prompt
-                ],
-            ],
+            'messages' => $messages,
             'temperature' => (int)($data['temperature'] ?? 1),
         ]);
 

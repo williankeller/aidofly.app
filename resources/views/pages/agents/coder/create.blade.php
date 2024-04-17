@@ -23,8 +23,7 @@
                 <x-form.input-field type="text" :label="__('Language')" id="language" :placeholder="__('python, js, java, etc.')" required />
             </div>
             <div>
-                <x-button type="submit" class="btn-primary" class="w-100 d-flex align-items-center justify-content-center"
-                    reference="codeWriter">
+                <x-button type="submit" class="btn-primary" class="w-100 d-flex align-items-center justify-content-center">
                     <i class="ti ti-sparkles h5 mb-0"></i>
                     <span class="ms-2">@lang('Generate code')</span>
                 </x-button>

@@ -22,6 +22,16 @@ abstract class AbstractController
         ], $status);
     }
 
+    protected function streamHeaders(): array
+    {
+       return [
+            'Content-Type' => 'text/event-stream',
+            'Cache-Control' => 'no-cache',
+            'Connection' => 'keep-alive',
+            'X-Accel-Buffering' => 'no',
+        ];
+    }
+
     protected function listing($data, $status = 200)
     {
         return response()->json([

@@ -10,7 +10,7 @@ class CoderController extends AbstractController
 {
     public function index()
     {
-        return view('pages.agents.coder.index', [
+        return view('pages.agents.coder.create', [
             'metaTitle' => __('Coding Assistant'),
             'metaDescription' => __('Generate high quality code in seconds.'),
             'xData' => 'coder(null)',

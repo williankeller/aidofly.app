@@ -25,7 +25,7 @@
         </x-content.placeholder>
         <div class="row">
             <div class="free-form col-lg-4 d-flex align-items-stretch">
-                <a class="card mb-2 p-3 d-block" href="">
+                <a class="card mb-2 p-3 d-block" href="{{ route('agent.content.create') }}">
                     <div class="d-inline-block">
                         <div class="bg-warning bg-gradient rounded p-2 d-flex align-items-center">
                             <i class="fs-4 text-white ti ti-file-text"></i>

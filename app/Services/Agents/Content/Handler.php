@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Services\Agents\Coder;
+namespace App\Services\Agents\Content;
 
 use App\Services\Agents\AbstractHandler;
 use App\Services\Stream\Streamer;
 use App\Integrations\OpenAi\CompletionService;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 use Generator;
 
 class Handler extends AbstractHandler
@@ -24,16 +25,13 @@ class Handler extends AbstractHandler
 
         $resp = $this->completionService->generateCompletion($model, [
             'prompt' => $params['prompt'],
+            'temperature' => $params['creativity'] ?? 1,
             'messages' => [
-                [
-                    'role' => 'system',
-                    'content' => "You are a {$params['language']} programming language expert."
-                ],
                 [
                     'role' => 'user',
                     'content' => $params['prompt']
                 ],
-            ]
+            ],
         ]);
 
         $content = '';
@@ -45,6 +43,6 @@ class Handler extends AbstractHandler
         /** @var Count */
         $cost = $resp->getReturn();
 
-        return $this->storeLibrary('coder', $model, $cost->jsonSerialize(), $params, $content);
+        return $this->storeLibrary('content', $model, $cost->jsonSerialize(), $params, $content);
     }
 }
