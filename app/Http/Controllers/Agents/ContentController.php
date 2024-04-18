@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Agents;
 
-use App\Models\Preset;
+use App\Models\Library;
 use App\Http\Controllers\AbstractController;
 use App\Services\Agents\Preset\TemplateParser;
 use Illuminate\View\View;
@@ -14,73 +14,28 @@ class ContentController extends AbstractController
     ) {
     }
 
-    public function index(): View
-    {
-        $config = json_encode([
-            'sort' => [
-                [
-                    'value' => null,
-                    'label' => __('Default')
-                ],
-                [
-                    'value' => 'title',
-                    'label' => __('Title')
-                ]
-            ],
-            'filters' => [
-                [
-                    'label' => __('Category'),
-                    'model' => 'category',
-                    'options' => []
-                ]
-            ]
-        ]);
-
-        return view('pages.agents.content.index', [
-            'metaTitle' => __('Content writer presets'),
-            'metaDescription' => __('Choose one of the predefined template presets or continue with free form'),
-            'xData' => "list(\"/agent/content/presets\", {$config})"
-        ]);
-    }
-
-    public function create(): View
-    {
-        return $this->view(
-            'pages.agents.content.create',
-            'Free form content writer',
-            'Write your own content from scratch',
-            [
-                'xData' => 'content(null, null)',
-                'creativities' => [
-                    "0" => __("Minimal"),
-                    "0.5" => __("Balanced"),
-                    "1.0" => __("Creative"),
-                    "1.1" => __("Innovative"),
-                    "1.3" => __("Visionary"),
-                    "1.5" => __("Pioneering"),
-                    "1.8" => __("Genius"),
-                ]
-            ]
-        );
-    }
-
     public function show(string $uuid): View
     {
-        $preset = Preset::select('uuid', 'title', 'description', 'template', 'status')
+        $library = Library::with(['preset', 'category'])
             ->where('uuid', $uuid)
-            ->where('visibility', 'public')
-            ->where('status', 1)
+            ->where('user_id', auth()->id())
             ->firstOrFail()
-            ->makeHidden(['id','template']);
+            ->makeHidden(['id', 'template', 'user_id', 'created_at', 'updated_at']);
+
+        $presetJson = $library->preset?->toJson() ?? "null";
+
+        if ($library->preset?->template) {
+            $template = $this->parser->parse($library->preset->template);
+        }
 
         return $this->view(
             'pages.agents.content.show',
-            $preset->title,
-            $preset->description,
+            $library->preset?->title ?? __('Free form content writer'),
+            $library->preset?->description ?? __('Write your own content from scratch'),
             [
-                'xData' => "content({$preset->toJson()})",
-                'preset' => $preset,
-                'templates' => $this->parser->parse($preset->template),
+                'xData' => "content({$presetJson}, {$library->toJson()})",
+                'preset' => $library->preset,
+                'templates' => $template ?? [],
                 'tones' => [
                     __('Professional'),
                     __('Funny'),

@@ -2,30 +2,39 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="home.index" :name="__('Home')" icon="ti-square-rounded-arrow-left-filled" />
-        <x-nav.page-title :title="__('Code writer')" :lead="__('Generate high quality code in seconds.')" />
+        <x-nav.back route="agent.preset.index" :name="__('Content presets')" icon="ti-square-rounded-arrow-left-filled" />
+        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 
-    <section class="p-5 card mb-3" data-bs-toggle="collapse" x-show="showForm"
-        style="{{ $hasData ? 'display: none !important;' : '' }}">
+    <section class="p-5 card mb-3" x-show="showForm">
         <h3 class="fw-bolder h5">@lang('Prompts')</h3>
         <form is="x-form" x-ref="form" @submit.prevent="submit(null)" class="needs-validation d-grid gap-3 mt-3">
-            <div class="mb-3">
-                <label for="prompt" class="form-label required">Description</label>
+            <div class="mb-2">
+                <label for="prompt" class="form-label required">@lang('Your query')</label>
                 <textarea class="form-control" id="prompt" name="prompt"
-                    placeholder="{{ __('Describe the task you want to accomplish.') }}" rows="3" autocomplete="off" required></textarea>
-                <div class="mt-2 d-flex align-items-center text-sm text-muted">
-                    <i class="ti ti-help-square-rounded-filled"></i>
+                    placeholder="{{ __('Type here what do you want to create') }}" rows="3" autocomplete="off" required></textarea>
+                <div class="mt-1 d-flex align-items-center text-sm text-muted">
+                    <i class="ti ti-info-square-rounded-filled"></i>
                     <small class="ms-1 text-muted">@lang('The more details you provide, the better the result will be.')</small>
                 </div>
             </div>
-            <div class="mb-4">
-                <x-form.input-field type="text" :label="__('Language')" id="language" :placeholder="__('python, js, java, etc.')" required />
+            <div class="mb-3">
+                <div class="form-label">@lang('Creativity level')</div>
+                <div class="buttons-container">
+                    @foreach ($creativities as $value => $creativity)
+                        <div class="d-inline-block mb-2 me-1">
+                            <input type="radio" class="btn-check" value="{{ $value }}" name="creativity"
+                                id="creativity{{ $loop->iteration }}" autocomplete="off">
+                            <label class="btn btn-outline-secondary fw-normal py-0"
+                                for="creativity{{ $loop->iteration }}">{{ $creativity }}</label>
+                        </div>
+                    @endforeach
+                </div>
             </div>
             <div>
-                <x-button type="submit" class="btn-primary" class="w-100 d-flex align-items-center justify-content-center">
+                <x-button type="submit" class="w-100">
                     <i class="ti ti-sparkles h5 mb-0"></i>
-                    <span class="ms-2">@lang('Generate code')</span>
+                    <span class="ms-2">@lang('Generate')</span>
                 </x-button>
             </div>
         </form>
@@ -59,7 +68,7 @@
                     <div class="col-lg-10">
                         <div class="h4 autogrow-textarea mb-0" :data-replicated-value="docs[index].title">
                             <textarea placeholder="{{ __('Untitled document') }}" autocomplete="off" x-model="docs[index].title" rows="1"
-                                @input.debounce.750ms="saveDocument(docs[index])" class="d-block w-100 p-0 text-body border-0"></textarea>
+                                class="d-block w-100 p-0 text-body border-0"></textarea>
                         </div>
                     </div>
                 </template>
@@ -170,5 +179,5 @@
 @endsection
 
 @push('script-stack-after')
-    {!! javascript('js/agents/coder.min.js') !!}
+    {!! javascript('js/content.min.js', true) !!}
 @endpush

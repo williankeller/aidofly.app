@@ -1,5 +1,5 @@
-import { notification } from "../components/notification";
-import { getCookie, deleteCookie } from "../helpers/cookie";
+import { notification } from "./notification";
+import { getCookie, deleteCookie } from "./cookie";
 
 // Fetch.js
 const _apiHost = "/api";

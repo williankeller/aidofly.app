@@ -12,18 +12,10 @@ if (fs.existsSync("resources/assets/images")) {
  * Compile scripts
  */
 mix.js("resources/assets/scripts/core.js", `public/js/core.min.js`)
-    .js(
-        "resources/assets/scripts/pages/agents/content.js",
-        "public/js/agents/content.min.js"
-    )
-    .js(
-        "resources/assets/scripts/services/list.js",
-        "public/js/base/list.min.js"
-    )
-    .js(
-        "resources/assets/scripts/pages/auth/auth.js",
-        "public/js/auth/auth.min.js"
-    )
+    .js("resources/assets/scripts/pages/content.js", "public/js/content.min.js")
+    .js("resources/assets/scripts/pages/library.js", "public/js/library.min.js")
+    .js("resources/assets/scripts/pages/listing.js", "public/js/listing.min.js")
+    .js("resources/assets/scripts/pages/auth.js", "public/js/auth.min.js")
     .sourceMaps();
 
 /**

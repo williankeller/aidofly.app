@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Api\AbstractController;
 use App\Models\Preset;
 
-class PresetController extends AbstractController
+class PresetsController extends AbstractController
 {
     public function handle()
     {

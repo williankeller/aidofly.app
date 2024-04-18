@@ -2,37 +2,37 @@
 
 namespace App\Http\Controllers\Library;
 
+use App\Http\Controllers\AbstractController;
+use App\Models\Library;
 use Illuminate\View\View;
 
-class LibraryController
+class LibraryController extends AbstractController
 {
     public function index(): View
     {
-        return view('pages.library.index', [
-            'metaTitle' => __('Library'),
-            'metaDescription' => __('View all content you created'),
-        ]);
-    }
-
-    public function content(): View
-    {
         $data = json_encode(['delete_success' => __("Content has been deleted successfully.")]);
 
-        return view('pages.library.content', [
+        return view('pages.library.index', [
             'metaTitle' => __('Content Library'),
             'metaDescription' => __('View all content you created'),
-            'xData' => "list(\"/library/content\", {$data})",
+            'xData' => "list('/library', {$data})",
         ]);
     }
 
-    public function coder(): View
+    public function show(string $uuid): View
     {
-        $data = json_encode(['delete_success' => __("Content has been deleted successfully.")]);
+        $library = Library::with(['category', 'preset'])
+            ->where('user_id', auth()->id())
+            ->where('uuid', $uuid)->firstOrFail();
 
-        return view('pages.library.coder', [
-            'metaTitle' => __('Coder Library'),
-            'metaDescription' => __('View all content you created'),
-            'xData' => "list(\"/library/coder\", {$data})",
-        ]);
+        return $this->view(
+            'pages.library.show',
+            $library->title,
+            "",
+            [
+                'library' => $library->makeHidden(['id', 'user_id', 'created_at', 'updated_at']),
+                'xData' => "content(" . json_encode(['content' => $library->content]) . ")",
+            ]
+        );
     }
 }

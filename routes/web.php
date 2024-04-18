@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\RecoverController;
 use App\Http\Controllers\Library\LibraryController;
 
 use App\Http\Controllers\Agents\ContentController;
-use App\Http\Controllers\Agents\CoderController;
+use App\Http\Controllers\Agents\PresetsController;
 
 Route::name('auth.')->group(function () {
     Route::controller(SigninController::class)->group(function () {
@@ -35,15 +35,13 @@ Route::middleware('auth')->group(function () {
 
     // Agent routes
     Route::name('agent.')->prefix('/agent')->group(function () {
-        Route::controller(ContentController::class)->name('content.')->group(function () {
+        Route::controller(PresetsController::class)->name('preset.')->group(function () {
             Route::get('/presets', 'index')->name('index');
+            Route::get('/preset/writer', 'create')->name('create');
             Route::get('/preset/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
-            Route::get('/content', 'create')->name('create');
         });
-        Route::controller(CoderController::class)->name('coder.')->group(function () {
-            Route::get('/coder', 'index')->name('index');
-            // Route to see the details of a specific coder given its uuid
-            Route::get('/coder/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+        Route::controller(ContentController::class)->name('content.')->group(function () {
+            Route::get('/content/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
         });
     });
 
@@ -51,8 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::name('library.')->group(function () {
         Route::controller(LibraryController::class)->name('agent.')->group(function () {
             Route::get('/library', 'index')->name('index');
-            Route::get('/library/content', 'content')->name('content');
-            Route::get('/library/coder', 'coder')->name('coder');
+            Route::get('/library/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
         });
     });
 

@@ -25,17 +25,11 @@
         <li class="nav-item mb-1">
             <strong>@lang('Agents')</strong>
         </li>
-        <x-aside.item route="agent.content.index">
+        <x-aside.item route="agent.preset.index">
             <span class="bg-warning bg-gradient rounded p-1 d-flex align-items-center">
                 <i class="fs-4 text-white ti ti-file-text"></i>
             </span>
             <span class="ms-2">@lang('Content writer')</span>
-        </x-aside.item>
-        <x-aside.item route="agent.coder.index">
-            <span class="bg-danger bg-gradient rounded p-1 d-flex align-items-center">
-                <i class="fs-4 text-white ti ti-code"></i>
-            </span>
-            <span class="ms-2">@lang('Code writer')</span>
         </x-aside.item>
         {{--<x-aside.item route="home.index">
             <span class="bg-success bg-gradient rounded p-1 d-flex align-items-center">

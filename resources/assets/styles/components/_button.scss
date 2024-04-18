@@ -19,8 +19,14 @@
 
     &-white {
         --bs-btn-disabled-border-color: var(--bs-white);
+        --bs-btn-color: var(--bs-secondary-color);
+        --bs-btn-hover-color: var(--bs-body-color);
         &:disabled {
             border: 1px solid var(--bs-btn-disabled-border-color);
+        }
+        &:focus,
+        &:active {
+            --bs-btn-active-border-color: transparent;
         }
     }
 }

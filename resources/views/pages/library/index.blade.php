@@ -2,35 +2,49 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="home.index" :name="__('Home')" icon="ti-square-rounded-arrow-left-filled" />
+        <x-nav.back route="home.index" :name="__('home')" icon="ti-square-rounded-arrow-left-filled" />
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
-    <section class="row">
-        <div class="col-lg-4 d-flex align-items-stretch">
-            <a class="card p-3" href="{{ route('library.agent.content') }}">
-                <div class="mb-3">
-                    <div class="d-inline-block">
-                        <x-content.icon color="warning" icon="ti-file-text" size="4" />
+
+    <section class="group/list" data-state="initial" :data-state="state">
+        <x-content.empty :title="__('There is no content yet')" :subtitle="__('You haven\'t create an AI-driven content yet')" />
+        <div class="placeholders">
+            @for ($i = 0; $i < 3; $i++)
+                <div class="card mb-2 p-3">
+                    <div class="d-flex placeholder-wave justify-content-between align-items-center">
+                        <div class="d-flex">
+                            <div class="placeholder rounded" style="width: 40px; height: 40px"></div>
+                        </div>
+                        <div class="ms-2 w-100">
+                            <div class="d-block placeholder col-6 rounded"></div>
+                            <div class="placeholder col-2 rounded"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="mb-2">
-                    <h3 class="fw-bolder h5 mb-0">@lang('Content writer')</h3>
-                </div>
-                <small class="text-muted d-block">@lang('Content created with the content writer agent')</small>
-            </a>
+            @endfor
         </div>
-        <div class="col-lg-4">
-            <a class="card p-3" href="{{ route('library.agent.coder') }}">
-                <div class="mb-3">
-                    <div class="d-inline-block">
-                        <x-content.icon color="danger" icon="ti-code" size="4" />
+        <template x-for="content in resources" :key="content.uuid">
+            <div class="card mb-2 p-3">
+                <a class="d-flex" x-bind:href="'/library/' + content.uuid">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <template x-if="!content.preset">
+                            <div class="bg-secondary text-white bg-gradient rounded px-2 py-1 d-flex align-items-center">
+                                <span class="fs-5" x-text="content.title.match(/(\b\S)?/g).join('').slice(0, 2)"></span>
+                            </div>
+                        </template>
                     </div>
-                </div>
-                <div class="mb-2">
-                    <h3 class="fw-bolder h5 mb-0">@lang('Coder writer')</h3>
-                </div>
-                <small class="text-muted d-block">@lang('Content created with the coder writer agent')</small>
-            </a>
-        </div>
+                    <div class="ms-2">
+                        <div class="fw-bolder mb-0 text-body" x-text="content.title"></div>
+                        <small class="mt-2 text-sm text-muted">
+                            <time is="x-time" :datetime="content.created_at" data-type="date" class="text-sm "></time>
+                        </small>
+                    </div>
+                </a>
+            </div>
+        </template>
     </section>
 @endsection
+
+@push('script-stack-after')
+    {!! javascript('js/listing.min.js') !!}
+@endpush

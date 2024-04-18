@@ -1,8 +1,8 @@
 {
     "/js/core.min.js": "/js/core.min.js",
-    "/js/agents/coder.min.js": "/js/agents/coder.min.js",
-    "/js/agents/content.min.js": "/js/agents/content.min.js",
-    "/js/base/list.min.js": "/js/base/list.min.js",
-    "/js/auth/auth.min.js": "/js/auth/auth.min.js",
+    "/js/content.min.js": "/js/content.min.js",
+    "/js/library.min.js": "/js/library.min.js",
+    "/js/listing.min.js": "/js/listing.min.js",
+    "/js/auth.min.js": "/js/auth.min.js",
     "/style/core.min.css": "/style/core.min.css"
 }

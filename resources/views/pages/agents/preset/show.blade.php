@@ -2,22 +2,73 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="agent.content.index" :name="__('Content presets')" icon="ti-square-rounded-arrow-left-filled" />
+        <x-nav.back route="agent.preset.index" :name="__('Content presets')" icon="ti-square-rounded-arrow-left-filled" />
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 
     <section class="p-5 card mb-3" data-bs-toggle="collapse" x-show="showForm">
         <h3 class="fw-bolder h5">@lang('Prompts')</h3>
         <form is="x-form" x-ref="form" @submit.prevent="submit(null)" class="needs-validation d-grid gap-3 mt-3">
-            <div class="mb-2">
-                <label for="prompt" class="form-label required">@lang('Your query')</label>
-                <textarea class="form-control" id="prompt" name="prompt"
-                    placeholder="{{ __('Type here what do you want to create') }}" rows="3" autocomplete="off" required></textarea>
-                <div class="mt-1 d-flex align-items-center text-sm text-muted">
-                    <i class="ti ti-info-square-rounded-filled"></i>
-                    <small class="ms-1 text-muted">@lang('The more details you provide, the better the result will be.')</small>
-                </div>
-            </div>
+            @foreach ($templates as $p)
+                @php($id = 't' . rand())
+
+                @if (isset($p->type->value) && $p->type->value == 'text')
+                    <div class="mb-3">
+                        <label @class(['form-label', 'required' => $p->required]) for="{{ $id }}">{{ __($p->label) }}</label>
+                        @if ($p->multiline)
+                            <textarea cols="5" id="{{ $id }}" name="{{ $p->name }}" placeholder="{{ $p->placeholder }}"
+                                class="form-control" autocomplete="off" rows="3" @required($p->required)>{{ $p->value }}</textarea>
+                        @else
+                            <input type="text" id="{{ $id }}" name="{{ $p->name }}"
+                                placeholder="{{ $p->placeholder }}" class="form-control" autocomplete="off"
+                                value="{{ $p->value }}" @required($p->required)>
+                        @endif
+                        @if ($p->info)
+                            <div class="mt-1 d-flex align-items-center text-sm text-muted">
+                                <i class="ti ti-info-square-rounded-filled text-muted"></i>
+                                <small class="ms-1 text-muted">{{ $p->info }}</small>
+                            </div>
+                        @endif
+                    </div>
+                @endif
+
+                @if (isset($p->type->value) && $p->type->value == 'enum')
+                    <div class="mb-3">
+                        <label @class(['form-label', 'required' => $p->required]) for="{{ $id }}">{{ __($p->label) }}</label>
+                        <select id="{{ $id }}" name="{{ $p->name }}" class="form-select"
+                            @if ($p->required) required @endif>
+                            @foreach ($p->options as $o)
+                                <option value="{{ $o->value }}" @if ($o->value == $p->value) selected @endif>
+                                    {{ __($o->label) }}</option>
+                            @endforeach
+                        </select>
+                        @if ($p->info)
+                            <div class="mt-1 d-flex align-items-center text-sm text-muted">
+                                <i class="ti ti-info-square-rounded-filled text-muted"></i>
+                                <small class="ms-1 text-muted">{{ $p->info }}</small>
+                            </div>
+                        @endif
+                    </div>
+                @endif
+
+                @if ($p->type == 'tone')
+                    <div class="mb-3">
+                        <div class="form-label">@lang('Voice tone')</div>
+                        <div class="flex flex-wrap items-center gap-2 mt-2">
+                            @foreach ($tones as $tone)
+                                <div class="d-inline-block mb-2 me-1">
+                                    <input type="radio" class="btn-check" value="{{ $tone }}" name="tone"
+                                        class="btn btn-outline-secondary fw-normal py-0" id="tone{{ $loop->iteration }}"
+                                        autocomplete="off" />
+                                    <label class="btn btn-outline-secondary fw-normal py-0"
+                                        for="tone{{ $loop->iteration }}">{{ $tone }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+
             <div class="mb-3">
                 <div class="form-label">@lang('Creativity level')</div>
                 <div class="buttons-container">
@@ -68,7 +119,7 @@
                     <div class="col-lg-10">
                         <div class="h4 autogrow-textarea mb-0" :data-replicated-value="docs[index].title">
                             <textarea placeholder="{{ __('Untitled document') }}" autocomplete="off" x-model="docs[index].title" rows="1"
-                                @input.debounce.750ms="saveDocument(docs[index])" class="d-block w-100 p-0 text-body border-0"></textarea>
+                                class="d-block w-100 p-0 text-body border-0"></textarea>
                         </div>
                     </div>
                 </template>
@@ -114,7 +165,8 @@
                         <template x-if="docs[index].cost > 0">
                             <span class="d-flex align-items-center text-sm text-muted">
                                 <i class="text-base ti ti-coins me-2"></i>
-                                <data is="x-credit" :value="docs[index].cost" format="{{ __(':count credits') }}"></data>
+                                <data is="x-credit" :value="docs[index].cost"
+                                    format="{{ __(':count credits') }}"></data>
                             </span>
                         </template>
 
@@ -179,5 +231,5 @@
 @endsection
 
 @push('script-stack-after')
-    {!! javascript('js/agents/content.min.js', true) !!}
+    {!! javascript('js/content.min.js', true) !!}
 @endpush

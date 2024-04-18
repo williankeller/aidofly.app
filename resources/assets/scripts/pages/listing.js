@@ -2,8 +2,8 @@
 
 import Alpine from "alpinejs";
 
-import api from "./api";
-import { notification } from "../components/notification";
+import api from "../helpers/api";
+import { notification } from "../helpers/notification";
 
 Alpine.data("list", (basePath, strings = []) => ({
     state: "initial",

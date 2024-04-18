@@ -6,9 +6,9 @@ use App\Http\Controllers\Api\AbstractController;
 use App\Models\Library;
 use Illuminate\Http\Request;
 
-class ContentController extends AbstractController
+class LibraryController extends AbstractController
 {
-    public function handle(Request $request)
+    public function index(Request $request)
     {
         $library = Library::where('type', 'content')->orderBy('created_at', 'desc')->get();
 

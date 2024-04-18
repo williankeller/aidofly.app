@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="agent.content.index" :name="__('Content presets')" icon="ti-square-rounded-arrow-left-filled" />
+        <x-nav.back route="agent.preset.index" :name="__('Content presets')" icon="ti-square-rounded-arrow-left-filled" />
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 
@@ -119,7 +119,7 @@
                     <div class="col-lg-10">
                         <div class="h4 autogrow-textarea mb-0" :data-replicated-value="docs[index].title">
                             <textarea placeholder="{{ __('Untitled document') }}" autocomplete="off" x-model="docs[index].title" rows="1"
-                                @input.debounce.750ms="saveDocument(docs[index])" class="d-block w-100 p-0 text-body border-0"></textarea>
+                                class="d-block w-100 p-0 text-body border-0"></textarea>
                         </div>
                     </div>
                 </template>
@@ -231,5 +231,5 @@
 @endsection
 
 @push('script-stack-after')
-    {!! javascript('js/agents/content.min.js', true) !!}
+    {!! javascript('js/content.min.js', true) !!}
 @endpush

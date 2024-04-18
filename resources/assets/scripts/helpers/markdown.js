@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
-import { Converter } from 'showdown';
+import { Converter } from "showdown";
 
-const hljs = require('highlight.js/lib/common');
+const hljs = require("highlight.js/lib/common");
 hljs.configure({ ignoreUnescapedHTML: true });
 hljs.safeMode();
 
 const converter = new Converter({
     requireSpaceBeforeHeadingText: true,
-    tables: true
+    tables: true,
 });
 
 /**
@@ -20,14 +20,16 @@ const converter = new Converter({
  */
 function escapeHtml(text) {
     var map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;",
     };
 
-    return text.replace(/[&<>"']/g, function (m) { return map[m]; });
+    return text.replace(/[&<>"']/g, function (m) {
+        return map[m];
+    });
 }
 
 function convertMarkdownToHtml(text) {
@@ -75,37 +77,37 @@ function convertMarkdownToHtml(text) {
 export function markdownToHtml(text) {
     let html = convertMarkdownToHtml(text);
 
-    let el = document.createElement('div');
+    let el = document.createElement("div");
     el.innerHTML = html;
 
-    el.querySelectorAll('pre code').forEach((el) => {
+    el.querySelectorAll("pre code").forEach((el) => {
         let text = el.innerText.trim();
         let h = hljs.highlightAuto(text);
 
         el.innerHTML = h.value;
 
-        let actions = document.createElement('div');
-        actions.classList.add('actions');
+        let actions = document.createElement("div");
+        actions.classList.add("actions");
 
-        let lang = document.createElement('span');
-        lang.classList.add('lang');
+        let lang = document.createElement("span");
+        lang.classList.add("lang");
         lang.innerText = h.language;
 
         actions.appendChild(lang);
 
-        let copy = document.createElement('span');
-        copy.classList.add('copy');
+        let copy = document.createElement("span");
+        copy.classList.add("copy");
 
-        let icon = document.createElement('i');
-        icon.classList.add('ti', 'ti-copy');
+        let icon = document.createElement("i");
+        icon.classList.add("ti", "ti-copy");
 
         copy.appendChild(icon);
-        copy.setAttribute('is', 'copyable-element');
-        copy.setAttribute('data-copy', text);
+        copy.setAttribute("is", "copyable-element");
+        copy.setAttribute("data-copy", text);
 
         actions.appendChild(copy);
 
-        el.closest('pre').prepend(actions);
+        el.closest("pre").prepend(actions);
     });
 
     return el.innerHTML;

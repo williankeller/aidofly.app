@@ -2,11 +2,11 @@
 
 import Alpine from "alpinejs";
 
-import api from "../../services/api";
+import api from "../helpers/api";
 import populate from "populate.js";
 import Tooltip from "@ryangjchandler/alpine-tooltip";
-import { markdownToHtml } from "../../components/markdown";
-import { notification } from "../../components/notification";
+import { markdownToHtml } from "../helpers/markdown";
+import { notification } from "../helpers/notification";
 import { EventSourceParserStream } from "eventsource-parser/stream";
 
 Alpine.data("content", (preset = null, doc = null) => ({
@@ -97,7 +97,7 @@ Alpine.data("content", (preset = null, doc = null) => ({
                     this.index =
                         this.docs.length > 1 ? this.docs.length - 1 : 0;
 
-                    toast.error(value.data);
+                    notification(value.data);
                     break;
                 }
             }
@@ -115,7 +115,7 @@ Alpine.data("content", (preset = null, doc = null) => ({
 
     copyDocumentContents(doc) {
         navigator.clipboard.writeText(doc.content).then(() => {
-            toast.success("Document copied to clipboard!");
+            notification("Document copied to clipboard!", "success");
         });
     },
 
@@ -161,13 +161,9 @@ Alpine.data("content", (preset = null, doc = null) => ({
         document.body.removeChild(anchor);
     },
 
-    saveDocument(doc) {
-        api.post(`/library/documents/${doc.uuid}`, doc);
-    },
-
     deleteDocument(doc) {
         api.delete(`/library/documents/${doc.uuid}`).then(() => {
-            toast.success("Document deleted successfully!");
+            notification("Document deleted successfully!", "success");
             this.docs = this.docs.filter((d) => d.uuid != doc.uuid);
             this.index = this.docs.length > 1 ? this.docs.length - 1 : 0;
 
@@ -179,7 +175,7 @@ Alpine.data("content", (preset = null, doc = null) => ({
 
     select(doc) {
         let url = new URL(window.location.href);
-        url.pathname = "/writer/" + (doc.uuid ?? "");
+        url.pathname = "/agent/content/" + (doc.uuid ?? "");
         window.history.pushState({}, "", url);
     },
 }));
