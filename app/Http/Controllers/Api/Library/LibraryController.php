@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 
 class LibraryController extends AbstractController
 {
-    public function index(Request $request)
+    public function index()
     {
-        $library = Library::where('type', 'content')->orderBy('created_at', 'desc')->get();
+        $library = Library::where('user_id', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return response()->json(
             [

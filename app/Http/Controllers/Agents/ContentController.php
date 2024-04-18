@@ -14,7 +14,7 @@ class ContentController extends AbstractController
     ) {
     }
 
-    public function show(string $uuid): View
+    public function create(string $uuid): View
     {
         $library = Library::with(['preset', 'category'])
             ->where('uuid', $uuid)
@@ -29,7 +29,7 @@ class ContentController extends AbstractController
         }
 
         return $this->view(
-            'pages.agents.content.show',
+            'pages.agents.content.create',
             $library->preset?->title ?? __('Free form content writer'),
             $library->preset?->description ?? __('Write your own content from scratch'),
             [

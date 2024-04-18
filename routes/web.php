@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/preset/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
         });
         Route::controller(ContentController::class)->name('content.')->group(function () {
-            Route::get('/content/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+            Route::get('/content/{uuid}', 'create')->where('uuid', '[a-z0-9-]+')->name('create');
         });
     });
 
