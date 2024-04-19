@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('firstname')->after('email');
-            $table->string('lastname')->after('firstname');
+            $table->string('firstname', 32)->after('email');
+            $table->string('lastname', 32)->after('firstname');
+            $table->boolean('role')->default(0)->comment('0: User, 1: Admin');
+            $table->boolean('status')->default(1)->comment('0: Disabled, 1: Enabled');
+            $table->text('configuration')->nullable();
+
             $table->dropColumn('name');
-            $table->unsignedSmallInteger('role')->default(0);  // 0 = user, 1 = admin
-            $table->unsignedSmallInteger('status')->default(1);  // 0 = disabled, 1 = enabled
-            $table->text('configuration')->nullable(); 
         });
     }
 

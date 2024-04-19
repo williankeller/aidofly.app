@@ -14,16 +14,18 @@ return new class extends Migration
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->string('type', 32); // (content, code, audio, image.)
-            $table->enum('visibility', ['public', 'private'])->default('public');
-            $table->string('model');
-            $table->float('cost');
+            $table->enum('visibility', ['private', 'workspace'])->default('private');
+
             $table->string('title', 128);
             $table->longText('params');
             $table->longText('content');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained('categories')->nullable();
-            $table->foreignId('preset_id')->constrained('presets')->nullable();
+
+            $table->string('model', 64);
+            $table->float('cost');
+
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('preset_id')->nullable()->constrained('presets')->onDelete('set null');
 
             $table->timestamps();
         });

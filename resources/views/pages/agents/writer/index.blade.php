@@ -24,8 +24,8 @@
             </div>
         </x-content.placeholder>
         <div class="row">
-            <div class="free-form col-lg-4 d-flex align-items-stretch">
-                <a class="card mb-2 p-3 d-block" href="{{ route('agent.preset.create') }}">
+            <div class="free-form col-lg-4 d-flex align-items-stretch mb-3">
+                <a class="card mb-2 p-3 d-block" href="{{ route('agent.writer.create') }}">
                     <div class="d-inline-block">
                         <div class="bg-warning bg-gradient rounded p-2 d-flex align-items-center">
                             <i class="fs-4 text-white ti ti-file-text"></i>
@@ -40,8 +40,8 @@
                 </a>
             </div>
             <template x-for="preset in resources" :key="preset.uuid">
-                <div class="col-lg-4 d-flex align-items-stretch">
-                    <a class="card mb-2 p-3 d-block" x-bind:href="'/agent/preset/' + preset.uuid">
+                <div class="col-lg-4 d-flex align-items-stretch mb-3">
+                    <a class="card mb-2 p-3 d-block" x-bind:href="`{{ route('agent.writer.show', '') }}/${preset.uuid}`">
                         <div class="d-inline-block">
                             <div class="bg-gradient rounded p-2 d-flex align-items-center"
                                 :style="{ backgroundColor: preset.color }">

@@ -18,9 +18,17 @@ class SigninController extends AbstractAuthController
 
     public function authorize(Request $request): RedirectResponse
     {
+        $request->append('remember', $request->remember ?? false);
+
         $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'regex:/^[^@]+@[^@]+\.[a-z]{2,}$/'
+            ],
+            'password' => 'required|string|min:6',
             'remember' => 'boolean'
         ]);
 

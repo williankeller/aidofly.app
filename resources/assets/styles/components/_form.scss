@@ -13,3 +13,37 @@
 .form-control {
     min-height: 3rem;
 }
+
+.input-password-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+    .form-control {
+        padding-right: 50px;
+    }
+    .input-password-toggle {
+        position: absolute;
+        right: 10px;
+        top: 11px;
+        background-color: transparent;
+        border: 0;
+    }
+}
+
+.form-switch {
+    .form-check-input {
+        width: 2.5em;
+        height: 1.5em;
+    }
+    &.form-check-reverse {
+        padding-right: 2.8em;
+        .form-check-input {
+            margin-right: -2.8em;
+        }
+    }
+    .form-check-label {
+        margin-top: 4px;
+    }
+}

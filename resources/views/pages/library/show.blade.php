@@ -32,7 +32,7 @@
             </div>
 
             <div class="d-flex align-items-center">
-                <a class="btn btn-white p-0 me-3" href="{{ route('agent.content.create', $library->uuid) }}">
+                <a class="btn btn-white p-0 me-3" href="{{ route('agent.writer.edit', $library->uuid) }}">
                     <i class="ti ti-sparkles fs-4"></i>
                 </a>
 

@@ -8,8 +8,9 @@ use App\Http\Controllers\Auth\RecoverController;
 
 use App\Http\Controllers\Library\LibraryController;
 
-use App\Http\Controllers\Agents\ContentController;
-use App\Http\Controllers\Agents\PresetsController;
+use App\Http\Controllers\Agents\WriterController;
+use App\Http\Controllers\Preset\PresetsController;
+
 
 Route::name('auth.')->group(function () {
     Route::controller(SigninController::class)->group(function () {
@@ -35,14 +36,22 @@ Route::middleware('auth')->group(function () {
 
     // Agent routes
     Route::name('agent.')->prefix('/agent')->group(function () {
-        Route::controller(PresetsController::class)->name('preset.')->group(function () {
+        Route::controller(WriterController::class)->name('writer.')->group(function () {
             Route::get('/presets', 'index')->name('index');
-            Route::get('/preset/writer', 'create')->name('create');
             Route::get('/preset/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+            Route::get('/writer', 'create')->name('create');
+            Route::get('/writer/{uuid}', 'edit')->where('uuid', '[a-z0-9-]+')->name('edit');
         });
-        Route::controller(ContentController::class)->name('content.')->group(function () {
-            Route::get('/content/{uuid}', 'create')->where('uuid', '[a-z0-9-]+')->name('create');
-        });
+    });
+
+    Route::name('presets.')->group(function () {
+        Route::get('presets', [PresetsController::class, 'index'])->name('index');
+        Route::get('presets/create', [PresetsController::class, 'create'])->name('create');
+        Route::get('preset/{uuid}', [PresetsController::class, 'show'])->where('uuid', '[a-z0-9-]+')->name('show');
+        Route::get('preset/{uuid}/edit', [PresetsController::class, 'edit'])->where('uuid', '[a-z0-9-]+')->name('edit');
+        Route::post('presets', [PresetsController::class, 'store'])->name('store');
+        Route::put('preset/{uuid}', [PresetsController::class, 'update'])->where('uuid', '[a-z0-9-]+')->name('update');
+        Route::delete('preset/{uuid}', [PresetsController::class, 'destroy'])->where('uuid', '[a-z0-9-]+')->name('destroy');
     });
 
     // Library routes

@@ -12,21 +12,28 @@ class SignupController extends AbstractAuthController
 {
     public function index()
     {
-        return view('pages.auth.signup', [
-            'metaTitle' => 'Begin your creative journey today',
-            'metaDescription' => 'Our AI-driven content creator is your new partner in creativity, ready to elevate your concepts with precision and flair.'
-        ]);
+        return $this->view(
+            'pages.auth.signup',
+            __('Begin your creative journey today'),
+            __('Our AI-driven content creator is your new partner in creativity, ready to elevate your concepts with precision and flair.')
+        );
     }
 
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'firstname' => 'required|string|min:1|max:32',
+            'lastname' => 'required|string|min:2|max:32',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users',
+                'regex:/^[^@]+@[^@]+\.[a-z]{2,}$/'
+            ],
             'password' => 'required|string|min:6'
         ]);
-
 
         $user = User::create([
             'firstname' => $request->firstname,

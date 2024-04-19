@@ -29,11 +29,11 @@
                     @csrf
                     <div class="mb-3">
                         <x-form.input-field type="email" :label="__('Email address')" id="email" :placeholder="__('Your email')" required
-                            autocomplete="email" />
+                            autocomplete="email" maxlength="255" />
                     </div>
                     <div class="mb-3">
-                        <x-form.input-field type="password" :label="__('Password')" id="password" :placeholder="__('Your password')" required
-                            autocomplete="current-password" />
+                        <x-form.password-field :label="__('Password')" id="password" :placeholder="__('Your password')" required
+                            autocomplete="current-password" minlength="6" maxlength="255" />
                     </div>
                     <div class="d-flex justify-content-between gap-2 mb-4 align-items-center">
                         <div class="form-check">
@@ -61,9 +61,13 @@
 
 @push('script-stack-after')
 
+    @if ($errors->any())
+        <x-notification :message="$errors->first()" :show="true" />
+    @endif
+
     @if (session()->get('message'))
         <x-notification :message="session()->get('message')['content']" :show="true" />
     @endif
 
-    {!! javascript('js/auth/auth.min.js') !!}
+    {!! javascript('js/auth.min.js') !!}
 @endpush

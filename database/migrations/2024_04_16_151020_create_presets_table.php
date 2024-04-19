@@ -14,14 +14,19 @@ return new class extends Migration
         Schema::create('presets', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->string('type', 32);
-            $table->boolean('status');
+            $table->enum('source', ['user', 'system'])->default('user');
+            $table->enum('visibility', ['public', 'workspace', 'private'])->default('private');
+            $table->boolean('status')->default(1)->comment('0: Disabled, 1: Enabled');
             $table->string('title', 128);
             $table->text('description');
             $table->longText('template');
             $table->string('icon', 32);
             $table->string('color', 7);
-            $table->foreignId('category_id')->constrained('categories')->nullable();
+
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
+
+            $table->unsignedBigInteger('usage_count')->default(0);
 
             $table->timestamps();
         });

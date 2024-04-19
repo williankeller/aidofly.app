@@ -28,8 +28,8 @@ abstract class AbstractController
     protected function view(string $view, string $title, string $description, array $data = []): View
     {
         return view($view, [
-            'metaTitle' => __($title),
-            'metaDescription' => __($description),
+            'metaTitle' => $title,
+            'metaDescription' => $description,
             ...$data,
         ]);
     }

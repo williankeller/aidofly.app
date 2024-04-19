@@ -16,24 +16,24 @@
                     @csrf
                     <div class="mb-3 row">
                         <div class="col-sm-6">
-                            <x-form.label-input type="text" :label="__('First name')" id="firstname" :placeholder="__('Your first name')" required
-                                autocomplete="given-name" />
+                            <x-form.input-field :label="__('First name')" id="firstname" :placeholder="__('Your first name')" required
+                                autocomplete="given-name" minlength="1" maxlength="32" />
                         </div>
                         <div class="col-sm-6">
-                            <x-form.label-input type="text" :label="__('Last name')" id="lastname" :placeholder="__('Your last name')" required
-                                autocomplete="family-name" />
+                            <x-form.input-field :label="__('Last name')" id="lastname" :placeholder="__('Your last name')" required
+                                autocomplete="family-name" minlength="2" maxlength="32" />
                         </div>
                     </div>
                     <div class="mb-3">
-                        <x-form.label-input type="email" :label="__('Email address')" id="email" :placeholder="__('Your email')" required
-                            autocomplete="email" />
+                        <x-form.input-field type="email" :label="__('Email address')" id="email" :placeholder="__('Your email')" required
+                            autocomplete="email" maxlength="255" />
                     </div>
                     <div class="mb-5">
-                        <x-form.label-input type="password" :label="__('Password')" id="password" :placeholder="__('Your password')" required
-                            autocomplete="current-password" />
+                        <x-form.password-field type="password" :label="__('Password')" id="password" :placeholder="__('Your password')" required
+                            autocomplete="current-password" minlength="6" maxlength="255" />
                     </div>
                     <div>
-                        <x-button variant="primary" reference="signup" class="w-100">
+                        <x-button variant="primary" class="w-100">
                             <span>@lang('Sign up')</span>
                         </x-button>
                     </div>
@@ -62,13 +62,13 @@
 
 @push('script-stack-after')
 
-    @if ($errors->has('email'))
-        <x-notification :message="$errors->first('email')" :show="true" />
+    @if ($errors->any())
+        <x-notification :message="$errors->first()" :show="true" />
     @endif
 
     @if (session()->get('message'))
         <x-notification :message="session()->get('message')['content']" :show="true" />
     @endif
 
-    {!! javascript('js/auth/auth.min.js') !!}
+    {!! javascript('js/auth.min.js') !!}
 @endpush
