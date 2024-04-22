@@ -15,7 +15,7 @@ class PresetsController extends AbstractController
             ->where('visibility', 'public')
             ->where('status', 1)
             ->get()
-            ->makeHidden(['id', 'visibility', 'status', 'category_id', 'created_at', 'updated_at']);
+            ->makeHidden(['id', 'visibility', 'template', 'category_id', 'user_id', 'created_at', 'updated_at']);
 
         return $this->listing($presets);
     }
@@ -26,7 +26,7 @@ class PresetsController extends AbstractController
             ->where('user_id', auth()->id())
             ->where('source', 'user')
             ->get()
-            ->makeHidden(['id', 'visibility', 'status', 'category_id', 'created_at', 'updated_at']);
+            ->makeHidden(['id', 'visibility', 'template', 'category_id', 'user_id', 'created_at', 'updated_at']);
 
         return $this->listing($presets);
     }
@@ -37,9 +37,9 @@ class PresetsController extends AbstractController
             ->where('status', true)
             ->where('visibility', 'public')
             ->where('source', 'user')
-            //->where('user_id', '!=', auth()->id())
+            ->where('user_id', '!=', auth()->id())
             ->get()
-            ->makeHidden(['id', 'visibility', 'status', 'category_id', 'created_at', 'updated_at']);
+            ->makeHidden(['id', 'visibility', 'template', 'user_id', 'category_id', 'created_at', 'updated_at']);
 
         return $this->listing($presets);
     }

@@ -9,10 +9,18 @@ abstract class AbstractController
 {
     protected function redirect($route, string $message, ?string $type = 'success'): RedirectResponse
     {
-        return redirect()
-            ->route($route)
-            ->withInput()
+        $redirect = redirect();
+
+        if ($route === 'back') {
+            $redirect = $redirect->back();
+        } else {
+            $redirect = $redirect->route($route);
+        }
+
+        $redirect = $redirect->withInput()
             ->with($this->message($message, $type));
+
+        return  $redirect;
     }
 
     protected function message(string $message, string $type): array

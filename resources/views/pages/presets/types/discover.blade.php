@@ -10,14 +10,14 @@
         <x-content.empty :title="__('There are no presets')" :subtitle="__('We do not have set ')" />
         @include('pages.presets.types.sections.placeholder')
         <div class="row">
-            <template x-for="preset in resources" :key="preset.uuid">
+            <template x-for="(preset, index) in resources" :key="index">
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
-                    <a class="card mb-2 p-3 w-100 d-block"
-                        x-bind:href="`{{ route('presets.show', '') }}/${preset.uuid}`">
+                    <a class="card mb-2 p-3 w-100 d-block" x-bind:href="`{{ route('presets.show', '') }}/${preset.uuid}`">
                         <div class="d-inline-block">
                             <div class="bg-gradient rounded p-2 d-flex align-items-center"
                                 :style="{ backgroundColor: preset.color }">
-                                <i class="fs-4 text-white ti" :class="preset.icon"></i>
+                                <span class="fs-5 text-white"
+                                    x-text="preset.title.match(/(\b\S)?/g).join('').slice(0, 2)"></span>
                             </div>
                         </div>
                         <div class="mt-3">

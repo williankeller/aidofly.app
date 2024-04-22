@@ -210,24 +210,74 @@ class PresetsController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $uuid)
     {
-        //
+        $preset = Preset::select('uuid', 'visibility', 'status', 'title', 'description', 'template', 'user_id')
+            ->where('uuid', $uuid)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        return $this->view(
+            'pages.presets.edit',
+            "Editing: " . $preset->title,
+            $preset->description,
+            [
+                'preset' => $preset,
+                'categories' => Category::select(['uuid', 'title'])->orderBy('title', 'asc')->get()
+            ]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $uuid)
     {
-        //
+        /** @var \Illuminate\Auth\AuthManager $authUser */
+        $authUser = auth();
+
+        $status = filter_var($request->input('status', false), FILTER_VALIDATE_BOOLEAN);
+        $request->merge(['status' => $status]);
+
+        $request->validate([
+            'visibility' => 'required|string|in:public,private',
+            'status' => 'required|boolean',
+            'title' => 'required|string|max:128',
+            'description' => 'required|string|max:255',
+            'template' => 'required|string',
+            'icon' => 'nullable|string|max:32',
+            'color' => 'nullable|string|max:7',
+            'category' => 'required|uuid|exists:categories,uuid',
+        ]);
+
+        // Get the category id given the uuid
+        $category = Category::select('id')->where('uuid', $request->category)->first();
+
+        // Select preset by uuid to make sure it exists and the user is the owner
+        $preset = Preset::select('id')->where('uuid', $uuid)->where('user_id', $authUser->id())->firstOrFail();
+
+        Preset::where('id', $preset->id)
+            ->update([
+                'visibility' => $request->visibility,
+                'status' => $request->status,
+                'title' => $request->title,
+                'description' => $request->description,
+                'template' => $request->template,
+                'icon' => $request->icon ?? null,
+                'color' => $request->color ?? $this->getRandomBackgroundColor(),
+                'category_id' => $category->id ?? null,
+            ]);
+
+        return $this->redirect('back', __('Preset template updated successfully!'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $uuid)
     {
-        //
+        Preset::where('uuid', $uuid)->where('user_id', auth()->id())->delete();
+
+        return $this->redirect('presets.user', __('Preset template deleted successfully!'));
     }
 }

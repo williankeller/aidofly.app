@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
         });
     });
 
+    // Preset routes
     Route::controller(PresetsController::class)->name('presets.')->group(function () {
         Route::get('/presets', 'index')->name('index');
         Route::get('/presets/mine', 'user')->name('user');

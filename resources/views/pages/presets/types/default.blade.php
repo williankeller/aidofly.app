@@ -25,10 +25,9 @@
                     </div>
                 </a>
             </div>
-            <template x-for="preset in resources" :key="preset.uuid">
+            <template x-for="(preset, index) in resources" :key="index">
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
-                    <a class="card mb-2 p-3 w-100 d-block"
-                        x-bind:href="`{{ route('presets.show', '') }}/${preset.uuid}`">
+                    <a class="card mb-2 p-3 w-100 d-block" x-bind:href="`{{ route('presets.show', '') }}/${preset.uuid}`">
                         <div class="d-inline-block">
                             <div class="bg-gradient rounded p-2 d-flex align-items-center"
                                 :style="{ backgroundColor: preset.color }">

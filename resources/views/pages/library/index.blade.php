@@ -23,7 +23,7 @@
                 </div>
             @endfor
         </div>
-        <template x-for="content in resources" :key="content.uuid">
+        <template x-for="(content, index) in resources" :key="index">
             <div class="card mb-2 p-3">
                 <a class="d-flex" x-bind:href="'/library/' + content.uuid">
                     <div class="d-flex justify-content-between align-items-center">
