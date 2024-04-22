@@ -37,21 +37,21 @@ Route::middleware('auth')->group(function () {
     // Agent routes
     Route::name('agent.')->prefix('/agent')->group(function () {
         Route::controller(WriterController::class)->name('writer.')->group(function () {
-            Route::get('/presets', 'index')->name('index');
-            Route::get('/preset/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
             Route::get('/writer', 'create')->name('create');
             Route::get('/writer/{uuid}', 'edit')->where('uuid', '[a-z0-9-]+')->name('edit');
         });
     });
 
-    Route::name('presets.')->group(function () {
-        Route::get('presets', [PresetsController::class, 'index'])->name('index');
-        Route::get('presets/create', [PresetsController::class, 'create'])->name('create');
-        Route::get('preset/{uuid}', [PresetsController::class, 'show'])->where('uuid', '[a-z0-9-]+')->name('show');
-        Route::get('preset/{uuid}/edit', [PresetsController::class, 'edit'])->where('uuid', '[a-z0-9-]+')->name('edit');
-        Route::post('presets', [PresetsController::class, 'store'])->name('store');
-        Route::put('preset/{uuid}', [PresetsController::class, 'update'])->where('uuid', '[a-z0-9-]+')->name('update');
-        Route::delete('preset/{uuid}', [PresetsController::class, 'destroy'])->where('uuid', '[a-z0-9-]+')->name('destroy');
+    Route::controller(PresetsController::class)->name('presets.')->group(function () {
+        Route::get('/presets', 'index')->name('index');
+        Route::get('/presets/mine', 'user')->name('user');
+        Route::get('/presets/discover', 'discover')->name('discover');
+        Route::get('/presets/create', 'create')->name('create');
+        Route::get('/preset/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+        Route::get('/preset/{uuid}/edit', 'edit')->where('uuid', '[a-z0-9-]+')->name('edit');
+        Route::post('/presets', 'store')->name('store');
+        Route::put('/preset/{uuid}', 'update')->where('uuid', '[a-z0-9-]+')->name('update');
+        Route::delete('/preset/{uuid}', 'destroy')->where('uuid', '[a-z0-9-]+')->name('destroy');
     });
 
     // Library routes

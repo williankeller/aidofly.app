@@ -64,9 +64,8 @@ class Streamer
      * @param Generator $generator 
      * @return void 
      */
-    public function stream(
-        Generator $generator
-    ): void {
+    public function stream(Generator $generator): void
+    {
         $this->open();
 
         try {
@@ -74,7 +73,6 @@ class Streamer
                 if ($item instanceof Token) {
                     $tokens[] = $item->value;
                     $this->sendEvent('token', $item);
-                    usleep(1000 * 50); // <- TEMPORARY
                     continue;
                 }
             }

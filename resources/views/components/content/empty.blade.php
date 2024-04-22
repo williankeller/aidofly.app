@@ -9,4 +9,5 @@
     </div>
     <p class="empty-title h4 mt-2">{{ $title }}</p>
     <p class="empty-subtitle text-muted">{{ $subtitle }}</p>
+    {{ $slot }}
 </div>

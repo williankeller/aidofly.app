@@ -27,7 +27,7 @@ hr {
 
 [data-state="loaded"] {
     .placeholders {
-        display: none;
+        @extend .d-none;
     }
 }
 
@@ -35,7 +35,8 @@ hr {
     .empty {
         display: block;
     }
-    .placeholders {
-        display: none;
+    .placeholders,
+    .free-form {
+        @extend .d-none;
     }
 }

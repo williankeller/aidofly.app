@@ -25,7 +25,7 @@
         <li class="nav-item mb-1">
             <strong>@lang('Agents')</strong>
         </li>
-        <x-aside.item route="agent.writer.index">
+        <x-aside.item route="presets.index">
             <span class="bg-warning bg-gradient rounded p-1 d-flex align-items-center">
                 <i class="fs-4 text-white ti ti-file-text"></i>
             </span>

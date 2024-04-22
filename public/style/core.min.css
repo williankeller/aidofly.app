@@ -7311,7 +7311,8 @@ textarea.form-control-lg {
   display: inline-flex !important;
 }
 
-.d-none, [data-state=initial] .free-form {
+.d-none, [data-state=empty] .placeholders,
+[data-state=empty] .free-form, [data-state=loaded] .placeholders, [data-state=initial] .free-form {
   display: none !important;
 }
 
@@ -12091,17 +12092,9 @@ hr {
   opacity: 1;
 }
 
-[data-state=loaded] .placeholders {
-  display: none;
-}
-
 [data-state=empty] .empty {
   display: block;
 }
-[data-state=empty] .placeholders {
-  display: none;
-}
-
 .aside {
   --bs-aside-bg-color: #f9f9f9;
   width: 16rem;
@@ -12295,20 +12288,6 @@ hr {
   top: 11px;
   background-color: transparent;
   border: 0;
-}
-
-.form-switch .form-check-input {
-  width: 2.5em;
-  height: 1.5em;
-}
-.form-switch.form-check-reverse {
-  padding-right: 2.8em;
-}
-.form-switch.form-check-reverse .form-check-input {
-  margin-right: -2.8em;
-}
-.form-switch .form-check-label {
-  margin-top: 4px;
 }
 
 .hljs {

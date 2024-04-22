@@ -11,8 +11,18 @@ class Preset extends Model
     use HasFactory;
 
     protected $fillable = [
-        'uuid', 'category_id', 'type', 'visibility', 'status',
-        'title', 'description', 'template', 'icon', 'color'
+        'uuid',
+        'source',
+        'visibility',
+        'status',
+        'title',
+        'description',
+        'template',
+        'icon',
+        'color',
+        'user_id',
+        'category_id',
+        'usage_count',
     ];
 
     // Relation to Category

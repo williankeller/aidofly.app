@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Agents;
 
-use App\Models\Preset;
 use App\Models\Library;
 use App\Http\Controllers\AbstractController;
 use App\Services\Agents\Preset\TemplateParser;
@@ -41,35 +40,6 @@ class WriterController extends AbstractController
             'Write your own content from scratch',
             [
                 'xData' => 'content(null, null)',
-                'creativities' => $this->creativityOptions()
-            ]
-        );
-    }
-
-    /**
-     * Show a preset template and fill in the form the custom params
-     * @param string $uuid Preset UUID
-     * @return View
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     */
-    public function show(string $uuid): View
-    {
-        $preset = Preset::select('uuid', 'title', 'description', 'template', 'status')
-            ->where('uuid', $uuid)
-            ->where('visibility', 'public')
-            ->where('status', 1)
-            ->firstOrFail()
-            ->makeHidden(['id', 'template']);
-
-        return $this->view(
-            'pages.agents.writer.show',
-            $preset->title,
-            $preset->description,
-            [
-                'xData' => "content({$preset->toJson()})",
-                'preset' => $preset,
-                'templates' => $this->parser->parse($preset->template),
-                'tones' => $this->voiceToneOptions(),
                 'creativities' => $this->creativityOptions()
             ]
         );

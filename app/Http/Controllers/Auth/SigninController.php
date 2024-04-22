@@ -18,7 +18,9 @@ class SigninController extends AbstractAuthController
 
     public function authorize(Request $request): RedirectResponse
     {
-        $request->append('remember', $request->remember ?? false);
+        // Convert remember checkbox input to boolean and merge it back into the request
+        $remember = filter_var($request->input('remember', false), FILTER_VALIDATE_BOOLEAN);
+        $request->merge(['remember' => $remember]);
 
         $request->validate([
             'email' => [
