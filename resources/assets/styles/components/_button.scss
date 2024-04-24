@@ -3,6 +3,7 @@
     --bs-btn-padding-y: 0.5rem;
     outline-width: 1px;
     outline-offset: 2px;
+    position: relative;
 
     &-primary {
         --bs-btn-color: var(--bs-white);
@@ -11,6 +12,19 @@
         --bs-btn-hover-color: var(--bs-white);
         --bs-btn-hover-bg: var(--bs-primary);
         outline-color: var(--bs-primary);
+
+        &:hover {
+            outline-style: solid;
+        }
+    }
+
+    &-danger {
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-active-color: var(--bs-white);
+        --bs-btn-disabled-color: var(--bs-white);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: var(--bs-danger);
+        outline-color: var(--bs-danger);
 
         &:hover {
             outline-style: solid;
@@ -27,6 +41,15 @@
         &:focus,
         &:active {
             --bs-btn-active-border-color: transparent;
+        }
+    }
+
+    &.loading {
+        .btn-loader {
+            display: block;
+        }
+        .btn-content {
+            opacity: 0;
         }
     }
 }

@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Models\User;
 
 abstract class AbstractController
 {
+    protected function getUser(): ?User
+    {
+        return auth()->user();
+    }
+
     protected function redirect($route, string $message, ?string $type = 'success'): RedirectResponse
     {
         $redirect = redirect();

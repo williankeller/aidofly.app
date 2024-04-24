@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
 /**
  * Represents a custom form element that extends the HTMLFormElement class.
- * This class provides additional functionality for handling form inputs and 
+ * This class provides additional functionality for handling form inputs and
  * validation.
  */
 export class FormElement extends HTMLFormElement {
@@ -13,15 +13,18 @@ export class FormElement extends HTMLFormElement {
 
     /**
      * Called when the form element is connected to the DOM.
-     * Sets up event listeners and a mutation observer to track changes in the 
+     * Sets up event listeners and a mutation observer to track changes in the
      * form element.
      */
     connectedCallback() {
-        this.addEventListener('input', () => this.callback());
+        this.addEventListener("input", () => this.callback());
+        this.addEventListener("submit", (event) =>
+            this.handleSubmission(event)
+        );
 
         this.observer = new MutationObserver((mutationsList) => {
             for (const mutation of mutationsList) {
-                if (mutation.type === 'childList') {
+                if (mutation.type === "childList") {
                     this.callback();
                 }
             }
@@ -47,16 +50,16 @@ export class FormElement extends HTMLFormElement {
 
     /**
      * Checks if the form is valid and enables/disables the submit button(s)
-     * accordingly. 
+     * accordingly.
      */
     callback() {
         clearTimeout(this.timer);
-        this.timer = setTimeout(() => this.checkSubmitable(), 200);
+        this.timer = setTimeout(() => this.checkSubmitable(), 100);
     }
 
     /**
      * Checks if the form is valid and enables/disables the submit button(s)
-     * accordingly. 
+     * accordingly.
      */
     checkSubmitable() {
         const btns = this.querySelectorAll('[type="submit"]');
@@ -65,5 +68,17 @@ export class FormElement extends HTMLFormElement {
         for (let i = 0; i < btns.length; i++) {
             btns[i].disabled = !isSubmitable;
         }
+    }
+
+    handleSubmission(event) {
+        const submitBtn = this.querySelector('[type="submit"]');
+        submitBtn.classList.add("loading"); // Add loading class
+        submitBtn.disabled = true; // Disable button to prevent multiple clicks
+
+        setTimeout(() => {
+            // Simulate form submission delay and then reset
+            submitBtn.classList.remove("loading");
+            submitBtn.disabled = false;
+        }, 3000);
     }
 }

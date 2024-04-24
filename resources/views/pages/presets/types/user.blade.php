@@ -41,15 +41,10 @@
                                 <span class="fs-5 text-white"
                                     x-text="preset.title.match(/(\b\S)?/g).join('').slice(0, 2)"></span>
                             </div>
-                            <div x-show="!preset.status">
-                                <span class="badge text-bg-danger rounded-pill">@lang('Inactive')</span>
-                            </div>
-
                             <a class="d-block z-3 text-muted btn btn-white btn-sm text-hover-primary p-0" x-bind:href="`/preset/${preset.uuid}/edit`">
                                 <i class="ti ti-pencil"></i>
                                 <small>@lang('Edit')</small>
                             </a>
-
                         </div>
                         <div class="mt-3">
                             <div class="fw-bolder mb-0 text-body h5" x-text="preset.title"></div>

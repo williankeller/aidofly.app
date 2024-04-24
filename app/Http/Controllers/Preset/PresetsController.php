@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Preset;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class PresetsController extends AbstractController
 {
@@ -28,7 +29,8 @@ class PresetsController extends AbstractController
             __('Default list of preset templates'),
             [
                 // @see \App\Http\Controllers\Api\Agents\PresetsController::handle
-                'xData' => "list(\"/presets\", {})"
+                'xData' => "list(\"/presets\", {})",
+                'isAdmin' => $this->getUser()->isAdmin(),
             ]
         );
     }
@@ -84,14 +86,20 @@ class PresetsController extends AbstractController
 
     /**
      * Store a newly created resource in storage.
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        /** @var \Illuminate\Auth\AuthManager $authUser */
-        $authUser = auth();
+        $authUser = $this->getUser();
 
-        $status = filter_var($request->input('status', true), FILTER_VALIDATE_BOOLEAN);
-        $request->merge(['status' => $status]);
+        if ($authUser->isAdmin()) {
+            $status = $request->input('status') === 'active' ? true : false;
+            $request->merge(['status' => $status]);
+        } else {
+            $request->merge(['status' => true]);
+        }
 
         $request->validate([
             'visibility' => 'required|string|in:public,private',
@@ -101,14 +109,14 @@ class PresetsController extends AbstractController
             'template' => 'required|string',
             'icon' => 'nullable|string|max:32',
             'color' => 'nullable|string|max:7',
-            'category' => 'required|uuid|exists:categories,uuid',
+            'category' => 'required|uuid',
         ]);
 
         // Get the category id given the uuid
         $category = Category::select('id')->where('uuid', $request->category)->first();
 
         Preset::create([
-            'source' => $authUser->user()->isAdmin() ? 'system' : 'user',
+            'source' => $authUser->isAdmin() ? 'system' : 'user',
             'visibility' => $request->visibility,
             'status' => $request->status,
             'title' => $request->title,
@@ -117,7 +125,7 @@ class PresetsController extends AbstractController
             'icon' => $request->icon ?? null,
             'color' => $request->color ?? $this->getRandomBackgroundColor(),
             'category_id' => $category->id ?? null,
-            'user_id' => $authUser->user()->isAdmin() ? null : $authUser->id(),
+            'user_id' => $authUser->isAdmin() ? null : $authUser->id,
         ]);
 
         return $this->redirect('presets.user', __('Preset template created successfully!'));
@@ -138,7 +146,7 @@ class PresetsController extends AbstractController
             ->firstOrFail();
 
         // Check visibility restrictions
-        if ($preset->visibility === 'private' &&  $preset->user_id !== auth()->id()) {
+        if ($preset->visibility === 'private' &&  $preset->user_id !== $this->getUser()->id) {
             abort(404, 'Unauthorized access to this resource.');
         }
 
@@ -189,7 +197,7 @@ class PresetsController extends AbstractController
         ];
     }
 
-    private function getRandomBackgroundColor()
+    private function getRandomBackgroundColor(): string
     {
         // Generate a random color with a reduced brightness
         $red = dechex(rand(0, 175)); // Limiting to 175 to ensure darkness
@@ -210,12 +218,17 @@ class PresetsController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $uuid)
+    public function edit(string $uuid): View
     {
-        $preset = Preset::select('uuid', 'visibility', 'status', 'title', 'description', 'template', 'user_id')
-            ->where('uuid', $uuid)
-            ->where('user_id', auth()->id())
-            ->firstOrFail();
+        $authUser = $this->getUser();
+
+        $preset = Preset::where('uuid', $uuid);
+
+        if (!$authUser->isAdmin()) {
+            $preset = $preset->where('user_id', $authUser->id);
+        }
+
+        $preset = $preset->firstOrFail();
 
         return $this->view(
             'pages.presets.edit',
@@ -224,21 +237,29 @@ class PresetsController extends AbstractController
             [
                 'preset' => $preset,
                 'categories' => Category::select(['uuid', 'title'])->orderBy('title', 'asc')->get(),
-                'xData' => "{isProcessing:true}"
+                'xData' => "{isProcessing: false}"
             ]
         );
     }
 
     /**
      * Update the specified resource in storage.
+     * @param Request $request
+     * @param string $uuid
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function update(Request $request, string $uuid)
+    public function update(Request $request, string $uuid): RedirectResponse
     {
-        /** @var \Illuminate\Auth\AuthManager $authUser */
-        $authUser = auth();
+        $authUser = $this->getUser();
 
-        $status = filter_var($request->input('status', true), FILTER_VALIDATE_BOOLEAN);
-        $request->merge(['status' => $status]);
+        if ($authUser->isAdmin()) {
+            $status = $request->input('status') === 'active' ? true : false;
+            $request->merge(['status' => $status]);
+        } else {
+            $request->merge(['status' => true]);
+        }
 
         $request->validate([
             'visibility' => 'required|string|in:public,private',
@@ -248,14 +269,20 @@ class PresetsController extends AbstractController
             'template' => 'required|string',
             'icon' => 'nullable|string|max:32',
             'color' => 'nullable|string|max:7',
-            'category' => 'required|uuid|exists:categories,uuid',
+            'category' => 'required|uuid',
         ]);
 
         // Get the category id given the uuid
         $category = Category::select('id')->where('uuid', $request->category)->first();
 
         // Select preset by uuid to make sure it exists and the user is the owner
-        $preset = Preset::select('id')->where('uuid', $uuid)->where('user_id', $authUser->id())->firstOrFail();
+        $preset = Preset::select('id')->where('uuid', $uuid);
+
+        if (!$authUser->isAdmin()) {
+            $preset = $preset->where('user_id', $authUser->id);
+        }
+
+        $preset = $preset->firstOrFail();
 
         Preset::where('id', $preset->id)
             ->update([
@@ -275,8 +302,10 @@ class PresetsController extends AbstractController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, string $uuid)
+    public function destroy(Request $request, string $uuid): RedirectResponse
     {
+        $authUser = $this->getUser();
+
         $request->validate([
             'uuid' => 'required|uuid',
         ]);
@@ -285,7 +314,13 @@ class PresetsController extends AbstractController
             abort(404, 'Invalid request');
         }
 
-        Preset::where('uuid', $uuid)->where('user_id', auth()->id())->delete();
+        $preset = Preset::where('uuid', $uuid);
+
+        if (!$authUser->isAdmin()) {
+            $preset = $preset->where('user_id', $authUser->id);
+        }
+
+        $preset->delete();
 
         return $this->redirect('presets.user', __('Preset template deleted successfully!'));
     }

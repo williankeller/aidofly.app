@@ -7,7 +7,6 @@
     </section>
 
     <form is="x-form" x-ref="form" action="{{ route('presets.update', $preset->uuid) }}" method="post">
-        @method('PUT')
         <section class="p-5 card mb-3">
             <h3 class="fw-bolder h5">@lang('Details')</h3>
             <div class="d-grid gap-3 mt-3">
@@ -28,7 +27,7 @@
                     <label class="form-label required" for="category">@lang('Category')</label>
                     <select class="form-control form-select" id="category" name="category" required>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->uuid }}" @if ($preset->uuid === $category->uuid) selected @endif>
+                            <option value="{{ $category->uuid }}" @if ($preset->category->uuid === $category->uuid) selected @endif>
                                 {{ $category->title }}</option>
                         @endforeach
                     </select>
@@ -86,7 +85,7 @@
                     </div>
                     <label class="form-check form-switch form-check-reverse mb-0" for="status" @click="status = !status">
                         <input class="form-check-input" type="checkbox" name="status" role="switch" id="status"
-                            value="1" @checked($preset->status)>
+                            value="active" @checked($preset->status)>
                         <span class="form-check-label fw-bold"
                             :class="{ 'd-none': !status, 'd-block': status }">@lang('Active')</span>
                         <span class="form-check-label fw-bold"
@@ -125,47 +124,47 @@
             </section>
         @endif
 
-        <div class="d-flex justify-content-between mt-4 mb-5">
-            <button type="button" class="btn btn-danger" @click="modal.open('delete-preset-modal')">
-                <i class="fs-5 ti ti-trash"></i>
-                <span class="ms-2">@lang('Delete template')</span>
-            </button>
-            <x-button type="submit" disabled="isProcessing">
+        <section class="d-flex justify-content-between my-5">
+            <div role="none" tabindex="-1" class="d-none">
+                @method('PUT')
                 @csrf
+            </div>
+            <x-modal.trigger id="delete-preset-modal" variant="danger">
+                <i class="fs-5 ti ti-trash"></i>
+                <span class="ms-1">@lang('Delete template')</span>
+            </x-modal.trigger>
+            <x-button type="submit" disabled="isProcessing">
+
                 <i class="fs-5 ti ti-device-floppy"></i>
                 <span class="ms-2">@lang('Update template')</span>
             </x-button>
-        </div>
+        </section>
     </form>
-@endsection
 
-@push('script-stack-before')
-    <div is="x-modal" id="delete-preset-modal" class="modal fade show" tabindex="-1" aria-modal="true"
-        role="dialog">
-        <div class="modal-dialog">
-            <form class="modal-content" method="post" action="{{ route('presets.destroy', $preset->uuid) }}">
-                @method('DELETE')
-                @csrf
-                <input type="hidden" name="uuid" value="{{ $preset->uuid }}">
-                <div class="modal-body text-center">
-                    <div class="m-4 d-flex align-items-center justify-content-center">
-                        <div
-                            class="icon-lg bg-danger bg-gradient text-white rounded d-flex align-items-center justify-content-center">
-                            <i class="fs-2 ti ti-trash"></i>
-                        </div>
-                    </div>
-                    <p>@lang('Are you sure you want to delete <strong>:title</strong> template?', ['title' => $preset->title])</p>
-                    <div class="mt-4 d-flex align-items-center justify-content-center">
-                        <button type="button" class="btn btn-secondary m-2"
-                            @click="modal.close()">@lang('No, cancel')</button>
-                        <button type="submit" class="btn btn-danger">@lang('Yes, delete')</button>
+    <x-modal.modal id="delete-preset-modal" size="md">
+        <form class="modal-content" method="post" action="{{ route('presets.destroy', $preset->uuid) }}">
+            <div class="modal-body text-center">
+                <div class="m-4 d-flex align-items-center justify-content-center">
+                    <div
+                        class="icon-lg bg-danger bg-gradient text-white rounded d-flex align-items-center justify-content-center">
+                        <i class="fs-2 ti ti-trash"></i>
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
-    <div class="modal-backdrop fade show d-none"></div>
-@endpush
+                <p>@lang('Are you sure you want to delete <strong>:title</strong> template?', ['title' => $preset->title])</p>
+                <div role="none" tabindex="-1" class="d-none">
+                    @method('DELETE')
+                    @csrf
+                    <input type="hidden" name="uuid" value="{{ $preset->uuid }}">
+                </div>
+                <div class="mt-4 d-flex align-items-center justify-content-center">
+                    <button type="button" class="btn btn-secondary m-2"
+                        @click="modal.close()">@lang('No, cancel')</button>
+                    <button type="submit" class="btn btn-danger">@lang('Yes, delete')</button>
+                </div>
+            </div>
+        </form>
+    </x-modal.modal>
+@endsection
 
 @push('script-stack-after')
     @if ($errors->any())

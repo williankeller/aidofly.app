@@ -1,12 +1,15 @@
-@import "base";
+@import "base/fonts";
+@import "base/variables";
+@import "base/typography";
 
 // Bootstrap imports
 @import "~bootstrap/scss/bootstrap";
+
+@import "base/properties";
 
 @import 'tippy.js/dist/tippy';
 @import 'tippy.js/dist/backdrop.css';
 @import 'tippy.js/animations/shift-away.css';
 
 @import "reset";
-
 @import "components";

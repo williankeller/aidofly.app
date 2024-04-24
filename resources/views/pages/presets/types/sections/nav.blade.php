@@ -6,7 +6,7 @@
                 'active' => isRoute('presets.index'),
             ])>
                 <i class="fs-5 ti ti-device-laptop me-1"></i>
-                <strong>@lang('Default')</strong>
+                <span>@lang('Default')</span>
             </a>
         </li>
         <li class="nav-item">
@@ -15,7 +15,7 @@
                 'active' => isRoute('presets.user'),
             ])>
                 <i class="fs-5 ti ti-user me-1"></i>
-                <strong>@lang('My presets')</strong>
+                <span>@lang('My presets')</span>
             </a>
         </li>
         <li class="nav-item">
@@ -24,7 +24,7 @@
                 'active' => isRoute('presets.discover'),
             ])>
                 <i class="fs-5 ti ti-world-search me-1"></i>
-                <strong>@lang('Discover')</strong>
+                <span>@lang('Discover')</span>
             </a>
         </li>
     </ul>

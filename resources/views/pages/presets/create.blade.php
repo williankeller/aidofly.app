@@ -84,7 +84,7 @@
                     </div>
                     <label class="form-check form-switch form-check-reverse mb-0" for="status" @click="status = !status">
                         <input class="form-check-input" type="checkbox" name="status" role="switch" id="status"
-                            value="1" checked>
+                            value="active" checked>
                         <span class="form-check-label fw-bold"
                             :class="{ 'd-none': !status, 'd-block': status }">@lang('Active')</span>
                         <span class="form-check-label fw-bold"
@@ -121,14 +121,15 @@
             </section>
         @endif
 
-
-        <div class="d-flex justify-content-end mt-4 mb-5">
-            <x-button type="submit">
+        <section class="d-flex justify-content-end my-5">
+            <div role="none" tabindex="-1" class="d-none">
                 @csrf
+            </div>
+            <x-button type="submit">
                 <i class="ti ti-sparkles h5 mb-0"></i>
                 <span class="ms-2">@lang('Create template')</span>
             </x-button>
-        </div>
+        </section>
     </form>
 @endsection
 
