@@ -36,10 +36,7 @@
                             autocomplete="current-password" minlength="6" maxlength="255" />
                     </div>
                     <div class="d-flex justify-content-between gap-2 mb-4 align-items-center">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                            <label class="form-check-label" for="remember">@lang('Keep me logged in')</label>
-                        </div>
+                        <div></div>
                         <a href="{{ route('auth.recover') }}" class="text-sm text-muted text-primary-hover text-underline">
                             <small>@lang('Forgot password?')</small>
                         </a>

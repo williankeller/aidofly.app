@@ -13,7 +13,7 @@
             <div class="free-form col-lg-4 d-flex align-items-stretch mb-3">
                 <a class="card mb-2 p-3 d-block w-100" href="{{ route('agent.writer.create') }}">
                     <div class="d-inline-block">
-                        <div class="bg-warning bg-gradient rounded p-2 d-flex align-items-center">
+                        <div class="card-icon bg-warning bg-gradient rounded p-2 d-flex align-items-center">
                             <i class="fs-4 text-white ti ti-file-text"></i>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
                     <a class="card mb-2 p-3 w-100 d-block" x-bind:href="`{{ route('presets.show', '') }}/${preset.uuid}`">
                         <div class="d-inline-block">
-                            <div class="bg-gradient rounded p-2 d-flex align-items-center"
+                            <div class="card-icon bg-gradient rounded p-2 d-flex align-items-center"
                                 :style="{ backgroundColor: preset.color }">
                                 <i class="fs-4 text-white ti" :class="preset.icon"></i>
                             </div>

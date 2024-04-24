@@ -25,7 +25,7 @@ class PresetsController extends AbstractController
         return $this->view(
             'pages.presets.types.default',
             __('Predifined preset'),
-            __('List of your custom presets'),
+            __('Default list of preset templates'),
             [
                 // @see \App\Http\Controllers\Api\Agents\PresetsController::handle
                 'xData' => "list(\"/presets\", {})"
@@ -39,7 +39,7 @@ class PresetsController extends AbstractController
     {
         return $this->view(
             'pages.presets.types.user',
-            __('Your custom presets'),
+            __('Custom presets'),
             __('List of your custom presets'),
             [
                 // @see \App\Http\Controllers\Api\Agents\PresetsController::handle
@@ -56,7 +56,7 @@ class PresetsController extends AbstractController
         return $this->view(
             'pages.presets.types.discover',
             __('Worldwide presets'),
-            __('List of your custom presets'),
+            __('See what other users have created publicly'),
             [
                 // @see \App\Http\Controllers\Api\Agents\PresetsController::handle
                 'xData' => "list(\"/presets/discover\", {})"
@@ -90,7 +90,7 @@ class PresetsController extends AbstractController
         /** @var \Illuminate\Auth\AuthManager $authUser */
         $authUser = auth();
 
-        $status = filter_var($request->input('status', false), FILTER_VALIDATE_BOOLEAN);
+        $status = filter_var($request->input('status', true), FILTER_VALIDATE_BOOLEAN);
         $request->merge(['status' => $status]);
 
         $request->validate([
@@ -219,11 +219,12 @@ class PresetsController extends AbstractController
 
         return $this->view(
             'pages.presets.edit',
-            "Editing: " . $preset->title,
+            __("Editing: ") . $preset->title,
             $preset->description,
             [
                 'preset' => $preset,
-                'categories' => Category::select(['uuid', 'title'])->orderBy('title', 'asc')->get()
+                'categories' => Category::select(['uuid', 'title'])->orderBy('title', 'asc')->get(),
+                'xData' => "{isProcessing:true}"
             ]
         );
     }
@@ -236,7 +237,7 @@ class PresetsController extends AbstractController
         /** @var \Illuminate\Auth\AuthManager $authUser */
         $authUser = auth();
 
-        $status = filter_var($request->input('status', false), FILTER_VALIDATE_BOOLEAN);
+        $status = filter_var($request->input('status', true), FILTER_VALIDATE_BOOLEAN);
         $request->merge(['status' => $status]);
 
         $request->validate([
@@ -274,8 +275,16 @@ class PresetsController extends AbstractController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $uuid)
+    public function destroy(Request $request, string $uuid)
     {
+        $request->validate([
+            'uuid' => 'required|uuid',
+        ]);
+
+        if ($request->uuid !== $uuid) {
+            abort(404, 'Invalid request');
+        }
+
         Preset::where('uuid', $uuid)->where('user_id', auth()->id())->delete();
 
         return $this->redirect('presets.user', __('Preset template deleted successfully!'));

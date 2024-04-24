@@ -2,3 +2,32 @@ h5,
 .h5 {
     font-size: 1.15rem;
 }
+
+.text-hover-primary:hover {
+    color: var(--bs-primary) !important;
+}
+.text-hover-secondary:hover {
+    color: var(--bs-secondary) !important;
+}
+.text-hover-success:hover {
+    color: var(--bs-success) !important;
+}
+.text-hover-danger:hover {
+    color: var(--bs-danger) !important;
+}
+.text-hover-warning:hover {
+    color: var(--bs-warning) !important;
+}
+.text-hover-info:hover {
+    color: var(--bs-info) !important;
+}
+
+.icon-md {
+    width: 40px;
+    height: 40px;
+}
+
+.icon-lg {
+    width: 60px;
+    height: 60px;
+}

@@ -2,7 +2,13 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="home.index" :name="__('Home')" icon="ti-square-rounded-arrow-left-filled" />
+        @if (url()->previous() === route('presets.index'))
+            <x-nav.back route="presets.index" :name="__('Default presets')" icon="ti-square-rounded-arrow-left-filled" />
+        @elseif (url()->previous() === route('presets.user'))
+            <x-nav.back route="presets.user" :name="__('My presets')" icon="ti-square-rounded-arrow-left-filled" />
+        @else
+            <x-nav.back route="home.index" :name="__('Home')" icon="ti-square-rounded-arrow-left-filled" />
+        @endif
         @include('pages.presets.types.sections.nav')
     </section>
 
@@ -14,7 +20,7 @@
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
                     <a class="card mb-2 p-3 w-100 d-block" x-bind:href="`{{ route('presets.show', '') }}/${preset.uuid}`">
                         <div class="d-inline-block">
-                            <div class="bg-gradient rounded p-2 d-flex align-items-center"
+                            <div class="card-icon bg-gradient rounded p-2 d-flex align-items-center"
                                 :style="{ backgroundColor: preset.color }">
                                 <span class="fs-5 text-white"
                                     x-text="preset.title.match(/(\b\S)?/g).join('').slice(0, 2)"></span>

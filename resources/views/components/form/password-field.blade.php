@@ -7,7 +7,7 @@
 
         <button type="button" class="input-password-toggle" aria-label="Toggle password visibility"
             @click="isVisible = !isVisible">
-            <i class="fs-4 ti ti-eye text-muted" :class="{ 'ti-eye-closed': isVisible, 'ti-eye': !isVisible }"></i>
+            <i class="fs-4 ti ti-eye-closed text-muted" :class="{ 'ti-eye': isVisible, 'ti-eye-closed': !isVisible }"></i>
         </button>
     </div>
     @if ($errors->has($id))

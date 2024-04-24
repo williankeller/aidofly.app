@@ -3,13 +3,14 @@
 
 @include('layouts.snippets.head', ['robots' => $robots ?? 'index, follow'])
 
-<body class="vh-100">
+<body>
     <div class="app d-flex">
-        <aside role="navigation" class="aside vh-100 d-flex flex-column py-4">
+        <aside role="navigation" class="aside d-flex flex-column py-4">
             @include('sections.aside')
         </aside>
-        <div class="vh-100 d-flex flex-column flex-grow-1">
-            <main role="main" class="main" x-data="{{ $xData ?? '__' }}">
+        <div class="d-flex flex-column flex-grow-1">
+            <main role="main" class="main"
+                @isset($xData) x-data="{{ $xData }}" @endisset>
                 @yield('content')
             </main>
             <footer class="footer">
@@ -19,4 +20,5 @@
     </div>
     @include('layouts.snippets.scripts')
 </body>
+
 </html>

@@ -14,19 +14,13 @@
             <i class="fs-4 ti ti-files"></i>
             <span class="ms-2">@lang('Library')</span>
         </x-aside.item>
-        @if (auth()->user()->isAdmin())
-            <x-aside.item route="home.index">
-                <i class="fs-4 ti ti-stack"></i>
-                <span class="ms-2">@lang('Themes')</span>
-            </x-aside.item>
-        @endif
     </ul>
     <ul class="list-unstyled">
         <li class="nav-item mb-1">
             <strong>@lang('Agents')</strong>
         </li>
         <x-aside.item route="presets.index">
-            <span class="bg-warning bg-gradient rounded p-1 d-flex align-items-center">
+            <span class="nav-icon bg-warning bg-gradient rounded p-1 d-flex align-items-center">
                 <i class="fs-4 text-white ti ti-file-text"></i>
             </span>
             <span class="ms-2">@lang('Writer')</span>

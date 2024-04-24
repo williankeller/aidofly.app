@@ -18,10 +18,6 @@ class SigninController extends AbstractAuthController
 
     public function authorize(Request $request): RedirectResponse
     {
-        // Convert remember checkbox input to boolean and merge it back into the request
-        $remember = filter_var($request->input('remember', false), FILTER_VALIDATE_BOOLEAN);
-        $request->merge(['remember' => $remember]);
-
         $request->validate([
             'email' => [
                 'required',
@@ -30,16 +26,13 @@ class SigninController extends AbstractAuthController
                 'max:255',
                 'regex:/^[^@]+@[^@]+\.[a-z]{2,}$/'
             ],
-            'password' => 'required|string|min:6',
-            'remember' => 'boolean'
+            'password' => 'required|string|min:6'
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'), $request->remember)) {
+        if (Auth::attempt($request->only('email', 'password'), true)) {
             $request->session()->regenerate();
 
-            $expires = (int) $request->remember ? 1209600 : 86400;
-
-            $this->setAuthCookieToken($expires);
+            $this->setAuthCookieToken();
 
             return $this->redirect(
                 'home.index',

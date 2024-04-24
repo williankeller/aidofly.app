@@ -83,12 +83,12 @@ Alpine.data("list", (basePath, strings = []) => ({
     },
 
     loadMore() {
+
         window.addEventListener("scroll", () => {
             if (
                 this.hasMore &&
                 !this.isLoading &&
-                window.innerHeight + window.scrollY + 500 >=
-                    document.documentElement.scrollHeight
+                window.innerHeight + window.scrollY + 600 >= document.documentElement.scrollHeight
             ) {
                 this.retrieveResources();
             }

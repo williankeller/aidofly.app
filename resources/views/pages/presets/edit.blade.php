@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="presets.index" :name="__('Templates')" icon="ti-square-rounded-arrow-left-filled" />
+        <x-nav.back route="presets.user" :name="__('Your templates')" icon="ti-square-rounded-arrow-left-filled" />
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 
@@ -50,24 +50,9 @@
 
         <section class="p-5 card mb-3">
             <h3 class="fw-bolder h5">@lang('Visibility')</h3>
-            <div class="mt-3 mb-2 d-flex justify-content-between align-items-center" x-data="{ status: {{ $preset->status ?? 'false' }} }">
-                <div class="form-label mb-0">
-                    <span>@lang('Status')</span>
-                    <small class="d-block text-muted fw-normal">@lang('Enable this template to make it available for use')</small>
-                </div>
-                <label class="form-check form-switch form-check-reverse mb-0" for="status" @click="status = !status">
-                    <input class="form-check-input" type="checkbox" name="status" role="switch" id="status"
-                        value="1" @checked($preset->status)>
-                    <span class="form-check-label fw-bold"
-                        :class="{ 'd-none': !status, 'd-block': status }">@lang('Active')</span>
-                    <span class="form-check-label fw-bold"
-                        :class="{ 'd-none': status, 'd-block': !status }">@lang('Inactive')</span>
-                </label>
-            </div>
-            <hr class="my-3">
             <div class="mt-2 d-flex justify-content-between align-items-center">
                 <div class="form-label mb-0">
-                    <span>@lang('Visibility')</span>
+                    <span>@lang('Status')</span>
                     <small class="d-block text-muted fw-normal">@lang('Make this template visible to the world')</small>
                 </div>
                 <div class="d-flex">
@@ -94,42 +79,93 @@
         @if (auth()->user()->isAdmin())
             <section class="p-5 card mb-3">
                 <h3 class="fw-bolder h5">@lang('Admin')</h3>
-                <div class="row mt-3">
-                    <div class="col-md-4">
+                <div class="mt-3 d-flex justify-content-between align-items-center" x-data="{ status: {{ $preset->status ?? 'false' }} }">
+                    <div class="form-label mb-0">
+                        <span>@lang('Status')</span>
+                        <small class="d-block text-muted fw-normal">@lang('Enable this template to make it available for use')</small>
+                    </div>
+                    <label class="form-check form-switch form-check-reverse mb-0" for="status" @click="status = !status">
+                        <input class="form-check-input" type="checkbox" name="status" role="switch" id="status"
+                            value="1" @checked($preset->status)>
+                        <span class="form-check-label fw-bold"
+                            :class="{ 'd-none': !status, 'd-block': status }">@lang('Active')</span>
+                        <span class="form-check-label fw-bold"
+                            :class="{ 'd-none': status, 'd-block': !status }">@lang('Inactive')</span>
+                    </label>
+                </div>
+                <div class="row mt-5 d-flex justify-content-between">
+                    <div class="col-lg-4">
                         <x-form.input-field id="icon" :label="__('Icon code')" :placeholder="__('Example: ti-arrow')" :value="$preset->icon"
                             maxlength="32" />
                     </div>
-                    <div class="col-md-3">
-                        <label class="form-label" for="color">@lang('Background color')</label>
-                        <input type="color" class="form-control" id="color" name="color"
-                            style="max-width: 100px; width: 100px;" value="{{ old('color', $preset->color) }}"
-                            maxlength="7">
+                    <div class="col-lg-4 d-flex justify-content-center">
+                        <div>
+                            <label class="form-label" for="color">@lang('Background color')</label>
+                            <input type="color" class="form-control" id="color" name="color"
+                                style="max-width: 100px; width: 100px;"
+                                @if (old('color', $preset->color)) value="{{ old('color', $preset->color) }}" @endif
+                                maxlength="7">
+                        </div>
                     </div>
-                    <div class="col-md-4" x-data="{ hightlight: false }">
-                        <div class="form-label">@lang('Hightlight')</div>
-                        <label class="form-check form-switch mb-0 mt-3" for="hightlight"
-                            @click="hightlight = !hightlight">
-                            <input class="form-check-input" type="checkbox" name="hightlight" role="switch"
-                                id="hightlight" value="1">
-                            <span class="form-check-label"
-                                :class="{ 'd-none': !hightlight, 'd-block': hightlight }">@lang('Yes')</span>
-                            <span class="form-check-label"
-                                :class="{ 'd-none': hightlight, 'd-block': !hightlight }">@lang('No')</span>
-                        </label>
+                    <div class="col-lg-3 d-flex justify-content-end" x-data="{ hightlight: false }">
+                        <div>
+                            <div class="form-label">@lang('Hightlight')</div>
+                            <label class="form-check form-switch mb-0 mt-3" for="hightlight"
+                                @click="hightlight = !hightlight">
+                                <input class="form-check-input" type="checkbox" name="hightlight" role="switch"
+                                    id="hightlight" value="1">
+                                <span class="form-check-label"
+                                    :class="{ 'd-none': !hightlight, 'd-block': hightlight }">@lang('Yes')</span>
+                                <span class="form-check-label"
+                                    :class="{ 'd-none': hightlight, 'd-block': !hightlight }">@lang('No')</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </section>
         @endif
 
-        <div class="d-flex justify-content-end mt-4 mb-5">
-            <x-button type="submit">
+        <div class="d-flex justify-content-between mt-4 mb-5">
+            <button type="button" class="btn btn-danger" @click="modal.open('delete-preset-modal')">
+                <i class="fs-5 ti ti-trash"></i>
+                <span class="ms-2">@lang('Delete template')</span>
+            </button>
+            <x-button type="submit" disabled="isProcessing">
                 @csrf
-                <i class="ti ti-sparkles h5 mb-0"></i>
+                <i class="fs-5 ti ti-device-floppy"></i>
                 <span class="ms-2">@lang('Update template')</span>
             </x-button>
         </div>
     </form>
 @endsection
+
+@push('script-stack-before')
+    <div is="x-modal" id="delete-preset-modal" class="modal fade show" tabindex="-1" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <form class="modal-content" method="post" action="{{ route('presets.destroy', $preset->uuid) }}">
+                @method('DELETE')
+                @csrf
+                <input type="hidden" name="uuid" value="{{ $preset->uuid }}">
+                <div class="modal-body text-center">
+                    <div class="m-4 d-flex align-items-center justify-content-center">
+                        <div
+                            class="icon-lg bg-danger bg-gradient text-white rounded d-flex align-items-center justify-content-center">
+                            <i class="fs-2 ti ti-trash"></i>
+                        </div>
+                    </div>
+                    <p>@lang('Are you sure you want to delete <strong>:title</strong> template?', ['title' => $preset->title])</p>
+                    <div class="mt-4 d-flex align-items-center justify-content-center">
+                        <button type="button" class="btn btn-secondary m-2"
+                            @click="modal.close()">@lang('No, cancel')</button>
+                        <button type="submit" class="btn btn-danger">@lang('Yes, delete')</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show d-none"></div>
+@endpush
 
 @push('script-stack-after')
     @if ($errors->any())

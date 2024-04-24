@@ -12,8 +12,12 @@ abstract class AbstractAuthController extends AbstractController
     ) {
     }
 
-    protected function setAuthCookieToken($expires = 86400): void
+    protected function setAuthCookieToken(?int $expires = null): void
     {
+        if ($expires === null) {
+            $expires = 365 * 24 * 60 * 60;
+        }
+
         $jwtToken = $this->token->generate(
             auth()->user()->uuid,
             $expires
