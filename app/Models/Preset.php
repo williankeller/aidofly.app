@@ -45,4 +45,10 @@ class Preset extends Model
             $preset->uuid = (string) Str::uuid();
         });
     }
+
+    public function getAbbreviation()
+    {
+        $abbreviation = preg_replace('/\b(\w)\w*\s*/', '$1', $this->title);
+        return strtoupper(substr($abbreviation, 0, 2));
+    }
 }

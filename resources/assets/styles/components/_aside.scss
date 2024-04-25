@@ -35,5 +35,7 @@
     }
     &.nav-pills {
         --bs-nav-link-color: var(--bs-secondary-color);
+        --bs-nav-link-padding-x: 0.8rem;
+        --bs-nav-link-padding-y: 0.3rem;
     }
 }

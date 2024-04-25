@@ -339,7 +339,7 @@ blockquote {
 
 b,
 strong {
-  font-weight: bolder;
+  font-weight: 800;
 }
 
 small, .small {
@@ -7307,7 +7307,7 @@ textarea.form-control-lg {
 }
 
 .d-none, [data-state=empty] .placeholders,
-[data-state=empty] .free-form, [data-state=loaded] .placeholders, [data-state=initial] .free-form {
+[data-state=empty] .card-static, [data-state=loaded] .placeholders, [data-state=initial] .card-static {
   display: none !important;
 }
 
@@ -8366,7 +8366,7 @@ textarea.form-control-lg {
 }
 
 .fw-bolder {
-  font-weight: bolder !important;
+  font-weight: 800 !important;
 }
 
 .lh-1 {
@@ -12129,6 +12129,8 @@ hr {
 }
 .nav.nav-pills {
   --bs-nav-link-color: var(--bs-secondary-color);
+  --bs-nav-link-padding-x: 0.8rem;
+  --bs-nav-link-padding-y: 0.3rem;
 }
 
 .btn {
@@ -12178,17 +12180,25 @@ hr {
   opacity: 0;
 }
 
+.card-wrapper-selected {
+  --bs-border-color-from: rgb(132 108 249 / 45%);
+  --bs-border-color-to: rgb(48 200 98 / 35%);
+  border-radius: var(--bs-border-radius);
+  padding: 2px;
+  transition: background-image 0.5s;
+  background-image: linear-gradient(to bottom right, var(--bs-border-color-from), var(--bs-border-color-to));
+}
+.card-wrapper-selected:hover {
+  transition: background-image 0.5s;
+  background-image: linear-gradient(to top left, var(--bs-border-color-from), var(--bs-border-color-to));
+}
+
 .card {
   --bs-card-border-color: var(--bs-border-color-dimmed);
+  transition: border-color 0.3s;
 }
-.card .card-title {
-  font-size: 1.125rem;
-  font-weight: 800;
-  line-height: 1.75rem;
-}
-.card .card-icon {
-  width: 40px;
-  height: 40px;
+.card.card-item:hover {
+  --bs-card-border-color: var(--bs-border-color);
 }
 
 .hover-text-danger:hover {

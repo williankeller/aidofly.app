@@ -20,7 +20,7 @@ hr {
 }
 
 [data-state="initial"] {
-    .free-form {
+    .card-static {
         @extend .d-none;
     }
 }
@@ -36,7 +36,7 @@ hr {
         display: block;
     }
     .placeholders,
-    .free-form {
+    .card-static {
         @extend .d-none;
     }
 }

@@ -19,23 +19,28 @@ class PresetsController extends AbstractController
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the system defined presets.
+     * @return View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(): View
     {
         return $this->view(
             'pages.presets.types.default',
-            __('Predifined preset'),
-            __('Default list of preset templates'),
+            __('Default presets'),
+            __('System defined list of preset templates'),
             [
-                // @see \App\Http\Controllers\Api\Agents\PresetsController::handle
+                /** @see \App\Http\Controllers\Api\Presets\PresetsController::index */
                 'xData' => "list(\"/presets\", {})",
                 'isAdmin' => $this->getUser()->isAdmin(),
             ]
         );
     }
+
     /**
-     * Display a listing of the resource.
+     * Display a listing of the presets from the authenticated user.
+     * @return View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function user(): View
     {
@@ -44,14 +49,16 @@ class PresetsController extends AbstractController
             __('Custom presets'),
             __('List of your custom presets'),
             [
-                // @see \App\Http\Controllers\Api\Agents\PresetsController::handle
+                /** @see \App\Http\Controllers\Api\Presets\PresetsController::user */
                 'xData' => "list(\"/presets/mine\", {})"
             ]
         );
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the public presets from other users.
+     * @return View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function discover(): View
     {
@@ -60,7 +67,7 @@ class PresetsController extends AbstractController
             __('Worldwide presets'),
             __('See what other users have created publicly'),
             [
-                // @see \App\Http\Controllers\Api\Agents\PresetsController::handle
+                /** @see \App\Http\Controllers\Api\Presets\PresetsController::discover */
                 'xData' => "list(\"/presets/discover\", {})"
             ]
         );
@@ -68,18 +75,18 @@ class PresetsController extends AbstractController
 
     /**
      * Show the form for creating a new resource.
+     * @return View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function create(): View
     {
-        /** @var \Illuminate\Database\Eloquent\Collection $categories */
-        $categories = Category::orderBy('title', 'asc')->get();
-
         return $this->view(
             'pages.presets.create',
             __('Create a new preset'),
             __('Create a new preset'),
             [
-                'categories' => $categories
+                'categories' => Category::select(['uuid', 'title'])->orderBy('title', 'asc')->get()
             ]
         );
     }
@@ -145,7 +152,7 @@ class PresetsController extends AbstractController
             ->where('status', 1)
             ->firstOrFail();
 
-        // Check visibility restrictions
+        // If the preset is private, only the owner can access it
         if ($preset->visibility === 'private' &&  $preset->user_id !== $this->getUser()->id) {
             abort(404, 'Unauthorized access to this resource.');
         }
@@ -224,16 +231,16 @@ class PresetsController extends AbstractController
 
         $preset = Preset::where('uuid', $uuid);
 
+        // If the user is not an admin, restrict the update to their own presets
         if (!$authUser->isAdmin()) {
             $preset = $preset->where('user_id', $authUser->id);
         }
-
         $preset = $preset->firstOrFail();
 
         return $this->view(
             'pages.presets.edit',
-            __("Editing: ") . $preset->title,
-            $preset->description,
+            __("Editing: :title", ['title' => $preset->title]),
+            __("Details: :description", ['description' => $preset->description]),
             [
                 'preset' => $preset,
                 'categories' => Category::select(['uuid', 'title'])->orderBy('title', 'asc')->get(),
@@ -278,6 +285,7 @@ class PresetsController extends AbstractController
         // Select preset by uuid to make sure it exists and the user is the owner
         $preset = Preset::select('id')->where('uuid', $uuid);
 
+        // If the user is not an admin, restrict the update to their own presets
         if (!$authUser->isAdmin()) {
             $preset = $preset->where('user_id', $authUser->id);
         }
@@ -316,6 +324,7 @@ class PresetsController extends AbstractController
 
         $preset = Preset::where('uuid', $uuid);
 
+        // If the user is not an admin, restrict the deletion to their own presets
         if (!$authUser->isAdmin()) {
             $preset = $preset->where('user_id', $authUser->id);
         }

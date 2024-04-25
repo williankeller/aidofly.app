@@ -1,13 +1,28 @@
+.card-wrapper-selected {
+    --bs-border-color-from: rgb(132 108 249 / 45%);
+    --bs-border-color-to: rgb(48 200 98 / 35%);
+    border-radius: var(--bs-border-radius);
+    padding: 2px;
+    transition: background-image 0.5s;
+    background-image: linear-gradient(
+        to bottom right,
+        var(--bs-border-color-from),
+        var(--bs-border-color-to)
+    );
+
+    &:hover {
+        transition: background-image 0.5s;
+        background-image: linear-gradient(
+            to top left,
+            var(--bs-border-color-from),
+            var(--bs-border-color-to)
+        );
+    }
+}
 .card {
     --bs-card-border-color: var(--bs-border-color-dimmed);
-    .card-title {
-        font-size: 1.125rem;
-        font-weight: 800;
-        line-height: 1.75rem;
-    }
-
-    .card-icon {
-        width: 40px;
-        height: 40px;
+    transition: border-color 0.3s;
+    &.card-item:hover {
+        --bs-card-border-color: var(--bs-border-color);
     }
 }

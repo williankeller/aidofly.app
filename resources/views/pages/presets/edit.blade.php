@@ -41,7 +41,7 @@
                 <div class="mb-2">
                     <label class="form-label required" for="template">@lang('AI Prompt')</label>
                     <textarea class="form-control" id="template" name="template"
-                        placeholder="{{ __('Describe how the AI should behave given a prompt') }}" rows="4" autocomplete="off"
+                        placeholder="{{ __('Describe how the AI should behave given a prompt') }}" rows="5" autocomplete="off"
                         required>{{ old('template', $preset->template) }}</textarea>
                 </div>
             </div>
@@ -55,20 +55,20 @@
                     <small class="d-block text-muted fw-normal">@lang('Make this template visible to the world')</small>
                 </div>
                 <div class="d-flex">
-                    <div class="form-check me-4">
-                        <input class="form-check-input mt-3" type="radio" name="visibility" id="visibilityPublic"
-                            value="public" @checked($preset->visibility === 'public')>
-                        <label class="form-check-label" for="visibilityPublic">
-                            <span class="fw-bold">@lang('Public')</span>
-                            <small class="d-block text-muted">@lang('World will see it')</small>
+                    <div class="form-check-group me-2">
+                        <input type="radio" class="btn-check" name="visibility" id="visibilityPublic" value="public"
+                            @checked($preset->visibility === 'public') autocomplete="off">
+                        <label class="btn btn-secondary d-flex align-items-center" for="visibilityPublic">
+                            <i class="fs-5 ti ti-world"></i>
+                            <span class="fw-bold ms-1">@lang('Public')</span>
                         </label>
                     </div>
-                    <div class="form-check mb-0">
-                        <input class="form-check-input mt-3" type="radio" name="visibility" id="visibilityPrivate"
-                            value="private" @checked($preset->visibility === 'private')>
-                        <label class="form-check-label" for="visibilityPrivate">
-                            <span class="fw-bold">@lang('Private')</span>
-                            <small class="d-block text-muted">@lang('Only for you')</small>
+                    <div class="form-check-group">
+                        <input type="radio" class="btn-check" name="visibility" id="visibilityPrivate" value="private"
+                            @checked($preset->visibility === 'private') autocomplete="off">
+                        <label class="btn btn-secondary d-flex align-items-center" for="visibilityPrivate">
+                            <i class="fs-5 ti ti-lock"></i>
+                            <span class="fw-bold ms-1">@lang('Private')</span>
                         </label>
                     </div>
                 </div>
@@ -133,8 +133,7 @@
                 <i class="fs-5 ti ti-trash"></i>
                 <span class="ms-1">@lang('Delete template')</span>
             </x-modal.trigger>
-            <x-button type="submit" disabled="isProcessing">
-
+            <x-button>
                 <i class="fs-5 ti ti-device-floppy"></i>
                 <span class="ms-2">@lang('Update template')</span>
             </x-button>
