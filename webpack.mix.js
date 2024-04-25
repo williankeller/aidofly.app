@@ -16,6 +16,10 @@ mix.js("resources/assets/scripts/core.js", `public/js/core.min.js`)
     .js("resources/assets/scripts/pages/library.js", "public/js/library.min.js")
     .js("resources/assets/scripts/pages/listing.js", "public/js/listing.min.js")
     .js("resources/assets/scripts/pages/auth.js", "public/js/auth.min.js")
+    .js(
+        "resources/assets/scripts/pages/agents/voiceover.js",
+        "public/js/voiceover.min.js"
+    )
     .sourceMaps();
 
 /**

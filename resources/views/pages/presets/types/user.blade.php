@@ -52,7 +52,7 @@
                             <small class="mt-2 text-sm text-muted d-block" x-text="preset.description"></small>
                         </div>
                         <div class="category mt-2">
-                            <span class="badge text-bg-secondary rounded-pill" x-text="preset.category.title"></span>
+                            <span class="badge text-bg-secondary" x-text="preset.category.title"></span>
                         </div>
                         <a x-bind:href="`{{ route('presets.show', '') }}/${preset.uuid}`" class="stretched-link z-1"></a>
                     </div>

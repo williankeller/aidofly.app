@@ -18,6 +18,16 @@
         }
     }
 
+    &-light {
+        --bs-btn-hover-border-color: var(--bs-light);
+        --bs-btn-hover-bg: var(--bs-light);
+        outline-color: var(--bs-light);
+
+        &:hover {
+            outline-style: solid;
+        }
+    }
+
     &-danger {
         --bs-btn-color: var(--bs-white);
         --bs-btn-active-color: var(--bs-white);

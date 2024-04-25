@@ -25,11 +25,11 @@
             </span>
             <span class="ms-2">@lang('Writer')</span>
         </x-aside.item>
-        {{--<x-aside.item route="home.index">
+        <x-aside.item route="agent.voiceover.index">
             <span class="bg-success bg-gradient rounded p-1 d-flex align-items-center">
                 <i class="fs-4 text-white ti ti-speakerphone"></i>
             </span>
             <span class="ms-2">@lang('Voice over')</span>
-        </x-aside.item>--}}
+        </x-aside.item>
     </ul>
 </nav>

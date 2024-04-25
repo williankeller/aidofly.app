@@ -4,5 +4,6 @@
     "/js/library.min.js": "/js/library.min.js",
     "/js/listing.min.js": "/js/listing.min.js",
     "/js/auth.min.js": "/js/auth.min.js",
+    "/js/voiceover.min.js": "/js/voiceover.min.js",
     "/style/core.min.css": "/style/core.min.css"
 }

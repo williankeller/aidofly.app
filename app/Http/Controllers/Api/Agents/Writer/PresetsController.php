@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Api\Presets;
+namespace App\Http\Controllers\Api\Agents\Writer;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Api\AbstractController;
 use App\Models\Preset;
 

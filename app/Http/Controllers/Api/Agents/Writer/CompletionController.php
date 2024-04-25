@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Agents;
+namespace App\Http\Controllers\Api\Agents\Writer;
 
 use Generator;
 use Illuminate\Http\Request;

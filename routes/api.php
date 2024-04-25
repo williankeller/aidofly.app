@@ -1,15 +1,23 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\Agents\CompletionController;
-use App\Http\Controllers\Api\Presets\PresetsController;
+use App\Http\Controllers\Api\Agents\Writer\CompletionController;
+use App\Http\Controllers\Api\Agents\Writer\PresetsController;
+
+use App\Http\Controllers\Api\Agents\Voiceover\VoicesController;
 
 use App\Http\Controllers\Api\Library\LibraryController;
 
 Route::prefix('/agent')->group(function () {
     Route::post('/completion/{uuid?}', [CompletionController::class, 'handle']);
+
+    Route::prefix('/voiceover')->group(function () {
+        Route::get('/voices', [VoicesController::class, 'index']);
+        Route::get('/voices/count', function () {
+            return response()->json(['count' => 10]);
+        });
+    });
 });
 
 Route::get('/presets', [PresetsController::class, 'index']);

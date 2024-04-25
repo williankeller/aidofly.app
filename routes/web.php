@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\RecoverController;
 use App\Http\Controllers\Library\LibraryController;
 use App\Http\Controllers\Agents\WriterController;
+use App\Http\Controllers\Agents\VoiceoverController;
 use App\Http\Controllers\Preset\PresetsController;
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\PasswordController;
@@ -36,9 +37,15 @@ Route::middleware('auth')->group(function () {
 
     // Agent routes
     Route::name('agent.')->prefix('/agent')->group(function () {
+        // Writer Agent routes
         Route::controller(WriterController::class)->name('writer.')->group(function () {
             Route::get('/writer', 'create')->name('create');
             Route::get('/writer/{uuid}', 'edit')->where('uuid', '[a-z0-9-]+')->name('edit');
+        });
+
+        Route::controller(VoiceoverController::class)->name('voiceover.')->group(function () {
+            Route::get('/voiceover', 'index')->name('index');
+            Route::get('/voiceover/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
         });
     });
 

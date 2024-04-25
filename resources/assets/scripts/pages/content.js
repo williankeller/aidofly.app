@@ -4,7 +4,6 @@ import Alpine from "alpinejs";
 
 import api from "../helpers/api";
 import populate from "populate.js";
-import Tooltip from "@ryangjchandler/alpine-tooltip";
 import { markdownToHtml } from "../helpers/markdown";
 import { notification } from "../helpers/notification";
 import { EventSourceParserStream } from "eventsource-parser/stream";
@@ -159,24 +158,6 @@ Alpine.data("content", (preset = null, doc = null) => ({
 
         // Clean up
         document.body.removeChild(anchor);
-    },
-
-    deleteDocument(doc) {
-        api.delete(`/library/documents/${doc.uuid}`).then(() => {
-            notification("Document deleted successfully!", "success");
-            this.docs = this.docs.filter((d) => d.uuid != doc.uuid);
-            this.index = this.docs.length > 1 ? this.docs.length - 1 : 0;
-
-            if (this.docs.length == 0) {
-                this.showForm = true;
-            }
-        });
-    },
-
-    select(doc) {
-        let url = new URL(window.location.href);
-        url.pathname = "/agent/content/" + (doc.uuid ?? "");
-        window.history.pushState({}, "", url);
     },
 }));
 

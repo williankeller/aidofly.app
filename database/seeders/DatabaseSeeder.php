@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategoriesTableSeeder::class,
             PresetsTableSeeder::class,
+            VoicesTableSeeder::class,
         ]);
     }
 }
