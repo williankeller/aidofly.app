@@ -1,3 +1,25 @@
 .empty {
     display: none;
 }
+
+[data-state="initial"] {
+    .card-static {
+        @extend .d-none;
+    }
+}
+
+[data-state="loaded"] {
+    .placeholders {
+        @extend .d-none;
+    }
+}
+
+[data-state="empty"] {
+    .empty {
+        display: block;
+    }
+    .placeholders,
+    .card-static {
+        @extend .d-none;
+    }
+}

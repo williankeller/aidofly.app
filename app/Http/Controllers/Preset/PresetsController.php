@@ -104,13 +104,10 @@ class PresetsController extends AbstractController
         if ($authUser->isAdmin()) {
             $status = $request->input('status') === 'active' ? true : false;
             $request->merge(['status' => $status]);
-        } else {
-            $request->merge(['status' => true]);
         }
 
         $request->validate([
             'visibility' => 'required|string|in:public,private',
-            'status' => 'required|boolean',
             'title' => 'required|string|max:128',
             'description' => 'required|string|max:255',
             'template' => 'required|string',
@@ -125,7 +122,7 @@ class PresetsController extends AbstractController
         Preset::create([
             'source' => $authUser->isAdmin() ? 'system' : 'user',
             'visibility' => $request->visibility,
-            'status' => $request->status,
+            'status' => $request->status ?? true,
             'title' => $request->title,
             'description' => $request->description,
             'template' => $request->template,
@@ -264,13 +261,10 @@ class PresetsController extends AbstractController
         if ($authUser->isAdmin()) {
             $status = $request->input('status') === 'active' ? true : false;
             $request->merge(['status' => $status]);
-        } else {
-            $request->merge(['status' => true]);
         }
 
         $request->validate([
             'visibility' => 'required|string|in:public,private',
-            'status' => 'required|boolean',
             'title' => 'required|string|max:128',
             'description' => 'required|string|max:255',
             'template' => 'required|string',
@@ -295,7 +289,7 @@ class PresetsController extends AbstractController
         Preset::where('id', $preset->id)
             ->update([
                 'visibility' => $request->visibility,
-                'status' => $request->status,
+                'status' => $request->status ?? true,
                 'title' => $request->title,
                 'description' => $request->description,
                 'template' => $request->template,

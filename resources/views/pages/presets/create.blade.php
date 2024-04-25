@@ -57,7 +57,7 @@
                     <div class="form-check-group me-2">
                         <input type="radio" class="btn-check" name="visibility" id="visibilityPublic" value="public"
                             @checked(old('visibility', 'public') === 'public') autocomplete="off">
-                        <label class="btn btn-secondary d-flex align-items-center" for="visibilityPublic">
+                        <label class="btn btn-outline-secondary py-1 d-flex align-items-center" for="visibilityPublic">
                             <i class="fs-5 ti ti-world"></i>
                             <span class="fw-bold ms-1">@lang('Public')</span>
                         </label>
@@ -65,7 +65,7 @@
                     <div class="form-check-group">
                         <input type="radio" class="btn-check" name="visibility" id="visibilityPrivate" value="private"
                             @checked(old('visibility') === 'private') autocomplete="off">
-                        <label class="btn btn-secondary d-flex align-items-center" for="visibilityPrivate">
+                        <label class="btn btn-outline-secondary py-1 d-flex align-items-center" for="visibilityPrivate">
                             <i class="fs-5 ti ti-lock"></i>
                             <span class="fw-bold ms-1">@lang('Private')</span>
                         </label>
@@ -77,11 +77,20 @@
         @if (auth()->user()->isAdmin())
             <section class="p-5 card mb-3">
                 <h3 class="fw-bolder h5">@lang('Admin')</h3>
-                <div class="mt-3 d-flex justify-content-between align-items-center" x-data="{ status: true }">
-                    <div class="form-label mb-0">
-                        <span>@lang('Status')</span>
-                        <small class="d-block text-muted fw-normal">@lang('Enable this template to make it available for use')</small>
+                <div class="row mt-2 d-flex">
+                    <div class="col-lg-4">
+                        <x-form.input-field id="icon" :label="__('Icon code')" :placeholder="__('Example: ti-arrow')" maxlength="32" />
                     </div>
+                    <div class="col-lg-4">
+                        <label class="form-label" for="color">@lang('Background color')</label>
+                        <input type="color" class="form-control" id="color" name="color"
+                            style="max-width: 100px; width: 100px;"
+                            @if (old('color')) value="{{ old('color') }}" @endif maxlength="7">
+                    </div>
+                </div>
+                <div class="mt-4 d-flex justify-content-between align-items-center bg-light p-3 rounded"
+                    x-data="{ status: true }">
+                    <div class="form-label mb-0">@lang('Status')</div>
                     <label class="form-check form-switch form-check-reverse mb-0" for="status" @click="status = !status">
                         <input class="form-check-input" type="checkbox" name="status" role="switch" id="status"
                             value="active" checked>
@@ -90,33 +99,6 @@
                         <span class="form-check-label fw-bold"
                             :class="{ 'd-none': status, 'd-block': !status }">@lang('Inactive')</span>
                     </label>
-                </div>
-                <div class="row mt-5 d-flex justify-content-between">
-                    <div class="col-lg-4">
-                        <x-form.input-field id="icon" :label="__('Icon code')" :placeholder="__('Example: ti-arrow')" maxlength="32" />
-                    </div>
-                    <div class="col-lg-4 d-flex justify-content-center">
-                        <div>
-                            <label class="form-label" for="color">@lang('Background color')</label>
-                            <input type="color" class="form-control" id="color" name="color"
-                                style="max-width: 100px; width: 100px;"
-                                @if (old('color')) value="{{ old('color') }}" @endif maxlength="7">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 d-flex justify-content-end" x-data="{ hightlight: false }">
-                        <div>
-                            <div class="form-label">@lang('Hightlight')</div>
-                            <label class="form-check form-switch mb-0 mt-3" for="hightlight"
-                                @click="hightlight = !hightlight">
-                                <input class="form-check-input" type="checkbox" name="hightlight" role="switch"
-                                    id="hightlight" value="1">
-                                <span class="form-check-label"
-                                    :class="{ 'd-none': !hightlight, 'd-block': hightlight }">@lang('Yes')</span>
-                                <span class="form-check-label"
-                                    :class="{ 'd-none': hightlight, 'd-block': !hightlight }">@lang('No')</span>
-                            </label>
-                        </div>
-                    </div>
                 </div>
             </section>
         @endif

@@ -23,7 +23,7 @@
                             </div>
                             <small class="mt-2 text-sm text-muted d-block">@lang("Don't need a template? Start writing with our AI writer.")</small>
                         </div>
-                        <a href="{{ route('presets.create') }}" class="stretched-link z-1"></a>
+                        <a href="{{ route('agent.writer.create') }}" class="stretched-link z-1"></a>
                     </div>
                 </div>
             </div>

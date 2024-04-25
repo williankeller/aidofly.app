@@ -5,11 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SigninController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\RecoverController;
-
 use App\Http\Controllers\Library\LibraryController;
-
 use App\Http\Controllers\Agents\WriterController;
 use App\Http\Controllers\Preset\PresetsController;
+use App\Http\Controllers\Account\AccountController;
 
 
 Route::name('auth.')->group(function () {
@@ -61,6 +60,12 @@ Route::middleware('auth')->group(function () {
             Route::get('/library', 'index')->name('index');
             Route::get('/library/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
         });
+    });
+
+    Route::controller(AccountController::class)->name('account.')->group(function () {
+        Route::get('/account', 'edit')->name('edit');
+        Route::put('/account', 'update')->name('update');
+        Route::delete('/account', 'destroy')->name('destroy');
     });
 
     Route::post('/signout', [SigninController::class, 'signout'])->name('auth.signout');

@@ -82,7 +82,7 @@
                 </div>
 
                 <button class="btn btn-white p-0" @click="deleteDocument(library.content)">
-                    <i class="ti ti-trash fs-4 hover-text-danger" x-ref="trashHover"></i>
+                    <i class="ti ti-trash fs-4 text-hover-danger" x-ref="trashHover"></i>
                 </button>
             </div>
         </div>
