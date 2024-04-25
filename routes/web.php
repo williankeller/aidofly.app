@@ -9,7 +9,8 @@ use App\Http\Controllers\Library\LibraryController;
 use App\Http\Controllers\Agents\WriterController;
 use App\Http\Controllers\Preset\PresetsController;
 use App\Http\Controllers\Account\AccountController;
-
+use App\Http\Controllers\Account\PasswordController;
+use App\Http\Controllers\Account\EmailController;
 
 Route::name('auth.')->group(function () {
     Route::controller(SigninController::class)->group(function () {
@@ -62,10 +63,20 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::controller(AccountController::class)->name('account.')->group(function () {
-        Route::get('/account', 'edit')->name('edit');
-        Route::put('/account', 'update')->name('update');
-        Route::delete('/account', 'destroy')->name('destroy');
+    Route::name('account.')->group(function () {
+        Route::controller(AccountController::class)->group(function () {
+            Route::get('/account', 'edit')->name('edit');
+            Route::put('/account', 'update')->name('update');
+            Route::delete('/account', 'destroy')->name('destroy');
+        });
+        Route::controller(PasswordController::class)->name('password.')->group(function () {
+            Route::get('/account/password', 'edit')->name('edit');
+            Route::put('/account/password', 'update')->name('update');
+        });
+        Route::controller(EmailController::class)->name('email.')->group(function () {
+            Route::get('/account/email', 'edit')->name('edit');
+            Route::put('/account/email', 'update')->name('update');
+        });
     });
 
     Route::post('/signout', [SigninController::class, 'signout'])->name('auth.signout');

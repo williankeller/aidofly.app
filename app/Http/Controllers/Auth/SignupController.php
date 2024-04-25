@@ -32,7 +32,7 @@ class SignupController extends AbstractAuthController
                 'unique:users',
                 'regex:/^[^@]+@[^@]+\.[a-z]{2,}$/'
             ],
-            'password' => 'required|string|min:6'
+            'password' => 'required|string|min:6|max:255'
         ]);
 
         $user = User::create([

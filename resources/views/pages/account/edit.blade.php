@@ -10,19 +10,30 @@
         <section class="p-5 card mb-3">
             <div class="row mb-3">
                 <div class="col-lg-6">
-                    <x-form.input-field id="firstname" :label="__('First name')" :placeholder="__('Your first name')" required maxlength="128"
-                        :value="$user->firstname" />
+                    <x-form.input-field id="firstname" :label="__('First name')" :placeholder="__('Your first name')" required :value="$user->firstname"
+                        autocomplete="given-name" minlength="1" maxlength="32" />
                 </div>
                 <div class="col-lg-6">
-                    <x-form.input-field id="lastname" :label="__('Last name')" :placeholder="__('Your lastname')" required maxlength="128"
-                        :value="$user->lastname" />
+                    <x-form.input-field id="lastname" :label="__('Last name')" :placeholder="__('Your lastname')" required :value="$user->lastname"
+                        autocomplete="family-name" minlength="2" maxlength="32" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-8">
-                    <x-form.input-field type="email" id="email" :label="__('Email address')" :placeholder="__('Your email address')" required
-                        maxlength="255" readonly :value="$user->email" disabled />
+                    <x-form.input-field type="email" id="email" :label="__('Email address')" :value="$user->email" readonly
+                        disabled autocomplete="off" />
                 </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-5">
+                <a href="{{ route('account.password.edit') }}"
+                    class="text-muted text-hover-primary d-flex align-items-cente">
+                    <i class="ti ti-lock fs-5 me-1"></i>
+                    <span>@lang('Change password')</span>
+                </a>
+                <a href="{{ route('account.email.edit') }}" class="text-muted text-hover-primary d-flex align-items-cente">
+                    <i class="ti ti-at fs-5 me-1"></i>
+                    <span>@lang('Update email')</span>
+                </a>
             </div>
         </section>
 
@@ -85,7 +96,7 @@
     @endif
 
     @if (session()->get('message'))
-        <x-notification :message="session()->get('message')['content']" :show="true" />
+        <x-notification :message="session()->get('message')['content']" :show="true" :icon="session()->get('message')['type'] === 'success' ? 'ti-square-rounded-check-filled' : null" />
     @endif
 
     {!! javascript('js/auth.min.js', true) !!}
