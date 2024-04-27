@@ -20,8 +20,8 @@
             <div class="col-lg-4 d-flex align-items-stretch card-static mb-3">
                 <div class="card-wrapper-selected h-100 d-flex align-items-stretch">
                     <div class="card p-3 d-block w-100">
-                        <div class="icon-md bg-primary bg-gradient rounded p-2 d-flex align-items-center">
-                            <i class="fs-4 text-white ti ti-square-rounded-plus"></i>
+                        <div class="icon-md bg-primary">
+                            <i class="ti ti-square-rounded-plus"></i>
                         </div>
                         <div class="mt-3">
                             <div class="fw-bold mb-0 text-body h5">
@@ -37,8 +37,7 @@
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
                     <div class="card card-item p-3 w-100 d-block">
                         <div class="d-flex justify-content-between">
-                            <div class="icon-md bg-gradient rounded p-2 d-flex align-items-center bg-gradient"
-                                :style="{ backgroundColor: preset.color }">
+                            <div class="icon-md" :style="{ backgroundColor: preset.color }">
                                 <span class="fs-5 text-white" x-text="preset.abbreviation"></span>
                             </div>
                             <a class="d-block z-3 text-muted btn btn-white btn-sm text-hover-primary p-0"

@@ -21,8 +21,7 @@
                     <a class="card card-item p-3 w-100 d-block"
                         x-bind:href="`{{ route('presets.show', '') }}/${preset.uuid}`">
                         <div class="d-inline-block">
-                            <div class="icon-md bg-gradient rounded p-2 d-flex align-items-center bg-gradient"
-                                :style="{ backgroundColor: preset.color }">
+                            <div class="icon-md" :style="{ backgroundColor: preset.color }">
                                 <span class="fs-5 text-white"
                                     x-text="preset.title.match(/(\b\S)?/g).join('').slice(0, 2)"></span>
                             </div>

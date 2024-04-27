@@ -20,14 +20,14 @@
             <strong>@lang('Agents')</strong>
         </li>
         <x-aside.item route="presets.index">
-            <span class="nav-icon bg-warning bg-gradient rounded p-1 d-flex align-items-center">
-                <i class="fs-4 text-white ti ti-file-text"></i>
+            <span class="icon-sm bg-warning">
+                <i class="ti ti-file-text"></i>
             </span>
             <span class="ms-2">@lang('Writer')</span>
         </x-aside.item>
         <x-aside.item route="agent.voiceover.index">
-            <span class="bg-success bg-gradient rounded p-1 d-flex align-items-center">
-                <i class="fs-4 text-white ti ti-speakerphone"></i>
+            <span class="icon-sm bg-success">
+                <i class="ti ti-speakerphone"></i>
             </span>
             <span class="ms-2">@lang('Voice over')</span>
         </x-aside.item>

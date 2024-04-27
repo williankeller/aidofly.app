@@ -50,7 +50,8 @@ class SpeechService
 
         return [
             'audioContent' => $audioContent,
-            'cost' => $this->calc->calculate($chars, $data['model'])
+            'cost' => $this->calc->calculate($chars, $data['model']),
+            'characters' => $chars,
         ];
     }
 }

@@ -10,13 +10,18 @@ class Count implements JsonSerializable
 {
     public readonly ?string $value;
 
-    public function __construct(null|int|float $value = null)
+    public readonly ?int $tokens;
+
+    public function __construct(null|int|float $value = null, ?int $tokens = null)
     {
         $this->ensureValueIsValid($value);
         $this->value = is_null($value) ? $value : (string) $value;
+
+        if (!is_null($tokens)) {
+            $this->tokens = $tokens;
+        }
     }
 
-    #[Override]
     public function jsonSerialize(): ?string
     {
         if (is_null($this->value)) {
@@ -27,6 +32,11 @@ class Count implements JsonSerializable
         $float = floatval($this->value);
 
         return $int == $float ? (string) $int : $this->value;
+    }
+
+    public function getTokens(): ?int
+    {
+        return $this->tokens;
     }
 
     /**

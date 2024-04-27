@@ -13,8 +13,8 @@
                 <div class="card-wrapper-selected h-100 d-flex align-items-stretch">
                     <div class="card p-3 d-block w-100">
                         <div class="d-inline-block">
-                            <div class="icon-md bg-warning bg-gradient rounded p-2 d-flex align-items-center">
-                                <i class="fs-4 text-white ti ti-file-text"></i>
+                            <div class="icon-md bg-warning">
+                                <i class="ti ti-file-text"></i>
                             </div>
                         </div>
                         <div class="mt-3">
@@ -31,9 +31,9 @@
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
                     <div class="card card-item p-3 w-100 d-block">
                         <div class="d-flex justify-content-between">
-                            <div class="icon-md bg-gradient rounded p-2 d-flex align-items-center bg-gradient"
+                            <div class="icon-md"
                                 :style="{ backgroundColor: preset.color }">
-                                <i class="fs-4 text-white ti" :class="preset.icon"></i>
+                                <i class="ti" :class="preset.icon"></i>
                             </div>
                             @if ($isAdmin)
                                 <div x-show="!preset.status">

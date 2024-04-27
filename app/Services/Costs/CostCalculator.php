@@ -27,25 +27,20 @@ class CostCalculator
     public function setRates(): void
     {
         $this->rates = [
-            'gpt-3' => 0.06,
-            'gpt-4' => 0.08,
-            'gpt-3-input' => 0.06,
-            'gpt-3.5-turbo-input' => 0.06,
-            'gpt-4-turbo' => 0.1,
-            'gpt-4-input' => 0.08,
-            'gpt-4-turbo-input' => 0.1,
-            'gpt-3-output' => 0.06,
-            'gpt-4-output' => 0.08,
-            'gpt-4-turbo-output' => 0.1,
-            'elevenlabs' => 0.05,
-            'dall-e-3-standard-1024' => 0.07,
-            'dall-e-3-standard-1792' => 0.1,
-            'dall-e-3-hd-1024' => 0.1,
-            'dall-e-3-hd-1792' => 0.15,
-            'dall-e-2-256' => 0.05,
-            'dall-e-2-512' => 0.07,
-            'dall-e-2-1024' => 0.1,
+            // 1 CREDIT = 16,000 TOKENS
+            'gpt-3.5-turbo-input' => 0.0000625,  // 1 CREDIT = 16,000 TOKENS
+            'gpt-3.5-turbo-output' => 0.0001875, // 1 CREDIT = 5.33K TOKENS
 
+            'gpt-4-input' => 0.00375,            // 1 CREDIT = 266.67 TOKENS
+            'gpt-4-output' => 0.0075,            // 1 CREDIT = 133.33 TOKENS
+
+            'gpt-4-turbo-input' => 0.00125,      // 1 CREDIT = 800 TOKENS
+            'gpt-4-turbo-output' => 0.00375,     // 1 CREDIT = 266.67 TOKENS
+
+            'elevenlabs' => 0.020625,            // 1 CREDIT = 48.48 CHARACTERS
+
+            'tts-1' => 0.001875,                 // 1 CREDIT = 533.33 CHARACTERS
+            'tts-1-hd' => 0.00375,               // 1 CREDIT = 266.67 CHARACTERS
         ];
     }
 

@@ -166,7 +166,7 @@
                             <span class="d-flex align-items-center text-sm text-muted">
                                 <i class="text-base ti ti-coins me-2"></i>
                                 <data is="x-credit" :value="docs[index].cost"
-                                    format="{{ __(':count credits') }}"></data>
+                                    format="{{ __(':cost credits') }}"></data>
                             </span>
                         </template>
 

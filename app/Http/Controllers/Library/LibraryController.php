@@ -21,17 +21,16 @@ class LibraryController extends AbstractController
 
     public function show(string $uuid): View
     {
-        $library = Library::with(['category', 'preset'])
-            ->where('user_id', auth()->id())
+        $library = Library::where('user_id', auth()->id())
             ->where('uuid', $uuid)->firstOrFail();
 
         return $this->view(
-            'pages.library.show',
+            "pages.library.show.{$library->type}",
             $library->title,
             "",
             [
                 'library' => $library->makeHidden(['id', 'user_id', 'created_at', 'updated_at']),
-                'xData' => "content(" . json_encode(['content' => $library->content]) . ")",
+                'xData' => "{$library->type}(" . json_encode(['content' => $library->content, 'uuid' => $library->uuid]) . ")",
             ]
         );
     }

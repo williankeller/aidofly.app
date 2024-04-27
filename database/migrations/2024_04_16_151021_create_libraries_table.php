@@ -22,8 +22,8 @@ return new class extends Migration
             $table->longText('content');
 
             $table->string('model', 64);
-            $table->float('cost');
-
+            $table->decimal('cost', 12, 11)->nullable();
+            $table->integer('tokens')->nullable()->default(0);
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->unsignedBigInteger('resource_id')->index()->nullable();
 

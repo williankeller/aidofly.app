@@ -1,8 +1,8 @@
 @props([
-    'color' => 'var(--bs-primary)',
+    'color' => 'success',
     'icon' => 'ti-star',
-    'size' => '4',
+    'size' => 'md',
 ])
-<div class="bg-{{ $color }} bg-gradient rounded p-2 d-flex align-items-center">
-    <i class="fs-{{ $size }} text-white ti {{ $icon }}"></i>
+<div class="icon-{{ $size }} bg-{{ $color }}">
+    <i class="ti {{ $icon }}"></i>
 </div>

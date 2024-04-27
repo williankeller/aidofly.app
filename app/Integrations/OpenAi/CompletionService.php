@@ -141,7 +141,7 @@ class CompletionService
             CostCalculator::OUTPUT
         );
 
-        return new Count($inputCost->value + $outputCost->value);
+        return new Count($inputCost->value + $outputCost->value, $inputTokensCount);
     }
 
     /**

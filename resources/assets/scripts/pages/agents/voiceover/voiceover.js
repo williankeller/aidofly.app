@@ -15,19 +15,7 @@ export function voiceover() {
         prompt: null,
         query: "",
 
-        init() {
-            this.$watch("preview", (value) => {
-                // Update the item in the history list
-                if (this.history) {
-                    let index = this.history.findIndex(
-                        (item) => item.id === value.id
-                    );
-                    if (index >= 0) {
-                        this.history[index] = value;
-                    }
-                }
-            });
-        },
+        init() {},
 
         submit() {
             if (this.isProcessing) {
@@ -67,7 +55,7 @@ export function voiceover() {
             this.preview = speech;
 
             let url = new URL(window.location.href);
-            url.pathname = "/voiceover/" + speech.id;
+            url.pathname = "/library/" + speech.uuid;
             window.history.pushState({}, "", url);
 
             if (speech.voice) {

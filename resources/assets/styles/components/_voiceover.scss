@@ -1,15 +1,21 @@
 .voiceover {
+    .loading {
+        display: none;
+    }
     .btn-try {
         width: 90px;
         .wave {
             display: none;
         }
-        .loading {
+    }
+    .btn-play-pause {
+        .pause {
             display: none;
         }
     }
     [state="loading"] {
-        .btn-try {
+        .btn-try,
+        .btn-play-pause {
             @extend .disabled;
 
             .loading {
@@ -29,10 +35,26 @@
                 display: block;
             }
         }
+        .btn-play-pause {
+            .play {
+                display: none;
+            }
+            .pause {
+                display: block;
+            }
+        }
     }
     [state="paused"] {
         .btn-try {
             .wave {
+                display: none;
+            }
+        }
+        .btn-play-pause {
+            .play {
+                display: block;
+            }
+            .pause {
                 display: none;
             }
         }

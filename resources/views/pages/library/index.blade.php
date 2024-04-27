@@ -28,7 +28,7 @@
                 <a class="d-flex" x-bind:href="'/library/' + content.uuid">
                     <div class="d-flex justify-content-between align-items-center">
                         <template x-if="!content.preset">
-                            <div class="bg-secondary text-white bg-gradient rounded px-2 py-1 d-flex align-items-center">
+                            <div class="icon-sm bg-secondary text-white">
                                 <span class="fs-5" x-text="content.title.match(/(\b\S)?/g).join('').slice(0, 2)"></span>
                             </div>
                         </template>

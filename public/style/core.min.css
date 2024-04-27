@@ -3016,7 +3016,8 @@ textarea.form-control-lg {
 .btn-check:checked:focus-visible + .btn {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn:disabled, .btn.disabled, .voiceover [state=loading] .btn.btn-try, fieldset:disabled .btn {
+.btn:disabled, .btn.disabled, .voiceover [state=loading] .btn.btn-try,
+.voiceover [state=loading] .btn.btn-play-pause, fieldset:disabled .btn {
   color: var(--bs-btn-disabled-color);
   pointer-events: none;
   background-color: var(--bs-btn-disabled-bg);
@@ -3646,7 +3647,8 @@ textarea.form-control-lg {
   text-decoration: none;
   background-color: var(--bs-dropdown-link-active-bg);
 }
-.dropdown-item.disabled, .voiceover [state=loading] .dropdown-item.btn-try, .dropdown-item:disabled {
+.dropdown-item.disabled, .voiceover [state=loading] .dropdown-item.btn-try,
+.voiceover [state=loading] .dropdown-item.btn-play-pause, .dropdown-item:disabled {
   color: var(--bs-dropdown-link-disabled-color);
   pointer-events: none;
   background-color: transparent;
@@ -3823,7 +3825,8 @@ textarea.form-control-lg {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(132, 108, 249, 0.25);
 }
-.nav-link.disabled, .voiceover [state=loading] .nav-link.btn-try, .nav-link:disabled {
+.nav-link.disabled, .voiceover [state=loading] .nav-link.btn-try,
+.voiceover [state=loading] .nav-link.btn-play-pause, .nav-link:disabled {
   color: var(--bs-nav-link-disabled-color);
   pointer-events: none;
   cursor: default;
@@ -4766,7 +4769,9 @@ textarea.form-control-lg {
   background-color: var(--bs-pagination-active-bg);
   border-color: var(--bs-pagination-active-border-color);
 }
-.page-link.disabled, .voiceover [state=loading] .page-link.btn-try, .disabled > .page-link, .voiceover [state=loading] .btn-try > .page-link {
+.page-link.disabled, .voiceover [state=loading] .page-link.btn-try,
+.voiceover [state=loading] .page-link.btn-play-pause, .disabled > .page-link, .voiceover [state=loading] .btn-try > .page-link,
+.voiceover [state=loading] .btn-play-pause > .page-link {
   color: var(--bs-pagination-disabled-color);
   pointer-events: none;
   background-color: var(--bs-pagination-disabled-bg);
@@ -5050,7 +5055,8 @@ textarea.form-control-lg {
   border-bottom-right-radius: inherit;
   border-bottom-left-radius: inherit;
 }
-.list-group-item.disabled, .voiceover [state=loading] .list-group-item.btn-try, .list-group-item:disabled {
+.list-group-item.disabled, .voiceover [state=loading] .list-group-item.btn-try,
+.voiceover [state=loading] .list-group-item.btn-play-pause, .list-group-item:disabled {
   color: var(--bs-list-group-disabled-color);
   pointer-events: none;
   background-color: var(--bs-list-group-disabled-bg);
@@ -5355,7 +5361,8 @@ textarea.form-control-lg {
   box-shadow: var(--bs-btn-close-focus-shadow);
   opacity: var(--bs-btn-close-focus-opacity);
 }
-.btn-close:disabled, .btn-close.disabled, .voiceover [state=loading] .btn-close.btn-try {
+.btn-close:disabled, .btn-close.disabled, .voiceover [state=loading] .btn-close.btn-try,
+.voiceover [state=loading] .btn-close.btn-play-pause {
   pointer-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -7306,7 +7313,8 @@ textarea.form-control-lg {
   display: inline-flex !important;
 }
 
-.d-none, .voiceover [state=playing] .btn-try .play, .voiceover [state=loading] .btn-try .play, [data-state=empty] .placeholders,
+.d-none, .voiceover [state=playing] .btn-try .play, .voiceover [state=loading] .btn-try .play,
+.voiceover [state=loading] .btn-play-pause .play, [data-state=empty] .placeholders,
 [data-state=empty] .card-static, [data-state=loaded] .placeholders, [data-state=initial] .card-static {
   display: none !important;
 }
@@ -12107,10 +12115,6 @@ hr {
   color: var(--bs-nav-link-hover-color);
   background-color: var(--bs-white);
 }
-.aside .nav-icon {
-  width: 32px;
-  height: 32px;
-}
 
 .nav {
   --bs-nav-link-color: var(--bs-body-color);
@@ -12639,31 +12643,76 @@ h5,
   color: var(--bs-info) !important;
 }
 
+.icon-sm,
+.icon-md,
+.icon-lg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--bs-border-radius);
+  background-image: var(--bs-gradient);
+}
+.icon-sm i,
+.icon-md i,
+.icon-lg i {
+  color: var(--bs-white);
+}
+
+.icon-sm {
+  width: 35px;
+  height: 35px;
+}
+.icon-sm i {
+  font-size: 1.25rem;
+}
+
 .icon-md {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
+}
+.icon-md i {
+  font-size: 1.5rem;
 }
 
 .icon-lg {
-  width: 60px;
-  height: 60px;
+  width: 65px;
+  height: 65px;
+}
+.icon-lg i {
+  font-size: 2.25rem;
 }
 
+.voiceover .loading {
+  display: none;
+}
 .voiceover .btn-try {
   width: 90px;
 }
 .voiceover .btn-try .wave {
   display: none;
 }
-.voiceover .btn-try .loading {
+.voiceover .btn-play-pause .pause {
   display: none;
 }
-.voiceover [state=loading] .btn-try .loading {
+.voiceover [state=loading] .btn-try .loading,
+.voiceover [state=loading] .btn-play-pause .loading {
   display: block;
 }
 .voiceover [state=playing] .btn-try .wave {
   display: block;
 }
+.voiceover [state=playing] .btn-play-pause .play {
+  display: none;
+}
+.voiceover [state=playing] .btn-play-pause .pause {
+  display: block;
+}
 .voiceover [state=paused] .btn-try .wave {
+  display: none;
+}
+.voiceover [state=paused] .btn-play-pause .play {
+  display: block;
+}
+.voiceover [state=paused] .btn-play-pause .pause {
   display: none;
 }

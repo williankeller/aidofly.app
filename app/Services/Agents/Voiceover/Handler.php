@@ -37,24 +37,28 @@ class Handler extends AbstractHandler
         $path = 'voiceover/' . $filename;
 
         try {
-            $this->storeLibrary(
+            $library = $this->storeLibrary(
                 'voiceover',
                 $voice->model,
                 $params,
                 $filename,
                 $voiceover['cost']->jsonSerialize(),
+                $voiceover['characters'],
                 $voice->id
             );
 
-            // Saving the audio file to Laravel's storage
-            // You can choose a different naming convention
-            Storage::disk('local')->put($path, $voiceover['audioContent']);
+            Storage::disk('public')->put($path, $voiceover['audioContent']);
 
             return [
-                'content' => $filename
+                'uuid' => $library->uuid,
+                'fullPath' => asset('storage/' . $path),
+                'cost' => $library->cost,
+                'tokens' => $library->tokens,
+                'title' => $library->title,
             ];
         } catch (\Exception $e) {
-            throw new \Exception('Failed to rewind the stream');
+            logger()->error($e->getMessage());
+            throw new \Exception('Failed to create voiceover. Please try again.');
         }
     }
 }

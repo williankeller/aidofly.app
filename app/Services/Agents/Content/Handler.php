@@ -47,6 +47,7 @@ class Handler extends AbstractHandler
             $params,
             $content,
             $cost->jsonSerialize(),
+            $cost->getTokens(),
             $preset['model']?->id ?? null
         );
     }

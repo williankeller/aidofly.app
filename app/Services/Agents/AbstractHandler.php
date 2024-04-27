@@ -13,7 +13,8 @@ abstract class AbstractHandler
         string $model,
         array $params,
         string $content,
-        int $cost,
+        float $cost,
+        ?int $tokens = null,
         ?int $resourceId = null
     ) {
         try {
@@ -27,10 +28,11 @@ abstract class AbstractHandler
                 'type' => $type,
                 'model' => $model,
                 'visibility' => 'private',
-                'cost' => $cost,
                 'params' => $params,
                 'title' => Str::limit($params['prompt'], 125, '...'),
                 'content' => $content,
+                'cost' => $cost,
+                'tokens' => $tokens,
                 'user_id' => auth()->user()->id,
                 'resource_id' => $resourceId
             ]);

@@ -16,15 +16,12 @@ export class WaveElement extends HTMLElement {
     constructor() {
         super();
 
-        console.log("WaveElement", WaveElement);
-
         this.container = this.querySelector("[wave]") || this;
         this.playBtn = this.querySelector("button[player]") || null;
         this.pauseBtn = this.querySelector("button[pause]") || null;
         this.playPauseBtn = this.querySelector("button[play-pause]") || null;
         this.processEl = this.querySelector("[process]") || null;
-
-        console.log("constructor", this.playPauseBtn);
+        this.durationEl = this.querySelector("[duration]") || null;
 
         if (this.playBtn) {
             this.playBtn.addEventListener("click", () => {
@@ -157,6 +154,10 @@ export class WaveElement extends HTMLElement {
         });
 
         this.wave.on("ready", (duration) => {
+            if (this.durationEl) {
+                this.durationEl.innerText = this.getReadableDuration(duration);
+            }
+
             this.setAttribute("state", "ready");
             // Check if we need to auto-play
             if (this.autoPlayOnceReady) {

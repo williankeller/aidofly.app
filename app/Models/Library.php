@@ -18,6 +18,7 @@ class Library extends Model
         'model',
         'content',
         'cost',
+        'tokens',
         'user_id',
         'resource_id',
     ];
