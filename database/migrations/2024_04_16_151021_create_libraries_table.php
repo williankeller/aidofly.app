@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->enum('visibility', ['private', 'workspace'])->default('private');
+            $table->enum('type', ['content', 'voiceover', 'image', 'transcribe']);
+            $table->enum('visibility', ['public', 'private', 'workspace'])->default('private');
 
             $table->string('title', 128);
             $table->longText('params');
@@ -23,9 +24,8 @@ return new class extends Migration
             $table->string('model', 64);
             $table->float('cost');
 
-            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
-            $table->foreignId('preset_id')->nullable()->constrained('presets')->onDelete('set null');
+            $table->unsignedBigInteger('resource_id')->index()->nullable();
 
             $table->timestamps();
         });

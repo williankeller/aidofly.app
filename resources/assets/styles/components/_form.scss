@@ -34,3 +34,27 @@ $radio-checkbox-margin: 2.4em;
         border: 0;
     }
 }
+
+.grow-wrap {
+    display: grid;
+    margin: 7px;
+    > textarea,
+    &::after {
+        border: 0;
+        grid-area: 1 / 1 / 2 / 2;
+    }
+    &::after {
+        content: attr(data-replicated-value) " ";
+        white-space: pre-wrap;
+        visibility: hidden;
+    }
+    > textarea {
+        resize: none;
+        overflow: hidden;
+        border: 0;
+        outline: none;
+        &:focus {
+            outline: none;
+        }
+    }
+}

@@ -41,7 +41,14 @@ class Handler extends AbstractHandler
         /** @var Count */
         $cost = $resp->getReturn();
 
-        return $this->storeLibrary($model, $cost->jsonSerialize(), $params, $content, $preset['model']);
+        return $this->storeLibrary(
+            'content',
+            $model,
+            $params,
+            $content,
+            $cost->jsonSerialize(),
+            $preset['model']?->id ?? null
+        );
     }
 
     public function getPresetPrompt(array $params, ?string $uuid = null): array

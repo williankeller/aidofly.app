@@ -13,36 +13,27 @@ class Library extends Model
     protected $fillable = [
         'type',
         'visibility',
-        'model',
-        'cost',
-        'params',
         'title',
+        'params',
+        'model',
         'content',
+        'cost',
         'user_id',
-        'category_id',
-        'preset_id',
+        'resource_id',
     ];
 
     protected $casts = [
         'params' => 'array',
     ];
 
-    // Define the relationship with User
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    // Define the relationship with Category
-    public function category()
+    public function resource()
     {
-        return $this->belongsTo(Category::class, 'category_id');
-    }
-
-    // Define the relationship with Preset
-    public function preset()
-    {
-        return $this->belongsTo(Preset::class, 'preset_id');
+        return $this->morphTo('resource_id', 'type');
     }
 
     protected static function boot()

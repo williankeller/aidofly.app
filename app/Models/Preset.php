@@ -25,16 +25,14 @@ class Preset extends Model
         'usage_count',
     ];
 
-    // Relation to Category
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    // Relation to Library
     public function libraries()
     {
-        return $this->hasMany(Library::class);
+        return $this->hasMany(Library::class, 'resource_id', 'id');
     }
 
     protected static function boot()

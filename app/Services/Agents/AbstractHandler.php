@@ -9,23 +9,30 @@ use Illuminate\Support\Str;
 abstract class AbstractHandler
 {
     protected function storeLibrary(
+        string $type,
         string $model,
-        int $cost,
         array $params,
         string $content,
-        ?Preset $preset = null
+        int $cost,
+        ?int $resourceId = null
     ) {
         try {
+
+            if (!isset($params['prompt'])) {
+                // Get first element from array
+                $params['prompt'] = reset($params);
+            }
+
             $library = Library::create([
+                'type' => $type,
                 'model' => $model,
-                'visibility' => 'public',
+                'visibility' => 'private',
                 'cost' => $cost,
                 'params' => $params,
                 'title' => Str::limit($params['prompt'], 125, '...'),
                 'content' => $content,
                 'user_id' => auth()->user()->id,
-                'preset_id' => $preset?->id ?? null,
-                'category_id' => $preset?->category_id ?? null,
+                'resource_id' => $resourceId
             ]);
             return $library->makeHidden(['id', 'user_id', 'created_at', 'updated_at']);
         } catch (\Throwable $th) {

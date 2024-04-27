@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Agents\Writer\CompletionController;
 use App\Http\Controllers\Api\Agents\Writer\PresetsController;
 
 use App\Http\Controllers\Api\Agents\Voiceover\VoicesController;
+use App\Http\Controllers\Api\Agents\Voiceover\SpeechController;
 
 use App\Http\Controllers\Api\Library\LibraryController;
 
@@ -17,6 +18,7 @@ Route::prefix('/agent')->group(function () {
         Route::get('/voices/count', function () {
             return response()->json(['count' => 10]);
         });
+        Route::post('/speech', [SpeechController::class, 'handle']);
     });
 });
 

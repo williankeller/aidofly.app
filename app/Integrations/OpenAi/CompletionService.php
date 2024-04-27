@@ -14,7 +14,7 @@ use RuntimeException;
 
 class CompletionService
 {
-    private array $models = [
+    const MODELS = [
         'gpt-4-turbo',
         'gpt-4',
         'gpt-3.5-turbo',
@@ -31,7 +31,7 @@ class CompletionService
 
     public function supportsModel(string $model): bool
     {
-        return in_array($model, $this->models);
+        return in_array($model, self::MODELS);
     }
 
     /**

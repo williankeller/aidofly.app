@@ -38,10 +38,14 @@ class VoiceoverController extends AbstractController
 
         return $this->view(
             'pages.agents.voiceover.show',
-            'Voice over',
-            'Select one of the following voices to give your words voice.',
+            __(':name voice', ['name' => $voice->name]),
+            __(':name is :gender voice that may be used for :case use cases.', [
+                'name' => $voice->name,
+                'gender' => $voice->gender,
+                'case' => $voice->case
+            ]),
             [
-                'xData' => '{}',
+                'xData' => 'voiceover({"uuid":"' . $voice->uuid . '"})',
                 'voice' => $voice
             ]
         );

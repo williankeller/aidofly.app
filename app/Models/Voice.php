@@ -33,6 +33,11 @@ class Voice extends Model
         });
     }
 
+    public function libraries()
+    {
+        return $this->hasMany(Library::class, 'resource_id', 'id');
+    }
+
     /**
      * Return the gender in its human readable form 1: Male, 2: Female
      * @return string

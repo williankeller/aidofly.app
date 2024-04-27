@@ -1,0 +1,40 @@
+.voiceover {
+    .btn-try {
+        width: 90px;
+        .wave {
+            display: none;
+        }
+        .loading {
+            display: none;
+        }
+    }
+    [state="loading"] {
+        .btn-try {
+            @extend .disabled;
+
+            .loading {
+                display: block;
+            }
+            .play {
+                @extend .d-none;
+            }
+        }
+    }
+    [state="playing"] {
+        .btn-try {
+            .play {
+                @extend .d-none;
+            }
+            .wave {
+                display: block;
+            }
+        }
+    }
+    [state="paused"] {
+        .btn-try {
+            .wave {
+                display: none;
+            }
+        }
+    }
+}

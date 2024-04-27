@@ -84,7 +84,7 @@
             </div>
             <div>
                 <x-button type="submit" class="w-100">
-                    <i class="ti ti-sparkles h5 mb-0"></i>
+                    <i class="fs-4 ti ti-sparkles"></i>
                     <span class="ms-2">@lang('Generate')</span>
                 </x-button>
             </div>

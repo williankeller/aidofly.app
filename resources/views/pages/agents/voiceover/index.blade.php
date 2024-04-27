@@ -6,7 +6,7 @@
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 
-    <section class="group/grid" data-state="initial" :data-state="state">
+    <section class="voiceover" data-state="initial" :data-state="state">
         <div class="row">
             <template x-for="(voice, index) in resources" :key="index">
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
@@ -33,10 +33,25 @@
                                 <span class="badge text-bg-secondary me-1" x-text="voice.case"></span>
                             </template>
                         </div>
-
-                        <div class="action mt-4">
+                        <div class="d-flex mt-4">
+                            <component-wave :src="voice.sample" state="pause">
+                                <button type="button" play-pause
+                                    class="btn btn-light btn-try flex-fill text-body me-2 p-1">
+                                    <div class="play d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-player-play me-1"></i>
+                                        <span>@lang('Try')</span>
+                                    </div>
+                                    <div class="loading spinner-grow spinner-grow-sm m-auto my-1" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <div class="wave" wave></div>
+                                </button>
+                            </component-wave>
                             <a x-bind:href="`{{ route('agent.voiceover.show', '') }}/${voice.uuid}`"
-                                class="btn btn-light w-100 d-block text-body">@lang('Use this voice')</a>
+                                class="btn btn-light flex-fill text-body p-1 d-flex align-items-center justify-content-center">
+                                <i class="fs-5 ti ti-sparkles me-1"></i>
+                                <span>@lang('Use voice')</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -46,9 +61,5 @@
 @endsection
 
 @push('script-stack-after')
-    @if (session()->get('message'))
-        <x-notification :message="session()->get('message')['content']" :show="true" :icon="session()->get('message')['type'] == 'success' ? 'ti-square-rounded-check-filled' : ''" />
-    @endif
-
-    {!! javascript('js/listing.min.js', true) !!}
+    {!! javascript('js/voiceover.min.js', true) !!}
 @endpush
