@@ -32,9 +32,9 @@ class Library extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function resource()
+    public function voice()
     {
-        return $this->morphTo('resource_id', 'type');
+        return $this->belongsTo(Voice::class, 'resource_id');
     }
 
     protected static function boot()

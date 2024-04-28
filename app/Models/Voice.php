@@ -45,9 +45,9 @@ class Voice extends Model
     public function getGenderAttribute(): string
     {
         return match ($this->attributes['gender']) {
-            1 => __('Male'),
-            2 => __('Female'),
-            default => __('Unknown'),
+            1 => __('male'),
+            2 => __('female'),
+            default => __('unknown'),
         };
     }
 }

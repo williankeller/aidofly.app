@@ -9,8 +9,7 @@
     <section class="p-5 card mb-3 voiceover">
         <div class="card p-2">
             <component-wave class="d-flex justify-content-between align-items-center" x-ref="previewWave"
-                src="{{ asset('storage/voiceover/' . $library->content) }}" @audioprocess="previewTime = $event.detail.time"
-                state="initial">
+                src="{{ filestorage($library->uuid) }}" @audioprocess="previewTime = $event.detail.time" state="initial">
                 <button type="button" play-pause class="btn btn-primary btn-play-pause icon-md p-1">
                     <i class="play ti ti-player-play-filled"></i>
                     <i class="pause ti ti-player-pause-filled"></i>
@@ -20,7 +19,7 @@
                 </button>
                 <span process class="ms-3 small process-timer">00:00</span>
                 <div wave class="mx-3 flex-grow-1"></div>
-                <span duration class="small duration-timer">00:00</span>
+                <span duration class="small duration-timer"></span>
             </component-wave>
         </div>
 

@@ -47,11 +47,11 @@ class Handler extends AbstractHandler
                 $voice->id
             );
 
-            Storage::disk('public')->put($path, $voiceover['audioContent']);
+            Storage::disk('local')->put($path, $voiceover['audioContent']);
 
             return [
                 'uuid' => $library->uuid,
-                'fullPath' => asset('storage/' . $path),
+                'fullPath' => filestorage($library->uuid),
                 'cost' => $library->cost,
                 'tokens' => $library->tokens,
                 'title' => $library->title,

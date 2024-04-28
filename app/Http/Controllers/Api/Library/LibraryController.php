@@ -10,14 +10,14 @@ class LibraryController extends AbstractController
 {
     public function index()
     {
-        $library = Library::where('user_id', auth()->id())
+        $library = Library::select(['uuid', 'type', 'visibility', 'title', 'created_at'])->where('user_id', auth()->id())
             ->orderBy('created_at', 'desc')
             ->get();
 
         return response()->json(
             [
                 "object" => "list",
-                "data" => $library->makeHidden(['id', 'type', 'user_id', 'updated_at'])
+                "data" => $library
             ]
         );
     }

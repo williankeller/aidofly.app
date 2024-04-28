@@ -51,3 +51,18 @@ if (!function_exists('nonce')) {
         return csrf_token() ?? Str::random(12);
     }
 }
+
+if (!function_exists('filestorage')) {
+
+    /**
+     * Get the library file storage path
+     *
+     * @param string $filename
+     * @param string|null $extension
+     * @return string
+     */
+    function filestorage(string $filename, ?string $extension = '.mp3'): string
+    {
+        return route('library.filestorage.index', $filename) . $extension;
+    }
+}

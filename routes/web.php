@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\SigninController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\RecoverController;
 use App\Http\Controllers\Library\LibraryController;
+use App\Http\Controllers\Library\FilestorageController;
 use App\Http\Controllers\Agents\WriterController;
 use App\Http\Controllers\Agents\VoiceoverController;
 use App\Http\Controllers\Preset\PresetsController;
@@ -66,7 +67,10 @@ Route::middleware('auth')->group(function () {
     Route::name('library.')->group(function () {
         Route::controller(LibraryController::class)->name('agent.')->group(function () {
             Route::get('/library', 'index')->name('index');
-            Route::get('/library/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+            Route::get('/library/{type}/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+        });
+        Route::controller(FilestorageController::class)->name('filestorage.')->group(function () {
+            Route::get('/filestorage/{filename}', 'index')->name('index');
         });
     });
 
