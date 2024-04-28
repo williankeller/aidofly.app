@@ -53,8 +53,7 @@ class WriterController extends AbstractController
      */
     public function edit(string $uuid): View
     {
-        $library = Library::with(['preset', 'category'])
-            ->where('uuid', $uuid)
+        $library = Library::with('preset')->where('uuid', $uuid)
             ->where('user_id', auth()->id())
             ->firstOrFail()
             ->makeHidden(['id', 'template', 'user_id', 'created_at', 'updated_at']);

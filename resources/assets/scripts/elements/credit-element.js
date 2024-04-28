@@ -33,7 +33,7 @@ export class CreditElement extends HTMLDataElement {
         }
 
         let lang = this.lang || document.documentElement.lang || "en";
-        // let amount = parseInt(value, 10);
+
         let amount = parseFloat(value);
 
         let options = {

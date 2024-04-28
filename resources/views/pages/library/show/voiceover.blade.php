@@ -3,7 +3,13 @@
 @section('content')
     <section class="mb-5">
         <x-nav.back route="library.agent.index" :name="__('Library')" icon="ti-square-rounded-arrow-left-filled" />
-        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
+        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription">
+            <a class="btn btn-light d-flex align-items-center"
+                href="{{ route('agent.voiceover.show', $library->voice->uuid) }}">
+                <i class="ti ti-sparkles fs-4"></i>
+                <span class="ms-1">@lang('Generate new')</span>
+            </a>
+        </x-nav.page-title>
     </section>
 
     <section class="p-5 card mb-3 voiceover">
@@ -27,8 +33,12 @@
             <div class="d-flex align-items-center mr-auto">
                 <div class="d-flex">
                     <div class="d-flex align-items-center ms-1 me-4">
+                        <i class="ti ti-brain me-1"></i>
+                        <span>@lang(':model', ['model' => $library->model])</span>
+                    </div>
+                    <div class="d-flex align-items-center ms-1 me-4">
                         <i class="ti ti-square-rounded-letter-t me-1"></i>
-                        <span>{{ __(':chars characters', ['chars' => mb_strlen($library->title)]) }}</span>
+                        <span>@lang(':chars characters', ['chars' => $library->tokens])</span>
                     </div>
                     <div class="d-flex align-items-center">
                         <i class="ti ti-coins me-1"></i>
@@ -39,10 +49,10 @@
                     <button class="btn btn-secondary btn-sm py-0 d-flex align-items-center">
                         @if ($library->visibility == 'public')
                             <i class="ti ti-world"></i>
-                            <span>{{ __('Public') }}</span>
+                            <span>@lang('Public')</span>
                         @else
                             <i class="ti ti-lock"></i>
-                            <span>{{ __('Only me') }}</span>
+                            <span>@lang('Only me')</span>
                         @endif
                     </button>
                 </div>

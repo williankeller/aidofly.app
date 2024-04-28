@@ -19,6 +19,7 @@
     }
 
     &-light {
+        --bs-btn-color: var(--bs-body-color);
         --bs-btn-hover-border-color: var(--bs-light);
         --bs-btn-hover-bg: var(--bs-light);
         outline-color: var(--bs-light);

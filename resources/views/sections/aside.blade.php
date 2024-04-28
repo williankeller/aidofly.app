@@ -11,7 +11,7 @@
             <span class="ms-2">@lang('Home')</span>
         </x-aside.item>
         <x-aside.item route="library.agent.index">
-            <i class="fs-4 ti ti-files"></i>
+            <i class="fs-4 ti ti-books"></i>
             <span class="ms-2">@lang('Library')</span>
         </x-aside.item>
     </ul>

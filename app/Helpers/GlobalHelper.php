@@ -66,3 +66,36 @@ if (!function_exists('filestorage')) {
         return route('library.filestorage.index', $filename) . $extension;
     }
 }
+
+if (!function_exists('numberFormat')) {
+
+    /**
+     * Format the number
+     *
+     * @param float|int $value
+     * @param boolean $showFraction
+     * @return string
+     */
+    function formatNumber(float|int $value, bool $showFraction = true): string
+    {
+        $amount = floatval($value);
+
+        // Base options for decimal places
+        $decimals = 2;
+
+        if (!$showFraction) {
+            $decimals = 0;
+        }
+
+        // Formatting the number
+        $formatted = number_format($amount, $decimals, '.', '');
+
+        // Check if number needs compact notation
+        if (strlen($formatted) >= 7) {
+            $thousands = intval($amount / 1000);
+            $formatted = $thousands . 'k';
+        }
+
+        return $formatted;
+    }
+}
