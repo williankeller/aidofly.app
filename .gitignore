@@ -2,6 +2,10 @@
 /node_modules
 /public/build
 /public/hot
+/public/js/*.min.js.map
+/public/js/*.min.css.map
+public/js/*.min.js.map
+public/js/*.min.css.map
 /public/storage
 /storage/*.key
 /vendor
