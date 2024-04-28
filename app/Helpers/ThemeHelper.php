@@ -15,7 +15,7 @@ if (!function_exists('versioning')) {
         $version = config('app.version');
 
         if (app()->environment() !== 'production') {
-            return $prefix . Str::uuid();
+            return $prefix . $version . '-' . Str::uuid();
         }
         return $prefix . $version;
     }

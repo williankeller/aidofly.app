@@ -1,6 +1,6 @@
 `use strict`;
 
-import Alpine from 'alpinejs';
+import Alpine from "alpinejs";
 import api from "../helpers/api";
 import { notification } from "../helpers/notification";
 
@@ -20,7 +20,6 @@ export function listing() {
 
         init() {
             this.loadMore();
-            this.getTotalCount();
 
             let timer = null;
             timer = setTimeout(() => this.retrieveResources(), 200);
@@ -32,12 +31,9 @@ export function listing() {
                     this.retrieveResources(true);
                 }, 200);
             });
-        },
 
-        getTotalCount() {
-            api.get(`${basePath}/count`)
-                .then((response) => response.json())
-                .then((response) => (this.total = response.count));
+            // @todo: Implement this counter
+            this.total = 0;
         },
 
         retrieveResources(reset = false) {
@@ -78,7 +74,7 @@ export function listing() {
                     }
 
                     this.isLoading = false;
-                    this.hasMore = list.data.length >= 25;
+                    this.hasMore = list.data.length >= 15;
                 });
         },
 
@@ -94,32 +90,5 @@ export function listing() {
                 }
             });
         },
-
-        toggleStatus(resource) {
-            resource.status = resource.status == 1 ? 0 : 1;
-
-            api.post(`${basePath}/${resource.uuid}`, {
-                status: resource.status,
-            });
-        },
-
-        deleteResource(resource) {
-            this.isDeleting = true;
-
-            api.delete(`${basePath}/${resource.uuid}`)
-                .then(() => {
-                    this.resources.splice(this.resources.indexOf(resource), 1);
-                    window.modal.close();
-
-                    this.currentResource = null;
-                    notification(strings.delete_success);
-
-                    this.isDeleting = false;
-                })
-                .catch((error) => {
-                    this.isDeleting = false;
-                });
-        },
     }));
 }
-

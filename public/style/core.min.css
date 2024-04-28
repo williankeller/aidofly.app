@@ -12099,6 +12099,13 @@ body {
   width: 50%;
 }
 
+a {
+  transition: color 0.15s;
+}
+a:hover {
+  transition: color 0.15s;
+}
+
 hr {
   border-color: var(--bs-border-color-dimmed);
   opacity: 1;
@@ -12222,6 +12229,7 @@ hr {
   max-width: 57rem;
   margin-top: 1.75rem;
   margin-bottom: 1.75rem;
+  min-height: 100vh;
 }
 
 .autogrow-textarea textarea {

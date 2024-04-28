@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Agents\Preset;
+namespace App\Services\Agents\Content\Preset;
 
 class TemplateParser
 {

@@ -44,9 +44,9 @@ class Preset extends Model
         });
     }
 
-    public function getAbbreviation()
+    public function getAbbreviationAttribute()
     {
-        $abbreviation = preg_replace('/\b(\w)\w*\s*/', '$1', $this->title);
+        $abbreviation = preg_replace('/\b(\w)\w*\s*/', '$1', $this->attributes['title']);
         return strtoupper(substr($abbreviation, 0, 2));
     }
 }

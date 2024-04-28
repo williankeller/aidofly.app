@@ -23,8 +23,9 @@ abstract class AbstractController
             $redirect = $redirect->route($route);
         }
 
-        $redirect = $redirect->withInput()
-            ->with($this->message($message, $type));
+        $redirect = $redirect->withInput()->with(
+            $this->message($message, $type)
+        );
 
         return  $redirect;
     }

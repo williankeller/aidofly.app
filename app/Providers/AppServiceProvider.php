@@ -16,8 +16,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton('OpenAI\Client', function ($app) {
             return OpenAI::factory()
-            ->withApiKey("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")
-            ->make();
+                ->withApiKey(env('OPENAI_API_KEY'))
+                ->make();
         });
 
         // If there are interfaces, bind them here

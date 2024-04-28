@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Agents;
 
 use App\Models\Voice;
 use App\Http\Controllers\AbstractController;
-use App\Services\Agents\Preset\TemplateParser;
+use App\Services\Agents\Content\Preset\TemplateParser;
 use Illuminate\View\View;
 
 class VoiceoverController extends AbstractController

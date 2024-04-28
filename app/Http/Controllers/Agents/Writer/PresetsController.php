@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Preset;
+namespace App\Http\Controllers\Agents\Writer;
 
 use App\Http\Controllers\AbstractController;
-use App\Services\Agents\Preset\TemplateParser;
+use App\Services\Agents\Content\Preset\TemplateParser;
 use App\Models\Category;
 use App\Models\Preset;
 use Illuminate\Http\Request;
@@ -12,7 +12,6 @@ use Illuminate\Http\RedirectResponse;
 
 class PresetsController extends AbstractController
 {
-
     public function __construct(
         private TemplateParser $parser
     ) {
@@ -22,6 +21,7 @@ class PresetsController extends AbstractController
      * Display a listing of the system defined presets.
      * @return View
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @see \App\Http\Controllers\Api\Presets\PresetsController::index
      */
     public function index(): View
     {
@@ -30,8 +30,7 @@ class PresetsController extends AbstractController
             __('Default presets'),
             __('System defined list of preset templates'),
             [
-                /** @see \App\Http\Controllers\Api\Presets\PresetsController::index */
-                'xData' => "list(\"/presets\", {})",
+                'xData' => "list('/presets', {})",
                 'isAdmin' => $this->getUser()->isAdmin(),
             ]
         );
@@ -41,6 +40,7 @@ class PresetsController extends AbstractController
      * Display a listing of the presets from the authenticated user.
      * @return View
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @see \App\Http\Controllers\Api\Presets\PresetsController::user
      */
     public function user(): View
     {
@@ -49,8 +49,7 @@ class PresetsController extends AbstractController
             __('Custom presets'),
             __('List of your custom presets'),
             [
-                /** @see \App\Http\Controllers\Api\Presets\PresetsController::user */
-                'xData' => "list(\"/presets/mine\", {})"
+                'xData' => "list('/presets/mine', {})"
             ]
         );
     }
@@ -59,6 +58,7 @@ class PresetsController extends AbstractController
      * Display a listing of the public presets from other users.
      * @return View
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @see \App\Http\Controllers\Api\Presets\PresetsController::discover
      */
     public function discover(): View
     {
@@ -67,8 +67,7 @@ class PresetsController extends AbstractController
             __('Worldwide presets'),
             __('See what other users have created publicly'),
             [
-                /** @see \App\Http\Controllers\Api\Presets\PresetsController::discover */
-                'xData' => "list(\"/presets/discover\", {})"
+                'xData' => "list('/presets/discover', {})"
             ]
         );
     }
@@ -201,10 +200,13 @@ class PresetsController extends AbstractController
         ];
     }
 
+    /**
+     * Generate a random background color for the preset template
+     * @return string
+     */
     private function getRandomBackgroundColor(): string
     {
-        // Generate a random color with a reduced brightness
-        $red = dechex(rand(0, 175)); // Limiting to 175 to ensure darkness
+        $red = dechex(rand(0, 175));
         $green = dechex(rand(0, 175));
         $blue = dechex(rand(0, 175));
 
@@ -221,6 +223,10 @@ class PresetsController extends AbstractController
 
     /**
      * Show the form for editing the specified resource.
+     * 
+     * @param string $uuid
+     * @return View
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function edit(string $uuid): View
     {
@@ -303,6 +309,12 @@ class PresetsController extends AbstractController
 
     /**
      * Remove the specified resource from storage.
+     * 
+     * @param Request $request
+     * @param string $uuid
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function destroy(Request $request, string $uuid): RedirectResponse
     {

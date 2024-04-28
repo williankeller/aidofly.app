@@ -25,7 +25,7 @@
         </div>
         <template x-for="(content, index) in resources" :key="index">
             <div class="card mb-2 p-3">
-                <a class="d-flex" x-bind:href="'/library/' + content.type + '/' + content.uuid">
+                <a class="d-flex" x-bind:href="`/library/${content.type}/${content.uuid}`">
                     <div class="d-flex justify-content-between align-items-center">
                         <template x-if="!content.preset">
                             <div class="icon-sm bg-secondary text-white">

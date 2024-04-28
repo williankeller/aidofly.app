@@ -5,7 +5,7 @@ namespace App\Services\Agents\Content;
 use App\Services\Agents\AbstractHandler;
 use App\Services\Stream\Streamer;
 use App\Models\Preset;
-use App\Services\Agents\Preset\TemplateParser;
+use App\Services\Agents\Content\Preset\TemplateParser;
 use App\Integrations\OpenAi\CompletionService;
 use Illuminate\Validation\ValidationException;
 use Generator;

@@ -5,11 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SigninController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\RecoverController;
+
 use App\Http\Controllers\Library\LibraryController;
 use App\Http\Controllers\Library\FilestorageController;
-use App\Http\Controllers\Agents\WriterController;
+
+use App\Http\Controllers\Agents\Writer\WriterController;
+use App\Http\Controllers\Agents\Writer\PresetsController;
 use App\Http\Controllers\Agents\VoiceoverController;
-use App\Http\Controllers\Preset\PresetsController;
+
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\PasswordController;
 use App\Http\Controllers\Account\EmailController;
@@ -44,6 +47,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/writer/{uuid}', 'edit')->where('uuid', '[a-z0-9-]+')->name('edit');
         });
 
+        // Voiceover Agent routes
         Route::controller(VoiceoverController::class)->name('voiceover.')->group(function () {
             Route::get('/voiceover', 'index')->name('index');
             Route::get('/voiceover/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');

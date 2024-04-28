@@ -7,11 +7,25 @@
     </section>
 
     <section class="voiceover" data-state="initial" :data-state="state">
+
+        <x-content.placeholder :count="3" :columns="true">
+            <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="card mb-2 p-3 w-100 d-block">
+                    <div class="d-block placeholder col-6 h4 rounded"></div>
+                    <div class="d-block mt-3 placeholder col-2 placeholder-sm rounded"></div>
+                    <div class="d-block mt-3 placeholder col-3 rounded"></div>
+                    <div class="d-flex mt-3" style="height: 34px;">
+                        <div class="placeholder col-5 placeholder-lg rounded"></div>
+                        <div class="placeholder col-7 placeholder-lg rounded ms-2"></div>
+                    </div>
+                </div>
+            </div>
+        </x-content.placeholder>
+
         <div class="row">
             <template x-for="(voice, index) in resources" :key="index">
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
                     <div class="card card-item p-3 w-100 d-block">
-
                         <div class="fw-bold text-body h5" x-text="voice.name"></div>
                         <div class="text-muted text-capitalize small">
                             <template x-if="voice.age">
@@ -24,7 +38,6 @@
                                 <span x-text="voice.gender"></span>
                             </template>
                         </div>
-
                         <div class="categories mt-2 d text-capitalize">
                             <template x-if="voice.tone">
                                 <span class="badge text-bg-secondary me-1" x-text="voice.tone"></span>

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Agents;
+namespace App\Http\Controllers\Agents\Writer;
 
 use App\Models\Library;
 use App\Http\Controllers\AbstractController;
-use App\Services\Agents\Preset\TemplateParser;
+use App\Services\Agents\Content\Preset\TemplateParser;
 use Illuminate\View\View;
 
 class WriterController extends AbstractController
