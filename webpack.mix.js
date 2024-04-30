@@ -12,10 +12,13 @@ if (fs.existsSync("resources/assets/images")) {
  * Compile scripts
  */
 mix.js("resources/assets/scripts/core.js", `public/js/core.min.js`)
-    .js("resources/assets/scripts/pages/content.js", "public/js/content.min.js")
     .js("resources/assets/scripts/pages/library.js", "public/js/library.min.js")
     .js("resources/assets/scripts/pages/listing.js", "public/js/listing.min.js")
     .js("resources/assets/scripts/pages/auth.js", "public/js/auth.min.js")
+    .js(
+        "resources/assets/scripts/pages/agents/writer/index.js",
+        "public/js/content.min.js"
+    )
     .js(
         "resources/assets/scripts/pages/agents/voiceover/index.js",
         "public/js/voiceover.min.js"

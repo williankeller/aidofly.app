@@ -91,8 +91,9 @@
                 </div>
                 <div class="mt-2 small">
                     <a :href="`/library/voiceover/${preview.uuid}`"
-                        class="d-flex align-items-center text-muted saved-to-library text-hover-success">
-                        <i class="fs-5 ti ti-books me-1"></i>
+                        class="d-flex align-items-center text-muted btn btn-light btn-sm toggle-on-hover">
+                        <i class="fs-5 ti ti-books me-1 show"></i>
+                        <i class="fs-5 ti ti-square-rounded-check me-1 hide"></i>
                         <span>@lang('Saved to library')</span>
                     </a>
                 </div>

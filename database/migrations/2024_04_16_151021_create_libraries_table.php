@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->enum('type', ['content', 'voiceover', 'image', 'transcribe']);
+            $table->enum('type', ['writer', 'voiceover', 'image', 'transcript']);
             $table->enum('visibility', ['public', 'private', 'workspace'])->default('private');
 
             $table->string('title', 128);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Agents;
 
 use App\Models\Voice;
 use App\Http\Controllers\AbstractController;
-use App\Services\Agents\Content\Preset\TemplateParser;
+use App\Services\Agents\Writer\Preset\TemplateParser;
 use Illuminate\View\View;
 
 class VoiceoverController extends AbstractController
@@ -29,7 +29,7 @@ class VoiceoverController extends AbstractController
     }
 
     /**
-     * Show the Free form content writer
+     * Show the Free form writer
      * @return View
      */
     public function show(string $uuid): View

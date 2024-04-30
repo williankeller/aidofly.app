@@ -2,10 +2,10 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="library.agent.index" :name="__('Library')" icon="ti-square-rounded-arrow-left-filled" />
+        <x-nav.back route="library.agent.index" :name="__('Library')" />
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription">
-            <a class="btn btn-light d-flex align-items-center" href="{{ route('agent.writer.edit', $library->uuid) }}">
-                <i class="ti ti-sparkles fs-4"></i>
+            <a class="btn btn-light d-flex align-items-center btn-sm" href="{{ route('agent.writer.show', $library->uuid) }}">
+                <i class="ti ti-sparkles fs-5"></i>
                 <span class="ms-1">@lang('Regenarate')</span>
             </a>
         </x-nav.page-title>

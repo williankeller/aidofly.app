@@ -43,8 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::name('agent.')->prefix('/agent')->group(function () {
         // Writer Agent routes
         Route::controller(WriterController::class)->name('writer.')->group(function () {
-            Route::get('/writer', 'create')->name('create');
-            Route::get('/writer/{uuid}', 'edit')->where('uuid', '[a-z0-9-]+')->name('edit');
+            Route::get('/writer', 'freeform')->name('create');
+            Route::get('/writer/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
         });
 
         // Voiceover Agent routes
@@ -75,6 +75,8 @@ Route::middleware('auth')->group(function () {
         });
         Route::controller(FilestorageController::class)->name('filestorage.')->group(function () {
             Route::get('/filestorage/{filename}', 'index')->name('index');
+            Route::get('/filestorage/{uuid}/download', 'download')->where('uuid', '[a-z0-9-]+')->name('download');
+            Route::delete('/filestorage/{uuid}', 'destroy')->where('uuid', '[a-z0-9-]+')->name('destroy');
         });
     });
 

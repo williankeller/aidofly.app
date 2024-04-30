@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Agents\Writer;
 
 use App\Http\Controllers\AbstractController;
-use App\Services\Agents\Content\Preset\TemplateParser;
+use App\Services\Agents\Writer\Preset\TemplateParser;
 use App\Models\Category;
 use App\Models\Preset;
 use Illuminate\Http\Request;
@@ -27,7 +27,7 @@ class PresetsController extends AbstractController
     {
         return $this->view(
             'pages.presets.types.default',
-            __('Default presets'),
+            __('Preset templates'),
             __('System defined list of preset templates'),
             [
                 'xData' => "list('/presets', {})",
@@ -47,7 +47,7 @@ class PresetsController extends AbstractController
         return $this->view(
             'pages.presets.types.user',
             __('Custom presets'),
-            __('List of your custom presets'),
+            __('Custom preset templates you created'),
             [
                 'xData' => "list('/presets/mine', {})"
             ]
@@ -83,7 +83,7 @@ class PresetsController extends AbstractController
         return $this->view(
             'pages.presets.create',
             __('Create a new preset'),
-            __('Create a new preset'),
+            __('Create your own custom preset template'),
             [
                 'categories' => Category::select(['uuid', 'title'])->orderBy('title', 'asc')->get()
             ]
@@ -247,7 +247,7 @@ class PresetsController extends AbstractController
             [
                 'preset' => $preset,
                 'categories' => Category::select(['uuid', 'title'])->orderBy('title', 'asc')->get(),
-                'xData' => "{isProcessing: false}"
+                'xData' => "{}"
             ]
         );
     }

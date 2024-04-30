@@ -18,6 +18,64 @@ $display-font-sizes: (
     line-height: 2rem;
 }
 
+h5,
 .h5 {
+    font-size: 1.15rem;
     font-weight: 800;
+}
+
+.text-hover-primary:hover {
+    color: var(--bs-primary) !important;
+}
+.text-hover-secondary:hover {
+    color: var(--bs-secondary) !important;
+}
+.text-hover-success:hover {
+    color: var(--bs-success) !important;
+}
+.text-hover-danger:hover {
+    color: var(--bs-danger) !important;
+}
+.text-hover-warning:hover {
+    color: var(--bs-warning) !important;
+}
+.text-hover-info:hover {
+    color: var(--bs-info) !important;
+}
+
+.icon-sm,
+.icon-md,
+.icon-lg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--bs-border-radius);
+    background-image: var(--bs-gradient);
+    i {
+        color: var(--bs-white);
+    }
+}
+
+.icon-sm {
+    width: 35px;
+    height: 35px;
+    i {
+        font-size: 1.25rem;
+    }
+}
+
+.icon-md {
+    width: 45px;
+    height: 45px;
+    i {
+        font-size: 1.5rem;
+    }
+}
+
+.icon-lg {
+    width: 65px;
+    height: 65px;
+    i {
+        font-size: 2.25rem;
+    }
 }

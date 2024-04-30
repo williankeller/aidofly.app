@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\Api\Authenticate;
+use App\Http\Middleware\Studio\Locale;
 use App\Services\Auth\AuthToken;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -20,11 +21,17 @@ return Application::configure(basePath: dirname(__DIR__))
         // Encrypt all cookies except the auth token
         $middleware->encryptCookies(except: [
             AuthToken::COOKIE_NAME,
+            'locale'
         ]);
 
         // API middleware for authenticating requests
-        $middleware->api(prepend: [
+        $middleware->api(append: [
             Authenticate::class
+        ]);
+
+        // Web middleware for handling the locale
+        $middleware->web(append: [
+            Locale::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

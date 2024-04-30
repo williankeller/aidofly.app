@@ -1,4 +1,4 @@
-<div class="container d-flex justify-content-between small text-muted">
+<div class="container d-flex justify-content-between small text-muted my-4">
     <div class="copyright">
         <span>&copy; {{ date('Y') }} {{ config('app.name') }}</span>
     </div>

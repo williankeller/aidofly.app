@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\App;
 
 class GlobalAuthServiceProvider extends ServiceProvider
 {
@@ -21,14 +22,15 @@ class GlobalAuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $authUser = Auth::user();
+
         // Share the Authenticated User globally
-        View::composer('*', function ($view) {
-            $view->with('authUser', Auth::user());
+        View::composer('*', function ($view) use ($authUser) {
+            $view->with('authUser', $authUser);
         });
 
-        // Alternatively, you can use a singleton if needed elsewhere
-        $this->app->singleton('authUser', function ($app) {
-            return Auth::user();
+        $this->app->singleton('authUser', function ($app) use ($authUser) {
+            return $authUser;
         });
     }
 }

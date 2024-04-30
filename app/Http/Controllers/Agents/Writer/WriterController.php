@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Agents\Writer;
 
 use App\Models\Library;
 use App\Http\Controllers\AbstractController;
-use App\Services\Agents\Content\Preset\TemplateParser;
+use App\Services\Agents\Writer\Preset\TemplateParser;
 use Illuminate\View\View;
 
 class WriterController extends AbstractController
@@ -29,29 +29,31 @@ class WriterController extends AbstractController
     }
 
     /**
-     * Show the Free form content writer
+     * Show the Free form writer
      * @return View
      */
-    public function create(): View
+    public function freeform(): View
     {
         return $this->view(
-            'pages.agents.writer.create',
-            'Free form content writer',
-            'Write your own content from scratch',
+            'pages.agents.writer.show',
+            __('Free form writer'),
+            __('Write your own content from scratch'),
             [
                 'xData' => 'content(null, null)',
-                'creativities' => $this->creativityOptions()
+                'creativities' => $this->creativityOptions(),
+                'templates' => null,
             ]
         );
     }
 
     /**
-     * Show a already created content from the library to re-send
+     * Show an already created content from the library to re-send
+     *
      * @param string $uuid Library UUID
      * @return View
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function edit(string $uuid): View
+    public function show(string $uuid): View
     {
         $library = Library::with('preset')->where('uuid', $uuid)
             ->where('user_id', auth()->id())
@@ -65,8 +67,8 @@ class WriterController extends AbstractController
         }
 
         return $this->view(
-            'pages.agents.writer.edit',
-            $library->preset?->title ?? __('Free form content writer'),
+            'pages.agents.writer.show',
+            $library->preset?->title ?? __('Free form writer'),
             $library->preset?->description ?? __('Write your own content from scratch'),
             [
                 'xData' => "content({$presetJson}, {$library->toJson()})",

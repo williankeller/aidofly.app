@@ -8,7 +8,7 @@ use Illuminate\View\View;
 
 class LibraryController extends AbstractController
 {
-    private $allowedTypes = ['voiceover', 'content'];
+    private const ALLOWED_TYPES = ['voiceover', 'writer'];
 
     public function index(): View
     {
@@ -21,7 +21,7 @@ class LibraryController extends AbstractController
 
     public function show(string $type, string $uuid): View
     {
-        if (!in_array($type, $this->allowedTypes)) {
+        if (!in_array($type, self::ALLOWED_TYPES)) {
             abort(404);
         }
 
@@ -32,7 +32,7 @@ class LibraryController extends AbstractController
         }
     }
 
-    private function content(string $uuid): View
+    private function writer(string $uuid): View
     {
         $library = Library::where('user_id', auth()->id())
             ->where('uuid', $uuid)

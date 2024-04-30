@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Agents\Content\Preset;
+namespace App\Services\Agents\Writer\Preset;
 
 use Override;
 

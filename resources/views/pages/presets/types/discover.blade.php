@@ -3,7 +3,7 @@
 @section('content')
     <section class="mb-5">
         @if (url()->previous() === route('presets.index'))
-            <x-nav.back route="presets.index" :name="__('Default presets')" icon="ti-square-rounded-arrow-left-filled" />
+            <x-nav.back route="presets.index" :name="__('Preset templates')" icon="ti-square-rounded-arrow-left-filled" />
         @elseif (url()->previous() === route('presets.user'))
             <x-nav.back route="presets.user" :name="__('My presets')" icon="ti-square-rounded-arrow-left-filled" />
         @else

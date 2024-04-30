@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('lastname', 32)->after('firstname');
             $table->boolean('role')->default(0)->comment('0: User, 1: Admin');
             $table->boolean('status')->default(1)->comment('0: Disabled, 1: Enabled');
-            $table->text('configuration')->nullable();
+            $table->text('preferences')->nullable();
 
             $table->dropColumn('name');
         });

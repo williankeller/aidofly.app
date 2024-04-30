@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Agents\Content;
+namespace App\Services\Agents\Writer;
 
 use App\Services\Agents\AbstractHandler;
 use App\Services\Stream\Streamer;
 use App\Models\Preset;
-use App\Services\Agents\Content\Preset\TemplateParser;
+use App\Services\Agents\Writer\Preset\TemplateParser;
 use App\Integrations\OpenAi\CompletionService;
 use Illuminate\Validation\ValidationException;
 use Generator;
@@ -42,7 +42,7 @@ class Handler extends AbstractHandler
         $cost = $resp->getReturn();
 
         return $this->storeLibrary(
-            'content',
+            'writer',
             $model,
             $params,
             $content,

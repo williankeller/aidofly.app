@@ -6,7 +6,7 @@ use Generator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\AbstractController;
 use App\Services\Stream\Streamer;
-use App\Services\Agents\Content\Handler;
+use App\Services\Agents\Writer\Handler;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CompletionController extends AbstractController

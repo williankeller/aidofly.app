@@ -18,10 +18,23 @@
                         autocomplete="family-name" minlength="2" maxlength="32" />
                 </div>
             </div>
+            <div class="row mb-3">
+                <div class="col-lg-8">
+                    <x-form.input-field type="email" id="email" :label="__('Email address')" :value="$user->email" readonly disabled
+                        autocomplete="off" />
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-8">
-                    <x-form.input-field type="email" id="email" :label="__('Email address')" :value="$user->email" readonly
-                        disabled autocomplete="off" />
+                    <label class="form-label required" for="locale">@lang('Language')</label>
+                    <select id="locale" name="locale" class="form-select form-control" required>
+                        <option value="" disabled selected>@lang('Select language')</option>
+                        @foreach ($locales as $code => $locale)
+                            <option value="{{ $code }}" @selected(old('locale', $selectedLocale) == $code)>
+                                {{ $locale }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="d-flex justify-content-between align-items-center mt-5">

@@ -18,7 +18,9 @@ class AccountController extends AbstractController
             __('Edit your account'),
             __('Update your account information'),
             [
-                'user' => $user
+                'locales' => $this->getLanguages(),
+                'user' => $user,
+                'selectedLocale' => $user->preferences->locale
             ]
         );
     }
@@ -30,6 +32,7 @@ class AccountController extends AbstractController
         $request->validate([
             'firstname' => 'required|string|min:1|max:32',
             'lastname' => 'required|string|min:2|max:32',
+            'locale' => 'required|string|in:' . implode(',', array_keys($this->getLanguages()))
         ]);
 
         if ($user->isAdmin()) {
@@ -44,9 +47,21 @@ class AccountController extends AbstractController
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'status' => $request->status ?? true,
-            'role' => $request->role ?? false
+            'role' => $request->role ?? false,
+            'preferences' => ['locale' => $request->locale]
         ]);
 
+        cookie()->queue('locale', $request->locale, 60 * 24 * 365 * 10, null, null, null, false);
+        app()->setLocale($request->locale);
+
         return redirect()->route('account.edit')->with('success', __('Your account has been updated.'));
+    }
+
+    private function getLanguages(): array
+    {
+        return [
+            'en' => __('English'),
+            'pt-BR' => __('Português (Brasil)')
+        ];
     }
 }
