@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Services\Studio\Locale;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SigninController extends AbstractAuthController
 {
+    public function __construct(
+        private Locale $locale
+    ) {
+    }
+
     public function index()
     {
-        return view('pages.auth.signin', [
-            'metaTitle' => 'Transform your brainstorm ideas into reality',
-            'metaDescription' => 'Welcome back to the threshold of innovation. Log in now to begin shaping the future with every word you generate!'
-        ]);
+        return $this->view(
+            'pages.auth.signin',
+            __('Transform your brainstorm ideas into reality'),
+            __('Welcome back to the threshold of innovation. Log in now to begin shaping the future with every word you generate!'),
+            [
+                'locales' => $this->locale->availableLanguages(),
+            ]
+        );
     }
 
     public function authorize(Request $request): RedirectResponse

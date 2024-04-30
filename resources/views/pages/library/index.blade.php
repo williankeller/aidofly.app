@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="home.index" :name="__('home')" icon="ti-square-rounded-arrow-left-filled" />
+        <x-nav.back route="home.index" :name="__('Home')" />
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 

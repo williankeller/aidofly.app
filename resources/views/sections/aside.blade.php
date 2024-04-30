@@ -10,7 +10,7 @@
             <i class="fs-4 ti ti-home"></i>
             <span class="ms-2">@lang('Home')</span>
         </x-aside.item>
-        <x-aside.item route="library.agent.index">
+        <x-aside.item route="library.agent.index" match="library.*">
             <i class="fs-4 ti ti-books"></i>
             <span class="ms-2">@lang('Library')</span>
         </x-aside.item>
@@ -19,13 +19,13 @@
         <li class="nav-item mb-1">
             <strong>@lang('Agents')</strong>
         </li>
-        <x-aside.item route="presets.index">
+        <x-aside.item route="agent.writer.presets.index" match="agent.writer.presets.*">
             <span class="icon-sm bg-warning">
                 <i class="ti ti-file-text"></i>
             </span>
             <span class="ms-2">@lang('Writer')</span>
         </x-aside.item>
-        <x-aside.item route="agent.voiceover.index">
+        <x-aside.item route="agent.voiceover.index" match="agent.voiceover.*">
             <span class="icon-sm bg-success">
                 <i class="ti ti-speakerphone"></i>
             </span>

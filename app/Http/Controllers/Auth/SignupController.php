@@ -3,19 +3,27 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use App\Http\Controllers\AbstractController;
+use App\Services\Studio\Locale;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 
 class SignupController extends AbstractAuthController
 {
+    public function __construct(
+        private Locale $locale
+    ) {
+    }
+
     public function index()
     {
         return $this->view(
             'pages.auth.signup',
             __('Begin your creative journey today'),
-            __('Our AI-driven content creator is your new partner in creativity, ready to elevate your concepts with precision and flair.')
+            __('Our AI-driven content creator is your new partner in creativity, ready to elevate your concepts with precision and flair.'),
+            [
+                'locales' => $this->locale->availableLanguages(),
+            ]
         );
     }
 

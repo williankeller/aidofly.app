@@ -37,8 +37,9 @@ async function request(method = "GET", url, options = {}) {
     const opts = {
         method,
         headers: {
-            "Content-Type": "application/json",
             Accept: "application/json",
+            "Content-Type": "application/json",
+            "Accept-Language": getCookie("locale") || "en",
         },
     };
 

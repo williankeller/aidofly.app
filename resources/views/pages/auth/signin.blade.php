@@ -11,9 +11,7 @@
                     <p class="text-white text-opacity-75 lead">@lang('Welcome back to the threshold of innovation. Log in now to begin shaping the future with every word you generate!')</p>
                 </div>
             </div>
-            <div class="mt-auto ps-16 ps-xl-20">
-                // LANG
-            </div>
+            @include('pages.auth.snippets.locale')
         </div>
         <div
             class="col-12 col-md-12 col-lg-7 offset-lg-5 min-vh-100 overflow-y-auto d-flex flex-column justify-content-center position-relative bg-body">

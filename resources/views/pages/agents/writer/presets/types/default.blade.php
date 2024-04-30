@@ -2,12 +2,12 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="home.index" :name="__('Home')" icon="ti-square-rounded-arrow-left-filled" />
-        @include('pages.presets.types.sections.nav')
+        <x-nav.back route="home.index" :name="__('Home')" />
+        @include('pages.agents.writer.presets.snippets.nav')
     </section>
 
     <section class="group/list" data-state="initial" :data-state="state">
-        @include('pages.presets.types.sections.placeholder')
+        @include('pages.agents.writer.presets.snippets.placeholder')
         <div class="row">
             <div class="col-lg-4 d-flex align-items-stretch card-static mb-3">
                 <div class="card-wrapper-selected h-100 d-flex align-items-stretch">
@@ -31,8 +31,7 @@
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
                     <div class="card card-item p-3 w-100 d-block">
                         <div class="d-flex justify-content-between">
-                            <div class="icon-md"
-                                :style="{ backgroundColor: preset.color }">
+                            <div class="icon-md" :style="{ backgroundColor: preset.color }">
                                 <i class="ti" :class="preset.icon"></i>
                             </div>
                             @if ($isAdmin)
@@ -53,7 +52,8 @@
                         <div class="category mt-2">
                             <span class="badge text-bg-secondary" x-text="preset.category.title"></span>
                         </div>
-                        <a x-bind:href="`{{ route('presets.show', '') }}/${preset.uuid}`" class="stretched-link z-1"></a>
+                        <a x-bind:href="`{{ route('agent.writer.presets.show', '') }}/${preset.uuid}`"
+                            class="stretched-link z-1"></a>
                     </div>
                 </div>
             </template>

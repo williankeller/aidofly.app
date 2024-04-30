@@ -20,7 +20,7 @@
                                 autocomplete="given-name" minlength="1" maxlength="32" />
                         </div>
                         <div class="col-sm-6">
-                            <x-form.input-field :label="__('Last name')" id="lastname" :placeholder="__('Your last name')" required
+                            <x-form.input-field :label="__('Last name')" id="lastname" :placeholder="__('Your lastname')" required
                                 autocomplete="family-name" minlength="2" maxlength="32" />
                         </div>
                     </div>
@@ -53,9 +53,7 @@
                     <p class="text-white text-opacity-75 lead">@lang('Our AI-driven content creator is your new partner in creativity, ready to elevate your concepts with precision and flair.')</p>
                 </div>
             </div>
-            <div class="mt-auto ps-16 ps-xl-20">
-                // LANG
-            </div>
+            @include('pages.auth.snippets.locale')
         </div>
     </section>
 @endsection

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SigninController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\RecoverController;
+use App\Http\Controllers\Studio\LocaleController;
 
 use App\Http\Controllers\Library\LibraryController;
 use App\Http\Controllers\Library\FilestorageController;
@@ -16,6 +17,8 @@ use App\Http\Controllers\Agents\VoiceoverController;
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\PasswordController;
 use App\Http\Controllers\Account\EmailController;
+
+Route::post('/locale', [LocaleController::class, 'switch'])->name('locale.switch');
 
 Route::name('auth.')->group(function () {
     Route::controller(SigninController::class)->group(function () {
@@ -42,9 +45,23 @@ Route::middleware('auth')->group(function () {
     // Agent routes
     Route::name('agent.')->prefix('/agent')->group(function () {
         // Writer Agent routes
-        Route::controller(WriterController::class)->name('writer.')->group(function () {
-            Route::get('/writer', 'freeform')->name('create');
-            Route::get('/writer/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+        Route::name('writer.')->group(function () {
+            // Writer Agent Preset routes
+            Route::name('presets.')->prefix('/writer')->controller(PresetsController::class)->group(function () {
+                Route::get('/presets', 'index')->name('index');
+                Route::get('/presets/mine', 'user')->name('user');
+                Route::get('/presets/discover', 'discover')->name('discover');
+                Route::get('/presets/create', 'create')->name('create');
+                Route::get('/preset/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+                Route::get('/preset/{uuid}/edit', 'edit')->where('uuid', '[a-z0-9-]+')->name('edit');
+                Route::post('/presets', 'store')->name('store');
+                Route::put('/preset/{uuid}', 'update')->where('uuid', '[a-z0-9-]+')->name('update');
+                Route::delete('/preset/{uuid}', 'destroy')->where('uuid', '[a-z0-9-]+')->name('destroy');
+            });
+            Route::controller(WriterController::class)->group(function () {
+                Route::get('/writer', 'freeform')->name('create');
+                Route::get('/writer/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+            });
         });
 
         // Voiceover Agent routes
@@ -52,19 +69,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/voiceover', 'index')->name('index');
             Route::get('/voiceover/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
         });
-    });
-
-    // Preset routes
-    Route::controller(PresetsController::class)->name('presets.')->group(function () {
-        Route::get('/presets', 'index')->name('index');
-        Route::get('/presets/mine', 'user')->name('user');
-        Route::get('/presets/discover', 'discover')->name('discover');
-        Route::get('/presets/create', 'create')->name('create');
-        Route::get('/preset/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
-        Route::get('/preset/{uuid}/edit', 'edit')->where('uuid', '[a-z0-9-]+')->name('edit');
-        Route::post('/presets', 'store')->name('store');
-        Route::put('/preset/{uuid}', 'update')->where('uuid', '[a-z0-9-]+')->name('update');
-        Route::delete('/preset/{uuid}', 'destroy')->where('uuid', '[a-z0-9-]+')->name('destroy');
     });
 
     // Library routes

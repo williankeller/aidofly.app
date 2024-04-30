@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 
 class Preset extends Model
 {
@@ -48,5 +50,12 @@ class Preset extends Model
     {
         $abbreviation = preg_replace('/\b(\w)\w*\s*/', '$1', $this->attributes['title']);
         return strtoupper(substr($abbreviation, 0, 2));
+    }
+
+    public function title(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => __($value)
+        );
     }
 }

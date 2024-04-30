@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="presets.index" :name="__('Preset templates')" />
+        <x-nav.back route="agent.writer.presets.index" :name="__('Preset templates')" />
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 

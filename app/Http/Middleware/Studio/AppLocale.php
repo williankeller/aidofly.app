@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
-class Locale
+class AppLocale
 {
     /**
      * Handle an incoming request.

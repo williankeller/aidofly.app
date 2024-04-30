@@ -18,7 +18,7 @@ class PresetsController extends AbstractController
     }
 
     /**
-     * Display a listing of the system defined presets.
+     * Display a listing of the system defined agent.writer.presets.
      * @return View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      * @see \App\Http\Controllers\Api\Presets\PresetsController::index
@@ -26,7 +26,7 @@ class PresetsController extends AbstractController
     public function index(): View
     {
         return $this->view(
-            'pages.presets.types.default',
+            'pages.agents.writer.presets.types.default',
             __('Preset templates'),
             __('System defined list of preset templates'),
             [
@@ -45,7 +45,7 @@ class PresetsController extends AbstractController
     public function user(): View
     {
         return $this->view(
-            'pages.presets.types.user',
+            'pages.agents.writer.presets.types.user',
             __('Custom presets'),
             __('Custom preset templates you created'),
             [
@@ -63,7 +63,7 @@ class PresetsController extends AbstractController
     public function discover(): View
     {
         return $this->view(
-            'pages.presets.types.discover',
+            'pages.agents.writer.presets.types.discover',
             __('Worldwide presets'),
             __('See what other users have created publicly'),
             [
@@ -81,7 +81,7 @@ class PresetsController extends AbstractController
     public function create(): View
     {
         return $this->view(
-            'pages.presets.create',
+            'pages.agents.writer.presets.create',
             __('Create a new preset'),
             __('Create your own custom preset template'),
             [
@@ -131,7 +131,7 @@ class PresetsController extends AbstractController
             'user_id' => $authUser->isAdmin() ? null : $authUser->id,
         ]);
 
-        return $this->redirect('presets.user', __('Preset template created successfully!'));
+        return $this->redirect('agent.writer.presets.user', __('Preset template created successfully!'));
     }
 
     /**
@@ -241,7 +241,7 @@ class PresetsController extends AbstractController
         $preset = $preset->firstOrFail();
 
         return $this->view(
-            'pages.presets.edit',
+            'pages.agents.writer.presets.edit',
             __("Editing: :title", ['title' => $preset->title]),
             __("Details: :description", ['description' => $preset->description]),
             [
@@ -337,6 +337,6 @@ class PresetsController extends AbstractController
 
         $preset->delete();
 
-        return $this->redirect('presets.user', __('Preset template deleted successfully!'));
+        return $this->redirect('agent.writer.presets.user', __('Preset template deleted successfully!'));
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="home.index" :name="__('Home')" icon="ti-square-rounded-arrow-left-filled" />
+        <x-nav.back route="home.index" :name="__('Home')" />
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 
@@ -14,7 +14,7 @@
                     <div class="d-block placeholder col-6 h4 rounded"></div>
                     <div class="d-block mt-3 placeholder col-2 placeholder-sm rounded"></div>
                     <div class="d-block mt-3 placeholder col-3 rounded"></div>
-                    <div class="d-flex mt-3" style="height: 34px;">
+                    <div class="d-flex mt-4" style="height: 34px;">
                         <div class="placeholder col-5 placeholder-lg rounded"></div>
                         <div class="placeholder col-7 placeholder-lg rounded ms-2"></div>
                     </div>

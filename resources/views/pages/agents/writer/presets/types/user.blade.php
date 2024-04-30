@@ -2,20 +2,20 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="home.index" :name="__('Home')" icon="ti-square-rounded-arrow-left-filled" />
-        @include('pages.presets.types.sections.nav')
+        <x-nav.back route="home.index" :name="__('Home')" />
+        @include('pages.agents.writer.presets.snippets.nav')
     </section>
 
     <section data-state="initial" :data-state="state">
         <x-content.empty :title="__('No custom presets yet')" :subtitle="__('You haven\'t create a preset template yet.')" icon="ti ti-stack">
-            <a href="{{ route('presets.create') }}" class="btn btn-primary">
+            <a href="{{ route('agent.writer.presets.create') }}" class="btn btn-primary">
                 <div class="d-flex align-items-center">
                     <i class="fs-4 ti ti-square-rounded-plus me-1"></i>
                     <span>@lang('Create a new preset')</span>
                 </div>
             </a>
         </x-content.empty>
-        @include('pages.presets.types.sections.placeholder')
+        @include('pages.agents.writer.presets.snippets.placeholder')
         <div class="row">
             <div class="col-lg-4 d-flex align-items-stretch card-static mb-3">
                 <div class="card-wrapper-selected h-100 d-flex align-items-stretch">
@@ -29,7 +29,7 @@
                             </div>
                             <small class="mt-2 text-sm text-muted d-block">@lang('Create your own template to use with the AI writer.')</small>
                         </div>
-                        <a href="{{ route('presets.create') }}" class="stretched-link z-1"></a>
+                        <a href="{{ route('agent.writer.presets.create') }}" class="stretched-link z-1"></a>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,8 @@
                         <div class="category mt-2">
                             <span class="badge text-bg-secondary" x-text="preset.category.title"></span>
                         </div>
-                        <a x-bind:href="`{{ route('presets.show', '') }}/${preset.uuid}`" class="stretched-link z-1"></a>
+                        <a x-bind:href="`{{ route('agent.writer.presets.show', '') }}/${preset.uuid}`"
+                            class="stretched-link z-1"></a>
                     </div>
                 </div>
             </template>

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Middleware\Api\Authenticate;
-use App\Http\Middleware\Studio\Locale;
+use App\Http\Middleware\Api\ApiLocale;
+use App\Http\Middleware\Studio\AppLocale;
+use App\Http\Middleware\Studio\GlobalUser;
 use App\Services\Auth\AuthToken;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -24,14 +26,16 @@ return Application::configure(basePath: dirname(__DIR__))
             'locale'
         ]);
 
-        // API middleware for authenticating requests
+        // API middleware
         $middleware->api(append: [
-            Authenticate::class
+            Authenticate::class,
+            ApiLocale::class
         ]);
 
-        // Web middleware for handling the locale
+        // Web middleware
         $middleware->web(append: [
-            Locale::class
+            AppLocale::class,
+            GlobalUser::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
