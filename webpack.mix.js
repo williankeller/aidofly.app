@@ -23,7 +23,10 @@ mix.js("resources/assets/scripts/core.js", `public/js/core.min.js`)
         "resources/assets/scripts/pages/agents/voiceover/index.js",
         "public/js/voiceover.min.js"
     )
-    .sourceMaps();
+    .js(
+        "resources/assets/scripts/pages/home/index.js",
+        "public/js/home.min.js"
+    );
 
 /**
  * Compile styles

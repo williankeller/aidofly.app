@@ -13,6 +13,15 @@ abstract class AbstractController
         return auth()->user();
     }
 
+    protected function view(string $view, string $title, ?string $description = null, ?array $data = []): View
+    {
+        return view($view, [
+            'metaTitle' => $title ?? config('app.name'),
+            'metaDescription' => $description,
+            ...$data,
+        ]);
+    }
+
     protected function redirect($route, string $message, ?string $type = 'success'): RedirectResponse
     {
         $redirect = redirect();
@@ -38,14 +47,5 @@ abstract class AbstractController
                 'content' => $message,
             ],
         ];
-    }
-
-    protected function view(string $view, string $title, string $description, array $data = []): View
-    {
-        return view($view, [
-            'metaTitle' => $title,
-            'metaDescription' => $description,
-            ...$data,
-        ]);
     }
 }

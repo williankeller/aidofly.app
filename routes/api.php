@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Api\Home\SearchController;
+
+
 use App\Http\Controllers\Api\Library\LibraryController;
 
 use App\Http\Controllers\Api\Agents\Writer\CompletionController;
@@ -9,6 +12,10 @@ use App\Http\Controllers\Api\Agents\Writer\PresetsController;
 
 use App\Http\Controllers\Api\Agents\Voiceover\VoicesController;
 use App\Http\Controllers\Api\Agents\Voiceover\SpeechController;
+
+Route::controller(SearchController::class)->group(function () {
+    Route::get('/search', 'index');
+});
 
 Route::controller(LibraryController::class)->group(function () {
     Route::get('/library', 'index');

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SigninController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\RecoverController;
+
+use App\Http\Controllers\Studio\HomeController;
 use App\Http\Controllers\Studio\LocaleController;
 
 use App\Http\Controllers\Library\LibraryController;
@@ -45,10 +47,9 @@ Route::middleware('guest')->group(function () {
  * Authenticated routes only
  */
 Route::middleware('auth')->group(function () {
-    // Home route
-    Route::get('/', function () {
-        return view('pages.home.index');
-    })->name('home.index');
+    Route::controller(HomeController::class)->name('home.')->group(function () {
+        Route::get('/', 'index')->name('index');
+    });
 
     // Agent routes
     Route::name('agent.')->prefix('/agent')->group(function () {
