@@ -17,6 +17,14 @@ $radio-checkbox-margin: 2.4em;
     min-height: 3rem;
 }
 
+.form-select {
+    &.border-0 {
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}
+
 .input-password-group {
     position: relative;
     display: flex;

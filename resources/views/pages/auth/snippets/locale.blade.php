@@ -1,7 +1,7 @@
-<div class="mt-auto p-3" style="max-width: 230px;">
-    <form class="d-flex align-items-center" action="{{ route('locale.switch') }}" method="post">
-        <i class="fs-4 text-white ti ti-language me-1"></i>
-        <select name="locale" class="form-select form-select-sm" onchange="this.form.submit()">
+<div class="mt-auto py-3" style="max-width: 230px;">
+    <form class="d-flex align-items-center text-muted" action="{{ route('locale.switch') }}" method="post">
+        <i class="fs-5 ti ti-language me-1"></i>
+        <select name="locale" class="form-select form-select-sm text-muted border-0" onchange="this.form.submit()">
             @foreach ($locales as $code => $locale)
                 <option value="{{ $code }}" @selected(old('locale', app()->getLocale()) == $code)>{{ $locale }}</option>
             @endforeach

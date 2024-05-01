@@ -20,7 +20,7 @@ use App\Http\Controllers\Account\EmailController;
 
 Route::post('/locale', [LocaleController::class, 'switch'])->name('locale.switch');
 
-Route::name('auth.')->group(function () {
+Route::middleware('guest')->name('auth.')->group(function () {
     Route::controller(SigninController::class)->group(function () {
         Route::get('/signin', 'index')->name('signin');
         Route::post('/authenticate', 'authorize')->name('signin.authorize');
@@ -30,7 +30,12 @@ Route::name('auth.')->group(function () {
         Route::get('/signup', 'index')->name('index');
         Route::post('/signup', 'store')->name('store');
     });
-    Route::get('/recover', [RecoverController::class, 'index'])->name('recover');
+    Route::controller(RecoverController::class)->prefix('/auth')->name('recover.')->group(function () {
+        Route::get('/recover', 'index')->name('index');
+        Route::post('/recover', 'send')->name('send');
+        Route::get('/recover/{token}', 'reset')->where('token', '[a-z0-9-]+')->name('reset');
+        Route::post('/recover/{token}', 'update')->where('token', '[a-z0-9-]+')->name('update');
+    });
 });
 
 /**
@@ -89,7 +94,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/account', 'edit')->name('edit');
             Route::put('/account', 'update')->name('update');
             Route::delete('/account', 'destroy')->name('destroy');
-            
         });
         Route::controller(PasswordController::class)->name('password.')->group(function () {
             Route::get('/account/password', 'edit')->name('edit');

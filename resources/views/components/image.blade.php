@@ -4,4 +4,5 @@
     'decoding' => 'async',
     'loading' => 'eager',
 ])
-<img src="{{ asset($src) }}" alt="{{ $alt }}" decoding="{{ $decoding }}" loading="{{ $loading }}" {{ $attributes }}/>
+<img src="{{ asset('/img' . $src) }}" alt="{{ $alt }}" decoding="{{ $decoding }}" loading="{{ $loading }}"
+    {{ $attributes }} />

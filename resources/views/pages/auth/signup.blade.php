@@ -1,12 +1,23 @@
 @extends('layouts.auth')
 
 @section('content')
-    <section class="row g-0 justify-content-center gradient-bottom-right bg-primary">
-        <div
-            class="col-12 col-md-12 col-lg-7 offset-lg-5 min-vh-100 overflow-y-auto d-flex flex-column justify-content-center position-relative bg-body">
-            <div class="w-md-50 mx-auto px-5 px-md-0 py-5">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <section
+            class="col-lg-5 col-xl-4 p-3 position-fixed start-0 top-0 h-screen overflow-y-hidden d-none d-lg-flex flex-column">
+            <div class="d-lg-flex flex-column w-100 h-100 p-5 pb-0 bg-primary rounded-4">
+                <h1 class="fw-bolder h3 text-white">{{ config('app.name') }}</h1>
+                <div class="mt-5 pt-5">
+                    <h2 class="ls-tight fw-bolder h1 text-white mb-3">@lang('Sign up to harness the power of AI today')</h2>
+                    <p class="text-white text-opacity-75 lead">@lang('Our AI-driven content creator is your new partner in creativity, ready to elevate your concepts with precision and flair.')</p>
+                </div>
+            </div>
+        </section>
+        <section
+            class="col-12 col-md-9 col-lg-7 offset-lg-5 border-left-lg min-h-lg-screen d-flex flex-column justify-content-center py-lg-5 px-lg-5 position-relative">
+            <div class="mx-auto px-5 px-md-0 py-5 col-12 col-sm-9 col-lg-9 col-xxl-6">
                 <div class="mb-4">
-                    <x-image src="/img/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="45" height="45" />
+                    <x-image src="/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="45"
+                        height="45" />
                     <h2 class="mt-3 ls-tight fw-bolder h3">
                         <span>@lang('Begin your creative journey today')</span>
                         <span></span>
@@ -14,12 +25,12 @@
                 </div>
                 <form is="x-form" x-ref="form" method="post" action="{{ route('auth.signup.store') }}">
                     @csrf
-                    <div class="mb-3 row">
-                        <div class="col-sm-6">
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
                             <x-form.input-field :label="__('First name')" id="firstname" :placeholder="__('Your first name')" required
                                 autocomplete="given-name" minlength="1" maxlength="32" />
                         </div>
-                        <div class="col-sm-6">
+                        <div class="mb-3 col-sm-6">
                             <x-form.input-field :label="__('Last name')" id="lastname" :placeholder="__('Your lastname')" required
                                 autocomplete="family-name" minlength="2" maxlength="32" />
                         </div>
@@ -33,7 +44,7 @@
                             autocomplete="current-password" minlength="6" maxlength="255" />
                     </div>
                     <div>
-                        <x-button variant="primary" class="w-100">
+                        <x-button class="w-100 btn-lg">
                             <span>@lang('Sign up')</span>
                         </x-button>
                     </div>
@@ -43,19 +54,11 @@
                     <a href="{{ route('auth.signin') }}" class="fw-semibold">@lang('Sign in')</a>
                 </div>
             </div>
-        </div>
-        <div
-            class="col-md-5 col-lg-5 col-xl-5 position-fixed start-0 top-0 vh-100 overflow-y-hidden d-none d-lg-flex flex-lg-column">
-            <div class="p-5">
-                <h1 class="fw-bolder h3 text-white">{{ config('app.name') }}</h1>
-                <div class="mt-5 pt-5">
-                    <h2 class="ls-tight fw-bolder h1 text-white mb-3">@lang('Sign up to harness the power of AI today')</h2>
-                    <p class="text-white text-opacity-75 lead">@lang('Our AI-driven content creator is your new partner in creativity, ready to elevate your concepts with precision and flair.')</p>
-                </div>
-            </div>
-            @include('pages.auth.snippets.locale')
-        </div>
-    </section>
+        </section>
+    </div>
+    <div class="position-fixed end-0 top-0 px-3">
+        @include('pages.auth.snippets.locale')
+    </div>
 @endsection
 
 @push('script-stack-after')

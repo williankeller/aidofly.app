@@ -37,7 +37,7 @@ class AccountController extends AbstractController
             'locale' => 'required|string|in:' . implode(',', Locale::LANGUAGES)
         ]);
 
-        if ($user->isAdmin()) {
+        if ($user->isAdministrator()) {
             $status = $request->input('status') === 'active' ? true : false;
             $request->merge(['status' => $status]);
 

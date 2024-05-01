@@ -6,19 +6,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'firstname',
         'lastname',
@@ -29,21 +24,11 @@ class User extends Authenticatable
         'configuration'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -53,7 +38,7 @@ class User extends Authenticatable
         ];
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
@@ -62,18 +47,17 @@ class User extends Authenticatable
         });
     }
 
-    public function isAdmin(): bool
+    public function isAdministrator(): bool
     {
         return $this->role === 1;
     }
 
-
-    protected function library()
+    protected function library(): HasMany
     {
         return $this->hasMany(Library::class);
     }
 
-    public function getConfiguration(string $key)
+    public function getConfiguration(string $key): ?string
     {
         $decoded = json_decode($this->attributes['preferences']);
 

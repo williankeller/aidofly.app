@@ -1,3 +1,7 @@
+.app {
+    @extend .min-h-screen;
+}
+
 .main {
     max-width: 57rem;
     margin-top: 1.75rem;

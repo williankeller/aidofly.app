@@ -9,7 +9,6 @@
         "firebase/php-jwt": "^6.10",
         "gioni06/gpt3-tokenizer": "^1.2",
         "laravel/framework": "^11.0",
-        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "openai-php/client": "^0.8.4"
     },

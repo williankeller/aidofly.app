@@ -50,7 +50,7 @@
             </div>
         </section>
 
-        @if ($authUser->isAdmin())
+        @if ($authUser->isAdministrator())
             <section class="p-5 card mb-3">
                 <h3 class="fw-bolder h5">@lang('Account details')</h3>
                 <div class="mt-2">

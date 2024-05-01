@@ -1,6 +1,6 @@
 <div class="logo-wrapper px-3">
     <a href="{{ route('home.index') }}" class="d-flex align-items-center text-decoration-none">
-        <x-image src="/img/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="40" height="40" />
+        <x-image src="/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="40" height="40" />
         <h1 class="m-2 ms-2 logo-name text-body">{{ config('app.name') }}</h1>
     </a>
 </div>
