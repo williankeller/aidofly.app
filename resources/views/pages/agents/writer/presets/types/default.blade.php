@@ -23,7 +23,8 @@
                             </div>
                             <small class="mt-2 text-sm text-muted d-block">@lang("Don't need a template? Start writing with our AI writer.")</small>
                         </div>
-                        <a href="{{ route('agent.writer.create') }}" class="stretched-link z-1"></a>
+                        <a href="{{ route('agent.writer.create') }}" aria-label="@lang('Try a free form content creation')"
+                            class="stretched-link z-1"></a>
                     </div>
                 </div>
             </div>
@@ -53,7 +54,7 @@
                             <span class="badge text-bg-secondary" x-text="preset.category.title"></span>
                         </div>
                         <a x-bind:href="`{{ route('agent.writer.presets.show', '') }}/${preset.uuid}`"
-                            class="stretched-link z-1"></a>
+                            class="stretched-link z-1" aria-label="@lang('Use this preset')"></a>
                     </div>
                 </div>
             </template>

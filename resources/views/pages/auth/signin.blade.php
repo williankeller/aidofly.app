@@ -17,7 +17,7 @@
             class="col-12 col-md-12 col-lg-7 offset-lg-5 min-vh-100 overflow-y-auto d-flex flex-column justify-content-center position-relative bg-body">
             <div class="w-md-50 mx-auto px-5 px-md-0 py-5">
                 <div class="mb-4">
-                    <x-image src="/img/logo/aidofly.png" :alt="config('app.name')" width="45" height="45" />
+                    <x-image src="/img/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="45" height="45" />
                     <h2 class="mt-3 ls-tight fw-bolder h3">
                         <span>@lang('Hey, Hello')</span>
                         <span>👋</span>
