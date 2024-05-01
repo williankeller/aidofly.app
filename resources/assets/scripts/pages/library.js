@@ -3,7 +3,6 @@
 import Alpine from "alpinejs";
 
 import api from "../helpers/api";
-import Tooltip from "@ryangjchandler/alpine-tooltip";
 import { markdownToHtml } from "../helpers/markdown";
 import { notification } from "../helpers/notification";
 
@@ -69,4 +68,8 @@ Alpine.data("content", (library = null) => ({
     },
 }));
 
-Alpine.start();
+// Check if Alpine has already been started
+if (!window.AlpineStarted) {
+    Alpine.start();
+    window.AlpineStarted = true;
+}

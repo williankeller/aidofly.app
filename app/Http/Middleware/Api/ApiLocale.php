@@ -3,11 +3,16 @@
 namespace App\Http\Middleware\Api;
 
 use Closure;
+use App\Services\Studio\Locale;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 class ApiLocale
 {
+    public function __construct(
+        private Locale $locale
+    ) {
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -17,9 +22,11 @@ class ApiLocale
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        $locale = $request->header('Accept-Language') ?? config('app.locale');
+        $locale = $request->header('Accept-Language');
 
-        App::setLocale($locale);
+        if ($this->locale->validateLocale($locale)) {
+            $this->locale->setAppLocale($locale);
+        }
 
         return $next($request);
     }

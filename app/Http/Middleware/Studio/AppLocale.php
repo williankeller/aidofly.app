@@ -3,11 +3,17 @@
 namespace App\Http\Middleware\Studio;
 
 use Closure;
+use App\Services\Studio\Locale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 class AppLocale
 {
+    public function __construct(
+        private Locale $locale
+    ) {
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -17,22 +23,17 @@ class AppLocale
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        // If locale from cookie is available, use it
-        $locale = $request->cookie('locale');
+        $locale = $request->cookie(Locale::COOKIE_NAME) ?? $this->getUserLocale($request);
 
-        // Otherwise, try locale from user preferences (database)
-        if (!$locale) {
-            $preferences = auth()->user()->preferences;
-
-            if ($preferences) {
-                $locale = optional($preferences->locale);
-            }
-        }
-
-        if ($locale) {
-            App::setLocale($locale);
+        if ($this->locale->validateLocale($locale)) {
+            $this->locale->setLanguage($locale);
         }
 
         return $next($request);
+    }
+
+    private function getUserLocale(Request $request): ?string
+    {
+        return auth()->user()?->preferences?->locale;
     }
 }

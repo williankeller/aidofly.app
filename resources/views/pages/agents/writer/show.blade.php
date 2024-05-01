@@ -187,6 +187,6 @@
     </template>
 @endsection
 
-@push('script-stack-after')
-    {!! javascript('js/content.min.js', true) !!}
+@push('script-stack-before')
+    {!! javascript('js/content.min.js') !!}
 @endpush

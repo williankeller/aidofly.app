@@ -5,4 +5,8 @@ import { listing } from "../components/listing";
 
 listing();
 
-Alpine.start();
+// Check if Alpine has already been started
+if (!window.AlpineStarted) {
+    Alpine.start();
+    window.AlpineStarted = true;
+}

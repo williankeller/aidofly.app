@@ -77,6 +77,6 @@
     </section>
 @endsection
 
-@push('script-stack-after')
+@push('script-stack-before')
     {!! javascript('js/voiceover.min.js') !!}
 @endpush

@@ -99,6 +99,6 @@
     </section>
 @endsection
 
-@push('script-stack-after')
+@push('script-stack-before')
     {!! javascript('js/library.min.js') !!}
 @endpush

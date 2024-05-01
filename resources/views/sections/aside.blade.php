@@ -33,3 +33,29 @@
         </x-aside.item>
     </ul>
 </nav>
+<div class="d-flex flex-column mt-auto px-3">
+    <div class="dropdown" @click.away="$refs.accountMenu.classList.remove('show')">
+
+        <div class="dropdown-menu bottom-0 start-50 translate-middle w-100" x-ref="accountMenu"
+            @click="$el.classList.remove('show')">
+            <a href="{{ route('account.edit') }}" class="d-flex align-items-center dropdown-item py-2">
+                <i class="ti ti-user fs-4 me-1"></i>
+                <span>@lang('Account')</span>
+            </a>
+            <a href="{{ route('account.signout') }}" class="d-flex align-items-center dropdown-item py-2">
+                <i class="ti ti-logout fs-4 me-1"></i>
+                <span>@lang('Sign out')</span>
+            </a>
+        </div>
+
+        <button class="btn btn-transparent p-0 d-grid gap-2 w-100" @click="$refs.accountMenu.classList.toggle('show')">
+            <div class="d-flex align-items-center w-100">
+                <div class="text-start flex-grow-1">
+                    <div class="text-truncate fw-bold">{{ $authUser->firstname }}</div>
+                    <div class="text-muted small text-truncate">{{ $authUser->email }}</div>
+                </div>
+                <i class="ml-auto fs-4 ti ti-dots-vertical text-muted"></i>
+            </div>
+        </button>
+    </div>
+</div>

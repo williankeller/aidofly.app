@@ -25,4 +25,9 @@ abstract class AbstractAuthController extends AbstractController
 
         cookie()->queue(AuthToken::COOKIE_NAME, $jwtToken, $expires, null, null, null, false);
     }
+
+    protected function removeAuthCookieToken(): void
+    {
+        cookie()->queue(cookie()->forget(AuthToken::COOKIE_NAME));
+    }
 }

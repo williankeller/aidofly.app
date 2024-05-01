@@ -45,6 +45,6 @@
     </section>
 @endsection
 
-@push('script-stack-after')
+@push('script-stack-before')
     {!! javascript('js/listing.min.js') !!}
 @endpush

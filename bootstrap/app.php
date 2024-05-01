@@ -5,6 +5,7 @@ use App\Http\Middleware\Api\ApiLocale;
 use App\Http\Middleware\Studio\AppLocale;
 use App\Http\Middleware\Studio\GlobalUser;
 use App\Services\Auth\AuthToken;
+use App\Services\Studio\Locale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -23,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Encrypt all cookies except the auth token
         $middleware->encryptCookies(except: [
             AuthToken::COOKIE_NAME,
-            'locale'
+            Locale::COOKIE_NAME
         ]);
 
         // API middleware

@@ -65,6 +65,8 @@
     @if (session()->get('message'))
         <x-notification :message="session()->get('message')['content']" :show="true" :icon="session()->get('message')['type'] == 'success' ? 'ti-square-rounded-check-filled' : ''" />
     @endif
+@endpush
 
-    {!! javascript('js/listing.min.js', true) !!}
+@push('script-stack-before')
+    {!! javascript('js/listing.min.js') !!}
 @endpush

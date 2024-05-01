@@ -60,4 +60,13 @@ class SigninController extends AbstractAuthController
             'danger',
         );
     }
+
+    public function signout(): RedirectResponse
+    {
+        $this->removeAuthCookieToken();
+
+        auth()->logout();
+
+        return redirect()->route('auth.signin');
+    }
 }

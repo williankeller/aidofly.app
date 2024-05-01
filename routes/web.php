@@ -89,6 +89,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/account', 'edit')->name('edit');
             Route::put('/account', 'update')->name('update');
             Route::delete('/account', 'destroy')->name('destroy');
+            
         });
         Route::controller(PasswordController::class)->name('password.')->group(function () {
             Route::get('/account/password', 'edit')->name('edit');
@@ -98,7 +99,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/account/email', 'edit')->name('edit');
             Route::put('/account/email', 'update')->name('update');
         });
+        Route::get('/account/signout', [SigninController::class, 'signout'])->name('signout');
     });
-
-    Route::post('/signout', [SigninController::class, 'signout'])->name('auth.signout');
 });

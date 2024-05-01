@@ -11,15 +11,10 @@ class EmailController extends AbstractController
 {
     public function edit(): View
     {
-        $user = $this->getUser();
-
         return $this->view(
             'pages.account.email',
             __('Change email'),
-            __('Area to update your email address'),
-            [
-                'email' => $user->email
-            ]
+            __('Area to update your email address')
         );
     }
 

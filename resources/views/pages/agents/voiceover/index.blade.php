@@ -73,6 +73,6 @@
     </section>
 @endsection
 
-@push('script-stack-after')
-    {!! javascript('js/voiceover.min.js', true) !!}
+@push('script-stack-before')
+    {!! javascript('js/voiceover.min.js') !!}
 @endpush

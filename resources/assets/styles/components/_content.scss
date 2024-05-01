@@ -1,4 +1,11 @@
-// On parent hover hide or display child element
+.main {
+    max-width: 57rem;
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+    @extend .container;
+    min-height: 85vh;
+}
+
 .toggle-on-hover {
     .show {
         display: none;

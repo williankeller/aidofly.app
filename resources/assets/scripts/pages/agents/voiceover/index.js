@@ -5,9 +5,11 @@ import { listing } from "../../../components/listing.js";
 
 customElements.define("component-wave", WaveElement);
 
-console.log("Alpine", Alpine);
-
 listing();
 voiceover();
 
-Alpine.start();
+// Only start Alpine if it's not already initialized
+if (!window.AlpineStarted) {
+    Alpine.start();
+    window.AlpineStarted = true;
+}

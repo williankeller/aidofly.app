@@ -64,6 +64,10 @@
         margin-top: -8px;
     }
 
+    &-transparent {
+        --bs-btn-active-border-color: transparent;
+    }
+
     &.loading {
         .btn-loader {
             display: block;

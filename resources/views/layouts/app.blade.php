@@ -3,7 +3,7 @@
 
 @include('layouts.snippets.head', ['robots' => $robots ?? 'index, follow'])
 
-<body @isset($xData) x-data="{{ $xData }}" @endisset>
+<body x-data="{{ $xData ?? '{}' }}">
     <div class="app d-flex">
         <aside role="navigation" class="aside d-flex flex-column py-4">
             @include('sections.aside')

@@ -33,10 +33,11 @@
     @if ($errors->any())
         <x-notification :message="$errors->first()" :show="true" />
     @endif
-
     @if (session()->get('message'))
         <x-notification :message="session()->get('message')['content']" :show="true" />
     @endif
+@endpush
 
-    {!! javascript('js/auth.min.js', true) !!}
+@push('script-stack-before')
+    {!! javascript('js/auth.min.js') !!}
 @endpush
