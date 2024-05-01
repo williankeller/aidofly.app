@@ -3,18 +3,22 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Services\Studio\Locale;
+use App\Services\Auth\AuthToken;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\View\View;
 
 class SigninController extends AbstractAuthController
 {
     public function __construct(
-        private Locale $locale
+        private Locale $locale,
+        private AuthToken $token
     ) {
+        parent::__construct($token);
     }
 
-    public function index()
+    public function index(): View
     {
         return $this->view(
             'pages.auth.signin',

@@ -83,7 +83,7 @@ class User extends Authenticatable
     public function preferences(): ?Attribute
     {
         return new Attribute(
-            static fn ($value) => json_decode($value) ?? config('app.locale'),
+            static fn ($value) => json_decode($value),
         );
     }
 }

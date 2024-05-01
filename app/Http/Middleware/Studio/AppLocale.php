@@ -20,11 +20,13 @@ class AppLocale
         // If locale from cookie is available, use it
         $locale = $request->cookie('locale');
 
-        // Otherwise, try locale from user preferences
+        // Otherwise, try locale from user preferences (database)
         if (!$locale) {
-            $user = auth()->user();
+            $preferences = auth()->user()->preferences;
 
-            $locale = optional($user)->preferences?->locale;
+            if ($preferences) {
+                $locale = optional($preferences->locale);
+            }
         }
 
         if ($locale) {

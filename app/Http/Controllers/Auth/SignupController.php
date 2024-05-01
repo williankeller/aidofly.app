@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Services\Auth\AuthToken;
 use App\Services\Studio\Locale;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 
+
 class SignupController extends AbstractAuthController
 {
     public function __construct(
-        private Locale $locale
+        private Locale $locale,
+        private AuthToken $token
     ) {
+        parent::__construct($token);
     }
 
     public function index()
