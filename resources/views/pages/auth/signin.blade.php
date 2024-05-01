@@ -10,15 +10,14 @@
                     <h2 class="ls-tight fw-bolder h1 text-white mb-3">@lang('Transform Your Brainstorm Ideas into Reality')</h2>
                     <p class="text-white text-opacity-75 lead">@lang('Welcome back to the threshold of innovation. Log in now to begin shaping the future with every word you generate!')</p>
                 </div>
-                
+
             </div>
         </section>
         <section
             class="col-12 col-md-9 col-lg-7 offset-lg-5 border-left-lg min-h-lg-screen d-flex flex-column justify-content-center py-lg-5 px-lg-5 position-relative">
             <div class="mx-auto px-5 px-md-0 py-5 col-12 col-sm-9 col-lg-9 col-xxl-6">
                 <div class="mb-4">
-                    <x-image src="/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="45"
-                        height="45" />
+                    <x-image src="/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="45" height="45" />
                     <h2 class="mt-3 ls-tight fw-bolder h3">
                         <span>@lang('Hey, Hello')</span>
                         <span>👋</span>
@@ -36,7 +35,7 @@
                     </div>
                     <div class="d-flex justify-content-between gap-2 mb-4 align-items-center">
                         <div></div>
-                        <a href="{{ route('auth.recover.index') }}"
+                        <a href="{{ route('password.index') }}"
                             class="text-sm text-muted text-primary-hover text-underline">
                             <small>@lang('Forgot password?')</small>
                         </a>
@@ -60,12 +59,7 @@
 @endsection
 
 @push('script-stack-after')
-    @if ($errors->any())
-        <x-notification :message="$errors->first()" :show="true" />
-    @endif
-    @if (session()->get('message'))
-        <x-notification :message="session()->get('message')['content']" :show="true" />
-    @endif
+    <x-notification.flash :errors="$errors" />
 @endpush
 
 @push('script-stack-before')

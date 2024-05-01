@@ -20,21 +20,24 @@ use App\Http\Controllers\Account\EmailController;
 
 Route::post('/locale', [LocaleController::class, 'switch'])->name('locale.switch');
 
-Route::middleware('guest')->name('auth.')->group(function () {
-    Route::controller(SigninController::class)->group(function () {
-        Route::get('/signin', 'index')->name('signin');
-        Route::post('/authenticate', 'authorize')->name('signin.authorize');
+Route::middleware('guest')->group(function () {
+    Route::name('auth.')->group(function () {
+        Route::controller(SigninController::class)->group(function () {
+            Route::get('/signin', 'index')->name('signin');
+            Route::post('/authenticate', 'authorize')->name('signin.authorize');
+        });
+        // Signup routes
+        Route::controller(SignupController::class)->name('signup.')->group(function () {
+            Route::get('/signup', 'index')->name('index');
+            Route::post('/signup', 'store')->name('store');
+        });
     });
-    // Signup routes
-    Route::controller(SignupController::class)->name('signup.')->group(function () {
-        Route::get('/signup', 'index')->name('index');
-        Route::post('/signup', 'store')->name('store');
-    });
-    Route::controller(RecoverController::class)->prefix('/auth')->name('recover.')->group(function () {
-        Route::get('/recover', 'index')->name('index');
-        Route::post('/recover', 'send')->name('send');
-        Route::get('/recover/{token}', 'reset')->where('token', '[a-z0-9-]+')->name('reset');
-        Route::post('/recover/{token}', 'update')->where('token', '[a-z0-9-]+')->name('update');
+    Route::controller(RecoverController::class)->name('password.')->group(function () {
+        Route::get('/forgot-password', 'index')->name('index');
+        Route::post('/forgot-password', 'send')->name('send');
+        Route::get('/forgot-password/sent', 'sent')->name('sent');
+        Route::get('/password/recover/{token}', 'reset')->name('reset');
+        Route::post('/password/recover', 'update')->name('update');
     });
 });
 

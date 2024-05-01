@@ -16,8 +16,7 @@
             class="col-12 col-md-9 col-lg-7 offset-lg-5 border-left-lg min-h-lg-screen d-flex flex-column justify-content-center py-lg-5 px-lg-5 position-relative">
             <div class="mx-auto px-5 px-md-0 py-5 col-12 col-sm-9 col-lg-9 col-xxl-6">
                 <div class="mb-4">
-                    <x-image src="/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="45"
-                        height="45" />
+                    <x-image src="/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="45" height="45" />
                     <h2 class="mt-3 ls-tight fw-bolder h3">
                         <span>@lang('Begin your creative journey today')</span>
                         <span></span>
@@ -62,12 +61,7 @@
 @endsection
 
 @push('script-stack-after')
-    @if ($errors->any())
-        <x-notification :message="$errors->first()" :show="true" />
-    @endif
-    @if (session()->get('message'))
-        <x-notification :message="session()->get('message')['content']" :show="true" />
-    @endif
+    <x-notification.flash :errors="$errors" />
 @endpush
 
 @push('script-stack-before')
