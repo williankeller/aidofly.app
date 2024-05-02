@@ -146,14 +146,5 @@
 @endsection
 
 @push('script-stack-after')
-    @if ($errors->any())
-        <x-notification :message="$errors->first()" :show="true" />
-    @endif
-    @if (session()->get('message'))
-        <x-notification :message="session()->get('message')['content']" :show="true" :icon="session()->get('message')['type'] == 'success' ? 'ti-square-rounded-check-filled' : ''" />
-    @endif
-@endpush
-
-@push('script-stack-before')
-    {!! javascript('js/auth.min.js') !!}
+    <x-notification.flash :errors="$errors" />
 @endpush

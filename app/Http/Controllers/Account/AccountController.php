@@ -55,6 +55,9 @@ class AccountController extends AbstractController
 
         $this->locale->setLanguage($request->locale);
 
-        return redirect()->route('account.edit')->with('success', __('Your account has been updated.'));
+        return $this->redirect(
+            route: 'account.edit',
+            message: __('Your account has been updated.')
+        );
     }
 }
