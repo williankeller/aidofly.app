@@ -7,6 +7,11 @@ use App\Models\Preset;
 
 class PresetsController extends AbstractController
 {
+    /**
+     * Get the list of public system presets
+     * @return \Illuminate\Http\JsonResponse
+     * @see \App\Http\Controllers\Agents\Writer\WriterController::index
+     */
     public function index()
     {
         $presets = Preset::with(['category' => fn ($query) => $query->select('id', 'title')])

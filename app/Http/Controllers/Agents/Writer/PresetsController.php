@@ -21,15 +21,15 @@ class PresetsController extends AbstractController
      * Display a listing of the system defined agent.writer.presets.
      * @return View
      * @throws \Illuminate\Auth\Access\AuthorizationException
-     * @see \App\Http\Controllers\Api\Presets\PresetsController::index
+     * @see \App\Http\Controllers\Api\Agents\Writer\PresetsController::index
      */
     public function index(): View
     {
         return $this->view(
-            'pages.agents.writer.presets.types.default',
-            __('Preset templates'),
-            __('System defined list of preset templates'),
-            [
+            view: 'pages.agents.writer.presets.types.default',
+            title: __('Preset templates'),
+            description: __('System defined list of preset templates'),
+            data: [
                 'xData' => "list('/presets', {})",
                 'isAdmin' => $this->getUser()->isAdministrator(),
             ]
@@ -40,7 +40,7 @@ class PresetsController extends AbstractController
      * Display a listing of the presets from the authenticated user.
      * @return View
      * @throws \Illuminate\Auth\Access\AuthorizationException
-     * @see \App\Http\Controllers\Api\Presets\PresetsController::user
+     * @see \App\Http\Controllers\Api\Agents\Writer\PresetsController::user
      */
     public function user(): View
     {
@@ -58,7 +58,7 @@ class PresetsController extends AbstractController
      * Display a listing of the public presets from other users.
      * @return View
      * @throws \Illuminate\Auth\Access\AuthorizationException
-     * @see \App\Http\Controllers\Api\Presets\PresetsController::discover
+     * @see \App\Http\Controllers\Api\Agents\Writer\PresetsController::discover
      */
     public function discover(): View
     {

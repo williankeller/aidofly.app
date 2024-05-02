@@ -7,6 +7,7 @@ export function searchForm() {
     Alpine.data("search", () => ({
         isProcessing: false,
         showResults: false,
+        hasValue: false,
         results: [],
 
         init() {
@@ -27,6 +28,16 @@ export function searchForm() {
 
         search(query) {
             this.isProcessing = true;
+
+            // if query is empty, don't make the request
+            if (!query || query.length < 2) {
+                this.isProcessing = false;
+                this.showResults = false;
+                this.hasValue = false;
+                return;
+            }
+
+            this.hasValue = true;
 
             api.get("/search", { query: query })
                 .then((response) => response.json())

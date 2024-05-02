@@ -18,6 +18,13 @@ class SearchController extends AbstractController
         $query = $request->query('query');
         $limit = $request->query('limit');
 
+        if (!$query) {
+            return response()->json([
+                'object' => 'list',
+                'data' => [],
+            ]);
+        }
+
         $presets = $this->searchPresets($query, $limit);
         $library = $this->searchLibrary($query, $limit);
 
@@ -29,10 +36,14 @@ class SearchController extends AbstractController
         ]);
     }
 
-    private function searchPresets($query, $limit)
+    private function searchPresets(?string $query, ?int $limit = 5)
     {
+        if (!$query) {
+            return collect([]);
+        }
         $presets = Preset::where('title', 'like', "%$query%")
             ->orWhere('description', 'like', "%$query%")
+            ->orderBy('title', 'asc')
             ->limit($limit)
             ->get();
 
@@ -44,15 +55,22 @@ class SearchController extends AbstractController
                 'title' => $item->title,
                 'description' => $item->description,
                 'type' => $item->type,
+                'icon' => $item->icon,
+                'color' => $item->color,
                 'url' => route('agent.writer.presets.show', $item->uuid),
             ];
-        });
+        })->collect();
     }
 
-    private function searchLibrary($query, $limit)
+    private function searchLibrary(?string $query, ?int $limit = 5)
     {
+        if (!$query) {
+            return collect([]);
+        }
+
         $library = Library::where('title', 'like', "%$query%")
             ->orWhere('content', 'like', "%$query%")
+            ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get();
 
@@ -64,8 +82,10 @@ class SearchController extends AbstractController
                 'title' => $item->title,
                 'description' => "{$item->model} model",
                 'type' => $item->type,
+                'icon' => null,
+                'color' => null,
                 'url' => route('library.agent.show', [$item->type, $item->uuid]),
             ];
-        });
+        })->collect();
     }
 }

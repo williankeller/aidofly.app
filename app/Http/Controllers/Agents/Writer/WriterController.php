@@ -15,33 +15,20 @@ class WriterController extends AbstractController
     }
 
     /**
-     * Show the list of available presets
-     * @return View
-     */
-    public function index(): View
-    {
-        return view('pages.agents.writer.index', [
-            'metaTitle' => __('Writer presets'),
-            'metaDescription' => __('Choose one of the predefined template presets or continue with free form'),
-            // @see \App\Http\Controllers\Api\Agents\PresetsController::handle
-            'xData' => "list(\"/agent/content/presets\", {$this->getFilters()})"
-        ]);
-    }
-
-    /**
      * Show the Free form writer
      * @return View
      */
     public function freeform(): View
     {
         return $this->view(
-            'pages.agents.writer.show',
-            __('Free form writer'),
-            __('Write your own content from scratch'),
-            [
+            view: 'pages.agents.writer.show',
+            title: __('Free form writer'),
+            description: __('Write your own content from scratch'),
+            data: [
                 'xData' => 'content(null, null)',
                 'creativities' => $this->creativityOptions(),
                 'templates' => null,
+                'query' => request()->query('q') ?? null,
             ]
         );
     }
@@ -109,29 +96,5 @@ class WriterController extends AbstractController
             __('Bold'),
             __('Secretive')
         ];
-    }
-
-    private function getFilters(): string
-    {
-        $filters = [
-            'sort' => [
-                [
-                    'value' => null,
-                    'label' => __('Default')
-                ],
-                [
-                    'value' => 'title',
-                    'label' => __('Title')
-                ]
-            ],
-            'filters' => [
-                [
-                    'label' => __('Category'),
-                    'model' => 'category',
-                    'options' => []
-                ]
-            ]
-        ];
-        return json_encode($filters);
     }
 }

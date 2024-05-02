@@ -40,7 +40,7 @@
                                     <span class="badge text-bg-danger">@lang('Inactive')</span>
                                 </div>
                                 <a class="d-block z-3 text-muted btn btn-white btn-sm text-hover-primary p-0"
-                                    x-bind:href="`/preset/${preset.uuid}/edit`">
+                                    x-bind:href="`/agent/writer/preset/${preset.uuid}/edit`">
                                     <i class="ti ti-pencil"></i>
                                     <small>@lang('Edit')</small>
                                 </a>

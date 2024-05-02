@@ -72,8 +72,8 @@
             @else
                 <div class="mb-2">
                     <label for="prompt" class="form-label required">@lang('Your query')</label>
-                    <textarea class="form-control" id="prompt" name="prompt"
-                        placeholder="{{ __('Type here what do you want to create') }}" rows="3" autocomplete="off" required></textarea>
+                    <textarea class="form-control" id="prompt" name="prompt" placeholder="@lang('Type here what do you want to create')" rows="3"
+                        autocomplete="off" required>{{ $query }}</textarea>
                     <div class="mt-1 d-flex align-items-center text-sm text-muted">
                         <i class="ti ti-info-square-rounded-filled"></i>
                         <small class="ms-1 text-muted">@lang('The more details you provide, the better the result will be.')</small>
