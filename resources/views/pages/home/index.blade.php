@@ -47,20 +47,20 @@
                                 <div class="d-flex align-items-center">
                                     <div class="icon">
                                         <template x-if="item.icon">
-                                            <div class="icon-sm" :style="{ backgroundColor: item.color }">
-                                                <i :class="item.icon" class="ti "></i>
+                                            <div class="icon-md" :style="{ backgroundColor: item.color }">
+                                                <i :class="item.icon" class="ti"></i>
                                             </div>
                                         </template>
                                         <template x-if="!item.icon">
-                                            <div class="icon-sm bg-light">
+                                            <div class="icon-md bg-light">
                                                 <span class="fw-bold text-uppercase"
                                                     x-text="item.title.match(/(\b\S)?/g).join('').slice(0, 2)"></span>
                                             </div>
                                         </template>
                                     </div>
-                                    <div class="ms-2">
-                                        <div class="text-truncate" x-text="item.title"></div>
-                                        <div class="text-muted" x-text="item.description"></div>
+                                    <div class="mx-3">
+                                        <div class="text-truncate fw-bold" x-text="item.title"></div>
+                                        <div class="text-muted small" x-text="item.description"></div>
                                     </div>
                                 </div>
                                 <div class="badge bg-secondary text-capitalize" x-text="item.object"></div>
