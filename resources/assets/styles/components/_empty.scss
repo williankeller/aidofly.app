@@ -9,7 +9,7 @@
 }
 
 [data-state="loaded"] {
-    .placeholders {
+    .placeholder-wave {
         @extend .d-none;
     }
 }
@@ -18,7 +18,7 @@
     .empty {
         display: block;
     }
-    .placeholders,
+    .placeholder-wave,
     .card-static {
         @extend .d-none;
     }

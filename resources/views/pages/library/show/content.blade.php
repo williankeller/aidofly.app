@@ -17,7 +17,7 @@
 
         <div class="d-flex justify-content-between mt-5">
             <div class="d-flex align-items-center mr-auto">
-                <div class="d-flex">
+                <div class="d-flex text-muted">
                     <div class="d-flex align-items-center ms-1 me-4">
                         <i class="ti ti-brain me-1"></i>
                         <span>@lang(':model', ['model' => $library->model])</span>

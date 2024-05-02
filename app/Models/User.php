@@ -52,16 +52,14 @@ class User extends Authenticatable
         return $this->role === 1;
     }
 
-    protected function library(): HasMany
+    public function library(): HasMany
     {
         return $this->hasMany(Library::class);
     }
 
-    public function getConfiguration(string $key): ?string
+    public function presets(): HasMany
     {
-        $decoded = json_decode($this->attributes['preferences']);
-
-        return $decoded->$key ?? null;
+        return $this->hasMany(Preset::class);
     }
 
     public function preferences(): ?Attribute

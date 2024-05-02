@@ -7,8 +7,8 @@
     </section>
 
     <section class="group/list" data-state="initial" :data-state="state">
-        <x-content.empty :title="__('There is no content yet')" :subtitle="__('You haven\'t create an AI-driven content yet')" />
-        <div class="placeholders">
+        <x-content.empty :title="__('No content yet')" :subtitle="__('You haven\'t create an AI-driven content yet')" />
+        <div class="placeholder-wave">
             @for ($i = 0; $i < 3; $i++)
                 <div class="card mb-2 p-3">
                     <div class="d-flex placeholder-wave justify-content-between align-items-center">

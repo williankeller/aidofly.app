@@ -15,6 +15,17 @@
             <span class="ms-2">@lang('Library')</span>
         </x-aside.item>
     </ul>
+    @if ($authUser->isAdministrator())
+        <ul class="list-unstyled">
+            <li class="nav-item mb-1">
+                <strong>@lang('Admin')</strong>
+            </li>
+            <x-aside.item route="admin.users.index" match="admin.users.*">
+                <i class="fs-4 ti ti-users"></i>
+                <span class="ms-2">@lang('Users')</span>
+            </x-aside.item>
+        </ul>
+    @endif
     <ul class="list-unstyled">
         <li class="nav-item mb-1">
             <strong>@lang('Agents')</strong>

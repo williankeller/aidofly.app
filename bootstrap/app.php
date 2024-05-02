@@ -4,8 +4,11 @@ use App\Http\Middleware\Api\Authenticate;
 use App\Http\Middleware\Api\ApiLocale;
 use App\Http\Middleware\Studio\AppLocale;
 use App\Http\Middleware\Studio\GlobalUser;
+use App\Http\Middleware\Studio\AdminAuth;
+
 use App\Services\Auth\AuthToken;
 use App\Services\Studio\Locale;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -37,6 +40,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             AppLocale::class,
             GlobalUser::class
+        ]);
+
+        // Create a new middleware group
+        $middleware->group('admin', [
+            'auth',
+            AdminAuth::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

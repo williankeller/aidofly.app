@@ -36,7 +36,7 @@
             </div>
         </template>
         <template x-if="isProcessing">
-            <div class="placeholders">
+            <div class="placeholder-wave">
                 <div class="d-block placeholder col-5 h4 rounded"></div>
                 <div class="mt-2 mb-2 placeholder col-12 placeholder-lg rounded" style="height: 60px;"></div>
                 <div class="d-flex justify-content-between">
@@ -79,12 +79,12 @@
             <div class="d-flex justify-content-between">
                 <div class="d-flex mt-2 small">
                     <div class="d-flex align-items-center ms-1 me-4">
-                        <i class="ti ti-square-rounded-letter-t me-1"></i>
+                        <i class="ti ti-coins me-1"></i>
                         <span x-text="preview.tokens"></span>
                         <span class="ms-1">@lang('characters')</span>
                     </div>
                     <div class="d-flex align-items-center">
-                        <i class="ti ti-coins me-1"></i>
+                        <i class="ti ti-square-rounded-letter-t me-1"></i>
                         <span x-text="preview.cost"></span>
                         <span class="ms-1">@lang('credits')</span>
                     </div>

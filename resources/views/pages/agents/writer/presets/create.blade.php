@@ -35,7 +35,15 @@
         </section>
 
         <section class="p-5 card mb-3">
-            <h3 class="fw-bolder h5">@lang('Prompt')</h3>
+            <div class="d-flex align-items-center mb-2">
+                <h3 class="fw-bolder h5 mb-0">@lang('Prompt')</h3>
+                <div class="ms-3 docs">
+                    <a href="{{ route('guide.presets') }}" target="_blank" class="btn btn-light btn-sm px-2 py-1">
+                        <i class="ti ti-help"></i>
+                        <span>@lang('Guide')</span>
+                    </a>
+                </div>
+            </div>
             <div class="d-grid gap-3 mt-3">
                 <div class="mb-2">
                     <label class="form-label required" for="template">@lang('AI Prompt')</label>

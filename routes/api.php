@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\Home\SearchController;
 
+use App\Http\Controllers\Api\User\UsageController;
 
 use App\Http\Controllers\Api\Library\LibraryController;
 
@@ -34,4 +35,8 @@ Route::controller(PresetsController::class)->group(function () {
     Route::get('/presets', 'index');
     Route::get('/presets/mine', 'user');
     Route::get('/presets/discover', 'discover');
+});
+
+Route::controller(UsageController::class)->prefix('/user')->group(function () {
+    Route::get('/usage', 'index');
 });
