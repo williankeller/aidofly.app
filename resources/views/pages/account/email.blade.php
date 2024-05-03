@@ -6,7 +6,7 @@
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 
-    <form is="x-form" x-ref="form" action="{{ route('account.email.update') }}" method="post">
+    <form data-element="form" x-ref="form" action="{{ route('account.email.update') }}" method="post">
         <section class="p-5 card mb-3">
             <div class="mb-3">
                 <x-form.input-field type="email" id="email" :label="__('Email')" :placeholder="__('Email you want to change to')" required

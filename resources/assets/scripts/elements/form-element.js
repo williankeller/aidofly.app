@@ -1,27 +1,32 @@
-"use strict";
 
 /**
- * Represents a custom form element that extends the HTMLFormElement class.
- * This class provides additional functionality for handling form inputs and
- * validation.
+ * FormElement class to handle form elements.
+ * Usage: <form data-element="form" x-ref="form"></form>
  */
-export class FormElement extends HTMLFormElement {
-    constructor() {
-        super();
+export class FormElement {
+    constructor(form) {
+        this.form = form;
         this.timer = 0;
+
+        this.setupListeners();
+        this.setupMutationObserver();
+        this.checkSubmitable();
     }
 
     /**
-     * Called when the form element is connected to the DOM.
-     * Sets up event listeners and a mutation observer to track changes in the
-     * form element.
+     * Sets up event listeners for input and submit events.
      */
-    connectedCallback() {
-        this.addEventListener("input", () => this.callback());
-        this.addEventListener("submit", (event) =>
+    setupListeners() {
+        this.form.addEventListener("input", () => this.callback());
+        this.form.addEventListener("submit", (event) =>
             this.handleSubmission(event)
         );
+    }
 
+    /**
+     * Sets up a mutation observer to track changes in the form element.
+     */
+    setupMutationObserver() {
         this.observer = new MutationObserver((mutationsList) => {
             for (const mutation of mutationsList) {
                 if (mutation.type === "childList") {
@@ -34,23 +39,11 @@ export class FormElement extends HTMLFormElement {
         const config = { attributes: false, childList: true, subtree: true };
 
         // Start observing the target node for configured mutations
-        this.observer.observe(this, config);
-
-        // Check if the form is valid and enable/disable the submit button(s)
-        this.checkSubmitable();
+        this.observer.observe(this.form, config);
     }
 
     /**
-     * Called when the form element is disconnected from the DOM.
-     * Disconnects the mutation observer.
-     */
-    disconnectedCallback() {
-        this.observer.disconnect();
-    }
-
-    /**
-     * Checks if the form is valid and enables/disables the submit button(s)
-     * accordingly.
+     * Callback function to handle input events.
      */
     callback() {
         clearTimeout(this.timer);
@@ -58,20 +51,22 @@ export class FormElement extends HTMLFormElement {
     }
 
     /**
-     * Checks if the form is valid and enables/disables the submit button(s)
-     * accordingly.
+     * Checks if the form is valid and enables/disables the submit button(s) accordingly.
      */
     checkSubmitable() {
-        const btns = this.querySelectorAll('[type="submit"]');
-        let isSubmitable = this.checkValidity();
+        const btns = this.form.querySelectorAll('[type="submit"]');
+        let isSubmitable = this.form.checkValidity();
 
         for (let i = 0; i < btns.length; i++) {
             btns[i].disabled = !isSubmitable;
         }
     }
 
+    /**
+     * Handles form submission event.
+     */
     handleSubmission(event) {
-        const submitBtn = this.querySelector('[type="submit"]');
+        const submitBtn = this.form.querySelector('[type="submit"]');
         submitBtn.classList.add("loading"); // Add loading class
         submitBtn.disabled = true; // Disable button to prevent multiple clicks
 

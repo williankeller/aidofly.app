@@ -1,5 +1,4 @@
 @extends('layouts.auth')
-
 @section('content')
     <div class="d-flex justify-content-center align-items-center h-100">
         <section
@@ -13,6 +12,7 @@
 
             </div>
         </section>
+        
         <section
             class="col-12 col-md-9 col-lg-7 offset-lg-5 border-left-lg min-h-lg-screen d-flex flex-column justify-content-center py-lg-5 px-lg-5 position-relative">
             <div class="mx-auto px-5 px-md-0 py-5 col-12 col-sm-9 col-lg-9 col-xxl-6">
@@ -23,7 +23,7 @@
                         <span>👋</span>
                     </h2>
                 </div>
-                <form is="x-form" x-ref="form" method="post" action="{{ route('auth.signin.authorize') }}">
+                <form data-element="form" x-ref="form" method="post" action="{{ route('auth.signin.authorize') }}">
                     @csrf
                     <div class="mb-3">
                         <x-form.input-field type="email" :label="__('Email address')" id="email" :placeholder="__('Your email')" required
@@ -61,4 +61,3 @@
 @push('script-stack-after')
     <x-notification.flash :errors="$errors" />
 @endpush
-

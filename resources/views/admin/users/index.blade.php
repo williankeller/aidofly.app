@@ -15,7 +15,7 @@
                         <p class="mb-1">{{ $user->email }}</p>
                         <div class="text-muted small">
                             <span>@lang('Joined')</span>
-                            <time is="x-time" datetime="{{ $user->created_at }}" data-type="datetime"></time>
+                            <time data-element="time" data-datetime="{{ $user->created_at }}" data-type="datetime"></time>
                         </div>
                     </div>
                     <div class="d-flex align-items-center">

@@ -1,19 +1,40 @@
 "use strict";
 
-export class CreditElement extends HTMLDataElement {
+/**
+ * Represents a custom element that extends the HTMLElement class.
+ * Usage: <div data-element="credit" data-value="{amount}"></div>
+ */
+export class CreditElement {
     static observedAttributes = [
-        "value",
+        "data-value",
         "lang",
-
         "format",
         "data-format",
-
         "format-unlimited",
         "data-format-unlimited",
     ];
 
-    constructor() {
-        super();
+    constructor(element) {
+        this.element = element;
+        this.render();
+
+        // Observe changes to attributes
+        this.observeAttributes();
+    }
+
+    observeAttributes() {
+        const observer = new MutationObserver((mutationsList) => {
+            mutationsList.forEach((mutation) => {
+                if (
+                    mutation.type === "attributes" &&
+                    mutation.attributeName === "data-value"
+                ) {
+                    this.render();
+                }
+            });
+        });
+
+        observer.observe(this.element, { attributes: true });
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -21,18 +42,25 @@ export class CreditElement extends HTMLDataElement {
     }
 
     render() {
-        let value = this.value || this.textContent;
+        let value =
+            this.element.getAttribute("data-value") || this.element.textContent;
         let format =
-            this.getAttribute("format") || this.dataset.format || ":count";
+            this.element.getAttribute("format") ||
+            this.element.dataset.format ||
+            ":count";
         let showFraction =
-            this.getAttribute("fraction") || this.dataset.fraction;
+            this.element.getAttribute("fraction") ||
+            this.element.dataset.fraction;
 
         if (value === "" || value === "null" || isNaN(value)) {
-            this.textContent = format.replaceAll(":count", "Unlimited");
+            this.element.textContent = format.replaceAll(":count", "Unlimited");
             return;
         }
 
-        let lang = this.lang || document.documentElement.lang || "en";
+        let lang =
+            this.element.getAttribute("lang") ||
+            document.documentElement.lang ||
+            "en";
 
         let amount = parseFloat(value);
 
@@ -69,10 +97,10 @@ export class CreditElement extends HTMLDataElement {
             text = formatter.format(amount);
         }
 
-        this.textContent = format.replaceAll(":count", text);
+        this.element.textContent = format.replaceAll(":count", text);
 
         if (title !== text) {
-            this.setAttribute("title", title);
+            this.element.setAttribute("title", title);
         }
     }
 }

@@ -23,7 +23,7 @@
     <link rel="preconnect" href="https://www.google-analytics.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    {{--<link rel="manifest" href="{{ config('app.url') }}/manifest.json">--}}
+    {{-- <link rel="manifest" href="{{ config('app.url') }}/manifest.json"> --}}
 
     @stack('head-stack-before')
 

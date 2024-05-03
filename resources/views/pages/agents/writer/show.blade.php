@@ -8,7 +8,7 @@
 
     <section class="p-5 card mb-3" x-show="showForm">
         <h3 class="fw-bolder h5">@lang('Prompts')</h3>
-        <form is="x-form" x-ref="form" @submit.prevent="submit(null)" class="d-grid gap-3 mt-3">
+        <form data-element="form" x-ref="form" @submit.prevent="submit(null)" class="d-grid gap-3 mt-3">
             @if ($templates)
                 @foreach ($templates as $p)
                     @php($id = 't' . rand())

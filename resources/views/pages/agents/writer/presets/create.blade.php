@@ -6,7 +6,7 @@
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 
-    <form is="x-form" x-ref="form" action="{{ route('agent.writer.presets.store') }}" method="post">
+    <form data-element="form" x-ref="form" action="{{ route('agent.writer.presets.store') }}" method="post">
         <section class="p-5 card mb-3">
             <h3 class="fw-bolder h5">@lang('Details')</h3>
             <div class="d-grid gap-3 mt-3">

@@ -1,14 +1,33 @@
 "use strict";
 
 /**
- * Usage:
- * <time is="x-time" datetime="{timestamp}" type="[datetime|date|time]"></time>
+ * Represents a custom element that extends the HTMLElement class.
+ * Usage: <time data-element="time" data-datetime="{timestamp}"></time>
  */
-export class TimeElement extends HTMLTimeElement {
-    static observedAttributes = ["datetime"];
+export class TimeElement {
+    static observedAttributes = ["data-datetime"];
 
-    constructor() {
-        super();
+    constructor(element) {
+        this.element = element;
+        this.render();
+
+        // Observe changes to attributes
+        this.observeAttributes();
+    }
+
+    observeAttributes() {
+        const observer = new MutationObserver((mutationsList) => {
+            mutationsList.forEach((mutation) => {
+                if (
+                    mutation.type === "attributes" &&
+                    mutation.attributeName === "data-datetime"
+                ) {
+                    this.render();
+                }
+            });
+        });
+
+        observer.observe(this.element, { attributes: true });
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -16,7 +35,9 @@ export class TimeElement extends HTMLTimeElement {
     }
 
     render() {
-        let timestamp = this.dateTime || this.textContent;
+        let timestamp =
+            this.element.getAttribute("data-datetime") ||
+            this.element.textContent;
         if (
             parseInt(timestamp, 10).toString() === timestamp &&
             timestamp.length === 10
@@ -24,9 +45,12 @@ export class TimeElement extends HTMLTimeElement {
             timestamp = parseInt(timestamp, 10) * 1000;
         }
 
-        let type = this.getAttribute("type") || this.dataset.type || "datetime";
+        let type =
+            this.element.getAttribute("data-type") ||
+            this.element.dataset.type ||
+            "datetime";
         let date = new Date(timestamp);
-        let lang = this.lang || document.documentElement.lang || "en";
+        let lang = this.element.lang || document.documentElement.lang || "en";
         let diff = Math.abs(Date.now() - timestamp);
         let format = {
             month: "long",
@@ -54,7 +78,7 @@ export class TimeElement extends HTMLTimeElement {
         }
 
         let formatter = new Intl.DateTimeFormat(lang, format);
-        this.textContent = formatter.format(date);
-        this.setAttribute("title", date.toUTCString());
+        this.element.textContent = formatter.format(date);
+        this.element.setAttribute("title", date.toUTCString());
     }
 }

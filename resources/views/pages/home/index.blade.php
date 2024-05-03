@@ -10,13 +10,11 @@
             <div class="icon-sm bg-gradient bg-warning">
                 <i class="ti ti-coins"></i>
             </div>
-            <div class="mt-3 d-flex align-items-baseline">
-                <template x-if="usageFetched">
-                    <data class="h4 mb-0 fw-bolder" is="x-credit" :value="usage.total"></data>
-                </template>
-                <template x-if="usageFetched">
-                    <small class="text-muted fw-bold h6 mb-0">/@lang('Unlimited')</small>
-                </template>
+            <div class="mt-3">
+                <div class="d-flex d-flex align-items-baseline" :class="{ 'd-none': !usageFetched }">
+                    <div class="h4 mb-0 fw-bolder" data-element="credit" :data-value="usage.total"></div>
+                    <small class="ms-1 text-muted fw-bold h6 mb-0">/@lang('Unlimited')</small>
+                </div>
                 <div class="placeholder-wave w-100" :class="{ 'd-none': usageFetched }">
                     <div class="placeholder col-3 h4 mb-1 rounded"></div>
                 </div>

@@ -22,7 +22,7 @@
                         <span></span>
                     </h2>
                 </div>
-                <form is="x-form" x-ref="form" method="post" action="{{ route('auth.signup.store') }}">
+                <form data-element="form" x-ref="form" method="post" action="{{ route('auth.signup.store') }}">
                     @csrf
                     <div class="row">
                         <div class="mb-3 col-sm-6">
@@ -64,6 +64,3 @@
     <x-notification.flash :errors="$errors" />
 @endpush
 
-@push('script-stack-before')
-    {!! javascript('js/auth.min.js') !!}
-@endpush

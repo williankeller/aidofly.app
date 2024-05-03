@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="{!! locale(true) !!}">
 
-@include('layouts.snippets.head', ['robots' => $robots ?? 'index, follow'])
+@include('layouts.snippets.head')
 
 <body x-data="{{ $xData ?? '{}' }}">
-    <div class="app d-flex">
-        <aside role="complementary" class="aside d-flex flex-column py-4" aria-label="Menu">
+    <div class="app d-lg-flex">
+        <aside role="complementary" class="aside flex-column py-4 d-none d-lg-flex" aria-label="Menu">
             @include('sections.aside')
         </aside>
         <div class="d-flex flex-column flex-grow-1">
@@ -16,8 +16,10 @@
                 @include('sections.footer')
             </footer>
         </div>
+        <div class="mobile-menu d-lg-none" aria-label="Mobile Menu">
+            @include('sections.mobile-menu')
+        </div>
     </div>
     @include('layouts.snippets.scripts')
 </body>
-
 </html>

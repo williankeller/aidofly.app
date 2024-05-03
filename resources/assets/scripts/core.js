@@ -1,14 +1,25 @@
-`use strict`;
+"use strict";
 
 import Alpine from "alpinejs";
+
 import { FormElement } from "./elements/form-element.js";
 import { CreditElement } from "./elements/credit-element.js";
 import { TimeElement } from "./elements/time-element.js";
 import { Modal } from "./components/modal.js";
 
-customElements.define("x-form", FormElement, { extends: "form" });
-customElements.define("x-credit", CreditElement, { extends: "data" });
-customElements.define("x-time", TimeElement, { extends: "time" });
+document.addEventListener("DOMContentLoaded", () => {
+    // <form data-element="form" x-ref="form"</form>
+    const formElements = document.querySelectorAll('[data-element="form"]');
+    formElements.forEach((form) => new FormElement(form));
+
+    // <div data-element="credit" data-value="{amount}"></div>
+    const creditElements = document.querySelectorAll('[data-element="credit"]');
+    creditElements.forEach((credit) => new CreditElement(credit));
+
+    // <time data-element="time" data-datetime="{timestamp}"></time>
+    const timeElements = document.querySelectorAll("time[data-element='time']");
+    timeElements.forEach((time) => new TimeElement(time));
+});
 
 window.modal = new Modal();
 

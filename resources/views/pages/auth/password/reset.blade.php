@@ -4,7 +4,7 @@
     <section class="bg-primary w-100 bg-gradient overflow-x-hidden">
         <div class="p-5 row align-items-center min-h-screen justify-content-center">
             <div class="m-3 col-12 col-sm-9 col-lg-6 col-xxl-4 card">
-                <form class="card-body p-5" is="x-form" x-ref="form" method="post" action="{{ route('password.update') }}">
+                <form class="card-body p-5" data-element="form" x-ref="form" method="post" action="{{ route('password.update') }}">
 
                     <div class="mb-4 text-center">
                         <x-image src="/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="45" height="45" />
@@ -46,8 +46,4 @@
 
 @push('script-stack-after')
     <x-notification.flash :errors="$errors" />
-@endpush
-
-@push('script-stack-before')
-    {!! javascript('js/auth.min.js') !!}
 @endpush

@@ -7,7 +7,7 @@
     </section>
 
     <section class="">
-        <form class="card" is="x-form" x-ref="form" @submit.prevent="submit">
+        <form class="card" data-element="form" x-ref="form" @submit.prevent="submit">
             <div class="d-flex w-100 align-items-end p-2">
                 <div class="grow-wrap w-100" :data-replicated-value="prompt">
                     <textarea name="prompt" id="prompt" tabindex="0" dir="auto" rows="1" autocomplete="off" x-ref="prompt"

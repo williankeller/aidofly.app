@@ -6,7 +6,7 @@
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 
-    <form is="x-form" x-ref="form" action="{{ route('admin.users.update', $user->uuid) }}" method="post">
+    <form data-element="form" x-ref="form" action="{{ route('admin.users.update', $user->uuid) }}" method="post">
         <section class="p-5 card mb-3">
             <h3 class="fw-bolder h5">@lang('Account')</h3>
             <div class="mt-2 row mb-3">
@@ -99,8 +99,4 @@
     @if (session()->get('message'))
         <x-notification :message="session()->get('message')['content']" :show="true" :icon="session()->get('message')['type'] === 'success' ? 'ti-square-rounded-check-filled' : null" />
     @endif
-@endpush
-
-@push('script-stack-before')
-    {!! javascript('js/auth.min.js') !!}
 @endpush

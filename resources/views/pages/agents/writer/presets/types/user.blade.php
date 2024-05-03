@@ -18,7 +18,7 @@
         @include('pages.agents.writer.presets.snippets.placeholder')
         <div class="row">
             <div class="col-lg-4 d-flex align-items-stretch card-static mb-3">
-                <div class="card-wrapper-selected h-100 d-flex align-items-stretch">
+                <div class="card-wrapper-selected h-100 w-100 d-flex align-items-stretch">
                     <div class="card p-3 d-block w-100">
                         <div class="icon-md bg-primary">
                             <i class="ti ti-square-rounded-plus"></i>

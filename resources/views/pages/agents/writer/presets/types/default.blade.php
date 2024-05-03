@@ -6,11 +6,11 @@
         @include('pages.agents.writer.presets.snippets.nav')
     </section>
 
-    <section class="group/list" data-state="initial" :data-state="state">
+    <section data-state="initial" :data-state="state" class="group/list">
         @include('pages.agents.writer.presets.snippets.placeholder')
         <div class="row">
             <div class="col-lg-4 d-flex align-items-stretch card-static mb-3">
-                <div class="card-wrapper-selected h-100 d-flex align-items-stretch">
+                <div class="card-wrapper-selected h-100 w-100 d-flex align-items-stretch">
                     <div class="card p-3 d-block w-100">
                         <div class="d-inline-block">
                             <div class="icon-md bg-warning">
