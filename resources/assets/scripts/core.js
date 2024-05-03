@@ -8,7 +8,7 @@ import { TimeElement } from "./elements/time-element.js";
 import { Modal } from "./components/modal.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    // <form data-element="form" x-ref="form"</form>
+    // <form data-element="form"></form>
     const formElements = document.querySelectorAll('[data-element="form"]');
     formElements.forEach((form) => new FormElement(form));
 

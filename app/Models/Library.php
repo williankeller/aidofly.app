@@ -24,6 +24,8 @@ class Library extends Model
         'resource_id',
     ];
 
+    protected $appends = ['abbreviation'];
+
     protected $casts = [
         'params' => 'array',
     ];
@@ -46,6 +48,28 @@ class Library extends Model
     public function getCostAttribute($value)
     {
         return formatNumber($value);
+    }
+
+    /**
+     * Convert created_at to human readable format
+     */
+    public function getCreatedAtAttribute($value): string
+    {
+        return now()->parse($value)->diffForHumans();
+    }
+
+    /**
+     * Convert created_at to human readable format
+     */
+    public function getCreatedAtForHumansAttribute($value): string
+    {
+        return now()->parse($value)->diffForHumans();
+    }
+
+    public function getAbbreviationAttribute()
+    {
+        $abbreviation = preg_replace('/\b(\w)\w*\s*/', '$1', $this->attributes['title']);
+        return strtoupper(substr($abbreviation, 0, 2));
     }
 
     protected static function boot(): void

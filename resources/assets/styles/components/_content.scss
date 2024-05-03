@@ -24,10 +24,18 @@
     }
 }
 
+.bg-writer {
+    background-color: var(--bs-warning);
+}
+
+.bg-voiceover {
+    background-color: var(--bs-success);
+}
+
 .search-content {
     border-radius: var(--bs-border-radius);
-    background-color: #ced4da;
-    padding: 3px;
+    background-color: var(--bs-border-color-dimmed);
+    padding: 2px;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     color: var(--bs-secondary-color);
 

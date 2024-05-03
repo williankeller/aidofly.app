@@ -55,13 +55,13 @@
                     @if ($p->type == 'tone')
                         <div class="mb-3">
                             <div class="form-label">@lang('Voice tone')</div>
-                            <div class="flex flex-wrap items-center gap-2 mt-2">
+                            <div class="d-flex">
                                 @foreach ($tones as $tone)
-                                    <div class="d-inline-block mb-2 me-1">
+                                    <div @class(['flex-fill mb-2', 'me-1' => (bool) !$loop->last])>
                                         <input type="radio" class="btn-check" value="{{ $tone }}" name="tone"
                                             class="btn btn-outline-secondary fw-normal py-0"
                                             id="tone{{ $loop->iteration }}" autocomplete="off" />
-                                        <label class="btn btn-outline-secondary fw-normal py-0"
+                                        <label class="btn btn-outline-secondary fw-normal py-0 w-100"
                                             for="tone{{ $loop->iteration }}">{{ $tone }}</label>
                                     </div>
                                 @endforeach

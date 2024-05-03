@@ -18,11 +18,11 @@
                 <p>{{ $user->email }}</p>
                 <div class="text-muted small">
                     <strong>@lang('Joined'):</strong>
-                    <time is="x-time" datetime="{{ $user->created_at }}" data-type="datetime"></time>
+                    <time data-element="time" :data-datetime="{{ $user->created_at }}" data-type="datetime"></time>
                 </div>
                 <div class="text-muted small">
                     <strong>@lang('Last updated'):</strong>
-                    <time is="x-time" datetime="{{ $user->updated_at }}" data-type="datetime"></time>
+                    <time data-element="time" :data-datetime="{{ $user->updated_at }}" data-type="datetime"></time>
                 </div>
             </div>
             <div class="col-lg-4">

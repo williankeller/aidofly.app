@@ -61,7 +61,7 @@
             <div class="card p-2 voiceover">
                 <component-wave :src="preview.fullPath" class="d-flex justify-content-between align-items-center"
                     x-ref="previewWave" @audioprocess="previewTime = $event.detail.time" state="initial">
-                    <button type="button" play-pause class="btn btn-primary btn-play-pause icon-md p-1">
+                    <button type="button" play-pause class="btn btn-primary btn-play-pause icon-md p-1 d-flex align-items-center">
                         <i class="play ti ti-player-play-filled"></i>
                         <i class="pause ti ti-player-pause-filled"></i>
                         <div class="loading spinner-grow spinner-grow-sm m-1" role="status">

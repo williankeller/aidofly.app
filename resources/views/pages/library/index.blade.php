@@ -13,10 +13,10 @@
                 <div class="card mb-2 p-3">
                     <div class="d-flex placeholder-wave justify-content-between align-items-center">
                         <div class="d-flex">
-                            <div class="placeholder rounded" style="width: 40px; height: 40px"></div>
+                            <div class="icon-md placeholder rounded"></div>
                         </div>
                         <div class="ms-2 w-100">
-                            <div class="d-block placeholder col-6 rounded"></div>
+                            <div class="d-block placeholder col-6 rounded mb-2"></div>
                             <div class="placeholder col-2 rounded"></div>
                         </div>
                     </div>
@@ -24,22 +24,26 @@
             @endfor
         </div>
         <template x-for="(content, index) in resources" :key="index">
-            <div class="card mb-2 p-3">
-                <a class="d-flex" x-bind:href="`/library/${content.type}/${content.uuid}`">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <template x-if="!content.preset">
-                            <div class="icon-sm bg-secondary text-white">
-                                <span class="fs-5" x-text="content.title.match(/(\b\S)?/g).join('').slice(0, 2)"></span>
+            <div class="card card-item mb-2 p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-md bg-light text-body">
+                                <span x-text="content.abbreviation"></span>
                             </div>
-                        </template>
+                        </div>
+                        <div class="ms-2">
+                            <div class="fw-bold mb-0" x-text="content.title"></div>
+                            <small class="mt-2 small text-muted">
+                                <time x-text="content.created_at"></time>
+                            </small>
+                        </div>
                     </div>
-                    <div class="ms-2">
-                        <div class="fw-bolder mb-0 text-body" x-text="content.title"></div>
-                        <small class="mt-2 text-sm text-muted">
-                            <time is="x-time" :datetime="content.created_at" data-type="date" class="text-sm "></time>
-                        </small>
+                    <div class="d-flex align-items-center">
+                        <span class="badge fs-6 fw-normal opacity-75 py-1" x-text="content.type" :class="`bg-${content.type}`"></span>
                     </div>
-                </a>
+                </div>
+                <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="stretched-link z-1"></a>
             </div>
         </template>
     </section>

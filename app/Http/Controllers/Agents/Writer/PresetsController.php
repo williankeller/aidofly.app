@@ -172,13 +172,9 @@ class PresetsController extends AbstractController
     private function creativityOptions(): array
     {
         return [
-            "0" => __("Minimal"),
-            "0.5" => __("Balanced"),
-            "1.0" => __("Creative"),
-            "1.1" => __("Innovative"),
-            "1.3" => __("Visionary"),
-            "1.5" => __("Pioneering"),
-            "1.8" => __("Genius"),
+            "0.1" => __("Precise"),
+            "0.7" => __("Neutral"),
+            "1.5" => __("Creative"),
         ];
     }
 
@@ -189,13 +185,8 @@ class PresetsController extends AbstractController
             __('Funny'),
             __('Casual'),
             __('Excited'),
-            __('Witty'),
             __('Sarcastic'),
             __('Dramatic'),
-            __('Feminine'),
-            __('Masculine'),
-            __('Grumpy'),
-            __('Bold'),
             __('Secretive')
         ];
     }
