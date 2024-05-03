@@ -35,3 +35,7 @@
 @push('script-stack-after')
     <x-notification.flash :errors="$errors" />
 @endpush
+
+@push('script-stack-before')
+    {!! javascript('js/auth.min.js') !!}
+@endpush
