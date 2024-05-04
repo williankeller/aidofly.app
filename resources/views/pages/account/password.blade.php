@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="mb-5">
-        <x-nav.back route="account.edit" :name="__('Account')" icon="ti-square-rounded-arrow-left-filled" />
-        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
-    </section>
+    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription">
+        <x-nav.back route="account.edit" />
+     </x-nav.page-title>
 
     <form data-element="form" x-ref="form" action="{{ route('account.password.update') }}" method="post">
         <section class="p-3 p-sm-5 card mb-3">
@@ -16,7 +15,7 @@
                 maxlength="255" autocomplete="new-password" />
         </section>
 
-        <section class="d-flex justify-content-end mt-3 mb-5">
+        <section class="d-flex justify-content-end my-3 my-lg-4">
             <div role="none" tabindex="-1" class="d-none">
                 @method('PUT')
                 @csrf

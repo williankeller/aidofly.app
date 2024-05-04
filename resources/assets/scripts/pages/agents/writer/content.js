@@ -13,6 +13,7 @@ export function content() {
         required: [],
         isProcessing: false,
         showForm: true,
+        userInput: null,
 
         docs: [],
         index: 0,

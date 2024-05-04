@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="mb-5">
-        <x-nav.back route="agent.writer.presets.index" :name="__('Preset templates')" />
-        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
-    </section>
+    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription">
+        <x-nav.back route="agent.writer.presets.index" />
+    </x-nav.page-title>
 
     <section class="p-3 p-sm-5 card mb-3" x-show="showForm">
         <h3 class="fw-bolder h5">@lang('Prompts')</h3>
@@ -17,8 +16,10 @@
                         <div class="mb-3">
                             <label @class(['form-label', 'required' => $p->required]) for="{{ $id }}">{{ __($p->label) }}</label>
                             @if ($p->multiline)
-                                <textarea cols="5" id="{{ $id }}" name="{{ $p->name }}" placeholder="{{ $p->placeholder }}"
-                                    class="form-control" autocomplete="off" rows="3" @required($p->required)>{{ $p->value }}</textarea>
+                            <div class="grow-wrap grow-wrap-bordered w-100" :data-replicated-value="userInput">
+                                <textarea id="{{ $id }}" name="{{ $p->name }}" placeholder="{{ $p->placeholder }}"
+                                    class="form-control" tabindex="0" dir="auto" rows="4" autocomplete="off" x-model="userInput" x-ref="userInput" @required($p->required)>{{ $p->value }}</textarea>
+                            </div>
                             @else
                                 <input type="text" id="{{ $id }}" name="{{ $p->name }}"
                                     placeholder="{{ $p->placeholder }}" class="form-control" autocomplete="off"
@@ -72,8 +73,10 @@
             @else
                 <div class="mb-2">
                     <label for="prompt" class="form-label required">@lang('Your query')</label>
-                    <textarea class="form-control" id="prompt" name="prompt" placeholder="@lang('Type here what do you want to create')" rows="3"
-                        autocomplete="off" required>{{ $query }}</textarea>
+                    <div class="grow-wrap grow-wrap-bordered w-100" :data-replicated-value="userInput">
+                        <textarea class="form-control" name="prompt" id="prompt" tabindex="0" dir="auto" rows="4" autocomplete="off" x-model="userInput" x-ref="userInput"
+                            placeholder="@lang('Enter your text here...')" required></textarea>
+                    </div>
                     <div class="mt-1 d-flex align-items-center text-sm text-muted">
                         <i class="ti ti-info-square-rounded-filled"></i>
                         <small class="ms-1 text-muted">@lang('The more details you provide, the better the result will be.')</small>
@@ -115,7 +118,7 @@
             <div class="row d-flex align-items-center">
                 <template x-if="docs[index].uuid">
                     <div class="col-lg-10">
-                        <div class="h4 autogrow-textarea mb-0" :data-replicated-value="docs[index].title">
+                        <div class="h4 grow-wrap mb-0" :data-replicated-value="docs[index].title">
                             <textarea placeholder="@lang('Untitled document')" autocomplete="off" x-model="docs[index].title" rows="1"
                                 class="d-block w-100 p-0 text-body border-0"></textarea>
                         </div>

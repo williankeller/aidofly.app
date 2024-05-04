@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="mb-5">
-        <x-nav.back route="agent.writer.presets.user" :name="__('Your templates')" icon="ti-square-rounded-arrow-left-filled" />
-        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
-    </section>
+    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
 
     <form data-element="form" x-ref="form" action="{{ route('agent.writer.presets.update', $preset->uuid) }}" method="post">
         <section class="p-3 p-sm-5 card mb-3">
@@ -58,7 +55,7 @@
                             @checked(old('visivility', $preset->visibility) === 'public') autocomplete="off">
                         <label class="btn btn-outline-secondary py-1 d-flex align-items-center" for="visibilityPublic">
                             <i class="fs-5 ti ti-world"></i>
-                            <span class="fw-bold ms-1">@lang('Public')</span>
+                            <span class="fw-normal ms-1">@lang('Public')</span>
                         </label>
                     </div>
                     <div class="form-check-group">
@@ -66,7 +63,7 @@
                             @checked(old('visivility', $preset->visibility) === 'private') autocomplete="off">
                         <label class="btn btn-outline-secondary py-1 d-flex align-items-center" for="visibilityPrivate">
                             <i class="fs-5 ti ti-lock"></i>
-                            <span class="fw-bold ms-1">@lang('Private')</span>
+                            <span class="fw-normal ms-1">@lang('Private')</span>
                         </label>
                     </div>
                 </div>
@@ -95,21 +92,21 @@
                     <label class="form-check form-switch form-check-reverse mb-0" for="status" @click="status = !status">
                         <input class="form-check-input" type="checkbox" name="status" role="switch" id="status"
                             value="active" @checked(old('status', $preset->status))>
-                        <span class="form-check-label fw-bold"
+                        <span class="form-check-label fw-normal"
                             :class="{ 'd-none': !status, 'd-block': status }">@lang('Active')</span>
-                        <span class="form-check-label fw-bold"
+                        <span class="form-check-label fw-normal"
                             :class="{ 'd-none': status, 'd-block': !status }">@lang('Inactive')</span>
                     </label>
                 </div>
             </section>
         @endif
 
-        <section class="d-flex justify-content-between my-5">
+        <section class="d-flex justify-content-between my-3 my-lg-4">
             <div role="none" tabindex="-1" class="d-none">
                 @method('PUT')
                 @csrf
             </div>
-            <x-modal.trigger id="delete-preset-modal" variant="white" class="btn-sm text-danger">
+            <x-modal.trigger id="delete-preset-modal" variant="white" class="text-danger">
                 <i class="fs-5 ti ti-trash"></i>
                 <span class="ms-1">@lang('Delete template')</span>
             </x-modal.trigger>

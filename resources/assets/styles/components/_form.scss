@@ -45,7 +45,8 @@ $radio-checkbox-margin: 2.4em;
 
 .grow-wrap {
     display: grid;
-    margin: 7px;
+    max-height: 300px;
+    overflow-y: scroll;
     > textarea,
     &::after {
         border: 0;
@@ -63,6 +64,14 @@ $radio-checkbox-margin: 2.4em;
         outline: none;
         &:focus {
             outline: none;
+        }
+    }
+    &.grow-wrap-bordered {
+        border: var(--bs-border-width) solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        &:focus-within {
+            box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
         }
     }
 }

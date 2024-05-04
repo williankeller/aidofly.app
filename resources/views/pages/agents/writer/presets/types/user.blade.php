@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="mb-5">
-        <x-nav.back route="home.index" :name="__('Home')" />
-        @include('pages.agents.writer.presets.snippets.nav')
-    </section>
+    @include('pages.agents.writer.presets.snippets.nav')
 
     <section data-state="initial" :data-state="state">
         <x-content.empty :title="__('No custom presets yet')" :subtitle="__('You haven\'t create a preset template yet.')" icon="ti ti-stack">

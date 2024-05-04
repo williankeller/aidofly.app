@@ -66,10 +66,11 @@ class Library extends Model
         return now()->parse($value)->diffForHumans();
     }
 
-    public function getAbbreviationAttribute()
+    public function getAbbreviationAttribute(): string
     {
-        $abbreviation = preg_replace('/\b(\w)\w*\s*/', '$1', $this->attributes['title']);
-        return strtoupper(substr($abbreviation, 0, 2));
+        $title = (string) $this->attributes['title'];
+        $abbreviation = preg_replace('/\b(\w)\w*\s*/u', '$1', $title);
+        return strtoupper(mb_substr($abbreviation, 0, 2, 'UTF-8'));
     }
 
     protected static function boot(): void

@@ -1,15 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="mb-5">
-        <x-nav.back route="admin.users.index" :name="__('Users')" />
-        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription">
-            <a href="{{ route('admin.users.edit', $user->uuid) }}" class="btn btn-sm btn-light ms-auto">
-                <i class="ti ti-pencil"></i>
-                <span>@lang('Edit')</span>
-            </a>
-        </x-nav.page-title>
-    </section>
+    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription">
+        <a href="{{ route('admin.users.edit', $user->uuid) }}" class="btn btn-sm btn-light ms-auto">
+            <i class="ti ti-pencil"></i>
+            <span>@lang('Edit')</span>
+        </a>
+    </x-nav.page-title>
 
     <section class="card p-5">
         <div class="row d-flex align-items-center">

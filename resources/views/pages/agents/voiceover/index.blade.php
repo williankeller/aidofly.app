@@ -1,13 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="mb-5">
-        <x-nav.back route="home.index" :name="__('Home')" />
-        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
-    </section>
+    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
 
     <section class="voiceover" data-state="initial" :data-state="state">
-
         <x-content.placeholder :count="3" :columns="true">
             <div class="col-lg-4 d-flex align-items-stretch">
                 <div class="card mb-2 p-3 w-100 d-block">

@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="mb-5">
-        <x-nav.back route="admin.users.index" :name="__('Users')" />
-        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
-    </section>
+    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
 
     <form data-element="form" x-ref="form" action="{{ route('admin.users.update', $user->uuid) }}" method="post">
         <section class="p-3 p-sm-5 card mb-3">

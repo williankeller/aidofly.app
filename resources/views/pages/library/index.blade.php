@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="mb-5">
-        <x-nav.back route="home.index" :name="__('Home')" />
-        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
-    </section>
+    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
 
     <section class="group/list" data-state="initial" :data-state="state">
         <x-content.empty :title="__('No content yet')" :subtitle="__('You haven\'t create an AI-driven content yet')" />

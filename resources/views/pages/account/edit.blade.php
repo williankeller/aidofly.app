@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="mb-5">
-        <x-nav.back route="home.index" :name="__('Home')" />
-        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
-    </section>
+    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
 
     <form data-element="form" x-ref="form" action="{{ route('account.update') }}" method="post">
         <section class="p-3 p-sm-5 card mb-3">
@@ -90,7 +87,7 @@
             </section>
         @endif
 
-        <section class="d-flex justify-content-end my-5">
+        <section class="d-flex justify-content-end my-3 my-lg-4">
             <div role="none" tabindex="-1" class="d-none">
                 @method('PUT')
                 @csrf

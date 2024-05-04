@@ -4,10 +4,9 @@
 
 .main {
     max-width: 57rem;
-    margin-top: 1.75rem;
     margin-bottom: 1.75rem;
     @extend .container;
-    min-height: 85vh;
+    min-height: 90vh;
 }
 
 .toggle-on-hover {

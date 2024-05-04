@@ -1,16 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="mb-5">
-        @if (url()->previous() === route('agent.writer.presets.index'))
-            <x-nav.back route="agent.writer.presets.index" :name="__('Preset templates')" />
-        @elseif (url()->previous() === route('agent.writer.presets.user'))
-            <x-nav.back route="agent.writer.presets.user" :name="__('My presets')" />
-        @else
-            <x-nav.back route="home.index" :name="__('Home')" />
-        @endif
-        @include('pages.agents.writer.presets.snippets.nav')
-    </section>
+
+    @include('pages.agents.writer.presets.snippets.nav')
 
     <section class="group/list" data-state="initial" :data-state="state">
         <x-content.empty :title="__('Nothing to discover')" :subtitle="__('There are no templates to discovery yet.')" icon="ti ti-world-search" />

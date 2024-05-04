@@ -1,13 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="mb-5">
-        <x-nav.back route="agent.voiceover.index" :name="__('Voices')" />
-        <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
-    </section>
-
-    <section class="">
-        <form class="card" data-element="form" x-ref="form" @submit.prevent="submit">
+    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
+    <section class="card">
+        <form data-element="form" x-ref="form" @submit.prevent="submit">
             <div class="d-flex w-100 align-items-end p-2">
                 <div class="grow-wrap w-100" :data-replicated-value="prompt">
                     <textarea name="prompt" id="prompt" tabindex="0" dir="auto" rows="1" autocomplete="off" x-ref="prompt"
@@ -61,7 +57,8 @@
             <div class="card p-2 voiceover">
                 <component-wave :src="preview.fullPath" class="d-flex justify-content-between align-items-center"
                     x-ref="previewWave" @audioprocess="previewTime = $event.detail.time" state="initial">
-                    <button type="button" play-pause class="btn btn-primary btn-play-pause icon-md p-1 d-flex align-items-center">
+                    <button type="button" play-pause
+                        class="btn btn-primary btn-play-pause icon-md p-1 d-flex align-items-center">
                         <i class="play ti ti-player-play-filled"></i>
                         <i class="pause ti ti-player-pause-filled"></i>
                         <div class="loading spinner-grow spinner-grow-sm m-1" role="status">
@@ -76,15 +73,15 @@
         </template>
 
         <template x-if="preview && !isProcessing">
-            <div class="d-flex justify-content-between">
-                <div class="d-flex mt-2 small">
-                    <div class="d-flex align-items-center ms-1 me-4">
-                        <i class="ti ti-coins me-1"></i>
+            <div class="d-flex justify-content-between mt-4">
+                <div class="d-flex small">
+                    <div class="d-flex align-items-center me-4">
+                        <i class="ti ti-square-rounded-letter-t me-1"></i>
                         <span x-text="preview.tokens"></span>
                         <span class="ms-1">@lang('characters')</span>
                     </div>
                     <div class="d-flex align-items-center">
-                        <i class="ti ti-square-rounded-letter-t me-1"></i>
+                        <i class="ti ti-coins me-1"></i>
                         <span x-text="preview.cost"></span>
                         <span class="ms-1">@lang('credits')</span>
                     </div>
