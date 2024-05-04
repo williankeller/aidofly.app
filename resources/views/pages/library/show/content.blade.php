@@ -11,7 +11,7 @@
         </x-nav.page-title>
     </section>
 
-    <section class="p-5 card mb-3">
+    <section class="p-3 p-sm-5 card mb-3">
 
         <div class="editor" x-html="format(library.content)"></div>
 

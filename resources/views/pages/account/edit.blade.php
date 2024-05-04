@@ -7,7 +7,7 @@
     </section>
 
     <form data-element="form" x-ref="form" action="{{ route('account.update') }}" method="post">
-        <section class="p-5 card mb-3">
+        <section class="p-3 p-sm-5 card mb-3">
             <div class="row mb-3">
                 <div class="col-lg-6">
                     <x-form.input-field id="firstname" :label="__('First name')" :placeholder="__('Your first name')" required :value="$authUser->firstname"
@@ -51,7 +51,7 @@
         </section>
 
         @if ($authUser->isAdministrator())
-            <section class="p-5 card mb-3">
+            <section class="p-3 p-sm-5 card mb-3">
                 <h3 class="fw-bolder h5">@lang('Account details')</h3>
                 <div class="mt-2">
                     <div class="form-label mb-2">

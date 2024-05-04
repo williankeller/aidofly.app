@@ -7,7 +7,7 @@
     </section>
 
     <form data-element="form" x-ref="form" action="{{ route('admin.users.update', $user->uuid) }}" method="post">
-        <section class="p-5 card mb-3">
+        <section class="p-3 p-sm-5 card mb-3">
             <h3 class="fw-bolder h5">@lang('Account')</h3>
             <div class="mt-2 row mb-3">
                 <div class="col-lg-6">
@@ -40,7 +40,7 @@
             </div>
         </section>
 
-        <section class="p-5 card mb-3">
+        <section class="p-3 p-sm-5 card mb-3">
             <h3 class="fw-bolder h5">@lang('Account details')</h3>
             <div class="mt-2">
                 <div class="form-label mb-2">

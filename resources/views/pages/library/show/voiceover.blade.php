@@ -12,7 +12,7 @@
         </x-nav.page-title>
     </section>
 
-    <section class="p-5 card mb-3 voiceover">
+    <section class="p-3 p-sm-5 card mb-3 voiceover">
         <div class="card p-2">
             <component-wave class="d-flex justify-content-between align-items-center" x-ref="previewWave"
                 src="{{ filestorage($library->uuid) }}" @audioprocess="previewTime = $event.detail.time" state="initial">

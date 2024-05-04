@@ -7,7 +7,7 @@
     </section>
 
     <form data-element="form" x-ref="form" action="{{ route('account.email.update') }}" method="post">
-        <section class="p-5 card mb-3">
+        <section class="p-3 p-sm-5 card mb-3">
             <div class="mb-3">
                 <x-form.input-field type="email" id="email" :label="__('Email')" :placeholder="__('Email you want to change to')" required
                     maxlength="255" :value="$authUser->email" autocomplete="email" />

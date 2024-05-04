@@ -7,7 +7,7 @@
     </section>
 
     <form data-element="form" x-ref="form" action="{{ route('agent.writer.presets.update', $preset->uuid) }}" method="post">
-        <section class="p-5 card mb-3">
+        <section class="p-3 p-sm-5 card mb-3">
             <h3 class="fw-bolder h5">@lang('Details')</h3>
             <div class="d-grid gap-3 mt-3">
                 <div class="mb-2">
@@ -34,7 +34,7 @@
             </div>
         </section>
 
-        <section class="p-5 card mb-3">
+        <section class="p-3 p-sm-5 card mb-3">
             <h3 class="fw-bolder h5">@lang('Prompt')</h3>
             <div class="d-grid gap-3 mt-3">
                 <div class="mb-2">
@@ -45,7 +45,7 @@
             </div>
         </section>
 
-        <section class="p-5 card mb-3">
+        <section class="p-3 p-sm-5 card mb-3">
             <h3 class="fw-bolder h5">@lang('Visibility')</h3>
             <div class="mt-2 d-flex justify-content-between align-items-center">
                 <div class="form-label mb-0">
@@ -74,7 +74,7 @@
         </section>
 
         @if ($authUser->isAdministrator())
-            <section class="p-5 card mb-3">
+            <section class="p-3 p-sm-5 card mb-3">
                 <h3 class="fw-bolder h5">@lang('Admin')</h3>
                 <div class="row mt-2">
                     <div class="col-lg-4">

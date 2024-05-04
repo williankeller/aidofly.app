@@ -6,7 +6,7 @@
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
     </section>
 
-    <section class="p-5 card mb-3" x-show="showForm">
+    <section class="p-3 p-sm-5 card mb-3" x-show="showForm">
         <h3 class="fw-bolder h5">@lang('Prompts')</h3>
         <form data-element="form" x-ref="form" @submit.prevent="submit(null)" class="d-grid gap-3 mt-3">
             @if ($templates)
@@ -55,9 +55,9 @@
                     @if ($p->type == 'tone')
                         <div class="mb-3">
                             <div class="form-label">@lang('Voice tone')</div>
-                            <div class="d-flex">
+                            <div class="row d-lg-flex">
                                 @foreach ($tones as $tone)
-                                    <div @class(['flex-fill mb-2', 'me-1' => (bool) !$loop->last])>
+                                    <div @class(['col-auto flex-fill mb-2 p-1'])>
                                         <input type="radio" class="btn-check" value="{{ $tone }}" name="tone"
                                             class="btn btn-outline-secondary fw-normal py-0"
                                             id="tone{{ $loop->iteration }}" autocomplete="off" />
@@ -90,7 +90,7 @@
     </section>
 
     <template x-if="docs.length > 0 && docs[index]">
-        <div class="p-5 card relative">
+        <div class="p-3 p-sm-5 card relative">
 
             <template x-if="docs.length > 1">
                 <div class="d-flex align-items-center gap-1 text-sm mb-3">

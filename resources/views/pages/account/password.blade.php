@@ -7,7 +7,7 @@
     </section>
 
     <form data-element="form" x-ref="form" action="{{ route('account.password.update') }}" method="post">
-        <section class="p-5 card mb-3">
+        <section class="p-3 p-sm-5 card mb-3">
             <div class="mb-3">
                 <x-form.password-field id="current" :label="__('Current password')" :placeholder="__('Enter your current password')" required minlength="6"
                     maxlength="255" autocomplete="current-password" />
