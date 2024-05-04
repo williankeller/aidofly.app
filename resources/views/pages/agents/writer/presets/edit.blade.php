@@ -122,24 +122,20 @@
 
     <x-modal.modal id="delete-preset-modal" size="md">
         <form class="modal-content" method="post" action="{{ route('agent.writer.presets.destroy', $preset->uuid) }}">
-            <div class="modal-body text-center">
-                <div class="m-4 d-flex align-items-center justify-content-center">
-                    <div
-                        class="icon-lg bg-danger bg-gradient text-white rounded d-flex align-items-center justify-content-center">
-                        <i class="fs-2 ti ti-trash"></i>
-                    </div>
-                </div>
-                <p>@lang('Are you sure you want to delete <strong>:title</strong> template?', ['title' => $preset->title])</p>
-                <div role="none" tabindex="-1" class="d-none">
-                    @method('DELETE')
-                    @csrf
-                    <input type="hidden" name="uuid" value="{{ $preset->uuid }}">
-                </div>
-                <div class="mt-4 d-flex align-items-center justify-content-center">
-                    <button type="button" class="btn btn-secondary m-2"
-                        @click="modal.close()">@lang('No, cancel')</button>
-                    <button type="submit" class="btn btn-danger">@lang('Yes, delete')</button>
-                </div>
+            <div class="modal-body p-5 text-center">
+                <h5 class="fw-bold mb-3">@lang('Delete this template?')</h5>
+                <p>@lang('You are about to delete the <strong>:title</strong> template. Once deleted, it cannot be recovered.', ['title' => $preset->title])</p>
+            </div>
+            <div role="none" tabindex="-1" class="d-none">
+                @method('DELETE')
+                @csrf
+                <input type="hidden" name="uuid" value="{{ $preset->uuid }}">
+            </div>
+            <div class="modal-footer flex-nowrap p-0">
+                <button type="button" class="btn btn-link text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                    @click="modal.close()">@lang('No, cancel')</button>
+                <button type="submit"
+                    class="btn btn-link text-decoration-none col-6 py-3 m-0 rounded-0 text-danger fw-bold">@lang('Yes, delete')</button>
             </div>
         </form>
     </x-modal.modal>

@@ -16,7 +16,7 @@
                 @include('sections.footer')
             </footer>
         </div>
-        <div class="mobile-menu d-lg-none" aria-label="Mobile Menu">
+        <div class="d-lg-none" aria-label="Mobile Menu">
             @include('sections.mobile-menu')
         </div>
     </div>

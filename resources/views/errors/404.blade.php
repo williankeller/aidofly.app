@@ -369,14 +369,14 @@
                     </div>
                     <div class="vstack gap-1">
                         <div class="">
-                            <a href="{{ route('library.agent.index') }}" class="h5 link-primary">
+                            <a href="{{ route('library.index') }}" class="h5 link-primary">
                                 <span>@lang('Library')</span>
                                 <i class="ti ti-arrow-right ms-1"></i>
                             </a>
                             <p class="text-sm">@lang('View all content you created')</p>
                         </div>
                         <div class="">
-                            <a href="{{ route('library.agent.index') }}" class="h5 link-primary">
+                            <a href="{{ route('library.index') }}" class="h5 link-primary">
                                 <span>@lang('Documentation')</span>
                                 <i class="ti ti-arrow-right ms-1"></i>
                             </a>

@@ -10,7 +10,7 @@
             <i class="fs-4 ti ti-home"></i>
             <span class="ms-2">@lang('Home')</span>
         </x-aside.item>
-        <x-aside.item route="library.agent.index" match="library.*">
+        <x-aside.item route="library.index" match="library.*">
             <i class="fs-4 ti ti-books"></i>
             <span class="ms-2">@lang('Library')</span>
         </x-aside.item>

@@ -78,7 +78,7 @@ class SearchController extends AbstractController
                 'type' => $item->type,
                 'icon' => null,
                 'color' => null,
-                'url' => route('library.agent.show', [$item->type, $item->uuid]),
+                'url' => route('library.show', [$item->type, $item->uuid]),
             ];
         })->collect();
     }

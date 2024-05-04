@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="mb-5">
-        <x-nav.back route="library.agent.index" :name="__('Library')" icon="ti-square-rounded-arrow-left-filled" />
+        <x-nav.back route="library.index" :name="__('Library')" icon="ti-square-rounded-arrow-left-filled" />
         <x-nav.page-title :title="$metaTitle" :lead="$metaDescription">
             <a class="btn btn-light d-flex align-items-center"
                 href="{{ route('agent.voiceover.show', $library->voice->uuid) }}">
@@ -16,7 +16,8 @@
         <div class="card p-2">
             <component-wave class="d-flex justify-content-between align-items-center" x-ref="previewWave"
                 src="{{ filestorage($library->uuid) }}" @audioprocess="previewTime = $event.detail.time" state="initial">
-                <button type="button" play-pause class="btn btn-primary btn-play-pause icon-md p-1 d-flex align-items-center">
+                <button type="button" play-pause
+                    class="btn btn-primary btn-play-pause icon-md p-1 d-flex align-items-center">
                     <i class="play ti ti-player-play-filled"></i>
                     <i class="pause ti ti-player-pause-filled"></i>
                     <div class="loading spinner-grow spinner-grow-sm m-1" role="status">
@@ -68,15 +69,34 @@
                         <i class="ti ti-download fs-4"></i>
                     </button>
                 </form>
-
-                <button class="btn btn-white p-0" @click="deleteDocument(library.content)">
+                <x-modal.trigger id="delete-library-modal" variant="white" class="p-0">
                     <i class="ti ti-trash fs-4 text-hover-danger" x-ref="trashHover"></i>
-                </button>
+                </x-modal.trigger>
             </div>
         </div>
     </section>
 @endsection
 
 @push('script-stack-before')
+    <x-modal.modal id="delete-library-modal" size="md">
+        <form class="modal-content" method="post" action="{{ route('library.destroy', $library->uuid) }}">
+            <div class="modal-body p-5 text-center">
+                <h5 class="fw-bold mb-3">@lang('Delete libray item?')</h5>
+                <p>@lang('You are about to delete the <strong>":title"</strong> voiceover. Once deleted, it cannot be recovered.', ['title' => $library->title])</p>
+            </div>
+            <div role="none" tabindex="-1" class="d-none">
+                @method('DELETE')
+                @csrf
+                <input type="hidden" name="uuid" value="{{ $library->uuid }}">
+            </div>
+            <div class="modal-footer flex-nowrap p-0">
+                <button type="button" class="btn btn-link text-decoration-none col-6 py-3 m-0 rounded-0 border-end"
+                    @click="modal.close()">@lang('No, cancel')</button>
+                <button type="submit"
+                    class="btn btn-link text-decoration-none col-6 py-3 m-0 rounded-0 text-danger fw-bold">@lang('Yes, delete')</button>
+            </div>
+        </form>
+    </x-modal.modal>
+
     {!! javascript('js/voiceover.min.js') !!}
 @endpush

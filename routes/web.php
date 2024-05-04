@@ -85,14 +85,14 @@ Route::middleware('auth')->group(function () {
 
     // Library routes
     Route::name('library.')->group(function () {
-        Route::controller(LibraryController::class)->name('agent.')->group(function () {
+        Route::controller(LibraryController::class)->group(function () {
             Route::get('/library', 'index')->name('index');
             Route::get('/library/{type}/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+            Route::delete('/library/{uuid}', 'destroy')->where('uuid', '[a-z0-9-]+')->name('destroy');
         });
         Route::controller(FilestorageController::class)->name('filestorage.')->group(function () {
             Route::get('/filestorage/{filename}', 'index')->name('index');
             Route::get('/filestorage/{uuid}/download', 'download')->where('uuid', '[a-z0-9-]+')->name('download');
-            Route::delete('/filestorage/{uuid}', 'destroy')->where('uuid', '[a-z0-9-]+')->name('destroy');
         });
     });
 
