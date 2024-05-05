@@ -20,32 +20,30 @@
                 </div>
             @endfor
         </div>
-        <template x-for="(content, index) in resources" :key="index">
-            <div class="card card-item mb-2 p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        <div class="d-flex align-items-center">
-                            <div class="icon-md bg-light text-body">
-                                <span x-text="content.abbreviation"></span>
-                            </div>
-                        </div>
-                        <div class="ms-2">
+        <div class="row">
+            <template x-for="(content, index) in resources" :key="index">
+                <div class="col-lg-6 d-flex align-items-stretch mb-3">
+                    <div class="card card-item p-3 w-100 d-block">
+                        <div>
                             <div class="fw-bold mb-0" x-text="content.title"></div>
-                            <small class="mt-2 small text-muted">
+                            <small class="mt-1 small text-muted">
                                 <time x-text="content.created_at"></time>
                             </small>
+                            <div class="mt-2 d-flex align-items-center">
+                                <span class="badge fw-bold py-1 small me-1 text-capitalize" x-text="content.type"
+                                    :class="`bg-${content.type}`"></span>
+                                <template x-if="content.resource">
+                                    <span class="badge fw-bold py-1 small"
+                                        :style="`background-color: ${content.resource.color};`"
+                                        x-text="content.resource.title"></span>
+                                </template>
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <template x-if="content.resource">
-                            <span class="badge fw-bold py-1 small me-1" :style="`background-color: ${content.resource.color};`" x-text="content.resource.title"></span>
-                        </template>
-                        <span class="badge fw-bold py-1 small" x-text="content.type" :class="`bg-${content.type}`"></span>
+                        <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="stretched-link z-1"></a>
                     </div>
                 </div>
-                <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="stretched-link z-1"></a>
-            </div>
-        </template>
+            </template>
+        </div>
     </section>
 @endsection
 

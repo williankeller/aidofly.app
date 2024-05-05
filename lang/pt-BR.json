@@ -19,7 +19,7 @@
     "Writer": "Escritor",
     "Voice over": "Narração",
     "Listen": "Ouvir",
-    "View all content you created": "Ver todo o conteúdo que você criou",
+    "Browse through the content you created": "Navegue pelo conteúdo que você criou",
     "Preset templates": "Modelos predefinidos",
     "System defined list of preset templates": "Lista de modelos predefinidos pelo sistema",
     "Default": "Padrão",
@@ -54,7 +54,6 @@
     "Enter your text here...": "Digite seu texto aqui...",
     ":name voice": "Voz :name",
     ":name is :gender voice that may be used for :case use cases.": ":name é uma voz :gender que pode ser usada para casos de uso em :case.",
-    "Voices": "Vozes",
     "The more details you provide, the better the code will be.": "Quanto mais detalhes você fornecer, melhor será o código.",
     "Custom presets": "Modelos personalizados",
     "Custom preset templates you created": "Modelos personalizados que você criou",
@@ -123,5 +122,5 @@
     "Unlimited": "Ilimitado",
     "Back": "Voltar",
     "Total credits used": "Total de créditos usados",
-    "Search your library or ask Ai directly...": "Pesquise sua biblioteca ou pergunte diretamente à IA..."
+    "Search your library or ask the AI": "Pesquise sua biblioteca ou pergunte à IA"
 }

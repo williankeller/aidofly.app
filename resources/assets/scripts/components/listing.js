@@ -10,7 +10,7 @@ export function listing() {
 
         params: {},
         total: null,
-        cursor: null,
+        currentPage: 1,
         resources: [],
         isLoading: false,
         hasMore: true,
@@ -28,11 +28,12 @@ export function listing() {
                 clearTimeout(timer);
                 timer = setTimeout(() => {
                     this.params = e.detail;
+                    this.currentPage = 1; // Reset to the first page for filtered results
                     this.retrieveResources(true);
                 }, 200);
             });
 
-            // @todo: Implement this counter
+            // Initialize with total count as needed
             this.total = 0;
         },
 
@@ -43,19 +44,15 @@ export function listing() {
 
             for (const key in this.params) {
                 if (this.params[key]) {
-                    if (key != "sort") {
+                    if (key !== "sort") {
                         isFiltered = true;
                     }
-
                     params[key] = this.params[key];
                 }
             }
 
             this.isFiltered = isFiltered;
-
-            if (!reset && this.cursor) {
-                params.starting_after = this.cursor;
-            }
+            params.page = this.currentPage;
 
             api.get(basePath, params)
                 .then((response) => response.json())
@@ -66,15 +63,20 @@ export function listing() {
                         ? list.data
                         : this.resources.concat(list.data);
 
-                    if (this.resources.length > 0) {
-                        this.cursor =
-                            this.resources[this.resources.length - 1].uuid;
-                    } else {
+                    if (this.resources.length === 0) {
                         this.state = "empty";
                     }
 
                     this.isLoading = false;
-                    this.hasMore = list.data.length >= 15;
+                    this.hasMore = this.currentPage < list.pagination.pages;
+                    this.total = list.pagination.total;
+
+                    // Move to the next page
+                    this.currentPage += 1;
+                }).catch((error) => {
+                    this.state = "error";
+                    console.error(error);
+                    notification("An error occurred while loading the resources.", "error");
                 });
         },
 
@@ -83,7 +85,7 @@ export function listing() {
                 if (
                     this.hasMore &&
                     !this.isLoading &&
-                    window.innerHeight + window.scrollY + 600 >=
+                    window.innerHeight + window.scrollY + 200 >=
                         document.documentElement.scrollHeight
                 ) {
                     this.retrieveResources();

@@ -46,7 +46,7 @@
                             <component-wave :src="voice.sample" state="pause">
                                 <button type="button" play-pause
                                     class="btn btn-light btn-try flex-fill text-body me-2 p-1">
-                                    <div class="play d-flex align-items-center justify-content-center">
+                                    <div class="play d-flex align-items-center justify-content-center fw-normal">
                                         <i class="ti ti-player-play me-1"></i>
                                         <span>@lang('Try')</span>
                                     </div>
@@ -57,8 +57,8 @@
                                 </button>
                             </component-wave>
                             <a x-bind:href="`{{ route('agent.voiceover.show', '') }}/${voice.uuid}`"
-                                class="btn btn-light flex-fill text-body p-1 d-flex align-items-center justify-content-center">
-                                <i class="fs-5 ti ti-sparkles me-1"></i>
+                                class="btn btn-light flex-fill text-body p-1 d-flex align-items-center justify-content-center fw-normal">
+                                <i class="fs-6 ti ti-sparkles me-1"></i>
                                 <span>@lang('Use voice')</span>
                             </a>
                         </div>

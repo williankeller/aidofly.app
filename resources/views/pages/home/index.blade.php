@@ -28,7 +28,7 @@
             @click.outside="showResults = false">
             <div class="position-relative search-content d-flex align-items-center dropdown">
                 <div class="input-wrapper">
-                    <input type="text" name="q" placeholder="@lang('Search your library or ask AI directly...')" aria-label="@lang('Search')"
+                    <input type="text" name="q" placeholder="@lang('Search your library or ask the AI')" aria-label="@lang('Search')"
                         autocomplete="off" class="w-100 border-0" x-ref="input" @keyup.down="showResults = true">
                 </div>
                 <div class="px-2 icon d-flex align-items-center">

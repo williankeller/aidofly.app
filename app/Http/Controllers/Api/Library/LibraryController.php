@@ -12,39 +12,56 @@ class LibraryController extends AbstractController
 {
     public function index(Request $request): JsonResponse
     {
-        $limit = $request->input('limit', 150);
-        $starting_after = $request->input('starting_after');
+        // Set a default limit and starting cursor
+        $limit = (int) $request->input('limit', 10);
+        $page = (int) $request->input('page', 1);
+        $userId = auth()->id();
 
+        // Calculate the offset
+        $offset = ($page - 1) * $limit;
+
+        // Create the base query
         $query = Library::select(['uuid', 'type', 'visibility', 'title', 'resource_id', 'created_at'])
-            ->where('user_id', auth()->id())
+            ->skip($offset)
+            ->take($limit)
+            ->where('user_id', $userId)
             ->orderBy('created_at', 'desc');
 
-        // Apply cursor-based pagination
-        if ($starting_after) {
-            $query->where('uuid', '>', $starting_after);
-        }
-
+        // Fetch library items and hide resource_id
         $library = $query->limit($limit)->get()->makeHidden(['resource_id']);
 
-        // Fetch the preset IDs
-        $presetIds = $library->where('type', 'writer')->pluck('resource_id')->filter()->toArray();
-        if ($presetIds) {
-            // Fetch the resources from the database
-            $resources = Preset::select(['title', 'icon', 'color'])->whereIn('id', $presetIds)->get();
+        // Collect resource IDs to optimize data fetching
+        $presetIds = $library->where('type', 'writer')->pluck('resource_id')->filter()->unique()->values()->all();
 
-            // Attach the resources to the library items
-            $library->transform(function ($item) use ($resources) {
-                if ($item->type === 'writer' && $item->resource_id) {
-                    $item->resource = isset($resources[$item->resource_id]) ? $resources[$item->resource_id] : null;
-                }
-                return $item;
+        // Fetch preset resources in one query
+        $resources = Preset::whereIn('id', $presetIds)
+            ->get()
+            ->keyBy('id')
+            ->map(function ($resource) {
+                return collect($resource)->only(['title', 'icon', 'color']);
             });
-        }
 
+        // Attach resources to the library items where applicable
+        $library->transform(function ($item) use ($resources) {
+            if ($item->type === 'writer' && isset($resources[$item->resource_id])) {
+                $item->resource = $resources[$item->resource_id];
+            } else {
+                $item->resource = null;
+            }
+            return $item;
+        });
+
+        $total = Library::where('user_id', $userId)->count();
+
+        // Return the formatted JSON response
         return response()->json([
             "object" => "list",
             "data" => $library,
-            "after" => $request->input('starting_after')
+            "pagination" => [
+                "page" => $page,
+                "pages" => ceil($total / $limit),
+                "total" => $total,
+            ],
         ]);
     }
 }

@@ -21,7 +21,7 @@ class LibraryController extends AbstractController
     {
         return view('pages.library.index', [
             'metaTitle' => __('Library'),
-            'metaDescription' => __('View all content you created'),
+            'metaDescription' => __('Browse through the content you created'),
             'xData' => "list('/library', {})",
         ]);
     }
