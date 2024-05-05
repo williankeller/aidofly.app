@@ -7,11 +7,15 @@ use App\Models\Library;
 use App\Models\Preset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class SearchController extends AbstractController
 {
     /**
      * Search for presets and library items given a `query` parameter.
+     *
+     * @param Request $request
+     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
@@ -30,16 +34,13 @@ class SearchController extends AbstractController
         return $this->listing(data: $results);
     }
 
-    private function searchPresets(?string $query, ?int $limit = 5)
+    private function searchPresets(?string $query, ?int $limit = 5): Collection
     {
         if (!$query) {
             return collect([]);
         }
-        $presets = Preset::where('title', 'like', "%$query%")
-            ->orWhere('description', 'like', "%$query%")
-            ->orderBy('title', 'asc')
-            ->limit($limit)
-            ->get();
+
+        $presets = $this->searchGlobalPresets($query, $limit);
 
         // define a contract for the preset items response
         return $presets->map(function ($item) {
@@ -56,14 +57,17 @@ class SearchController extends AbstractController
         })->collect();
     }
 
-    private function searchLibrary(?string $query, ?int $limit = 5)
+    private function searchLibrary(?string $query, ?int $limit = 5): Collection
     {
         if (!$query) {
             return collect([]);
         }
 
-        $library = Library::where('title', 'like', "%$query%")
-            ->orWhere('content', 'like', "%$query%")
+        $library = Library::where('user_id', auth()->id())
+            ->where(function ($subQuery) use ($query) {
+                // Group the like conditions inside a sub-query
+                $subQuery->where('title', 'like', "%$query%")->orWhere('content', 'like', "%$query%");
+            })
             ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get();
@@ -71,6 +75,7 @@ class SearchController extends AbstractController
         // define a contract for the library items response
         return $library->map(function ($item) {
             return [
+                'user_id' => $item->user_id,
                 'object' => 'library',
                 'uuid' => $item->uuid,
                 'title' => $item->title,
@@ -81,5 +86,50 @@ class SearchController extends AbstractController
                 'url' => route('library.show', [$item->type, $item->uuid]),
             ];
         })->collect();
+    }
+
+    private function searchGlobalPresets(?string $query, ?int $limit = 10): Collection
+    {
+        if (!$query) {
+            return collect([]);
+        }
+
+        $userId = auth()->id();
+
+        $presets = Preset::where(function ($query) use ($userId) {
+            // Order user-owned presets first
+            $query->where('user_id', $userId)
+                ->orWhere('source', 'system')
+                ->orWhere('visibility', 'public');
+        })
+            ->where(function ($subQuery) use ($query) {
+                // Apply the text-based search to title and description
+                $subQuery->where('title', 'like', "%$query%")
+                    ->orWhere('description', 'like', "%$query%");
+            })
+            ->orderByRaw("CASE
+                WHEN user_id = ? THEN 1
+                WHEN source = 'system' THEN 2
+                ELSE 3
+            END, title ASC", [$userId])
+            ->limit($limit)
+            ->get();
+
+        return $presets;
+    }
+
+    private function searchSystemPresets(?string $query, ?int $limit = 10): Collection
+    {
+        $presets = Preset::where('source', 'system')
+            ->where('visibility', 'public')
+            ->where(function ($subQuery) use ($query) {
+                // Group the like conditions inside a sub-query
+                $subQuery->where('title', 'like', "%$query%")->orWhere('description', 'like', "%$query%");
+            })
+            ->orderBy('title', 'asc')
+            ->limit($limit)
+            ->get();
+
+        return $presets;
     }
 }

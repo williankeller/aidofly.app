@@ -3,7 +3,7 @@
 @section('content')
     @include('pages.agents.writer.presets.snippets.nav')
 
-    <section data-state="initial" :data-state="state" class="group/list">
+    <section data-state="initial" :data-state="state">
         @include('pages.agents.writer.presets.snippets.placeholder')
         <div class="row">
             <div class="col-lg-4 d-flex align-items-stretch card-static mb-3">

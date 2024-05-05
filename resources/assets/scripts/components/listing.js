@@ -5,7 +5,7 @@ import api from "../helpers/api";
 import { notification } from "../helpers/notification";
 
 export function listing() {
-    Alpine.data("list", (basePath, strings = []) => ({
+    Alpine.data("list", (basePath) => ({
         state: "initial",
 
         params: {},
@@ -73,10 +73,14 @@ export function listing() {
 
                     // Move to the next page
                     this.currentPage += 1;
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     this.state = "error";
                     console.error(error);
-                    notification("An error occurred while loading the resources.", "error");
+                    notification(
+                        "An error occurred while loading the resources.",
+                        "error"
+                    );
                 });
         },
 
@@ -85,7 +89,7 @@ export function listing() {
                 if (
                     this.hasMore &&
                     !this.isLoading &&
-                    window.innerHeight + window.scrollY + 200 >=
+                    window.innerHeight + window.scrollY + 300 >=
                         document.documentElement.scrollHeight
                 ) {
                     this.retrieveResources();

@@ -3,23 +3,22 @@
 @section('content')
     <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
 
-    <section class="group/list" data-state="initial" :data-state="state">
+    <section data-state="initial" :data-state="state">
         <x-content.empty :title="__('No content yet')" :subtitle="__('You haven\'t create an AI-driven content yet')" />
-        <div class="placeholder-wave">
-            @for ($i = 0; $i < 3; $i++)
-                <div class="card mb-2 p-3">
-                    <div class="d-flex placeholder-wave justify-content-between align-items-center">
-                        <div class="d-flex">
-                            <div class="icon-md placeholder rounded"></div>
-                        </div>
-                        <div class="ms-2 w-100">
-                            <div class="d-block placeholder col-6 rounded mb-2"></div>
-                            <div class="placeholder col-2 rounded"></div>
+        <x-content.placeholder :count="4" :columns="true">
+            <div class="col-lg-6 d-flex align-items-stretch mb-3">
+                <div class="card card-item p-3 w-100 d-block">
+                    <div>
+                        <div class="d-block fs-5 placeholder col-10 rounded mb-0"></div>
+                        <div class="d-block placeholder-sm placeholder mt-2 col-3 rounded"></div>
+                        <div class="mt-3" style="height: 20px;">
+                            <div class="placeholder col-2 rounded h-100"></div>
+                            <div class="placeholder col-2 rounded h-100"></div>
                         </div>
                     </div>
                 </div>
-            @endfor
-        </div>
+            </div>
+        </x-content.placeholder>
         <div class="row">
             <template x-for="(content, index) in resources" :key="index">
                 <div class="col-lg-6 d-flex align-items-stretch mb-3">

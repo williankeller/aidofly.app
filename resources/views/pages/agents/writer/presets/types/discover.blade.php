@@ -4,7 +4,7 @@
 
     @include('pages.agents.writer.presets.snippets.nav')
 
-    <section class="group/list" data-state="initial" :data-state="state">
+    <section data-state="initial" :data-state="state">
         <x-content.empty :title="__('Nothing to discover')" :subtitle="__('There are no templates to discovery yet.')" icon="ti ti-world-search" />
         @include('pages.agents.writer.presets.snippets.placeholder')
         <div class="row">
