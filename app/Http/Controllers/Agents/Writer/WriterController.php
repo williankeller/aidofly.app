@@ -28,13 +28,13 @@ class WriterController extends AbstractController
                 'xData' => 'content(null, null)',
                 'creativities' => $this->creativityOptions(),
                 'templates' => null,
-                'query' => request()->query('q') ?? null,
+                'prompt' => request()->query('q'),
             ]
         );
     }
 
     /**
-     * Show an already created content from the library to re-send
+     * Show an already created writter to be regenerated
      *
      * @param string $uuid Library UUID
      * @return View
@@ -62,7 +62,8 @@ class WriterController extends AbstractController
                 'preset' => $library->preset,
                 'templates' => $template ?? [],
                 'tones' => $this->voiceToneOptions(),
-                'creativities' => $this->creativityOptions()
+                'creativities' => $this->creativityOptions(),
+                'prompt' => $library->title ?? null,
             ]
         );
     }

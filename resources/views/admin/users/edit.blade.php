@@ -91,9 +91,9 @@
 
 @push('script-stack-after')
     @if ($errors->any())
-        <x-notification :message="$errors->first()" :show="true" />
+        <x-notification.alert :message="$errors->first()" :show="true" />
     @endif
     @if (session()->get('message'))
-        <x-notification :message="session()->get('message')['content']" :show="true" :icon="session()->get('message')['type'] === 'success' ? 'ti-square-rounded-check-filled' : null" />
+        <x-notification.alert :message="session()->get('message')['content']" :show="true" :icon="session()->get('message')['type'] === 'success' ? 'ti-square-rounded-check-filled' : null" />
     @endif
 @endpush

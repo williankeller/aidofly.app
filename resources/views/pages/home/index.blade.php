@@ -37,9 +37,9 @@
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                <div class="px-3 actions">
+                <div class="px-2 actions">
                     <kbd class="keyboard" :class="{ 'd-none': hasValue }">⌘ K</kbd>
-                    <kbd class="cancel" :class="{ 'd-none': hasValue }">esc</kbd>
+                    <kbd class="keyclose py-0" :class="{ 'd-none': hasValue }">esc</kbd>
                     <x-button class="submit" ::class="{ 'd-block': hasValue }" :disabled="false">
                         <i class="fs-4 ti ti-sparkles me-1"></i>
                         <span>@lang('Generate')</span>

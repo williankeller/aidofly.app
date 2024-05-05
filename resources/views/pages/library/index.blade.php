@@ -37,8 +37,10 @@
                         </div>
                     </div>
                     <div class="d-flex align-items-center">
-                        <span class="badge fs-6 fw-normal opacity-75 py-1" x-text="content.type"
-                            :class="`bg-${content.type}`"></span>
+                        <template x-if="content.resource">
+                            <span class="badge fw-bold py-1 small me-1" :style="`background-color: ${content.resource.color};`" x-text="content.resource.title"></span>
+                        </template>
+                        <span class="badge fw-bold py-1 small" x-text="content.type" :class="`bg-${content.type}`"></span>
                     </div>
                 </div>
                 <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="stretched-link z-1"></a>

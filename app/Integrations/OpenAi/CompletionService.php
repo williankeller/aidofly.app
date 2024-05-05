@@ -39,11 +39,6 @@ class CompletionService
      */
     public function generateCompletion(string $model, array $data = []): Generator
     {
-        // Log the $data when in dev mode   
-        if (config('app.env') === 'local') {
-            logger($data);
-        }
-
         try {
             if ($model == 'gpt-3.5-turbo-instruct') {
                 return $this->generateInstructedCompletion($model, $data);
@@ -96,7 +91,12 @@ class CompletionService
             CostCalculator::OUTPUT
         );
 
-        return new Count($inputCost->value + $outputCost->value);
+        $this->logger($data, $inputTokensCount, $outputTokensCount, $inputCost, $outputCost);
+
+        $totalCost = $inputCost->value + $outputCost->value;
+        $totalTokens = $inputTokensCount + $outputTokensCount;
+
+        return new Count($totalCost, $totalTokens);
     }
 
     /**
@@ -141,7 +141,38 @@ class CompletionService
             CostCalculator::OUTPUT
         );
 
-        return new Count($inputCost->value + $outputCost->value, $inputTokensCount);
+        $this->logger($data, $inputTokensCount, $outputTokensCount, $inputCost, $outputCost);
+
+        $totalCost = $inputCost->value + $outputCost->value;
+        $totalTokens = $inputTokensCount + $outputTokensCount;
+
+        return new Count($totalCost, $totalTokens);
+    }
+
+    private function logger(
+        array $data,
+        int $inputTokensCount,
+        int $outputTokensCount,
+        Count $inputCost,
+        Count $outputCost
+    ): void {
+        if (!config('app.debug')) {
+            return;
+        }
+
+        logger()->info('[OpenAI Completion]', [
+            'data' => $data,
+            'tokens' => [
+                'input' => $inputTokensCount,
+                'output' => $outputTokensCount,
+                'total' => $inputTokensCount + $outputTokensCount,
+            ],
+            'cost' => [
+                'input' => $inputCost->value,
+                'output' => $outputCost->value,
+                'total' => $inputCost->value + $outputCost->value,
+            ],
+        ]);
     }
 
     /**

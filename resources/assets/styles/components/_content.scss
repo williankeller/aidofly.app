@@ -41,7 +41,7 @@
     .input-wrapper {
         background-color: var(--bs-white);
         width: 100%;
-        padding: 12px 95px 12px 45px;
+        padding: 13px 95px 13px 45px;
         border-radius: var(--bs-border-radius);
         input {
             font-size: 1rem;
@@ -66,7 +66,7 @@
     .actions {
         right: 0;
 
-        .cancel,
+        .keyclose,
         .submit {
             display: none;
         }
@@ -95,7 +95,7 @@
             .keyboard {
                 display: none;
             }
-            .cancel {
+            .keyclose {
                 display: block;
             }
         }

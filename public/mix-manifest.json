@@ -1,7 +1,7 @@
 {
     "/js/core.min.js": "/js/core.min.js",
-    "/js/library.min.js": "/js/library.min.js",
     "/js/listing.min.js": "/js/listing.min.js",
+    "/js/library.min.js": "/js/library.min.js",
     "/js/content.min.js": "/js/content.min.js",
     "/js/voiceover.min.js": "/js/voiceover.min.js",
     "/js/home.min.js": "/js/home.min.js",

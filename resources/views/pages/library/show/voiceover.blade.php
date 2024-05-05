@@ -77,11 +77,13 @@
                         @csrf
                         @method('GET')
                     </div>
-                    <button type="submit" class="btn btn-white p-0 d-flex align-items-center">
+                    <button type="submit" class="btn btn-white p-0 d-flex align-items-center"
+                        x-tooltip.raw="@lang('Download')">
                         <i class="ti ti-download fs-4"></i>
                     </button>
                 </form>
-                <x-modal.trigger id="delete-library-modal" variant="white" class="p-0">
+                <x-modal.trigger id="delete-library-modal" variant="white" class="p-0"
+                    x-tooltip.raw="{{ __('Delete voiceover') }}">
                     <i class="ti ti-trash fs-4 text-hover-danger" x-ref="trashHover"></i>
                 </x-modal.trigger>
             </div>

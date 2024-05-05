@@ -1,4 +1,4 @@
-<x-notification />
+<x-notification.alert />
 
 @stack('script-stack-before')
 

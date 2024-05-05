@@ -46,12 +46,13 @@
             </div>
 
             <div class="d-flex align-items-center">
-                <button class="btn btn-white p-0 me-3 d-flex align-items-center"
+                <button class="btn btn-white p-0 me-3 d-flex align-items-center" x-tooltip.raw="@lang('Copy content')"
                     @click="copyDocumentContents(library.content)">
                     <i class="ti ti-copy fs-4"></i>
                 </button>
 
-                <div class="dropdown me-3" @click.away="$refs.downloadOptions.classList.remove('show')">
+                <div class="dropdown me-3" @click.away="$refs.downloadOptions.classList.remove('show')"
+                    x-tooltip.raw="@lang('Download options')">
                     <button type="button" class="btn btn-white p-0" @click="$refs.downloadOptions.classList.toggle('show')"
                         aria-expanded="false">
                         <i class="ti ti-download fs-4"></i>
@@ -61,34 +62,35 @@
                         <li class="dropdown-item">
                             <button class="w-full btn btn-white d-flex justify-content-center"
                                 @click="download(library.content, 'word')">
-                                <i class="fs-5 ti ti-letter-w me-2"></i>
+                                <i class="fs-5 ti ti-letter-w me-1"></i>
                                 <small>@lang('Word document')</small>
                             </button>
                         </li>
                         <li class="dropdown-item">
                             <button class="w-full btn btn-white d-flex justify-content-center"
                                 @click="download(library.content, 'html')">
-                                <i class="fs-5 ti ti-brand-html5 me-2"></i>
+                                <i class="fs-5 ti ti-brand-html5 me-1"></i>
                                 <small>@lang('HTML file')</small>
                             </button>
                         </li>
                         <li class="dropdown-item">
                             <button class="w-full btn btn-white d-flex justify-content-center"
                                 @click="download(library.content, 'markdown')">
-                                <i class="fs-5 ti ti-markdown me-2"></i>
+                                <i class="fs-5 ti ti-markdown me-1"></i>
                                 <small>@lang('Markdown')</small>
                             </button>
                         </li>
                         <li class="dropdown-item">
                             <button class="w-full btn btn-white d-flex justify-content-center"
                                 @click="download(library.content, 'text')">
-                                <i class="fs-5 ti ti-txt me-2"></i>
+                                <i class="fs-5 ti ti-txt me-1"></i>
                                 <small>@lang('Text')</small>
                             </button>
                         </li>
                     </ul>
                 </div>
-                <x-modal.trigger id="delete-library-modal" variant="white" class="p-0">
+                <x-modal.trigger id="delete-library-modal" variant="white" class="p-0"
+                    x-tooltip.raw="{{ __('Delete content') }}">
                     <i class="ti ti-trash fs-4 text-hover-danger" x-ref="trashHover"></i>
                 </x-modal.trigger>
             </div>

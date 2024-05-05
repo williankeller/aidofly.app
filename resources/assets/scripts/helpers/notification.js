@@ -8,9 +8,11 @@ const notification = (message, type = "error") => {
     );
     messageContainer.innerHTML = message;
 
-    if (type === "success") {
+    if (type == "success") {
+        iconContainer.classList.remove("ti-square-rounded-x-filled");
         iconContainer.classList.add("ti-square-rounded-check-filled");
     } else {
+        iconContainer.classList.remove("ti-square-rounded-check-filled");
         iconContainer.classList.add("ti-square-rounded-x-filled");
     }
     toastElement.classList.add("show");

@@ -1,8 +1,8 @@
 import Alpine from "alpinejs";
 import Tooltip from "@ryangjchandler/alpine-tooltip";
-import { content } from "./content.js";
+import { library } from "./library";
 
-content();
+library();
 
 Alpine.plugin(Tooltip.defaultProps({}));
 

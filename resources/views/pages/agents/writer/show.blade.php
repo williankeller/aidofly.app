@@ -5,7 +5,7 @@
         <x-nav.back route="agent.writer.presets.index" />
     </x-nav.page-title>
 
-    <section class="p-3 p-sm-5 card mb-3" x-show="showForm">
+    <section class="p-3 p-sm-5 card mb-3" x-show="showForm" style="display: none;">
         <h3 class="fw-bolder h5">@lang('Prompts')</h3>
         <form data-element="form" x-ref="form" @submit.prevent="submit(null)" class="d-grid gap-3 mt-3">
             @if ($templates)
@@ -16,10 +16,10 @@
                         <div class="mb-3">
                             <label @class(['form-label', 'required' => $p->required]) for="{{ $id }}">{{ __($p->label) }}</label>
                             @if ($p->multiline)
-                            <div class="grow-wrap grow-wrap-bordered w-100" :data-replicated-value="userInput">
-                                <textarea id="{{ $id }}" name="{{ $p->name }}" placeholder="{{ $p->placeholder }}"
-                                    class="form-control" tabindex="0" dir="auto" rows="4" autocomplete="off" x-model="userInput" x-ref="userInput" @required($p->required)>{{ $p->value }}</textarea>
-                            </div>
+                                <div class="w-100">
+                                    <textarea id="{{ $id }}" name="{{ $p->name }}" placeholder="{{ $p->placeholder }}" class="form-control"
+                                        tabindex="0" dir="auto" rows="4" autocomplete="off" @required($p->required)>{{ $p->value }}</textarea>
+                                </div>
                             @else
                                 <input type="text" id="{{ $id }}" name="{{ $p->name }}"
                                     placeholder="{{ $p->placeholder }}" class="form-control" autocomplete="off"
@@ -73,9 +73,9 @@
             @else
                 <div class="mb-2">
                     <label for="prompt" class="form-label required">@lang('Your query')</label>
-                    <div class="grow-wrap grow-wrap-bordered w-100" :data-replicated-value="userInput">
-                        <textarea class="form-control" name="prompt" id="prompt" tabindex="0" dir="auto" rows="4" autocomplete="off" x-model="userInput" x-ref="userInput"
-                            placeholder="@lang('Enter your text here...')" required></textarea>
+                    <div class="w-100">
+                        <textarea class="form-control" name="prompt" id="prompt" tabindex="0" dir="auto" rows="4"
+                            autocomplete="off" placeholder="@lang('Enter your text here...')" required>{{ $prompt }}</textarea>
                     </div>
                     <div class="mt-1 d-flex align-items-center text-sm text-muted">
                         <i class="ti ti-info-square-rounded-filled"></i>
@@ -119,8 +119,8 @@
                 <template x-if="docs[index].uuid">
                     <div class="col-lg-10">
                         <div class="h4 grow-wrap mb-0" :data-replicated-value="docs[index].title">
-                            <textarea placeholder="@lang('Untitled document')" autocomplete="off" x-model="docs[index].title" rows="1"
-                                class="d-block w-100 p-0 text-body border-0"></textarea>
+                            <textarea id="title" name="title" aria-label="@lang('Title')" placeholder="@lang('Untitled document')"
+                                autocomplete="off" x-model="docs[index].title" rows="1" class="d-block w-100 p-0 text-body border-0"></textarea>
                         </div>
                     </div>
                 </template>
@@ -157,24 +157,33 @@
                 </div>
             </template>
 
-            <template x-if="docs[index].uuid" data-think="docs[index].uuid">
+            <hr class="mt-4" />
 
-                <div class="d-flex justify-content-between mt-5">
+            <template x-if="docs[index].uuid" data-think="docs[index].uuid">
+                <div class="d-flex justify-content-between align-items-center mt-3">
                     <div class="d-flex align-items-center mr-auto">
-                        <template x-if="docs[index].cost > 0">
-                            <span class="d-flex align-items-center text-sm text-muted">
-                                <i class="text-base ti ti-coins me-2"></i>
-                                <data is="x-credit" :value="docs[index].cost" format="@lang(':count credits')"></data>
-                            </span>
-                        </template>
+
+                        <div class="d-flex align-items-center small text-muted me-3">
+                            <i class="ti ti-coins me-1"></i>
+                            <div x-text="docs[index].cost"></div>
+                            <span class="ms-1">@lang('credits')</span>
+                        </div>
+                        <div class="d-flex align-items-center small text-muted me-3">
+                            <i class="ti ti-square-rounded-letter-t me-1"></i>
+                            <div x-text="docs[index].tokens"></div>
+                            <span class="ms-1">@lang('tokens')</span>
+                        </div>
+                        <div class="d-flex align-items-center small text-muted">
+                            <i class="ti ti-brain me-1"></i>
+                            <div x-text="docs[index].model"></div>
+                        </div>
                     </div>
 
-                    <div class="mt-2 d-flex align-items-center">
+                    <div class="d-flex align-items-center">
                         <button class="btn btn-white p-0 me-3 d-flex align-items-center"
                             @click="copyDocumentContents(docs[index])">
                             <i class="fs-5 ti ti-copy"></i>
                         </button>
-
                         <div class="small">
                             <a :href="`/library/writer/${docs[index].uuid}`"
                                 class="d-flex align-items-center text-muted btn btn-light btn-sm toggle-on-hover">

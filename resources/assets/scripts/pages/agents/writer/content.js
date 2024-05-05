@@ -13,7 +13,7 @@ export function content() {
         required: [],
         isProcessing: false,
         showForm: true,
-        userInput: null,
+        userInput: "",
 
         docs: [],
         index: 0,
@@ -115,9 +115,9 @@ export function content() {
         },
 
         copyDocumentContents(doc) {
-            navigator.clipboard.writeText(doc.content).then(() => {
-                notification("Document copied to clipboard!", "success");
-            });
+            console.log("doc", doc);
+            notification("Content copied to clipboard!", "success");
+            
         },
 
         download(doc, format) {
