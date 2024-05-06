@@ -18,18 +18,15 @@ class SpeechController extends AbstractController
 
     public function handle(Request $request)
     {
-        //try {
+        try {
             $speech = $this->handler->handle($request->uuid, [
                 'prompt' => $request->prompt,
             ]);
 
             return response()->json($speech);
-        //} catch (\Exception $e) {
+        } catch (\Exception $e) {
             // Handle the case where the generator could not be created or another error occurred.
-        //    return response()->json([
-        //        'error' => 'Failed to process the request',
-        //        'message' => $e->getMessage()
-        //    ], 500);
-        //}
+            return $this->error(__('Failed to process the request'), 500);
+        }
     }
 }

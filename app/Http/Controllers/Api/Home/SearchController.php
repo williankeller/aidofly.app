@@ -23,7 +23,7 @@ class SearchController extends AbstractController
         $limit = $request->query('limit');
 
         if (!$query) {
-            return $this->listing(data: []);
+            return $this->listing([], 1, 0, 0);
         }
 
         $presets = $this->searchPresets($query, $limit);
@@ -31,7 +31,7 @@ class SearchController extends AbstractController
 
         $results = $presets->merge($library);
 
-        return $this->listing(data: $results);
+        return $this->listing($results, 1, $results->count(), $results->count());
     }
 
     private function searchPresets(?string $query, ?int $limit = 5): Collection

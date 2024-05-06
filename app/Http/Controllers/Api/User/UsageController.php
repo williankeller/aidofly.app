@@ -33,13 +33,16 @@ class UsageController extends AbstractController
             ];
         });
 
-        return $this->listing(object: 'usage', data: [
-            'total' => $libraries->reduce(function ($carry, $items) {
-                return $carry + $items->sum('cost');
-            }, 0),
-            'quota' => $this->getQuota($user),
-            'agents' => $agents
-        ]);
+        return $this->response(
+            object: 'usage',
+            data: [
+                'total' => $libraries->reduce(function ($carry, $items) {
+                    return $carry + $items->sum('cost');
+                }, 0),
+                'quota' => $this->getQuota($user),
+                'agents' => $agents
+            ]
+        );
     }
 
     /**

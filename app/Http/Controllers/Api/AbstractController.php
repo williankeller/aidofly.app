@@ -6,30 +6,35 @@ use Illuminate\Http\JsonResponse;
 
 abstract class AbstractController
 {
-    protected function success($data, string $message, ?int $status = 200): JsonResponse
-    {
-        return response()->json([
-            'status' => $status,
-            'data' => $data,
-            'message' => $message
 
-        ], $status);
-    }
 
     protected function error(string $message, ?int $status = 400): JsonResponse
     {
         return response()->json([
             'status' => $status,
-            'message' => $message
+            'error' => $message
         ], $status);
     }
 
-    protected function listing($data, ?string $object = 'list', ?int $status = 200): JsonResponse
+    protected function response($data, ?string $object = 'object', ?int $status = 200): JsonResponse
     {
         return response()->json([
             'object' => $object,
             'data' => $data
         ], $status);
+    }
+
+    protected function listing($data, int $page, int $limit, int $total): JsonResponse
+    {
+        return response()->json([
+            'object' => 'list',
+            'data' => $data,
+            "pagination" => [
+                "page" => $page,
+                "pages" => ceil($total / $limit),
+                "total" => $total,
+            ],
+        ], 200);
     }
 
     protected function streamHeaders(): array

@@ -5,14 +5,14 @@
 
 <body x-data="{{ $xData ?? '{}' }}">
     <div class="app d-lg-flex">
-        <aside role="complementary" class="aside flex-column py-4 d-none d-lg-flex" aria-label="Menu">
+        <aside role="complementary" aria-label="Menu" aria-labelledby="menu-label" class="aside flex-column py-4 d-none d-lg-flex">
             @include('sections.aside')
         </aside>
         <div class="d-flex flex-column flex-grow-1">
-            <main role="main" class="main" aria-label="Main">
+            <main role="main" aria-label="Main" class="main">
                 @yield('content')
             </main>
-            <footer class="footer" aria-label="Footer">
+            <footer role="contentinfo" aria-label="Footer" class="footer">
                 @include('sections.footer')
             </footer>
         </div>

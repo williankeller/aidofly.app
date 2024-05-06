@@ -21,7 +21,7 @@ class PresetsController extends AbstractController
             ->get()
             ->makeHidden(['id', 'visibility', 'template', 'category_id', 'user_id', 'created_at', 'updated_at']);
 
-        return $this->listing($presets);
+        return $this->listing($presets, 1, 100, $presets->count());
     }
 
     public function user()
@@ -32,7 +32,7 @@ class PresetsController extends AbstractController
             ->get()
             ->makeHidden(['id', 'visibility', 'template', 'category_id', 'user_id', 'created_at', 'updated_at']);
 
-        return $this->listing($presets);
+        return $this->listing($presets, 1, 100, $presets->count());
     }
 
     public function discover()
@@ -45,6 +45,6 @@ class PresetsController extends AbstractController
             ->get()
             ->makeHidden(['id', 'visibility', 'template', 'user_id', 'category_id', 'created_at', 'updated_at']);
 
-        return $this->listing($presets);
+        return $this->listing($presets, 1, 100, $presets->count());
     }
 }

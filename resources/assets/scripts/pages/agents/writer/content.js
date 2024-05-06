@@ -115,9 +115,9 @@ export function content() {
         },
 
         copyDocumentContents(doc) {
-            console.log("doc", doc);
-            notification("Content copied to clipboard!", "success");
-            
+            navigator.clipboard.writeText(doc).then(() => {
+                notification("Content copied to clipboard!", "success");
+            });
         },
 
         download(doc, format) {

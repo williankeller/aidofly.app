@@ -32,13 +32,6 @@ export function voiceover() {
             api.post("/agent/voiceover/speech", data)
                 .then((response) => response.json())
                 .then((speech) => {
-                    console.log(speech);
-
-                    if (this.history === null) {
-                        this.history = [];
-                    }
-
-                    this.history.push(speech);
                     this.preview = speech;
                     this.isProcessing = false;
                     this.prompt = null;

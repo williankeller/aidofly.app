@@ -4,7 +4,9 @@
         <h1 class="m-2 ms-2 logo-name text-body">{{ config('app.name') }}</h1>
     </a>
 </div>
+<h2 id="menu-label" class="visually-hidden">@lang('Main menu')</h2>
 <nav role="navigation" class="d-flex flex-column mt-4 px-3">
+    <h3 id="main-links-label" class="visually-hidden">@lang('Main links')</h3>
     <ul class="list-unstyled">
         <x-aside.item route="home.index">
             <i class="fs-4 ti ti-home"></i>
@@ -26,10 +28,9 @@
             </x-aside.item>
         </ul>
     @endif
-    <ul class="list-unstyled">
-        <li class="nav-item mb-1">
-            <strong>@lang('Agents')</strong>
-        </li>
+    <h3 id="agents-links-label" class="nav-item fs-6 fw-bolder mb-1">@lang('Agents')</h3>
+    <ul aria-labelledby="agents-links-label" class="list-unstyled">
+
         <x-aside.item route="agent.writer.presets.index" match="agent.writer.presets.*">
             <span class="icon-sm bg-warning">
                 <i class="ti ti-file-text"></i>

@@ -53,15 +53,6 @@ class LibraryController extends AbstractController
 
         $total = Library::where('user_id', $userId)->count();
 
-        // Return the formatted JSON response
-        return response()->json([
-            "object" => "list",
-            "data" => $library,
-            "pagination" => [
-                "page" => $page,
-                "pages" => ceil($total / $limit),
-                "total" => $total,
-            ],
-        ]);
+        return $this->listing($library, $page, $limit, $total);
     }
 }

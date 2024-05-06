@@ -1,7 +1,5 @@
 "use strict";
 
-console.log("TimeElement");
-
 /**
  * Represents a custom element that extends the HTMLElement class.
  * Usage: <time data-element="time" data-datetime="{timestamp}"></time>
@@ -40,8 +38,6 @@ export class TimeElement {
         let timestamp =
             this.element.getAttribute("data-datetime") ||
             this.element.textContent;
-
-            console.log("timestamp", timestamp);
         if (
             parseInt(timestamp, 10).toString() === timestamp &&
             timestamp.length === 10

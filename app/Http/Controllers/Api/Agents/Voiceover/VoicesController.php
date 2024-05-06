@@ -13,6 +13,6 @@ class VoicesController extends AbstractController
             ->get()
             ->makeHidden(['id']);
 
-        return $this->listing($presets);
+        return $this->listing($presets, 1, 100, $presets->count());
     }
 }
