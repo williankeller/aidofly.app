@@ -18,6 +18,7 @@ class PresetsController extends AbstractController
             ->where('source', 'system')
             ->where('visibility', 'public')
             ->where('status', 1)
+            ->orderBy('created_at', 'desc')
             ->get()
             ->makeHidden(['id', 'visibility', 'template', 'category_id', 'user_id', 'created_at', 'updated_at']);
 
@@ -29,6 +30,7 @@ class PresetsController extends AbstractController
         $presets = Preset::with(['category' => fn ($query) => $query->select('id', 'title')])
             ->where('user_id', auth()->id())
             ->where('source', 'user')
+            ->orderBy('created_at', 'desc')
             ->get()
             ->makeHidden(['id', 'visibility', 'template', 'category_id', 'user_id', 'created_at', 'updated_at']);
 
@@ -42,6 +44,8 @@ class PresetsController extends AbstractController
             ->where('visibility', 'public')
             ->where('source', 'user')
             ->where('user_id', '!=', auth()->id())
+            ->orderBy('usage_count', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get()
             ->makeHidden(['id', 'visibility', 'template', 'user_id', 'category_id', 'created_at', 'updated_at']);
 

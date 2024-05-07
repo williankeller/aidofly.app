@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('title', 128);
             $table->text('description');
             $table->longText('template');
-            $table->string('icon', 32);
-            $table->string('color', 7);
+            $table->string('icon', 32)->nullable();
+            $table->string('color', 7)->nullable();
 
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');

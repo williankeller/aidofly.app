@@ -1,6 +1,6 @@
 <div class="logo-wrapper px-3">
     <a href="{{ route('home.index') }}" class="d-flex align-items-center text-decoration-none">
-        <x-image src="/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="40" height="40" />
+        <x-image src="/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="40" height="40" priority="high" />
         <h1 class="m-2 ms-2 logo-name text-body">{{ config('app.name') }}</h1>
     </a>
 </div>
@@ -15,7 +15,7 @@
             <div class="d-flex align-items-center w-100">
                 <div class="text-start flex-grow-1">
                     <div class="text-truncate fw-bold">{{ $authUser->firstname }}</div>
-                    <div class="text-muted small text-truncate">{{ $authUser->email }}</div>
+                    <div class="text-muted small text-truncate fw-normal">{{ $authUser->email }}</div>
                 </div>
                 <i class="ml-auto fs-4 ti ti-dots-vertical text-muted"></i>
             </div>

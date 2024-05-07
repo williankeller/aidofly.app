@@ -3,6 +3,7 @@
     'alt' => null,
     'decoding' => 'async',
     'loading' => 'eager',
+    'priority' => 'auto',
 ])
 <img src="{{ asset('/img' . $src) }}" alt="{{ $alt }}" decoding="{{ $decoding }}" loading="{{ $loading }}"
-    {{ $attributes }} />
+    fetchpriority="{{ $priority }}" {{ $attributes }} />
