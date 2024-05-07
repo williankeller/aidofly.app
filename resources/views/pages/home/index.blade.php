@@ -37,7 +37,7 @@
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                <div class="px-2 actions">
+                <div class="px-2 actions d-none d-lg-flex">
                     <kbd class="keyboard" :class="{ 'd-none': hasValue }">⌘ K</kbd>
                     <kbd class="keyclose py-0" :class="{ 'd-none': hasValue }">esc</kbd>
                     <x-button class="submit" ::class="{ 'd-block': hasValue }" :disabled="false">

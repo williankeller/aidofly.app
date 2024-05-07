@@ -4,62 +4,13 @@
         <h1 class="m-2 ms-2 logo-name text-body">{{ config('app.name') }}</h1>
     </a>
 </div>
-<h2 id="menu-label" class="visually-hidden">@lang('Main menu')</h2>
-<nav role="navigation" class="d-flex flex-column mt-4 px-3">
-    <h3 id="main-links-label" class="visually-hidden">@lang('Main links')</h3>
-    <ul class="list-unstyled">
-        <x-aside.item route="home.index">
-            <i class="fs-4 ti ti-home"></i>
-            <span class="ms-2">@lang('Home')</span>
-        </x-aside.item>
-        <x-aside.item route="library.index" match="library.*">
-            <i class="fs-4 ti ti-books"></i>
-            <span class="ms-2">@lang('Library')</span>
-        </x-aside.item>
-    </ul>
-    @if ($authUser->isAdministrator())
-        <ul class="list-unstyled">
-            <li class="nav-item mb-1">
-                <strong>@lang('Admin')</strong>
-            </li>
-            <x-aside.item route="admin.users.index" match="admin.users.*">
-                <i class="fs-4 ti ti-users"></i>
-                <span class="ms-2">@lang('Users')</span>
-            </x-aside.item>
-        </ul>
-    @endif
-    <h3 id="agents-links-label" class="nav-item fs-6 fw-bolder mb-1">@lang('Agents')</h3>
-    <ul aria-labelledby="agents-links-label" class="list-unstyled">
-
-        <x-aside.item route="agent.writer.presets.index" match="agent.writer.presets.*">
-            <span class="icon-sm bg-warning">
-                <i class="ti ti-file-text"></i>
-            </span>
-            <span class="ms-2">@lang('Writer')</span>
-        </x-aside.item>
-        <x-aside.item route="agent.voiceover.index" match="agent.voiceover.*">
-            <span class="icon-sm bg-success">
-                <i class="ti ti-speakerphone"></i>
-            </span>
-            <span class="ms-2">@lang('Voice over')</span>
-        </x-aside.item>
-    </ul>
-</nav>
+@include('sections.nav.main')
 <div class="d-flex flex-column mt-auto px-3">
-    <div class="dropdown" @click.away="$refs.accountMenu.classList.remove('show')">
-
+    <div class="dropdown account-toggle" @click.away="$refs.accountMenu.classList.remove('show')">
         <div class="dropdown-menu bottom-0 start-50 translate-middle w-100" x-ref="accountMenu"
             @click="$el.classList.remove('show')">
-            <a href="{{ route('account.edit') }}" class="d-flex align-items-center dropdown-item py-2">
-                <i class="ti ti-user fs-4 me-1"></i>
-                <span>@lang('Account')</span>
-            </a>
-            <a href="{{ route('account.signout') }}" class="d-flex align-items-center dropdown-item py-2">
-                <i class="ti ti-logout fs-4 me-1"></i>
-                <span>@lang('Sign out')</span>
-            </a>
+            @include('sections.nav.account')
         </div>
-
         <button class="btn btn-transparent p-0 d-grid gap-2 w-100" @click="$refs.accountMenu.classList.toggle('show')">
             <div class="d-flex align-items-center w-100">
                 <div class="text-start flex-grow-1">

@@ -6,8 +6,6 @@ use Illuminate\Http\JsonResponse;
 
 abstract class AbstractController
 {
-
-
     protected function error(string $message, ?int $status = 400): JsonResponse
     {
         return response()->json([

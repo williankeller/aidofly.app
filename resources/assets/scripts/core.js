@@ -23,6 +23,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 window.modal = new Modal();
 
+export default {
+    methods: {
+      toggleClasses() {
+        document.body.classList.remove('nav-account');
+        document.body.classList.toggle('nav-main');
+      }
+    }
+  }
+
 // Check if Alpine has already been started
 if (!window.AlpineStarted) {
     Alpine.start();

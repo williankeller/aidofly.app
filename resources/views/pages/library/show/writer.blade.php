@@ -4,17 +4,17 @@
     <section class="my-4 my-lg-5 row d-flex justify-content-between align-items-center">
         <div class="text-center text-lg-start col-lg-9 col-sm-12">
             <h2 class="page-heading mb-1">{{ $metaTitle }}</h2>
-            <div class="d-flex align-items-center mt-2 justify-content-center justify-content-lg-start text-muted">
-                <div class="d-flex align-items-center me-4">
-                    <i class="ti ti-coins me-1"></i>
+            <div class="d-flex align-items-center mt-3 mt-md-2 justify-content-between justify-content-between justify-content-md-center justify-content-lg-start text-muted">
+                <div class="d-block d-md-flex align-items-center mx-1 me-md-4">
+                    <i class="ti ti-coins me-0 me-md-1 d-block d-md-flex"></i>
                     <span>@lang(':credits credits', ['credits' => $library->cost])</span>
                 </div>
-                <div class="d-flex align-items-center me-4">
-                    <i class="ti ti-square-rounded-letter-t me-1"></i>
+                <div class="d-block d-md-flex align-items-center mx-1 me-md-4">
+                    <i class="ti ti-square-rounded-letter-t me-0 me-md-1 d-block d-md-flex"></i>
                     <span>@lang(':tokens tokens', ['tokens' => $library->tokens])</span>
                 </div>
-                <div class="d-flex align-items-center me-4">
-                    <i class="ti ti-brain me-1"></i>
+                <div class="d-block d-md-flex align-items-center mx-1 me-md-4">
+                    <i class="ti ti-brain me-0 me-md-1 d-block d-md-flex"></i>
                     <span>@lang(':model', ['model' => $library->model])</span>
                 </div>
             </div>

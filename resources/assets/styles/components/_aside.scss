@@ -6,6 +6,20 @@
     flex-shrink: 0;
     height: 100vh;
 
+    .nav-main & {
+        position: fixed;
+        background-color: var(--bs-white);
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9;
+        display: block !important;
+
+        .account-toggle {
+            display: none;
+        }
+    }
+
     .nav-link {
         @extend .p-2;
         &:hover,
@@ -16,28 +30,4 @@
             @extend .rounded;
         }
     }
-}
-
-.nav {
-    --bs-nav-link-color: var(--bs-body-color);
-    --bs-link-color: var(--bs-body-color);
-    --bs-nav-underline-link-active-color: var(--bs-primary);
-    &.nav-underline {
-        --bs-nav-link-color: var(--bs-secondary-color);
-        .nav-link.active {
-            font-weight: normal;
-        }
-    }
-    &.nav-pills {
-        --bs-nav-link-color: var(--bs-secondary-color);
-        --bs-nav-link-padding-x: 0.8rem;
-        --bs-nav-link-padding-y: 0.3rem;
-    }
-}
-
-.mobile-menu {
-    width: 160px;
-    bottom: -5px;
-    padding: 10px 15px;
-    box-shadow: 0px 4px 4px 0px rgba(38, 40, 43, 0.20);
 }

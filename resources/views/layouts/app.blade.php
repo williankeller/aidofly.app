@@ -5,7 +5,8 @@
 
 <body x-data="{{ $xData ?? '{}' }}">
     <div class="app d-lg-flex">
-        <aside role="complementary" aria-label="Menu" aria-labelledby="menu-label" class="aside flex-column py-4 d-none d-lg-flex">
+        <aside role="complementary" aria-label="Menu" aria-labelledby="menu-label" x-ref="menuView"
+            class="aside flex-column py-4 d-none d-lg-flex">
             @include('sections.aside')
         </aside>
         <div class="d-flex flex-column flex-grow-1">
@@ -17,9 +18,10 @@
             </footer>
         </div>
         <div class="d-lg-none" aria-label="Mobile Menu">
-            @include('sections.mobile-menu')
+            @include('sections.nav.mobile')
         </div>
     </div>
     @include('layouts.snippets.scripts')
 </body>
+
 </html>
