@@ -20,18 +20,21 @@ class SearchController extends AbstractController
     public function index(Request $request): JsonResponse
     {
         $query = $request->query('query');
-        $limit = $request->query('limit');
+        $limit = $request->query('limit', 5);
 
         if (!$query) {
-            return $this->listing([], 1, 0, 0);
+            return $this->listing([], 1, $limit, 0);
         }
 
         $presets = $this->searchPresets($query, $limit);
         $library = $this->searchLibrary($query, $limit);
 
         $results = $presets->merge($library);
+        if ($results->count() === 0) {
+            return $this->listing([], 1, $limit, 0);  // Handle case where no results are found
+        }
 
-        return $this->listing($results, 1, $results->count(), $results->count());
+        return $this->listing($results, 1, $limit, $results->count());
     }
 
     private function searchPresets(?string $query, ?int $limit = 5): Collection

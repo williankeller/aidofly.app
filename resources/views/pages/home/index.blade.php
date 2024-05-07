@@ -37,9 +37,11 @@
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                <div class="px-2 actions d-none d-lg-flex">
-                    <kbd class="keyboard" :class="{ 'd-none': hasValue }">⌘ K</kbd>
-                    <kbd class="keyclose py-0" :class="{ 'd-none': hasValue }">esc</kbd>
+                <div class="px-2 actions">
+                    <div class="shortcut d-none d-lg-flex">
+                        <kbd class="keyboard" :class="{ 'd-none': hasValue }">⌘ K</kbd>
+                        <kbd class="keyclose py-0" :class="{ 'd-none': hasValue }">esc</kbd>
+                    </div>
                     <x-button class="submit" ::class="{ 'd-block': hasValue }" :disabled="false">
                         <i class="fs-4 ti ti-sparkles me-1"></i>
                         <span>@lang('Generate')</span>
