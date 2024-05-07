@@ -4,7 +4,6 @@ namespace App\Services\Costs\ValueObjects;
 
 use Exception;
 use JsonSerializable;
-use Override;
 
 class Count implements JsonSerializable
 {
@@ -16,10 +15,7 @@ class Count implements JsonSerializable
     {
         $this->ensureValueIsValid($value);
         $this->value = is_null($value) ? $value : (string) $value;
-
-        if (!is_null($tokens)) {
-            $this->tokens = $tokens;
-        }
+        $this->tokens = $tokens; // Always initialize, even if it's to null
     }
 
     public function jsonSerialize(): ?string

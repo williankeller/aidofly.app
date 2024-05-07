@@ -12,26 +12,13 @@ use OpenAI\Client;
 use OpenAI\Exceptions\ErrorException;
 use RuntimeException;
 
-class CompletionService
+class CompletionService extends AbstractOpenAiService
 {
-    const MODELS = [
-        'gpt-4',
-        'gpt-4-turbo',
-        'gpt-3.5-turbo',
-        'gpt-3.5-turbo-input',
-        'gpt-3.5-turbo-instruct',
-    ];
-
     public function __construct(
-        private Client $client,
-        private Gpt3Tokenizer $tokenizer,
-        private CostCalculator $calc
+        protected Client $client,
+        protected Gpt3Tokenizer $tokenizer,
+        protected CostCalculator $calc
     ) {
-    }
-
-    public function supportsModel(string $model): bool
-    {
-        return in_array($model, self::MODELS);
     }
 
     /**
@@ -67,6 +54,7 @@ class CompletionService
             'temperature' => $this->convertTemperature($data['temperature']),
         ]);
 
+        // Using the tokenizer to count the tokens in the prompt as the Streamed API does not return usage data
         $inputTokensCount = $this->tokenizer->count($data['prompt']);
         $outputTokensCount = 0;
 
@@ -79,24 +67,9 @@ class CompletionService
             }
         }
 
-        $inputCost = $this->calc->calculate(
-            $inputTokensCount,
-            $model,
-            CostCalculator::INPUT
-        );
+        $this->logger($data, $inputTokensCount, $outputTokensCount);
 
-        $outputCost = $this->calc->calculate(
-            $outputTokensCount,
-            $model,
-            CostCalculator::OUTPUT
-        );
-
-        $this->logger($data, $inputTokensCount, $outputTokensCount, $inputCost, $outputCost);
-
-        $totalCost = $inputCost->value + $outputCost->value;
-        $totalTokens = $inputTokensCount + $outputTokensCount;
-
-        return new Count($totalCost, $totalTokens);
+        return $this->calculateCosts($inputTokensCount, $outputTokensCount, $model);
     }
 
     /**
@@ -117,6 +90,7 @@ class CompletionService
             'temperature' => $this->convertTemperature($data['temperature']),
         ]);
 
+        // Using the tokenizer to count the tokens in the prompt as the Streamed API does not return usage data
         $inputTokensCount = $this->tokenizer->count($data['prompt']);
         $outputTokensCount = 0;
 
@@ -129,63 +103,8 @@ class CompletionService
             }
         }
 
-        $inputCost = $this->calc->calculate(
-            $inputTokensCount,
-            $model,
-            CostCalculator::INPUT
-        );
+        $this->logger($data, $inputTokensCount, $outputTokensCount);
 
-        $outputCost = $this->calc->calculate(
-            $outputTokensCount,
-            $model,
-            CostCalculator::OUTPUT
-        );
-
-        $this->logger($data, $inputTokensCount, $outputTokensCount, $inputCost, $outputCost);
-
-        $totalCost = $inputCost->value + $outputCost->value;
-        $totalTokens = $inputTokensCount + $outputTokensCount;
-
-        return new Count($totalCost, $totalTokens);
-    }
-
-    private function logger(
-        array $data,
-        int $inputTokensCount,
-        int $outputTokensCount,
-        Count $inputCost,
-        Count $outputCost
-    ): void {
-        if (!config('app.debug')) {
-            return;
-        }
-
-        logger()->info('[OpenAI Completion]', [
-            'data' => $data,
-            'tokens' => [
-                'input' => $inputTokensCount,
-                'output' => $outputTokensCount,
-                'total' => $inputTokensCount + $outputTokensCount,
-            ],
-            'cost' => [
-                'input' => $inputCost->value,
-                'output' => $outputCost->value,
-                'total' => $inputCost->value + $outputCost->value,
-            ],
-        ]);
-    }
-
-    /**
-     * @return int|float
-     */
-    private function convertTemperature(string $temperature)
-    {
-        $floatVal = floatval($temperature);
-
-        if ((int) $floatVal == $floatVal) {
-            return (int) $floatVal;
-        } else {
-            return $floatVal;
-        }
+        return $this->calculateCosts($inputTokensCount, $outputTokensCount, $model);
     }
 }

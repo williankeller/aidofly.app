@@ -2,7 +2,6 @@
 
 namespace App\Services\Agents;
 
-use App\Models\Preset;
 use App\Models\Library;
 use Illuminate\Support\Str;
 
@@ -18,7 +17,6 @@ abstract class AbstractHandler
         ?int $resourceId = null
     ) {
         try {
-
             if (!isset($params['prompt'])) {
                 // Get first element from array
                 $params['prompt'] = reset($params);
@@ -29,7 +27,7 @@ abstract class AbstractHandler
                 'model' => $model,
                 'visibility' => 'private',
                 'params' => $params,
-                'title' => Str::limit($params['prompt'], 125, '...'),
+                'title' =>  Str::limit($params['title'] ?? $params['prompt'], 125),
                 'content' => $content,
                 'cost' => $cost,
                 'tokens' => $tokens,
@@ -39,9 +37,9 @@ abstract class AbstractHandler
             return $library->makeHidden(['id', 'user_id', 'created_at', 'updated_at']);
         } catch (\Throwable $th) {
 
-            logger()->error($th->getMessage());
+            logger()->error('[Library]', [$th->getMessage(), $th]);
 
-            throw new \Exception('Failed to store library');
+            throw new \Exception('Failed to save library');
         }
     }
 }

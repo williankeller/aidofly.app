@@ -21,9 +21,9 @@ class CompletionController extends AbstractController
     {
         try {
             $generator = $this->handler->handle(
-                'gpt-3.5-turbo',
-                $request->all(),
-                $uuid
+                model: 'gpt-4',
+                params: $request->all(),
+                uuid: $uuid
             );
 
             return response()->stream(
