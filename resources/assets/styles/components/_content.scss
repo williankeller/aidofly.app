@@ -41,8 +41,14 @@
     .input-wrapper {
         background-color: var(--bs-white);
         width: 100%;
-        padding: 13px 95px 13px 45px;
+        padding: 13px 50px 13px 40px;
         border-radius: var(--bs-border-radius);
+        @include media-breakpoint-down(md) {
+            padding-right: 10px;
+        }
+        &.has-value {
+            padding-right: 95px !important;
+        }
         input {
             font-size: 1rem;
             font-weight: 400;

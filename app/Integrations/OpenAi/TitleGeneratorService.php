@@ -37,7 +37,7 @@ class TitleGeneratorService extends AbstractOpenAiService
             $model
         );
 
-        return $this->response($resp->choices[0]->text, $cost, true);
+        return $this->response($resp->choices[0]->text, $cost);
     }
 
     /**
@@ -69,13 +69,12 @@ class TitleGeneratorService extends AbstractOpenAiService
     /**
      * @param string $title
      * @param int|float $cost
-     * @param bool $trimTitle
      * @return object<string, mixed>
      */
-    private function response(string $title, $cost, $trimTitle = false): object
+    private function response(string $title, $cost): object
     {
         return (object) [
-            'title' => !$trimTitle ? $title : trim(trim($title), '"'),
+            'title' => trim(trim($title), '"'),
             'cost' => $cost
         ];
     }

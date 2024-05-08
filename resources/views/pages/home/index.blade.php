@@ -27,7 +27,7 @@
             @input.debounce.200="search($event.target.value)" class="position-relative"
             @click.outside="showResults = false">
             <div class="position-relative search-content d-flex align-items-center dropdown">
-                <div class="input-wrapper">
+                <div class="input-wrapper" :class="{ 'has-value': hasValue }">
                     <input type="text" name="q" placeholder="@lang('Search your library or ask the AI')" aria-label="@lang('Search')"
                         autocomplete="off" class="w-100 border-0" x-ref="input" @keyup.down="showResults = true">
                 </div>
@@ -42,8 +42,8 @@
                         <kbd class="keyboard" :class="{ 'd-none': hasValue }">⌘ K</kbd>
                         <kbd class="keyclose py-0" :class="{ 'd-none': hasValue }">esc</kbd>
                     </div>
-                    <x-button class="submit" ::class="{ 'd-block': hasValue }" :disabled="false">
-                        <i class="fs-4 ti ti-sparkles me-1"></i>
+                    <x-button class="submit px-2" ::class="{ 'd-block': hasValue }" :disabled="false">
+                        <i class="fs-5 fs-md-4 ti ti-sparkles me-1"></i>
                         <span>@lang('Generate')</span>
                     </x-button>
                 </div>
