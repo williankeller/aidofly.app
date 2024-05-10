@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
+    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription">
+        <x-nav.back route="agent.writer.presets.user" />
+    </x-nav.page-title>
 
     <form data-element="form" x-ref="form" action="{{ route('agent.writer.presets.update', $preset->uuid) }}" method="post">
         <section class="p-3 p-sm-5 card mb-3">
@@ -69,37 +71,6 @@
                 </div>
             </div>
         </section>
-
-        @if ($authUser->isAdministrator())
-            <section class="p-3 p-sm-5 card mb-3">
-                <h3 class="fw-bolder h5">@lang('Admin')</h3>
-                <div class="row mt-2">
-                    <div class="col-lg-4">
-                        <x-form.input-field id="icon" :label="__('Icon code')" :placeholder="__('Example: ti-arrow')" :value="$preset->icon"
-                            maxlength="32" />
-                    </div>
-                    <div class="col-lg-4">
-                        <label class="form-label" for="color">@lang('Background color')</label>
-                        <input type="color" class="form-control" id="color" name="color"
-                            style="max-width: 100px; width: 100px;"
-                            @if (old('color', $preset->color)) value="{{ old('color', $preset->color) }}" @endif
-                            maxlength="7">
-                    </div>
-                </div>
-                <div class="mt-4 d-flex justify-content-between align-items-center bg-light p-3 rounded"
-                    x-data="{ status: {{ old('status', $preset->status) ?? 'false' }} }">
-                    <div class="form-label mb-0">@lang('Status')</div>
-                    <label class="form-check form-switch form-check-reverse mb-0" for="status" @click="status = !status">
-                        <input class="form-check-input" type="checkbox" name="status" role="switch" id="status"
-                            value="active" @checked(old('status', $preset->status))>
-                        <span class="form-check-label fw-normal"
-                            :class="{ 'd-none': !status, 'd-block': status }">@lang('Active')</span>
-                        <span class="form-check-label fw-normal"
-                            :class="{ 'd-none': status, 'd-block': !status }">@lang('Inactive')</span>
-                    </label>
-                </div>
-            </section>
-        @endif
 
         <section class="d-flex justify-content-between my-3 my-lg-4">
             <div role="none" tabindex="-1" class="d-none">

@@ -6,8 +6,6 @@ use App\Http\Controllers\Auth\SigninController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\RecoverController;
 
-use App\Http\Controllers\Admin\UsersController;
-
 use App\Http\Controllers\Studio\HomeController;
 use App\Http\Controllers\Studio\LocaleController;
 use App\Http\Controllers\Studio\GuideController;
@@ -23,8 +21,9 @@ use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\PasswordController;
 use App\Http\Controllers\Account\EmailController;
 
-Route::post('/locale', [LocaleController::class, 'switch'])->name('locale.switch');
-
+/**
+ * Guest routes only
+ */
 Route::middleware('guest')->group(function () {
     Route::name('auth.')->group(function () {
         Route::controller(SigninController::class)->group(function () {
@@ -44,6 +43,7 @@ Route::middleware('guest')->group(function () {
         Route::get('/password/recover/{token}', 'reset')->name('reset');
         Route::post('/password/recover', 'update')->name('update');
     });
+    Route::post('/locale', [LocaleController::class, 'switch'])->name('locale.switch');
 });
 
 /**
@@ -115,15 +115,4 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/guide/presets', [GuideController::class, 'presets'])->name('guide.presets');
-});
-
-// Admin routes
-Route::middleware(['auth', 'admin'])->name('admin.')->prefix('/admin')->group(function () {
-    Route::controller(UsersController::class)->name('users.')->group(function () {
-        Route::get('/users', 'index')->name('index');
-        Route::get('/users/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
-        Route::get('/users/{uuid}/edit', 'edit')->where('uuid', '[a-z0-9-]+')->name('edit');
-        Route::put('/users/{uuid}', 'update')->where('uuid', '[a-z0-9-]+')->name('update');
-        Route::delete('/users/{uuid}', 'destroy')->where('uuid', '[a-z0-9-]+')->name('destroy');
-    });
 });

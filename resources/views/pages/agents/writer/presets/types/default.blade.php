@@ -32,16 +32,6 @@
                             <div class="icon-md" :style="{ backgroundColor: preset.color }">
                                 <i class="ti" :class="preset.icon"></i>
                             </div>
-                            @if ($isAdmin)
-                                <div x-show="!preset.status">
-                                    <span class="badge text-bg-danger">@lang('Inactive')</span>
-                                </div>
-                                <a class="d-block z-3 text-muted btn btn-white btn-sm text-hover-primary p-0"
-                                    x-bind:href="`/agent/writer/preset/${preset.uuid}/edit`">
-                                    <i class="ti ti-pencil"></i>
-                                    <small>@lang('Edit')</small>
-                                </a>
-                            @endif
                         </div>
                         <div class="mt-3">
                             <div class="fw-bold mb-0 text-body h5" x-text="preset.translated_title"></div>

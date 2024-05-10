@@ -47,46 +47,6 @@
             </div>
         </section>
 
-        @if ($authUser->isAdministrator())
-            <section class="p-3 p-sm-5 card mb-3">
-                <h3 class="fw-bolder h5">@lang('Account details')</h3>
-                <div class="mt-2">
-                    <div class="form-label mb-2">
-                        <span>@lang('Role')</span>
-                    </div>
-                    <div class="d-flex">
-                        <div class="form-check-group me-2">
-                            <input type="radio" class="btn-check" name="role" id="roleUser" value="user"
-                                @checked(old('role', $authUser->role) == '0') autocomplete="off">
-                            <label class="btn btn-outline-secondary py-1" for="roleUser">
-                                <span class="fw-bold">@lang('User')</span>
-                            </label>
-                        </div>
-                        <div class="form-check-group">
-                            <input type="radio" class="btn-check" name="role" id="roleAdmin" value="admin"
-                                @checked(old('role', $authUser->role) == '1') autocomplete="off">
-                            <label class="btn btn-outline-secondary py-1" for="roleAdmin">
-                                <span class="fw-bold">@lang('Admin')</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-4 d-flex justify-content-between align-items-center bg-light p-3 rounded"
-                    x-data="{ status: {{ old('status', $authUser->status) ?? 'false' }} }">
-                    <div class="form-label mb-0">@lang('Status')</span></div>
-                    <label class="form-check form-switch form-check-reverse mb-0" for="status" @click="status = !status">
-                        <input class="form-check-input" type="checkbox" name="status" role="switch" id="status"
-                            value="active" @checked(old('status', $authUser->status))>
-                        <span class="form-check-label fw-bold"
-                            :class="{ 'd-none': !status, 'd-block': status }">@lang('Active')</span>
-                        <span class="form-check-label fw-bold"
-                            :class="{ 'd-none': status, 'd-block': !status }">@lang('Inactive')</span>
-                    </label>
-                </div>
-            </section>
-        @endif
-
         <section class="d-flex justify-content-end my-3 my-lg-4">
             <div role="none" tabindex="-1" class="d-none">
                 @method('PUT')

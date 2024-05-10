@@ -79,35 +79,6 @@
             </div>
         </section>
 
-        @if ($authUser->isAdministrator())
-            <section class="p-3 p-sm-5 card mb-3">
-                <h3 class="fw-bolder h5">@lang('Admin')</h3>
-                <div class="row mt-2 d-flex">
-                    <div class="col-lg-4">
-                        <x-form.input-field id="icon" :label="__('Icon code')" :placeholder="__('Example: ti-arrow')" maxlength="32" />
-                    </div>
-                    <div class="col-lg-4">
-                        <label class="form-label" for="color">@lang('Background color')</label>
-                        <input type="color" class="form-control" id="color" name="color"
-                            style="max-width: 100px; width: 100px;"
-                            @if (old('color')) value="{{ old('color') }}" @endif maxlength="7">
-                    </div>
-                </div>
-                <div class="mt-4 d-flex justify-content-between align-items-center bg-light p-3 rounded"
-                    x-data="{ status: true }">
-                    <div class="form-label mb-0">@lang('Status')</div>
-                    <label class="form-check form-switch form-check-reverse mb-0" for="status" @click="status = !status">
-                        <input class="form-check-input" type="checkbox" name="status" role="switch" id="status"
-                            value="active" checked>
-                        <span class="form-check-label fw-normal"
-                            :class="{ 'd-none': !status, 'd-block': status }">@lang('Active')</span>
-                        <span class="form-check-label fw-normal"
-                            :class="{ 'd-none': status, 'd-block': !status }">@lang('Inactive')</span>
-                    </label>
-                </div>
-            </section>
-        @endif
-
         <section class="d-flex justify-content-end my-3 my-lg-4">
             <div role="none" tabindex="-1" class="d-none">
                 @csrf

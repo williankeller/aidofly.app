@@ -100,11 +100,6 @@ class PresetsController extends AbstractController
     {
         $authUser = $this->getUser();
 
-        if ($authUser->isAdministrator()) {
-            $status = $request->input('status') === 'active' ? true : false;
-            $request->merge(['status' => $status]);
-        }
-
         $request->validate([
             'visibility' => 'required|string|in:public,private',
             'title' => 'required|string|max:128',
@@ -119,7 +114,7 @@ class PresetsController extends AbstractController
         $category = Category::select('id')->where('uuid', $request->category)->first();
 
         Preset::create([
-            'source' => $authUser->isAdministrator() ? 'system' : 'user',
+            'source' => 'user',
             'visibility' => $request->visibility,
             'status' => $request->status ?? true,
             'title' => $request->title,
@@ -128,7 +123,7 @@ class PresetsController extends AbstractController
             'icon' => $request->icon ?? null,
             'color' => $request->color ?? $this->getRandomBackgroundColor(),
             'category_id' => $category->id ?? null,
-            'user_id' => $authUser->isAdministrator() ? null : $authUser->id,
+            'user_id' => $authUser->id,
         ]);
 
         return $this->redirect('agent.writer.presets.user', __('Preset template created successfully!'));
@@ -223,13 +218,7 @@ class PresetsController extends AbstractController
     {
         $authUser = $this->getUser();
 
-        $preset = Preset::where('uuid', $uuid);
-
-        // If the user is not an admin, restrict the update to their own presets
-        if (!$authUser->isAdministrator()) {
-            $preset = $preset->where('user_id', $authUser->id);
-        }
-        $preset = $preset->firstOrFail();
+        $preset = Preset::where('uuid', $uuid)->where('user_id', $authUser->id)->firstOrFail();
 
         return $this->view(
             'pages.agents.writer.presets.edit',
@@ -255,11 +244,6 @@ class PresetsController extends AbstractController
     {
         $authUser = $this->getUser();
 
-        if ($authUser->isAdministrator()) {
-            $status = $request->input('status') === 'active' ? true : false;
-            $request->merge(['status' => $status]);
-        }
-
         $request->validate([
             'visibility' => 'required|string|in:public,private',
             'title' => 'required|string|max:128',
@@ -274,14 +258,7 @@ class PresetsController extends AbstractController
         $category = Category::select('id')->where('uuid', $request->category)->first();
 
         // Select preset by uuid to make sure it exists and the user is the owner
-        $preset = Preset::select('id')->where('uuid', $uuid);
-
-        // If the user is not an admin, restrict the update to their own presets
-        if (!$authUser->isAdministrator()) {
-            $preset = $preset->where('user_id', $authUser->id);
-        }
-
-        $preset = $preset->firstOrFail();
+        $preset = Preset::select('id')->where('uuid', $uuid)->where('user_id', $authUser->id)->firstOrFail();
 
         Preset::where('id', $preset->id)
             ->update([
@@ -319,14 +296,7 @@ class PresetsController extends AbstractController
             abort(404, 'Invalid request');
         }
 
-        $preset = Preset::where('uuid', $uuid);
-
-        // If the user is not an admin, restrict the deletion to their own presets
-        if (!$authUser->isAdministrator()) {
-            $preset = $preset->where('user_id', $authUser->id);
-        }
-
-        $preset->delete();
+        Preset::where('uuid', $uuid)->where('user_id', $authUser->id)->delete();
 
         return $this->redirect('agent.writer.presets.user', __('Preset template deleted successfully!'));
     }

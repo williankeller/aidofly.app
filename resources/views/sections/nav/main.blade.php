@@ -11,17 +11,6 @@
             <span class="ms-2">@lang('Library')</span>
         </x-aside.item>
     </ul>
-    @if ($authUser->isAdministrator())
-        <ul class="list-unstyled">
-            <li class="nav-item mb-2 mb-lg-1">
-                <strong>@lang('Admin')</strong>
-            </li>
-            <x-aside.item route="admin.users.index" match="admin.users.*">
-                <i class="fs-4 ti ti-users"></i>
-                <span class="ms-2">@lang('Users')</span>
-            </x-aside.item>
-        </ul>
-    @endif
     <h3 id="agents-links-label" class="nav-item fs-6 fw-bolder mb-2">@lang('Agents')</h3>
     <ul aria-labelledby="agents-links-label" class="list-unstyled">
         <x-aside.item route="agent.writer.presets.index" match="agent.writer.presets.*">
