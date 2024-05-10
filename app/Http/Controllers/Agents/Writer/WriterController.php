@@ -54,10 +54,10 @@ class WriterController extends AbstractController
         }
 
         return $this->view(
-            'pages.agents.writer.show',
-            $library->preset?->title ?? __('Free form writer'),
-            $library->preset?->description ?? __('Write your own content from scratch'),
-            [
+            view: 'pages.agents.writer.show',
+            title: $library->preset?->translated_title ?? __('Free form writer'),
+            description: $library->preset?->translated_description ?? __('Write your own content from scratch'),
+            data: [
                 'xData' => "content({$presetJson}, {$library->toJson()})",
                 'preset' => $library->preset,
                 'templates' => $template ?? [],

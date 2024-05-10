@@ -44,8 +44,8 @@
                             @endif
                         </div>
                         <div class="mt-3">
-                            <div class="fw-bold mb-0 text-body h5" x-text="preset.title"></div>
-                            <small class="mt-2 text-sm text-muted d-block" x-text="preset.description"></small>
+                            <div class="fw-bold mb-0 text-body h5" x-text="preset.translated_title"></div>
+                            <small class="mt-2 text-sm text-muted d-block" x-text="preset.translated_description"></small>
                         </div>
                         <div class="category mt-2">
                             <span class="badge text-bg-secondary" x-text="preset.category.title"></span>

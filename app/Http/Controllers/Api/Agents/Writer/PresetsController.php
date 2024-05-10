@@ -7,6 +7,8 @@ use App\Models\Preset;
 
 class PresetsController extends AbstractController
 {
+    private const HIDING_FIELDS = ['id', 'visibility', 'template', 'category_id', 'user_id', 'created_at', 'updated_at'];
+
     /**
      * Get the list of public system presets
      * @return \Illuminate\Http\JsonResponse
@@ -20,7 +22,7 @@ class PresetsController extends AbstractController
             ->where('status', 1)
             ->orderBy('created_at', 'desc')
             ->get()
-            ->makeHidden(['id', 'visibility', 'template', 'category_id', 'user_id', 'created_at', 'updated_at']);
+            ->makeHidden(self::HIDING_FIELDS);
 
         return $this->listing($presets, 1, 100, $presets->count());
     }
@@ -32,7 +34,7 @@ class PresetsController extends AbstractController
             ->where('source', 'user')
             ->orderBy('created_at', 'desc')
             ->get()
-            ->makeHidden(['id', 'visibility', 'template', 'category_id', 'user_id', 'created_at', 'updated_at']);
+            ->makeHidden(self::HIDING_FIELDS);
 
         return $this->listing($presets, 1, 100, $presets->count());
     }
@@ -47,7 +49,7 @@ class PresetsController extends AbstractController
             ->orderBy('usage_count', 'desc')
             ->orderBy('created_at', 'desc')
             ->get()
-            ->makeHidden(['id', 'visibility', 'template', 'user_id', 'category_id', 'created_at', 'updated_at']);
+            ->makeHidden(self::HIDING_FIELDS);
 
         return $this->listing($presets, 1, 100, $presets->count());
     }

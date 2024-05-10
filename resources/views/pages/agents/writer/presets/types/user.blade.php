@@ -34,8 +34,10 @@
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
                     <div class="card card-item p-3 w-100 d-block">
                         <div class="d-flex justify-content-between">
-                            <div class="icon-md" :style="{ backgroundColor: preset.color }">
-                                <span class="fs-5 text-white" x-text="preset.abbreviation"></span>
+                            <div class="icon-md" :class="!preset.color ? 'bg-light' : ''"
+                                :style="{ backgroundColor: preset.color }">
+                                <div class="text-white fw-bold" :class="!preset.color ? 'text-body' : 'text-white'"
+                                    x-text="preset.abbreviation"></div>
                             </div>
                             <a class="d-block z-3 text-muted btn btn-white btn-sm text-hover-primary p-0"
                                 x-bind:href="`/agent/writer/preset/${preset.uuid}/edit`">

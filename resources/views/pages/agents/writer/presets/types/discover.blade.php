@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     @include('pages.agents.writer.presets.snippets.nav')
 
     <section data-state="initial" :data-state="state">
@@ -13,9 +12,10 @@
                     <a class="card card-item p-3 w-100 d-block"
                         x-bind:href="`{{ route('agent.writer.presets.show', '') }}/${preset.uuid}`">
                         <div class="d-inline-block">
-                            <div class="icon-md" :style="{ backgroundColor: preset.color }">
-                                <span class="fs-5 text-white"
-                                    x-text="preset.title.match(/(\b\S)?/g).join('').slice(0, 2)"></span>
+                            <div class="icon-md" :class="!preset.color ? 'bg-light' : ''"
+                                :style="{ backgroundColor: preset.color }">
+                                <div class="text-white fw-bold" :class="!preset.color ? 'text-body' : 'text-white'"
+                                    x-text="preset.abbreviation"></div>
                             </div>
                         </div>
                         <div class="mt-3">

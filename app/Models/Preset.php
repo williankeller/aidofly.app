@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-
 
 class Preset extends Model
 {
@@ -25,6 +23,12 @@ class Preset extends Model
         'user_id',
         'category_id',
         'usage_count',
+    ];
+
+    protected $appends = [
+        'abbreviation',
+        'translated_title',
+        'translated_description',
     ];
 
     public function category()
@@ -46,16 +50,20 @@ class Preset extends Model
         });
     }
 
-    public function getAbbreviationAttribute()
+    public function getAbbreviationAttribute(): string
     {
-        $abbreviation = preg_replace('/\b(\w)\w*\s*/', '$1', $this->attributes['title']);
-        return strtoupper(substr($abbreviation, 0, 2));
+        $title = (string) $this->attributes['title'];
+        $abbreviation = preg_replace('/\b(\w)\w*\s*/u', '$1', $title);
+        return strtoupper(mb_substr($abbreviation, 0, 2, 'UTF-8'));
     }
 
-    public function title(): Attribute
+    public function getTranslatedTitleAttribute(): string
     {
-        return Attribute::make(
-            get: fn ($value) => __($value)
-        );
+        return __($this->attributes['title']);
+    }
+
+    public function getTranslatedDescriptionAttribute(): string
+    {
+        return __($this->attributes['description']);
     }
 }

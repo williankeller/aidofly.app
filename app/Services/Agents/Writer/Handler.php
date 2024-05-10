@@ -110,7 +110,7 @@ class Handler extends AbstractHandler
             $prompt = $this->parser->fillTemplate($preset->template, $params);
         }
         return [
-            'prompt' => $prompt,
+            'prompt' => $prompt ?? '',
             'model' => $preset ?? null
         ];
     }

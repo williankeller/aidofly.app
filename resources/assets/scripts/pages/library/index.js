@@ -1,3 +1,5 @@
+`use strict`;
+
 import Alpine from "alpinejs";
 import Tooltip from "@ryangjchandler/alpine-tooltip";
 import { library } from "./library";

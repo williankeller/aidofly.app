@@ -75,7 +75,7 @@
                     <label for="prompt" class="form-label required">@lang('Your query')</label>
                     <div class="w-100">
                         <textarea class="form-control" name="prompt" id="prompt" tabindex="0" dir="auto" rows="4"
-                            autocomplete="off" placeholder="@lang('Enter your text here...')" required>{{ $prompt }}</textarea>
+                            autocomplete="off" placeholder="@lang('Enter your text here...')" required>{{ $prompt ?? '' }}</textarea>
                     </div>
                     <div class="mt-1 d-flex align-items-center text-sm text-muted">
                         <i class="ti ti-info-square-rounded-filled"></i>

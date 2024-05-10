@@ -15,6 +15,10 @@ class LibraryController extends AbstractController
         // Set a default limit and starting cursor
         $limit = (int) $request->input('limit', 10);
         $page = (int) $request->input('page', 1);
+
+        // Search query
+        $search = $request->input('search');
+
         $userId = auth()->id();
 
         // Calculate the offset
@@ -26,6 +30,11 @@ class LibraryController extends AbstractController
             ->take($limit)
             ->where('user_id', $userId)
             ->orderBy('created_at', 'desc');
+
+        // Apply search query if provided
+        if ($search) {
+            $query->where('title', 'like', "%$search%");
+        }
 
         // Fetch library items and hide resource_id
         $library = $query->limit($limit)->get()->makeHidden(['resource_id']);
