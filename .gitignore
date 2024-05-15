@@ -8,6 +8,7 @@ public/js/*.min.js.map
 public/js/*.min.css.map
 /public/storage
 /storage/*.key
+/storage/clockwork/
 /vendor
 .env
 .env.backup

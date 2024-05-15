@@ -5,6 +5,8 @@ namespace App\Integrations\OpenAi;
 use App\Services\Costs\CostCalculator;
 use Gioni06\Gpt3Tokenizer\Gpt3Tokenizer;
 use OpenAI\Client;
+use Illuminate\Support\Collection;
+use App\Services\Costs\ValueObjects\Count;
 
 class TitleGeneratorService extends AbstractOpenAiService
 {
@@ -68,15 +70,15 @@ class TitleGeneratorService extends AbstractOpenAiService
 
     /**
      * @param string $title
-     * @param int|float $cost
-     * @return object<string, mixed>
+     * @param Count $cost
+     * @return Collection<TKey, TValue>
      */
-    private function response(string $title, $cost): object
+    private function response(string $title, Count $cost): Collection
     {
-        return (object) [
+        return collect([
             'title' => trim(trim($title), '"'),
             'cost' => $cost
-        ];
+        ]);
     }
 
     private function completionContent(string $content): string

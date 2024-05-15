@@ -30,6 +30,11 @@ class Count implements JsonSerializable
         return $int == $float ? (string) $int : $this->value;
     }
 
+    public function getvalue(): ?string
+    {
+        return $this->jsonSerialize();
+    }
+
     public function getTokens(): ?int
     {
         return $this->tokens;

@@ -10,6 +10,7 @@ use App\Integrations\OpenAi\CompletionService;
 use App\Integrations\OpenAi\TitleGeneratorService;
 use Illuminate\Validation\ValidationException;
 use Generator;
+use Illuminate\Support\Collection;
 
 /**
  * Handler class to manage the generation of text using AI models.
@@ -42,7 +43,7 @@ class Handler extends AbstractHandler
 
         $preset = $this->getPresetPrompt($params, $uuid);
         $resp = $this->completionService->generateCompletion($model, [
-            'prompt' => $preset['prompt'],
+            'prompt' => $preset->get('prompt'),
             'temperature' => $params['creativity'] ?? 1
         ]);
 
@@ -54,11 +55,11 @@ class Handler extends AbstractHandler
      *
      * @param $resp The response from the completion service.
      * @param array $params Parameters used in the process.
-     * @param array $preset Data including the prompt and model.
+     * @param Collection $preset Data including the prompt and preset instance (Model).
      * @return Generator
      * @throws \Exception If an error occurs during title generation or storing.
      */
-    private function processCompletion($resp, array $params, array $preset, string $model): Generator
+    private function processCompletion($resp, array $params, Collection $preset, string $model): Generator
     {
         $content = '';
         foreach ($resp as $token) {
@@ -68,10 +69,10 @@ class Handler extends AbstractHandler
 
         try {
             $titleResp = $this->titleGeneratorService->generateTitle($content);
-            $params['title'] = $titleResp->title ?? null;
+            $params['title'] = $titleResp->get('title') ?? null;
 
-            $promptCost = $resp->getReturn()->value + $titleResp->cost->value;
-            $promptTokens = $resp->getReturn()->getTokens() + $titleResp->cost->getTokens();
+            $promptCost = $resp->getReturn()->getValue() + $titleResp->get('cost')->getValue();
+            $promptTokens = $resp->getReturn()->getTokens() + $titleResp->get('cost')->getTokens();
 
             $costs = $this->completionService->count($promptCost, $promptTokens);
 
@@ -80,9 +81,9 @@ class Handler extends AbstractHandler
                 $model,
                 $params,
                 $content,
-                $costs->jsonSerialize(),
+                $costs->getValue(),
                 $costs->getTokens(),
-                $preset['model']?->id ?? null
+                $preset->get('instance')?->id ?? null
             );
         } catch (\Throwable $th) {
             logger()->error('[Writer]', ['Error processing completion: ' . $th->getMessage(), $th]);
@@ -95,9 +96,8 @@ class Handler extends AbstractHandler
      *
      * @param array $params Parameters for prompt generation.
      * @param string|null $uuid Optional UUID for preset retrieval.
-     * @return array
      */
-    public function getPresetPrompt(array $params, ?string $uuid = null): array
+    public function getPresetPrompt(array $params, ?string $uuid = null): Collection
     {
         $prompt = $params['prompt'] ?? '';
 
@@ -109,9 +109,9 @@ class Handler extends AbstractHandler
 
             $prompt = $this->parser->fillTemplate($preset->template, $params);
         }
-        return [
+        return collect([
             'prompt' => $prompt ?? '',
-            'model' => $preset ?? null
-        ];
+            'instance' => $preset ?? null
+        ]);
     }
 }

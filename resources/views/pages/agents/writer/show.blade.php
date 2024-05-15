@@ -161,30 +161,29 @@
 
             <template x-if="docs[index].uuid" data-think="docs[index].uuid">
                 <div class="d-flex justify-content-between align-items-center mt-3">
-                    <div class="d-flex align-items-center mr-auto">
-
-                        <div class="d-flex align-items-center small text-muted me-3">
+                    <div class="d-block d-md-flex align-items-center mr-auto">
+                        <div class="d-flex align-items-center small text-muted me-3 mt-2 mt-md-0">
                             <i class="ti ti-coins me-1"></i>
                             <div x-text="docs[index].cost"></div>
                             <span class="ms-1">@lang('credits')</span>
                         </div>
-                        <div class="d-flex align-items-center small text-muted me-3">
+                        <div class="d-flex align-items-center small text-muted me-3 mt-2 mt-md-0">
                             <i class="ti ti-square-rounded-letter-t me-1"></i>
                             <div x-text="docs[index].tokens"></div>
                             <span class="ms-1">@lang('tokens')</span>
                         </div>
-                        <div class="d-flex align-items-center small text-muted">
+                        <div class="d-flex align-items-center small text-muted mt-2 mt-md-0">
                             <i class="ti ti-brain me-1"></i>
                             <div x-text="docs[index].model"></div>
                         </div>
                     </div>
-
-                    <div class="d-flex align-items-center">
+                    <div class="d-block d-md-flex align-items-center">
                         <button class="btn btn-white p-0 me-3 d-flex align-items-center"
                             @click="copyDocumentContents(docs[index])">
                             <i class="fs-5 ti ti-copy"></i>
+                            <span class="ms-1 d-block d-md-none small">@lang('Copy')</span>
                         </button>
-                        <div class="small">
+                        <div class="mt-3 mt-md-0 small">
                             <a :href="`/library/writer/${docs[index].uuid}`"
                                 class="d-flex align-items-center text-muted btn btn-light btn-sm toggle-on-hover">
                                 <i class="fs-5 ti ti-books me-1 show"></i>

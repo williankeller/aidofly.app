@@ -18,7 +18,7 @@
                 </div>
                 <div class="px-2 actions">
                     <div class="shortcut d-none d-lg-flex">
-                        <kbd class="keyboard">⌘ K</kbd>
+                        <kbd class="keyboard py-0">⌘ K</kbd>
                         <kbd class="keyclose py-0">esc</kbd>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
         <template x-for="(content, index) in resources" :key="content.uuid">
             <div class="card card-item p-3 w-100 d-block mb-3">
                 <div class="d-flex align-items-center">
-                    <div class="icon me-2">
+                    <div class="icon me-2 d-none d-md-block">
                         <template x-if="content.resource">
                             <div class="icon-md" :style="`background-color: ${content.resource.color}`">
                                 <template x-if="!content.resource.icon">
@@ -75,12 +75,12 @@
                     </div>
                     <div class="fw-bold mb-0" x-text="content.title"></div>
                 </div>
-                <div class="mt-2 d-flex justify-content-between">
+                <div class="mt-2 d-block d-md-flex justify-content-between">
                     <div class="small d-flex text-muted">
                         <span class="me-1">@lang('Created')</span>
                         <time x-text="content.created_at"></time>
                     </div>
-                    <div class="d-flex align-items-center justify-content-end">
+                    <div class="d-block d-lg-flex mt-2 mt-lg-0 align-items-center justify-content-end">
                         <span class="badge fw-bold py-1 small me-1 text-capitalize bg-gradient" x-text="content.type"
                             :class="`bg-${content.type}`"></span>
                         <template x-if="content.resource">

@@ -39,7 +39,7 @@
                 </div>
                 <div class="px-2 actions">
                     <div class="shortcut d-none d-lg-flex">
-                        <kbd class="keyboard" :class="{ 'd-none': hasValue }">⌘ K</kbd>
+                        <kbd class="keyboard py-0" :class="{ 'd-none': hasValue }">⌘ K</kbd>
                         <kbd class="keyclose py-0" :class="{ 'd-none': hasValue }">esc</kbd>
                     </div>
                     <x-button class="submit px-2" ::class="{ 'd-block': hasValue }" :disabled="false">
@@ -60,9 +60,9 @@
                     </div>
                     <template x-for="item in results" :key="item.uuid">
                         <div class="card card-item p-3 mb-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <div class="icon">
+                            <div class="d-block d-lg-flex justify-content-between align-items-center">
+                                <div class="d-block d-lg-flex align-items-center">
+                                    <div class="icon d-none d-md-block">
                                         <template x-if="item.icon">
                                             <div class="icon-md" :style="{ backgroundColor: item.color }">
                                                 <i :class="item.icon" class="ti"></i>
@@ -75,12 +75,12 @@
                                             </div>
                                         </template>
                                     </div>
-                                    <div class="mx-3">
+                                    <div class="mx-0 mx-md-3">
                                         <div class="text-truncate fw-bold" x-text="item.title"></div>
                                         <div class="text-muted small" x-text="item.description"></div>
                                     </div>
                                 </div>
-                                <div class="badge bg-secondary text-capitalize" x-text="item.object"></div>
+                                <div class="mt-2 mt-md-0 badge bg-secondary text-capitalize" x-text="item.object"></div>
                             </div>
                             <a :href="`${item.url}`" class="stretched-link z-1"></a>
                         </div>
