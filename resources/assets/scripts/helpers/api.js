@@ -4,6 +4,14 @@ import { getCookie, deleteCookie } from "./cookie";
 // Fetch.js
 const _apiHost = "/api";
 
+const signout = () => (window.location.href = "/account/signout");
+
+const unauthorizedAccess = () => {
+    console.error("Unauthorized access");
+    notification("You have been disconnected!");
+    signout();
+};
+
 /**
  * Extended options for the Fetch request.
  *
@@ -46,8 +54,7 @@ async function request(method = "GET", url, options = {}) {
     // Get token from cookie
     const token = getCookie("token");
     if (!token) {
-        console.error("Token not found");
-        window.location.href = "/signup";
+        unauthorizedAccess();
         return;
     }
     opts.headers["Authorization"] = `Bearer ${token}`;
@@ -89,16 +96,8 @@ async function request(method = "GET", url, options = {}) {
             return response;
         }
 
-        // if response 401, delete token cookie and redirect to login
         if (response.status === 401) {
-            notification("Unauthorized", "error");
-
-            // delete token cookie
-            deleteCookie("token");
-
-            // redirect to login
-            window.location.href = "/signup";
-
+            unauthorizedAccess();
             return;
         }
 

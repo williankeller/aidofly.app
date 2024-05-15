@@ -26,6 +26,7 @@ class Authenticate
         $token = $request->bearerToken();
 
         if (!$token) {
+            auth()->logout();
             return response()->json(['message' => 'Authorization Token not provided'], 401);
         }
 

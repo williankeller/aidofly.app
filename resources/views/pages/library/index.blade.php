@@ -6,7 +6,7 @@
         <div class="mb-4">
             <div class="position-relative search-content rounded d-flex align-items-center" x-data="filter([], [])">
                 <div class="input-wrapper rounded bg-white">
-                    <input type="search" class="w-100 border-0" placeholder="@lang('Search...')" autocomplete="off"
+                    <input type="search" class="w-100 border-0 bg-white" placeholder="@lang('Search your library...')" autocomplete="off"
                         x-model="params.search" id="search" aria-label="@lang('Search')" />
                 </div>
                 <div class="px-2 icon position-absolute d-flex align-items-center">

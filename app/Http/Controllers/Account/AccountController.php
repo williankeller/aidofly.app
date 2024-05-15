@@ -18,10 +18,10 @@ class AccountController extends AbstractController
     public function edit(): View
     {
         return $this->view(
-            'pages.account.edit',
-            __('Edit your account'),
-            __('Update your account information'),
-            [
+            view: 'pages.account.edit',
+            title: __('Edit your account'),
+            description: __('Update your account information'),
+            data: [
                 'locales' => $this->locale->availableLanguages(),
             ]
         );
@@ -37,19 +37,9 @@ class AccountController extends AbstractController
             'locale' => 'required|string|in:' . implode(',', Locale::LANGUAGES)
         ]);
 
-        if ($user->isAdministrator()) {
-            $status = $request->input('status') === 'active' ? true : false;
-            $request->merge(['status' => $status]);
-
-            $role = $request->input('role') === 'admin' ? true : false;
-            $request->merge(['role' => $role]);
-        }
-
         $user->update([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
-            'status' => $request->status ?? true,
-            'role' => $request->role ?? false,
             'preferences' => ['locale' => $request->locale]
         ]);
 

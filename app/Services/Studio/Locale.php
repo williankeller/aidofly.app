@@ -14,7 +14,17 @@ class Locale
     {
         $this->setAppLocale($language);
 
-        Cookie::queue(cookie(self::COOKIE_NAME, $language, 60 * 24 * 365 * 10));
+        Cookie::queue(Cookie::make(
+            self::COOKIE_NAME,  // Cookie name
+            $language,          // Cookie value
+            60 * 24 * 365,      // Expiration time (in minutes, 1 year)
+            null,                // Path (use default config)
+            null,               // Secure (use default config)
+            null,               // Secure (only transmitted over HTTPS)
+            false,              // HttpOnly (false, so it can be accessed via JavaScript)
+            false,              // Raw (whether the cookie value should be sent as is)
+            'Strict'            // SameSite (same-site cookie policy)
+        ));
     }
 
     public function validateLocale(?string $locale): bool

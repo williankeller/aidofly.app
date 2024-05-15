@@ -10,8 +10,17 @@ class GlobalUser
 {
     public function handle($request, Closure $next)
     {
+        $authUser = Auth::user();
+    
+        // Check if the cookie `token` is set
+        $token = $request->cookie('token');
+        if ($authUser && !$token) {
+            auth()->logout();
+            return redirect()->route('auth.signin');
+        }
+
         // Share the Authenticated User globally
-        View::share('authUser', Auth::user());
+        View::share('authUser', $authUser);
 
         return $next($request);
     }

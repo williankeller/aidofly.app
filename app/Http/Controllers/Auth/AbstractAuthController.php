@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\AbstractController;
 use App\Services\Auth\AuthToken;
+use Illuminate\Support\Facades\Cookie;
 
 abstract class AbstractAuthController extends AbstractController
 {
@@ -15,7 +16,7 @@ abstract class AbstractAuthController extends AbstractController
     protected function setAuthCookieToken(?int $expires = null): void
     {
         if ($expires === null) {
-            $expires = 365 * 24 * 60 * 60;
+            $expires = 60 * 24 * 365;
         }
 
         $jwtToken = $this->token->generate(
@@ -23,11 +24,21 @@ abstract class AbstractAuthController extends AbstractController
             $expires
         );
 
-        cookie()->queue(AuthToken::COOKIE_NAME, $jwtToken, $expires, null, null, null, false);
+        Cookie::queue(Cookie::make(
+            AuthToken::COOKIE_NAME, // Cookie name
+            $jwtToken,              // Cookie value
+            $expires,               // Expiration time (in minutes, 1 year)
+            null,                   // Path (use default config)
+            null,                   // Secure (use default config)
+            null,                   // Secure (only transmitted over HTTPS)
+            false,                  // HttpOnly (false, so it can be accessed via JavaScript)
+            false,                  // Raw (whether the cookie value should be sent as is)
+            'Strict'                // SameSite (same-site cookie policy)
+        ));
     }
 
     protected function removeAuthCookieToken(): void
     {
-        cookie()->queue(cookie()->forget(AuthToken::COOKIE_NAME));
+        Cookie::queue(Cookie::forget(AuthToken::COOKIE_NAME));
     }
 }
