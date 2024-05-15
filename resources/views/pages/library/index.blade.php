@@ -17,7 +17,12 @@
                 </div>
                 <div class="px-2 actions position-absolute end-0">
                     <div class="shortcut d-none d-lg-flex">
-                        <kbd class="keyboard py-0">⌘ K</kbd>
+                        <div class="keyboard">
+                            <div class="d-flex">
+                                <kbd class="py-0 me-1 command-key">⌘</kbd>
+                                <kbd class="py-0">K</kbd>
+                            </div>
+                        </div>
                         <kbd class="keyclose py-0">esc</kbd>
                     </div>
                 </div>

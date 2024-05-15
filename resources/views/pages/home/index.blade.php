@@ -33,13 +33,19 @@
                 </div>
                 <div class="px-2 icon position-absolute d-flex align-items-center">
                     <i class="fs-2 ti ti-robot" :class="{ 'd-none': isProcessing }"></i>
-                    <div class="m-2 spinner-grow spinner-grow-sm bg-primary" :class="{ 'd-block': isProcessing }" role="status">
+                    <div class="m-2 spinner-grow spinner-grow-sm bg-primary" :class="{ 'd-block': isProcessing }"
+                        role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
                 <div class="px-2 actions position-absolute end-0">
                     <div class="shortcut d-none d-lg-flex">
-                        <kbd class="keyboard py-0" :class="{ 'd-none': hasValue }">⌘ K</kbd>
+                        <div class="keyboard" :class="{ 'd-none': hasValue }">
+                            <div class="d-flex">
+                                <kbd class="py-0 me-1 command-key">⌘</kbd>
+                                <kbd class="py-0">K</kbd>
+                            </div>
+                        </div>
                         <kbd class="keyclose py-0" :class="{ 'd-none': hasValue }">esc</kbd>
                     </div>
                     <x-button class="submit px-2" ::class="{ 'd-block': hasValue }" :disabled="false">

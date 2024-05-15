@@ -1,25 +1,28 @@
 .btn {
     --bs-btn-font-weight: 600;
     --bs-btn-padding-y: 0.5rem;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-active-color: var(--bs-white);
+    --bs-btn-disabled-color: var(--bs-white);
+    --bs-btn-hover-color: var(--bs-white);
     outline-width: 1px;
     outline-offset: 2px;
     position: relative;
 
+    &:hover {
+        outline-style: solid;
+    }
+
     &-primary {
-        --bs-btn-color: var(--bs-white);
-        --bs-btn-active-color: var(--bs-white);
-        --bs-btn-disabled-color: var(--bs-white);
-        --bs-btn-hover-color: var(--bs-white);
         --bs-btn-hover-bg: var(--bs-primary);
         outline-color: var(--bs-primary);
-
-        &:hover {
-            outline-style: solid;
-        }
     }
 
     &-light {
         --bs-btn-color: var(--bs-body-color);
+        --bs-btn-active-color: var(--bs-body-color);
+        --bs-btn-disabled-color: var(--bs-body-color);
+        --bs-btn-hover-color: var(--bs-body-color);
         --bs-btn-hover-border-color: var(--bs-light);
         --bs-btn-hover-bg: var(--bs-light);
         outline-color: var(--bs-light);
@@ -29,17 +32,14 @@
         }
     }
 
-    &-danger {
+    &-success {
         --bs-btn-color: var(--bs-white);
-        --bs-btn-active-color: var(--bs-white);
-        --bs-btn-disabled-color: var(--bs-white);
-        --bs-btn-hover-color: var(--bs-white);
+        outline-color: var(--bs-success);
+    }
+
+    &-danger {
         --bs-btn-hover-bg: var(--bs-danger);
         outline-color: var(--bs-danger);
-
-        &:hover {
-            outline-style: solid;
-        }
     }
 
     &-white {

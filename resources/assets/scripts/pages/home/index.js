@@ -7,8 +7,8 @@ homeView();
 
 const userAgent = navigator.userAgent.toLowerCase();
 if (userAgent.includes("linux") || userAgent.includes("windows")) {
-    document.querySelectorAll(".keyboard").forEach((element) => {
-        element.innerHTML = element.innerHTML.replace("⌘", "Ctrl");
+    document.querySelectorAll(".command-key").forEach((element) => {
+        element.textContent = "Ctrl";
     });
 }
 
