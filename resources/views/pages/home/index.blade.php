@@ -26,18 +26,18 @@
         <form action="{{ route('agent.writer.create') }}" method="GET" x-data="search"
             @input.debounce.200="search($event.target.value)" class="position-relative"
             @click.outside="showResults = false">
-            <div class="position-relative search-content d-flex align-items-center dropdown">
-                <div class="input-wrapper" :class="{ 'has-value': hasValue }">
+            <div class="position-relative search-content rounded d-flex align-items-center dropdown">
+                <div class="input-wrapper rounded bg-white" :class="{ 'has-value': hasValue }">
                     <input type="text" name="q" placeholder="@lang('Search your library or ask the AI')" aria-label="@lang('Search')"
                         autocomplete="off" class="w-100 border-0" x-ref="input" @keyup.down="showResults = true">
                 </div>
-                <div class="px-2 icon d-flex align-items-center">
+                <div class="px-2 icon position-absolute d-flex align-items-center">
                     <i class="fs-2 ti ti-robot" :class="{ 'd-none': isProcessing }"></i>
-                    <div class="m-2 spinner-grow spinner-grow-sm" :class="{ 'd-block': isProcessing }" role="status">
+                    <div class="m-2 spinner-grow spinner-grow-sm bg-primary" :class="{ 'd-block': isProcessing }" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                <div class="px-2 actions">
+                <div class="px-2 actions position-absolute end-0">
                     <div class="shortcut d-none d-lg-flex">
                         <kbd class="keyboard py-0" :class="{ 'd-none': hasValue }">⌘ K</kbd>
                         <kbd class="keyclose py-0" :class="{ 'd-none': hasValue }">esc</kbd>

@@ -1,13 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
+    <x-nav.page-title :title="$metaTitle" :lead="$metaDescription">
+        <x-nav.back route="agent.voiceover.index" />
+    </x-nav.page-title>
     <section class="card">
         <form data-element="form" x-ref="form" @submit.prevent="submit">
             <div class="d-flex w-100 align-items-end p-2">
                 <div class="grow-wrap w-100" :data-replicated-value="prompt">
                     <textarea name="prompt" id="prompt" tabindex="0" dir="auto" rows="1" autocomplete="off" x-ref="prompt"
-                        placeholder="@lang('Enter your text here...')" x-model="prompt" required></textarea>
+                        placeholder="@lang('Type the content you want to voiceover here...')" x-model="prompt" required class="p-2"></textarea>
                 </div>
                 <div class="d-block">
                     <x-button>

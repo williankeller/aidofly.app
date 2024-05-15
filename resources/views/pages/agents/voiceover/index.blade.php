@@ -21,7 +21,7 @@
         <div class="row">
             <template x-for="(voice, index) in resources" :key="index">
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
-                    <div class="card card-item p-3 w-100 d-block">
+                    <div class="card card-item p-4 w-100 d-block toggle-on-hover">
                         <div class="fw-bold text-body h5" x-text="voice.name"></div>
                         <div class="text-muted text-capitalize small">
                             <template x-if="voice.age">
@@ -42,26 +42,26 @@
                                 <span class="badge text-bg-secondary me-1" x-text="voice.case"></span>
                             </template>
                         </div>
-                        <div class="d-flex mt-4">
-                            <component-wave :src="voice.sample" state="pause">
+                        <component-wave :src="voice.sample" state="pause">
+                            <div class="card-backdrop position-absolute top-0 start-0 p-4 w-100 h-100 rounded">
                                 <button type="button" play-pause
-                                    class="btn btn-light btn-try flex-fill text-body me-2 p-1">
+                                    class="btn btn-light btn-try flex-fill text-body mb-2 p-1 w-100">
                                     <div class="play d-flex align-items-center justify-content-center fw-normal">
                                         <i class="ti ti-player-play me-1"></i>
                                         <span>@lang('Try')</span>
                                     </div>
-                                    <div class="loading spinner-grow spinner-grow-sm m-auto my-1" role="status">
+                                    <div class="loading spinner-grow spinner-grow-sm m-auto my-1 bg-purple" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                     <div class="wave" wave></div>
                                 </button>
-                            </component-wave>
-                            <a x-bind:href="`{{ route('agent.voiceover.show', '') }}/${voice.uuid}`"
-                                class="btn btn-light flex-fill text-body p-1 d-flex align-items-center justify-content-center fw-normal">
-                                <i class="fs-6 ti ti-sparkles me-1"></i>
-                                <span>@lang('Use voice')</span>
-                            </a>
-                        </div>
+                                <a x-bind:href="`{{ route('agent.voiceover.show', '') }}/${voice.uuid}`"
+                                    class="btn btn-light flex-fill text-body p-2 d-flex align-items-center justify-content-center">
+                                    <i class="fs-6 ti ti-sparkles me-1"></i>
+                                    <span>@lang('Use voice')</span>
+                                </a>
+                            </div>
+                        </component-wave>
                     </div>
                 </div>
             </template>

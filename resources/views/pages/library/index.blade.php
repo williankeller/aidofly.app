@@ -2,21 +2,20 @@
 
 @section('content')
     <x-nav.page-title :title="$metaTitle" :lead="$metaDescription" />
-
     <section data-state="initial" :data-state="state">
         <div class="mb-4">
-            <div class="position-relative search-content d-flex align-items-center" x-data="filter([], [])">
-                <div class="input-wrapper">
+            <div class="position-relative search-content rounded d-flex align-items-center" x-data="filter([], [])">
+                <div class="input-wrapper rounded bg-white">
                     <input type="search" class="w-100 border-0" placeholder="@lang('Search...')" autocomplete="off"
                         x-model="params.search" id="search" aria-label="@lang('Search')" />
                 </div>
-                <div class="px-2 icon d-flex align-items-center">
+                <div class="px-2 icon position-absolute d-flex align-items-center">
                     <i class="fs-3 ti ti-search" :class="{ 'd-none': isLoading }"></i>
                     <div class="m-2 spinner-grow spinner-grow-sm" :class="{ 'd-block': isLoading }" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                <div class="px-2 actions">
+                <div class="px-2 actions position-absolute end-0">
                     <div class="shortcut d-none d-lg-flex">
                         <kbd class="keyboard py-0">⌘ K</kbd>
                         <kbd class="keyclose py-0">esc</kbd>

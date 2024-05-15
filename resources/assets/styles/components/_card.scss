@@ -20,7 +20,26 @@
 .card {
     --bs-card-border-color: var(--bs-border-color-dimmed);
     transition: border-color 0.3s;
+
     &.card-item:hover {
         --bs-card-border-color: var(--bs-border-color);
+    }
+    .card-backdrop {
+        display: none;
+        background-color: rgb(0 0 0 / 50%);
+    }
+    &:hover {
+        .card-backdrop {
+            display: block;
+        }
+    }
+
+    .voiceover & {
+        [state="loading"],
+        [state="playing"] {
+            .card-backdrop {
+                display: block;
+            }
+        }
     }
 }
