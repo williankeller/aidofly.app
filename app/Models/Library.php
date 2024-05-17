@@ -24,7 +24,7 @@ class Library extends Model
         'resource_id',
     ];
 
-    protected $appends = ['abbreviation'];
+    protected $appends = ['initials'];
 
     protected $casts = [
         'params' => 'array',
@@ -66,11 +66,11 @@ class Library extends Model
         return now()->parse($value)->diffForHumans();
     }
 
-    public function getAbbreviationAttribute(): string
+    public function getInitialsAttribute(): string
     {
         $title = (string) $this->attributes['title'];
-        $abbreviation = preg_replace('/\b(\w)\w*\s*/u', '$1', $title);
-        return strtoupper(mb_substr($abbreviation, 0, 2, 'UTF-8'));
+        $initials = preg_replace('/\b(\w)\w*\s*/u', '$1', $title);
+        return strtoupper(mb_substr($initials, 0, 2, 'UTF-8'));
     }
 
     protected static function boot(): void

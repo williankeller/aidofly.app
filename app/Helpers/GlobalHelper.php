@@ -46,9 +46,11 @@ if (!function_exists('nonce')) {
      * Generate CSP nonce
      * @return string
      */
-    function nonce(): string
+    function nonce(int $size = 16): string
     {
-        return csrf_token() ?? Str::random(12);
+        $nonce = Str::take(csrf_token(), $size);
+
+        return $nonce ?? Str::random($size);
     }
 }
 

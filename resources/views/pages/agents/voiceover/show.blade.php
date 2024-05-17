@@ -25,8 +25,8 @@
         <template x-if="!preview && !isProcessing">
             <div class="text-center">
                 <div class="d-flex align-items-center justify-content-center">
-                    <div class="icon-lg bg-gradient bg-success">
-                        <i class="ti ti-speakerphone"></i>
+                    <div class="icon icon-lg bg-gradient bg-success bg-opacity-10">
+                        <i class="ti ti-speakerphone text-success"></i>
                     </div>
                 </div>
                 <h4 class="fw-bolder mt-4">@lang('Voice over')</h4>
@@ -60,7 +60,7 @@
                 <component-wave :src="preview.fullPath" class="d-flex justify-content-between align-items-center"
                     x-ref="previewWave" @audioprocess="previewTime = $event.detail.time" state="initial">
                     <button type="button" play-pause
-                        class="btn btn-primary btn-play-pause icon-md p-1 d-flex align-items-center">
+                        class="btn btn-primary btn-play-pause icon icon-md p-1 d-flex align-items-center">
                         <i class="play ti ti-player-play-filled"></i>
                         <i class="pause ti ti-player-pause-filled"></i>
                         <div class="loading spinner-grow spinner-grow-sm m-1" role="status">
@@ -89,8 +89,8 @@
                     </div>
                 </div>
                 <div class="mt-2 small">
-                    <a :href="`/library/voiceover/${preview.uuid}`"
-                        class="d-flex align-items-center text-muted btn btn-light btn-sm toggle-on-hover">
+                    <a :href="`/library/voiceover/${preview.uuid}`" x-tooltip.raw="@lang('See in your library')"
+                        class="d-flex align-items-center text-success toggle-on-hover">
                         <i class="fs-5 ti ti-books me-1 show"></i>
                         <i class="fs-5 ti ti-square-rounded-check me-1 hide"></i>
                         <span>@lang('Saved to library')</span>

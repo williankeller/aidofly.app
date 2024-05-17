@@ -65,12 +65,12 @@
                 <div class="col-lg-6 d-flex align-items-stretch mb-3">
                     <div class="card card-item p-3 w-100 d-flex">
                         <div class="d-flex align-items-center flex-fill">
-                            <div class="icon me-2 d-none d-md-block z-2">
+                            <div class="me-2 d-none d-md-block z-2">
                                 <template x-if="content.resource">
-                                    <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="icon-md" :style="`background-color: ${content.resource.color}`"
+                                    <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="icon icon-md" :style="`background-color: ${content.resource.color}`"
                                         x-tooltip="content.resource.title">
                                         <template x-if="!content.resource.icon">
-                                            <div class="text-white fw-bold" x-text="content.abbreviation"></div>
+                                            <div class="text-white fw-bold" x-text="content.initials"></div>
                                         </template>
                                         <template x-if="content.resource.icon">
                                             <i :class="content.resource.icon"></i>
@@ -78,8 +78,8 @@
                                     </a>
                                 </template>
                                 <template x-if="!content.resource">
-                                    <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="icon-md bg-light">
-                                        <div class="fw-bold text-body" x-text="content.abbreviation"></div>
+                                    <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="icon icon-md bg-light">
+                                        <div class="fw-bold text-muted" x-text="content.initials"></div>
                                     </a>
                                 </template>
                             </div>
@@ -91,7 +91,7 @@
                                 <time x-text="content.created_at"></time>
                             </div>
                             <div class="d-block mt-2 mt-lg-0 align-items-center justify-content-end">
-                                <div class="badge fw-bold py-1 small me-1 text-capitalize bg-gradient" x-text="content.type"
+                                <div class="badge fw-bold py-1 small me-1 text-capitalize bg-opacity-10" x-text="content.type"
                                     :class="`bg-${content.type}`"></div>
                                 <div class="d-inline-block d-md-none">
                                     <template x-if="content.resource">

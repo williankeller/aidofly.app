@@ -10,8 +10,8 @@
                 <div class="card-wrapper-selected h-100 w-100 d-flex align-items-stretch">
                     <div class="card p-3 d-block w-100">
                         <div class="d-inline-block">
-                            <div class="icon-md bg-warning">
-                                <i class="ti ti-file-text"></i>
+                            <div class="icon icon-md bg-warning bg-gradient bg-opacity-10">
+                                <i class="ti ti-file-text text-warning"></i>
                             </div>
                         </div>
                         <div class="mt-3">
@@ -29,7 +29,7 @@
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
                     <div class="card card-item p-3 w-100 d-block">
                         <div class="d-flex justify-content-between">
-                            <div class="icon-md" :style="{ backgroundColor: preset.color }">
+                            <div class="icon icon-md bg-gradient" :style="{ backgroundColor: preset.color }">
                                 <i class="ti" :class="preset.icon"></i>
                             </div>
                         </div>

@@ -2,7 +2,7 @@
     <div class="col-lg-4 d-flex align-items-stretch">
         <div class="card mb-2 p-3 w-100 d-block">
             <div class="d-inline-block">
-                <div class="icon-md placeholder rounded"></div>
+                <div class="icon icon-md placeholder rounded"></div>
             </div>
             <div class="mt-3 mb-3">
                 <div class="d-block placeholder col-7 h5 mb-0 rounded"></div>

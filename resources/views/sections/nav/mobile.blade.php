@@ -19,11 +19,15 @@
         </button>
     </div>
 </div>
-<div class="mobile-account-view position-fixed bg-white top-0 start-0 z-11 w-100 h-100 p-4" aria-label="Mobile menu"
-    aria-hidden="true">
+
+<div class="mobile-account-view position-fixed bg-white top-0 start-0 z-11 w-100 h-100 p-4">
     <div class="w-100 bg-light rounded p-3 mb-3">
         <div class="text-truncate fw-bold">{{ $authUser->firstname }}</div>
         <div class="text-muted text-truncate">{{ $authUser->email }}</div>
     </div>
     @include('sections.nav.account')
+</div>
+
+<div class="mobile-menu-view position-fixed bg-white top-0 start-0 z-11 w-100 h-100 p-4">
+    @include('sections.nav.mobile-menu')
 </div>

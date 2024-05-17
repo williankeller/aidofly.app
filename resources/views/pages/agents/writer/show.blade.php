@@ -91,60 +91,47 @@
             </div>
         </form>
     </section>
-
     <template x-if="docs.length > 0 && docs[index]">
         <div class="p-3 p-sm-5 card relative">
-
             <template x-if="docs.length > 1">
                 <div class="d-flex align-items-center gap-1 text-sm mb-3">
                     <button type="button" :disabled="index == 0" @click="index--" ;
                         class="btn btn-white p-0 d-flex align-items-center">
                         <i class="text-xs ti ti-chevron-left text-muted text-sm"></i>
                     </button>
-
                     <small class="text-muted">
                         <span x-text="index+1"></span>
                         <span>/</span>
                         <span x-text="docs.length"></span>
                     </small>
-
                     <button type="button" :disabled="index + 1 >= docs.length" @click="index++" ;
                         class="btn btn-white p-0 d-flex align-items-center">
                         <i class="text-xs ti ti-chevron-right text-muted text-sm"></i>
                     </button>
                 </div>
             </template>
-
             <div class="row d-flex align-items-center">
                 <template x-if="docs[index].uuid">
-                    <div class="col-lg-10">
+                    <div class="col-lg-11">
                         <div class="h4 grow-wrap mb-0" :data-replicated-value="docs[index].title">
                             <textarea id="title" name="title" aria-label="@lang('Title')" placeholder="@lang('Untitled document')"
                                 autocomplete="off" x-model="docs[index].title" rows="1" class="d-block w-100 p-0 text-body border-0 bg-white"></textarea>
                         </div>
                     </div>
                 </template>
-
                 <template x-if="!docs[index].uuid">
-                    <div class="col-lg-10 placeholder-wave">
+                    <div class="col-lg-11 placeholder-wave">
                         <div class="h2 placeholder rounded col-9"></div>
                     </div>
                 </template>
-
-                <div class="col-lg-2 d-flex align-items-center mt-3 mt-lg-0 justify-content-center justify-md-content-end">
-                    <button type="button"class="btn btn-white p-0 me-3" @click="showForm = !showForm"
+                <div class="col-lg-1 d-flex align-items-center mt-3 mt-lg-0 justify-content-center justify-md-content-end">
+                    <button type="button"class="btn btn-white p-0" @click="showForm = !showForm"
                         :class="{ 'text-content-dimmed': showForm }" x-tooltip.raw="@lang('See prompt')">
                         <i class="ti ti-section h5"></i>
                     </button>
-                    <button class="btn btn-white p-0" type="button" @click="submit(docs[index].params)"
-                        x-tooltip.raw="@lang('Regenerate')" :disabled="isProcessing">
-                        <i class="ti ti-rotate h5"></i>
-                    </button>
                 </div>
             </div>
-
             <hr>
-
             <template x-if="docs[index].content">
                 <div class="editor" x-html="format(docs[index].content)"></div>
             </template>
@@ -156,9 +143,20 @@
                     <div class="h6 placeholder rounded col-7"></div>
                 </div>
             </template>
-
             <hr class="mt-4" />
-
+            <template x-if="!docs[index].uuid">
+                <div class="placeholder-wave d-flex justify-content-between align-items-center mt-3">
+                    <div class="col-6">
+                        <div class="h6 placeholder rounded col-3 me-2"></div>
+                        <div class="h6 placeholder rounded col-3 me-2"></div>
+                        <div class="h6 placeholder rounded col-2"></div>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end">
+                        <div class="h6 placeholder rounded col-1 me-3"></div>
+                        <div class="h6 placeholder rounded col-4"></div>
+                    </div>
+                </div>
+            </template>
             <template x-if="docs[index].uuid" data-think="docs[index].uuid">
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div class="d-block d-md-flex align-items-center mr-auto">
@@ -179,13 +177,13 @@
                     </div>
                     <div class="d-block d-md-flex align-items-center">
                         <button class="btn btn-white p-0 me-3 d-flex align-items-center"
-                            @click="copyDocumentContents(docs[index])">
+                            x-tooltip.raw="@lang('Copy to clipboard')" @click="copyDocumentContents(docs[index])">
                             <i class="fs-5 ti ti-copy"></i>
                             <span class="ms-1 d-block d-md-none small">@lang('Copy')</span>
                         </button>
                         <div class="mt-3 mt-md-0 small">
-                            <a :href="`/library/writer/${docs[index].uuid}`"
-                                class="d-flex align-items-center text-muted btn btn-light btn-sm toggle-on-hover">
+                            <a :href="`/library/writer/${docs[index].uuid}`" x-tooltip.raw="@lang('See in your library')"
+                                class="d-flex align-items-center text-success toggle-on-hover">
                                 <i class="fs-5 ti ti-books me-1 show"></i>
                                 <i class="fs-5 ti ti-square-rounded-check me-1 hide"></i>
                                 <span>@lang('Saved to library')</span>
@@ -194,6 +192,12 @@
                     </div>
                 </div>
             </template>
+
+            <button class="btn btn-primary d-block mt-5 d-flex align-items-center justify-content-center" type="button"
+                @click="submit(docs[index].params)" x-tooltip.raw="@lang('Generate a new version')" :disabled="isProcessing">
+                <i class="fs-4 ti ti-sparkles"></i>
+                <span class="ms-2">@lang('Regenerate')</span>
+            </button>
         </div>
     </template>
 @endsection

@@ -29,6 +29,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = [
+        'initials',
+        'full_name'
+    ];
+
     protected function casts(): array
     {
         return [
@@ -67,5 +72,17 @@ class User extends Authenticatable
         return new Attribute(
             static fn ($value) => json_decode($value),
         );
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+    public function getInitialsAttribute(): string
+    {
+        $title = (string) $this->full_name;
+        $initials = preg_replace('/\b(\w)\w*\s*/u', '$1', $title);
+        return strtoupper(mb_substr($initials, 0, 2, 'UTF-8'));
     }
 }

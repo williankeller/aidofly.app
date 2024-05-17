@@ -119,7 +119,7 @@
     "characters": "caracteres",
     ":characters characters": ":characters caracteres",
     "Use :voice again": "Usar :voice novamente",
-    "Regenerate": "Regenerar",
+    "Regenerate": "Re-gerar",
     "Unlimited": "Ilimitado",
     "Back": "Voltar",
     "Total credits used": "Total de créditos usados",
@@ -140,5 +140,9 @@
     "tokens": "tokens",
     "Create your own": "Criar o seu próprio",
     "Create your own template to use with the AI writer.": "Crie seu próprio modelo para usar com o escritor de IA.",
-    "Guide": "Guia"
+    "Guide": "Guia",
+    "Saved to library": "Salvo na biblioteca",
+    "See in your library": "Ver na sua biblioteca",
+    "See prompt": "Ver instrução",
+    "Generate a new version": "Gerar uma nova versão"
 }

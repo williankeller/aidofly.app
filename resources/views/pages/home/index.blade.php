@@ -7,8 +7,8 @@
     </section>
     <section class="my-5">
         <div class="card p-4">
-            <div class="icon-sm bg-gradient bg-warning">
-                <i class="ti ti-coins"></i>
+            <div class="icon icon-md bg-gradient bg-warning bg-opacity-10">
+                <i class="ti ti-coins text-warning"></i>
             </div>
             <div class="mt-3">
                 <div class="d-flex d-flex align-items-baseline" :class="{ 'd-none': !usageFetched }">
@@ -70,12 +70,12 @@
                                 <div class="d-block d-lg-flex align-items-center">
                                     <div class="icon d-none d-md-block">
                                         <template x-if="item.icon">
-                                            <div class="icon-md" :style="{ backgroundColor: item.color }">
+                                            <div class="icon icon-md" :style="{ backgroundColor: item.color }">
                                                 <i :class="item.icon" class="ti"></i>
                                             </div>
                                         </template>
                                         <template x-if="!item.icon">
-                                            <div class="icon-md bg-light">
+                                            <div class="icon icon-md bg-light">
                                                 <span class="fw-bold text-uppercase"
                                                     x-text="item.title.match(/(\b\S)?/g).join('').slice(0, 2)"></span>
                                             </div>

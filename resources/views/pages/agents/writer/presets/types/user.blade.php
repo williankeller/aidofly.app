@@ -17,8 +17,8 @@
             <div class="col-lg-4 d-flex align-items-stretch card-static mb-3">
                 <div class="card-wrapper-selected h-100 w-100 d-flex align-items-stretch">
                     <div class="card p-3 d-block w-100">
-                        <div class="icon-md bg-primary">
-                            <i class="ti ti-square-rounded-plus"></i>
+                        <div class="icon icon-md bg-primary bg-gradient bg-opacity-10">
+                            <i class="ti ti-square-rounded-plus text-primary"></i>
                         </div>
                         <div class="mt-3">
                             <div class="fw-bold mb-0 text-body h5">
@@ -34,10 +34,10 @@
                 <div class="col-lg-4 d-flex align-items-stretch mb-3">
                     <div class="card card-item p-3 w-100 d-block">
                         <div class="d-flex justify-content-between">
-                            <div class="icon-md" :class="!preset.color ? 'bg-light' : ''"
+                            <div class="icon icon-md bg-gradient" :class="!preset.color ? 'bg-light' : ''"
                                 :style="{ backgroundColor: preset.color }">
-                                <div class="text-white fw-bold" :class="!preset.color ? 'text-body' : 'text-white'"
-                                    x-text="preset.abbreviation"></div>
+                                <div class="text-white fw-bold" :class="!preset.color ? 'text-muted' : 'text-white'"
+                                    x-text="preset.initials"></div>
                             </div>
                             <a class="d-block z-3 text-muted btn btn-white btn-sm text-hover-primary p-0"
                                 x-bind:href="`/agent/writer/preset/${preset.uuid}/edit`">

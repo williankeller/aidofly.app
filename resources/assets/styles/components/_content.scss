@@ -2,10 +2,14 @@
     @extend .min-h-screen;
 }
 
-.main {
-    max-width: 58rem;
-    margin-bottom: 1.75rem;
+.container-boxed {
     @extend .container;
+    max-width: 58rem;
+}
+
+.main {
+    @extend .container-boxed;
+    margin-bottom: 1.75rem;
     min-height: 90vh;
 }
 
@@ -24,11 +28,13 @@
 }
 
 .bg-writer {
-    background-color: var(--bs-warning);
+    @extend .bg-warning;
+    @extend .text-warning;
 }
 
 .bg-voiceover {
-    background-color: var(--bs-success);
+    @extend .bg-success;
+    @extend .text-success;
 }
 
 .original-prompt {

@@ -26,7 +26,7 @@ class Preset extends Model
     ];
 
     protected $appends = [
-        'abbreviation',
+        'initials',
         'translated_title',
         'translated_description',
     ];
@@ -50,11 +50,11 @@ class Preset extends Model
         });
     }
 
-    public function getAbbreviationAttribute(): string
+    public function getInitialsAttribute(): string
     {
         $title = (string) $this->attributes['title'];
-        $abbreviation = preg_replace('/\b(\w)\w*\s*/u', '$1', $title);
-        return strtoupper(mb_substr($abbreviation, 0, 2, 'UTF-8'));
+        $initials = preg_replace('/\b(\w)\w*\s*/u', '$1', $title);
+        return strtoupper(mb_substr($initials, 0, 2, 'UTF-8'));
     }
 
     public function getTranslatedTitleAttribute(): string

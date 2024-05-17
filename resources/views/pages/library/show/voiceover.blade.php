@@ -35,7 +35,7 @@
             <component-wave class="d-flex justify-content-between align-items-center" x-ref="previewWave"
                 src="{{ filestorage($library->uuid) }}" @audioprocess="previewTime = $event.detail.time" state="initial">
                 <button type="button" play-pause
-                    class="btn btn-primary btn-play-pause icon-md p-1 d-flex align-items-center" style="width: 120px;">
+                    class="btn btn-primary btn-play-pause icon icon-md p-1 d-flex align-items-center" style="width: 120px;">
                     <div class="play">
                         <div class=" d-flex align-items-center">
                             <i class="ti ti-player-play-filled me-1"></i>

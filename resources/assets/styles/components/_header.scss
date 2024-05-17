@@ -1,0 +1,25 @@
+.header {
+    box-shadow: #919eab4d 0 0 2px, #919eab1f 0 12px 24px -4px;
+
+    .logo-wrapper {
+        img {
+            opacity: 0.9;
+        }
+
+        .logo-name {
+            background: -webkit-linear-gradient(
+                rgb(137, 115, 249),
+                rgb(0 157 22)
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+    .dropdown-menu {
+        .card-item {
+            width: 140px;
+        }
+    }
+}

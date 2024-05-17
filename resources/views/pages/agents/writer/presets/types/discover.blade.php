@@ -12,10 +12,10 @@
                     <a class="card card-item p-3 w-100 d-block"
                         x-bind:href="`{{ route('agent.writer.presets.show', '') }}/${preset.uuid}`">
                         <div class="d-inline-block">
-                            <div class="icon-md" :class="!preset.color ? 'bg-light' : ''"
+                            <div class="icon icon-md bg-gradient" :class="!preset.color ? 'bg-light' : ''"
                                 :style="{ backgroundColor: preset.color }">
-                                <div class="text-white fw-bold" :class="!preset.color ? 'text-body' : 'text-white'"
-                                    x-text="preset.abbreviation"></div>
+                                <div class="text-white fw-bold" :class="!preset.color ? 'text-muted' : 'text-white'"
+                                    x-text="preset.initials"></div>
                             </div>
                         </div>
                         <div class="mt-3">

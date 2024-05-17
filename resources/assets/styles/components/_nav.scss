@@ -1,16 +1,9 @@
 .nav {
-    --bs-nav-link-color: var(--bs-body-color);
-    --bs-link-color: var(--bs-body-color);
-    --bs-nav-underline-link-active-color: var(--bs-primary);
-    &.nav-underline {
-        --bs-nav-link-color: var(--bs-secondary-color);
-        .nav-link.active {
-            font-weight: normal;
-        }
-    }
-    &.nav-pills {
-        --bs-nav-link-color: var(--bs-secondary-color);
-        --bs-nav-link-padding-x: 0.8rem;
-        --bs-nav-link-padding-y: 0.3rem;
-    }
+    --bs-nav-link-padding-x: 14px;
+    --bs-nav-link-padding-y: 7px;
+}
+
+.navbar-nav {
+    --bs-nav-link-padding-x: 14px;
+    --bs-nav-link-padding-y: 7px;
 }
