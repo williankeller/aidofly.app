@@ -42,37 +42,44 @@ class Handler extends AbstractHandler
         }
 
         $preset = $this->getPresetPrompt($params, $uuid);
-        $resp = $this->completionService->generateCompletion($model, [
+
+        $completion = $this->completionService->generateCompletion($model, [
             'prompt' => $preset->get('prompt'),
             'temperature' => $params['creativity'] ?? 1
         ]);
 
-        return $this->processCompletion($resp, $params, $preset, $model);
+        return $this->processCompletion($completion, $params, $preset, $model);
     }
 
     /**
      * Processes the AI-generated completion data.
      *
-     * @param $resp The response from the completion service.
+     * @param Generator $completion The response from the completion service.
      * @param array $params Parameters used in the process.
      * @param Collection $preset Data including the prompt and preset instance (Model).
+     * @param string $model The model name used in the process.
      * @return Generator
      * @throws \Exception If an error occurs during title generation or storing.
      */
-    private function processCompletion($resp, array $params, Collection $preset, string $model): Generator
+    private function processCompletion(Generator $completion, array $params, Collection $preset, string $model): Generator
     {
         $content = '';
-        foreach ($resp as $token) {
+        foreach ($completion as $token) {
             $content .= $token->value;
             yield $token;
         }
 
         try {
-            $titleResp = $this->titleGeneratorService->generateTitle($content);
-            $params['title'] = $titleResp->get('title') ?? null;
+            $completionTitle = $this->titleGeneratorService->generateTitle($preset->get('prompt'));
+            $params['title'] = $completionTitle->get('title') ?? null;
 
-            $promptCost = $resp->getReturn()->getValue() + $titleResp->get('cost')->getValue();
-            $promptTokens = $resp->getReturn()->getTokens() + $titleResp->get('cost')->getTokens();
+            $promptCostValue = $completion->getReturn()->getValue();
+            $completionTitleCostValue = $completionTitle->get('cost')->getValue();
+            $promptCost = $promptCostValue + $completionTitleCostValue;
+
+            $promptTokensCount = $completion->getReturn()->getTokens();
+            $completionTitleTokensCount = $completionTitle->get('cost')->getTokens();
+            $promptTokens = $promptTokensCount + $completionTitleTokensCount;
 
             $costs = $this->completionService->count($promptCost, $promptTokens);
 
@@ -86,10 +93,11 @@ class Handler extends AbstractHandler
                 $preset->get('instance')?->id ?? null
             );
         } catch (\Throwable $th) {
-            logger()->error('[Writer]', ['Error processing completion: ' . $th->getMessage(), $th]);
+            logger()->error('[Writer] Error processing completion: ' . $th->getMessage(), ['exception' => $th]);
             throw new \Exception('Something went wrong. Please try again.');
         }
     }
+
 
     /**
      * Retrieves or generates a prompt using preset data if available.

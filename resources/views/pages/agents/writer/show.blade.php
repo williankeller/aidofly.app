@@ -120,7 +120,7 @@
                     <div class="col-lg-10">
                         <div class="h4 grow-wrap mb-0" :data-replicated-value="docs[index].title">
                             <textarea id="title" name="title" aria-label="@lang('Title')" placeholder="@lang('Untitled document')"
-                                autocomplete="off" x-model="docs[index].title" rows="1" class="d-block w-100 p-0 text-body border-0"></textarea>
+                                autocomplete="off" x-model="docs[index].title" rows="1" class="d-block w-100 p-0 text-body border-0 bg-white"></textarea>
                         </div>
                     </div>
                 </template>
@@ -131,7 +131,7 @@
                     </div>
                 </template>
 
-                <div class="col-lg-2 d-flex align-items-center justify-content-end">
+                <div class="col-lg-2 d-flex align-items-center mt-3 mt-lg-0 justify-content-center justify-md-content-end">
                     <button type="button"class="btn btn-white p-0 me-3" @click="showForm = !showForm"
                         :class="{ 'text-content-dimmed': showForm }" x-tooltip.raw="@lang('See prompt')">
                         <i class="ti ti-section h5"></i>

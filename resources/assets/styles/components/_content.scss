@@ -30,3 +30,25 @@
 .bg-voiceover {
     background-color: var(--bs-success);
 }
+
+.original-prompt {
+    color: var(--bs-secondary-color);
+
+    &:hover {
+        color: var(--bs-body-color);
+    }
+
+    .content-preview {
+        display: flex;
+        cursor: pointer;
+        h6 {
+            margin-bottom: 0;
+        }
+        br {
+            display: none;
+        }
+        .content-truncate {
+            @extend .text-truncate;
+        }
+    }
+}

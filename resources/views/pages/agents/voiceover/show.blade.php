@@ -9,7 +9,7 @@
             <div class="d-flex w-100 align-items-end p-2">
                 <div class="grow-wrap w-100" :data-replicated-value="prompt">
                     <textarea name="prompt" id="prompt" tabindex="0" dir="auto" rows="1" autocomplete="off" x-ref="prompt"
-                        placeholder="@lang('Type the content you want to voiceover here...')" x-model="prompt" required class="p-2"></textarea>
+                        placeholder="@lang('Type the content you want to voiceover here...')" x-model="prompt" required class="p-2 bg-white"></textarea>
                 </div>
                 <div class="d-block">
                     <x-button>

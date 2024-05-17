@@ -5,7 +5,8 @@ namespace App\Services\Agents\Voiceover;
 use App\Services\Agents\AbstractHandler;
 use App\Services\Stream\Streamer;
 use App\Integrations\OpenAi\SpeechService;
-use App\Models\Library;
+use App\Integrations\OpenAi\TitleGeneratorService;
+use App\Integrations\OpenAi\CompletionService;
 use App\Models\Voice;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +16,9 @@ class Handler extends AbstractHandler
 {
     public function __construct(
         private Streamer $streamer,
-        private SpeechService $speechService
+        private CompletionService $completionService,
+        private SpeechService $speechService,
+        private TitleGeneratorService $titleGeneratorService,
     ) {
     }
 
@@ -33,17 +36,27 @@ class Handler extends AbstractHandler
             'voice' => $voice->token
         ]);
 
+
         $filename = $voice->uuid . '/' . Str::uuid() . '.mp3';
         $path = 'voiceover/' . $filename;
 
         try {
+            $completionTitle = $this->titleGeneratorService->generateTitle($params['prompt']);
+            $params['title'] = $completionTitle->get('title') ?? null;
+
+            $promptCostValue = $voiceover->get('cost')->getValue();
+            $completionTitleCostValue = $completionTitle->get('cost')->getValue();
+            $promptCost = $promptCostValue + $completionTitleCostValue;
+
+            $costs = $this->completionService->count($promptCost, $voiceover->get('characters'));
+
             $library = $this->storeLibrary(
                 'voiceover',
                 $voice->model,
                 $params,
                 $filename,
-                $voiceover['cost']->jsonSerialize(),
-                $voiceover['characters'],
+                $costs->getValue(),
+                $costs->getTokens(),
                 $voice->id
             );
 

@@ -7,6 +7,9 @@ use App\Models\Library;
 use App\Services\Studio\Filestorage;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Js;
+use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class LibraryController extends AbstractController
 {
@@ -73,7 +76,8 @@ class LibraryController extends AbstractController
             title: $library->title,
             data: [
                 'library' => $library->makeHidden(['id', 'user_id', 'created_at', 'updated_at']),
-                'xData' => "content(" . json_encode(['content' => $library->content, 'uuid' => $library->uuid]) . ")",
+                'xData' => "content(" . Js::from(['content' => $library->content, 'uuid' => $library->uuid]) . ")",
+                'prompt' => $this->originalPrompt($library->params),
             ]
         );
     }
@@ -91,8 +95,20 @@ class LibraryController extends AbstractController
             __("Using :name, a :gender voice", ['name' => $library->voice->name, 'gender' => $library->voice->gender]),
             [
                 'library' => $library->makeHidden(['id', 'user_id', 'created_at', 'updated_at']),
-                'xData' => "voiceover(" . json_encode(['content' => $library->content, 'uuid' => $library->uuid]) . ")",
+                'xData' => "voiceover(" . Js::from(['content' => $library->content, 'uuid' => $library->uuid]) . ")",
+                'prompt' => $this->originalPrompt($library->params),
             ]
         );
+    }
+
+    private function originalPrompt(array $params): Collection
+    {
+        $prompt = $params['prompt'] ?? reset($params);
+
+        return collect([
+            'intro' => Str::limit($prompt, 100),
+            'content' => nl2br(e($prompt)),
+            'largeContent' => Str::length($prompt) > 100 ? true : false,
+        ]);
     }
 }

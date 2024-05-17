@@ -29,7 +29,7 @@
             <div class="position-relative search-content rounded d-flex align-items-center dropdown">
                 <div class="input-wrapper rounded bg-white" :class="{ 'has-value': hasValue }">
                     <input type="text" name="q" placeholder="@lang('Search your library or ask the AI')" aria-label="@lang('Search')"
-                        autocomplete="off" class="w-100 border-0" x-ref="input" @keyup.down="showResults = true">
+                        autocomplete="off" class="w-100 border-0 bg-white" x-ref="input" @keyup.down="showResults = true">
                 </div>
                 <div class="px-2 icon position-absolute d-flex align-items-center">
                     <i class="fs-2 ti ti-robot" :class="{ 'd-none': isProcessing }"></i>

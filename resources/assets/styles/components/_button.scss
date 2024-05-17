@@ -5,17 +5,24 @@
     --bs-btn-active-color: var(--bs-white);
     --bs-btn-disabled-color: var(--bs-white);
     --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-outline-style: solid;
+    --bs-btn-outline-color: transparent;
     outline-width: 1px;
     outline-offset: 2px;
     position: relative;
 
-    &:hover {
-        outline-style: solid;
+    &-transparent {
+        --bs-btn-outline-style: none;
+        --bs-btn-active-border-color: transparent;
+        --bs-btn-color: var(--bs-text-body);
+        --bs-btn-active-color: var(--bs-text-body);
+        --bs-btn-disabled-color: var(--bs-border-color-dimmed);
+        --bs-btn-hover-color: var(--bs-text-body);
     }
 
     &-primary {
         --bs-btn-hover-bg: var(--bs-primary);
-        outline-color: var(--bs-primary);
+        --bs-btn-outline-color: var(--bs-primary);
     }
 
     &-light {
@@ -24,22 +31,24 @@
         --bs-btn-disabled-color: var(--bs-body-color);
         --bs-btn-hover-color: var(--bs-body-color);
         --bs-btn-hover-border-color: var(--bs-light);
+        --bs-btn-bg: var(--bs-light);
+        --bs-btn-border-color: var(--bs-light);
         --bs-btn-hover-bg: var(--bs-light);
-        outline-color: var(--bs-light);
-
-        &:hover {
-            outline-style: solid;
-        }
+        --bs-btn-outline-color: var(--bs-light);
+        --bs-btn-active-bg: var(--bs-light);
+        --bs-btn-active-border-color: var(--bs-light);
+        --bs-btn-disabled-bg: var(--bs-light);
     }
 
     &-success {
         --bs-btn-color: var(--bs-white);
-        outline-color: var(--bs-success);
+        --bs-btn-hover-bg: var(--bs-success);
+        --bs-btn-outline-color: var(--bs-success);
     }
 
     &-danger {
         --bs-btn-hover-bg: var(--bs-danger);
-        outline-color: var(--bs-danger);
+        --bs-btn-outline-color: var(--bs-danger);
     }
 
     &-white {
@@ -55,6 +64,12 @@
         }
     }
 
+    &-outline-secondary {
+        --bs-btn-border-color: var(--bs-border-color);
+        --bs-btn-hover-color: var(--bs-body-color);
+        --bs-btn-color: var(--bs-body-color);
+    }
+
     &-loader {
         display: none;
         position: absolute;
@@ -64,10 +79,6 @@
         margin-top: -8px;
     }
 
-    &-transparent {
-        --bs-btn-active-border-color: transparent;
-    }
-
     &.loading {
         .btn-loader {
             display: block;
@@ -75,5 +86,10 @@
         .btn-content {
             opacity: 0;
         }
+    }
+
+    &:hover {
+        outline-style: var(--bs-btn-outline-style);
+        outline-color: var(--bs-btn-outline-color);
     }
 }

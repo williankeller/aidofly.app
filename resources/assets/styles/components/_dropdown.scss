@@ -1,6 +1,6 @@
 .dropdown-menu {
     --bs-dropdown-box-shadow: 0px 4px 6px -2px rgba(0, 0, 9, 0.03),
         0px 12px 16px -4px rgba(0, 0, 9, 0.08);
-    --bs-dropdown-border-color: #f5f6f6;
+    --bs-dropdown-border-color: var(--bs-border-color-dimmed);
     box-shadow: var(--bs-dropdown-box-shadow);
 }

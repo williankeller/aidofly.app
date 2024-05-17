@@ -92,7 +92,7 @@
         <form class="modal-content" method="post" action="{{ route('agent.writer.presets.destroy', $preset->uuid) }}">
             <div class="modal-body p-5 text-center">
                 <h5 class="fw-bold mb-3">@lang('Delete this template?')</h5>
-                <p>@lang('You are about to delete the <strong>:title</strong> template. Once deleted, it cannot be recovered.', ['title' => $preset->title])</p>
+                <p>@lang('You are about to delete the <strong>\":title\"</strong> template. Once deleted, it cannot be recovered.', ['title' => $preset->title])</p>
             </div>
             <div role="none" tabindex="-1" class="d-none">
                 @method('DELETE')

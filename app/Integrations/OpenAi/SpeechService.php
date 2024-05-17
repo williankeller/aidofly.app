@@ -4,6 +4,8 @@ namespace App\Integrations\OpenAi;
 
 use App\Services\Costs\CostCalculator;
 use Exception;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use OpenAI\Client;
 use Throwable;
 
@@ -25,7 +27,7 @@ class SpeechService
         return in_array($model, self::MODELS);
     }
 
-    public function generateSpeech(array $data = []): array
+    public function generateSpeech(array $data = []): Collection
     {
         // Log the $data when in dev mode   
         if (config('app.env') === 'local') {
@@ -46,12 +48,12 @@ class SpeechService
             );
         }
 
-        $chars = mb_strlen($data['input']);
+        $characters = Str::length($data['input']);
 
-        return [
+        return collect([
             'audioContent' => $audioContent,
-            'cost' => $this->calc->calculate($chars, $data['model']),
-            'characters' => $chars,
-        ];
+            'cost' => $this->calc->calculate($characters, $data['model']),
+            'characters' => $characters,
+        ]);
     }
 }

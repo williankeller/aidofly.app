@@ -27,8 +27,8 @@
                     </div>
                 </div>
             </div>
-            <template x-if="resources.length">
-                <div class="ms-1 d-flex justify-content-end mt-3">
+            <div class="ms-1 d-flex justify-content-end mt-3">
+                <template x-if="resources.length">
                     <div class="small text-muted d-flex">
                         <span>@lang('Showing')</span>
                         <span class="mx-1" x-text="resources.length"></span>
@@ -36,8 +36,11 @@
                         <span class="mx-1" x-text="pagination.total"></span>
                         <span>@lang('items')</span>
                     </div>
+                </template>
+                <div class="placeholder-wave w-100 d-flex justify-content-end">
+                    <div class="placeholder col-2 rounded"></div>
                 </div>
-            </template>
+            </div>
         </div>
         <x-content.empty :title="__('No content')" :subtitle="__('There is no content to show here')" />
         <x-content.placeholder :count="4">
@@ -57,46 +60,53 @@
                 </div>
             </div>
         </x-content.placeholder>
-        <template x-for="(content, index) in resources" :key="content.uuid">
-            <div class="card card-item p-3 w-100 d-block mb-3">
-                <div class="d-flex align-items-center">
-                    <div class="icon me-2 d-none d-md-block">
-                        <template x-if="content.resource">
-                            <div class="icon-md" :style="`background-color: ${content.resource.color}`">
-                                <template x-if="!content.resource.icon">
-                                    <div class="text-white fw-bold" x-text="content.abbreviation"></div>
+        <div class="row">
+            <template x-for="(content, index) in resources" :key="content.uuid">
+                <div class="col-lg-6 d-flex align-items-stretch mb-3">
+                    <div class="card card-item p-3 w-100 d-flex">
+                        <div class="d-flex align-items-center flex-fill">
+                            <div class="icon me-2 d-none d-md-block z-2">
+                                <template x-if="content.resource">
+                                    <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="icon-md" :style="`background-color: ${content.resource.color}`"
+                                        x-tooltip="content.resource.title">
+                                        <template x-if="!content.resource.icon">
+                                            <div class="text-white fw-bold" x-text="content.abbreviation"></div>
+                                        </template>
+                                        <template x-if="content.resource.icon">
+                                            <i :class="content.resource.icon"></i>
+                                        </template>
+                                    </a>
                                 </template>
-                                <template x-if="content.resource.icon">
-                                    <i :class="content.resource.icon"></i>
+                                <template x-if="!content.resource">
+                                    <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="icon-md bg-light">
+                                        <div class="fw-bold text-body" x-text="content.abbreviation"></div>
+                                    </a>
                                 </template>
                             </div>
-                        </template>
-                        <template x-if="!content.resource">
-                            <div class="icon-md bg-light">
-                                <div class="fw-bold" x-text="content.abbreviation"></div>
+                            <div class="fw-bold mb-0" x-text="content.title"></div>
+                        </div>
+                        <div class="mt-3 d-block d-md-flex justify-content-between align-items-center">
+                            <div class="small d-flex text-muted">
+                                <span class="me-1">@lang('Created')</span>
+                                <time x-text="content.created_at"></time>
                             </div>
-                        </template>
-                    </div>
-                    <div class="fw-bold mb-0" x-text="content.title"></div>
-                </div>
-                <div class="mt-2 d-block d-md-flex justify-content-between">
-                    <div class="small d-flex text-muted">
-                        <span class="me-1">@lang('Created')</span>
-                        <time x-text="content.created_at"></time>
-                    </div>
-                    <div class="d-block d-lg-flex mt-2 mt-lg-0 align-items-center justify-content-end">
-                        <span class="badge fw-bold py-1 small me-1 text-capitalize bg-gradient" x-text="content.type"
-                            :class="`bg-${content.type}`"></span>
-                        <template x-if="content.resource">
-                            <span class="badge fw-bold py-1 small" :style="`background-color: ${content.resource.color};`"
-                                x-text="content.resource.title"></span>
-                        </template>
+                            <div class="d-block mt-2 mt-lg-0 align-items-center justify-content-end">
+                                <div class="badge fw-bold py-1 small me-1 text-capitalize bg-gradient" x-text="content.type"
+                                    :class="`bg-${content.type}`"></div>
+                                <div class="d-inline-block d-md-none">
+                                    <template x-if="content.resource">
+                                        <div class="badge fw-bold py-1 small"
+                                            :style="`background-color: ${content.resource.color};`"
+                                            x-text="content.resource.title"></div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                        <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="stretched-link z-1"></a>
                     </div>
                 </div>
-                <a x-bind:href="`/library/${content.type}/${content.uuid}`" class="stretched-link z-1"></a>
-            </div>
-        </template>
-
+            </template>
+        </div>
     </section>
 @endsection
 

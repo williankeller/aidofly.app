@@ -7,6 +7,19 @@ use Illuminate\Support\Str;
 
 abstract class AbstractHandler
 {
+    /**
+     * Store the generated content in the library.
+     * 
+     * @param string $type (voiceover|writer|speech)
+     * @param string $model Integration model (e.g. gpt-3.5-turbo)
+     * @param array $params Parameters used in the generation process
+     * @param string $content Generated content
+     * @param float $cost Cost of the generation process
+     * @param int|null $tokens Number of tokens (or chars) used in the generation process
+     * @param int|null $resourceId Resource ID (agent) used in the generation process
+     * @return Library
+     * @throws \Exception
+     */
     protected function storeLibrary(
         string $type,
         string $model,

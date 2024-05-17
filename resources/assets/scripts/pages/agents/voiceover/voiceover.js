@@ -35,52 +35,11 @@ export function voiceover() {
                     this.preview = speech;
                     this.isProcessing = false;
                     this.prompt = null;
-
-                    // TEMP this.select(speech);
                 })
                 .catch((error) => {
                     this.isProcessing = false;
                     console.error(error);
                 });
-        },
-
-        select(speech) {
-            this.preview = speech;
-
-            let url = new URL(window.location.href);
-            url.pathname = "/library/" + speech.uuid;
-            window.history.pushState({}, "", url);
-
-            if (speech.voice) {
-                this.voice = speech.voice;
-            }
-        },
-
-        selectVoice(voice) {
-            this.voice = voice;
-            window.modal.close();
-
-            let url = new URL(window.location.href);
-            url.pathname = "/voiceover/" + voice.id;
-            window.history.pushState({}, "", url);
-        },
-
-        doesVoiceMatch(voice, query) {
-            query = query.trim().toLowerCase();
-
-            if (!query) {
-                return true;
-            }
-
-            if (voice.name.toLowerCase().includes(query)) {
-                return true;
-            }
-
-            if (voice.tone && voice.tone.toLowerCase().includes(query)) {
-                return true;
-            }
-
-            return false;
         },
     }));
 

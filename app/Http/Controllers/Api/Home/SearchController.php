@@ -43,7 +43,7 @@ class SearchController extends AbstractController
             return collect([]);
         }
 
-        $presets = $this->searchGlobalPresets($query, $limit);
+        $presets = $this->searchSystemPresets($query, $limit);
 
         // define a contract for the preset items response
         return $presets->map(function ($item) {

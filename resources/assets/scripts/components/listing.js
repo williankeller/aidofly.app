@@ -81,8 +81,7 @@ export function listing() {
                     this.state = "error";
                     console.error(error);
                     notification(
-                        "An error occurred while loading the resources.",
-                        "error"
+                        "An error occurred while loading the resources."
                     );
                 });
         },
