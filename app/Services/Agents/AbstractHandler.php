@@ -23,9 +23,10 @@ abstract class AbstractHandler
     protected function storeLibrary(
         string $type,
         string $model,
-        array $params,
         string $content,
         float $cost,
+        ?string $title = null,
+        ?array $params = [],
         ?int $tokens = null,
         ?int $resourceId = null
     ) {
@@ -40,7 +41,7 @@ abstract class AbstractHandler
                 'model' => $model,
                 'visibility' => 'private',
                 'params' => $params,
-                'title' =>  Str::limit($params['title'] ?? $params['prompt'], 125),
+                'title' =>  Str::limit($title, 125),
                 'content' => $content,
                 'cost' => $cost,
                 'tokens' => $tokens,
@@ -53,6 +54,29 @@ abstract class AbstractHandler
             logger()->error('[Library]', [$th->getMessage(), $th]);
 
             throw new \Exception('Failed to save library');
+        }
+    }
+
+    protected function updateLibrary(
+        string $uuid,
+        string $content,
+        float $cost,
+        ?int $tokens = null,
+    ) {
+        try {
+            return Library::where('uuid', $uuid)
+                ->where('user_id', auth()->user()->id)
+                ->update([
+                    'title' => 'Updated title',
+                    'content' => $content,
+                    'cost' => $cost,
+                    'tokens' => $tokens,
+                ]);
+        } catch (\Throwable $th) {
+
+            logger()->error('[Library]', [$th->getMessage(), $th]);
+
+            throw new \Exception('Failed to update library');
         }
     }
 }

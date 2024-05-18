@@ -14,6 +14,8 @@ use App\Http\Controllers\Api\Agents\Writer\PresetsController;
 use App\Http\Controllers\Api\Agents\Voiceover\VoicesController;
 use App\Http\Controllers\Api\Agents\Voiceover\SpeechController;
 
+use App\Http\Controllers\Api\Agents\Chat\ChatController;
+
 Route::controller(SearchController::class)->group(function () {
     Route::get('/search', 'index');
 });
@@ -29,6 +31,10 @@ Route::prefix('/agent')->group(function () {
         Route::get('/voices', [VoicesController::class, 'index']);
         Route::post('/speech', [SpeechController::class, 'handle']);
     });
+
+    Route::controller(ChatController::class)->group(function () {
+        Route::post('/chat/{uuid?}', 'handle');
+    });    
 });
 
 Route::controller(PresetsController::class)->group(function () {
