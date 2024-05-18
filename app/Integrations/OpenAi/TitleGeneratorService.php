@@ -17,37 +17,7 @@ class TitleGeneratorService extends AbstractOpenAiService
     ) {
     }
 
-    public function generateTitle(string $content, ?string $model = 'gpt-3.5-turbo')
-    {
-        if ($model == 'gpt-3.5-turbo-instruct') {
-            return $this->generateInstructedCompletion($model, $content);
-        }
-
-        return $this->generateChatCompletion($model, $content);
-    }
-
-    private function generateInstructedCompletion(string $model, string $content)
-    {
-        $resp = $this->client->completions()->create([
-            'model' => $model,
-            'prompt' => $this->completionContent($content),
-        ]);
-
-        $cost = $this->calculateCosts(
-            $resp->usage->promptTokens,
-            $resp->usage->completionTokens,
-            $model
-        );
-
-        return $this->response($resp->choices[0]->text, $cost);
-    }
-
-    /**
-     * @param string $model
-     * @param string $content
-     * @return object<string, mixed>
-     */
-    private function generateChatCompletion(string $model, string $content): object
+    public function generateTitle(string $content, ?string $model = 'gpt-3.5-turbo'): Collection
     {
         $resp = $this->client->chat()->create([
             'model' => $model,

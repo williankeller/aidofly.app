@@ -71,7 +71,6 @@ class Handler extends AbstractHandler
 
         try {
             $completionTitle = $this->titleGeneratorService->generateTitle($preset->get('prompt'));
-            $params['title'] = $completionTitle->get('title') ?? null;
 
             $promptCostValue = $completion->getReturn()->getValue();
             $completionTitleCostValue = $completionTitle->get('cost')->getValue();
@@ -86,6 +85,7 @@ class Handler extends AbstractHandler
             return $this->storeLibrary(
                 'writer',
                 $model,
+                $completionTitle->get('title'),
                 $params,
                 $content,
                 $costs->getValue(),
