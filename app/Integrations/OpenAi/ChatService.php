@@ -46,8 +46,10 @@ class ChatService extends AbstractOpenAiService
             'temperature' => $this->convertTemperature($data['temperature']),
         ]);
 
+        // Get the last user message from the $data['messages'] array
+        $lastMessage = end($data['messages']);
         // Using the tokenizer to count the tokens in the prompt as the Streamed API does not return usage data
-        $inputTokensCount = 1; //$this->tokenizer->count($data['prompt']);
+        $inputTokensCount = $this->tokenizer->count($lastMessage['content']);
         $outputTokensCount = 0;
 
         foreach ($resp as $item) {
