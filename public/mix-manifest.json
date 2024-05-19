@@ -4,6 +4,7 @@
     "/js/library.min.js": "/js/library.min.js",
     "/js/content.min.js": "/js/content.min.js",
     "/js/voiceover.min.js": "/js/voiceover.min.js",
+    "/js/chat.min.js": "/js/chat.min.js",
     "/js/home.min.js": "/js/home.min.js",
     "/style/core.min.css": "/style/core.min.css"
 }

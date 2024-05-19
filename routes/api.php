@@ -34,7 +34,7 @@ Route::prefix('/agent')->group(function () {
 
     Route::controller(ChatController::class)->group(function () {
         Route::post('/chat/{uuid?}', 'handle');
-    });    
+    });
 });
 
 Route::controller(PresetsController::class)->group(function () {

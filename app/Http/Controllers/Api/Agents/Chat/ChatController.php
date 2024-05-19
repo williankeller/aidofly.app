@@ -45,7 +45,7 @@ class ChatController extends AbstractController
 
                 $content = $generator->getReturn();
 
-                $this->streamer->sendEvent('document', $content);
+                $this->streamer->sendEvent("message", $content);
             } catch (\Exception $e) {
                 // Log the error or handle it appropriately
                 $this->streamer->sendEvent('error', "Something went wrong. Try submitting the again.");

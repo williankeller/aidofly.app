@@ -48,13 +48,11 @@ class Streamer
         flush();
     }
 
-    /** @return void  */
     public function close(): void
     {
         if (!$this->isOpened) {
             return;
         }
-
         $this->isOpened = false;
     }
 

@@ -16,6 +16,7 @@ use App\Http\Controllers\Library\FilestorageController;
 use App\Http\Controllers\Agents\Writer\WriterController;
 use App\Http\Controllers\Agents\Writer\PresetsController;
 use App\Http\Controllers\Agents\VoiceoverController;
+use App\Http\Controllers\Agents\Chat\ChatController;
 
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\PasswordController;
@@ -80,6 +81,12 @@ Route::middleware('auth')->group(function () {
         Route::controller(VoiceoverController::class)->name('voiceover.')->group(function () {
             Route::get('/voiceover', 'index')->name('index');
             Route::get('/voiceover/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+        });
+
+        // Chat Agent routes
+        Route::controller(ChatController::class)->name('chat.')->group(function () {
+            Route::get('/chat', 'index')->name('index');
+            Route::get('/chat/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
         });
     });
 

@@ -26,6 +26,10 @@ mix.js("resources/assets/scripts/core.js", "public/js/core.min.js")
         "public/js/voiceover.min.js"
     )
     .js(
+        "resources/assets/scripts/pages/agents/chat/index.js",
+        "public/js/chat.min.js"
+    )
+    .js(
         "resources/assets/scripts/pages/home/index.js",
         "public/js/home.min.js"
     );
