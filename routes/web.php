@@ -85,8 +85,8 @@ Route::middleware('auth')->group(function () {
 
         // Chat Agent routes
         Route::controller(ChatController::class)->name('chat.')->group(function () {
-            Route::get('/chat', 'index')->name('index');
-            Route::get('/chat/{uuid}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
+            Route::get('/assistants', 'index')->name('index');
+            Route::get('/chat/{uuid?}', 'show')->where('uuid', '[a-z0-9-]+')->name('show');
         });
     });
 

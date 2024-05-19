@@ -1,5 +1,5 @@
 .header {
-    box-shadow: #919eab4d 0 0 2px, #919eab1f 0 12px 24px -4px;
+    box-shadow: 0 12px 24px -4px rgba(145, 158, 171, 0.122);
 
     .logo-wrapper {
         img {
@@ -7,10 +7,7 @@
         }
 
         .logo-name {
-            background: -webkit-linear-gradient(
-                rgb(137, 115, 249),
-                rgb(0 157 22)
-            );
+            background: -webkit-linear-gradient(#8973f9, #008d14);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\Studio\Markdown;
 use Illuminate\Support\Str;
 
 if (!function_exists('versioning')) {
@@ -102,5 +103,18 @@ if (!function_exists('javascript')) {
             return "<script nonce=\"{$nonce}\" src=\"{$asset}\" defer></script>";
         }
         return "<script nonce=\"{$nonce}\" src=\"{$asset}\"></script>";
+    }
+}
+
+if (!function_exists('markdownToHtml')) {
+    /**
+     * Convert markdown to HTML
+     *
+     * @param string $text
+     * @return string
+     */
+    function markdownToHtml(string $text): string
+    {
+        return Markdown::convertMarkdownToHtml($text);
     }
 }

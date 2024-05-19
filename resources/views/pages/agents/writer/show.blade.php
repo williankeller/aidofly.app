@@ -133,7 +133,7 @@
             </div>
             <hr>
             <template x-if="docs[index].content">
-                <div class="editor" x-html="format(docs[index].content)"></div>
+                <div class="formatted-content" x-html="format(docs[index].content)"></div>
             </template>
 
             <template x-if="!docs[index].content">

@@ -4,7 +4,6 @@ namespace App\Services\Agents\Chat;
 
 use App\Services\Agents\AbstractHandler;
 use App\Services\Stream\Streamer;
-use App\Services\Agents\Writer\Preset\TemplateParser;
 use App\Integrations\OpenAi\ChatService;
 use App\Integrations\OpenAi\TitleGeneratorService;
 use App\Services\Costs\ValueObjects\Count;
@@ -24,7 +23,6 @@ class Handler extends AbstractHandler
         private Streamer $streamer,
         private ChatService $chatService,
         private TitleGeneratorService $titleGeneratorService,
-        private TemplateParser $parser
     ) {
     }
 

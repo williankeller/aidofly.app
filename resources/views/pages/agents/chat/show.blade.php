@@ -4,65 +4,39 @@
     <x-nav.page-title :title="$metaTitle" :lead="$metaDescription">
         <x-nav.back route="agent.writer.presets.index" />
     </x-nav.page-title>
-
-    <section class="mt-5">
-        <template x-if="!conversation">
-            <div class="text-center">
-                <div class="d-flex align-items-center justify-content-center">
-                    <div class="icon icon-lg bg-gradient bg-info-subtle">
-                        <i class="ti ti-messages text-info"></i>
+    <section class="position-relative d-flex flex-column align-items-center justify-content-center" style="min-height: 50vh">
+        @if (!$library)
+            <template x-if="!conversation">
+                <div class="text-center my-auto">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <div class="icon icon-lg bg-gradient bg-info-subtle">
+                            <i class="ti ti-messages text-info"></i>
+                        </div>
                     </div>
+                    <h4 class="fw-bolder mt-4">@lang('Chat')</h4>
+                    <p class="text-muted">@lang('Text with our defaut chatbot')</p>
                 </div>
-                <h4 class="fw-bolder mt-4">@lang('Chat')</h4>
-                <p class="text-muted">@lang('Text with our defaut chatbot')</p>
-            </div>
-        </template>
-
+            </template>
+        @endif
         <template id="message-user-template">
-            <div class="message-content d-flex justify-content-end mb-4">
-                <div class="d-flex flex-column align-items-end">
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="me-2">
-                            <span class="fw-bold ms-1">@lang('You')</span>
-                        </div>
-                        <div class="icon icon-sm bg-primary bg-gradient bg-opacity-10">
-                            <div class="text-primary fw-bold small">{{ $authUser->initials }}</div>
-                        </div>
-                    </div>
-                    <div class="me-4 px-4 py-3 rounded bg-light mw-lg-400px text-end" data-kt-element="message-text"></div>
-                </div>
-            </div>
+            @include('pages.agents.chat.snippet.user-template')
         </template>
-
         <template id="message-ai-template">
-            <div class="message-ai d-flex justify-content-start mb-4">
-                <div class="d-flex flex-column align-items-start">
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="icon icon-sm bg-gradient bg-info-subtle">
-                            <i class="ti ti-sparkles text-info"></i>
-                        </div>
-                        <div class="ms-2">
-                            <span class="fw-bold me-1">@lang('AI')</span>
-                        </div>
-                    </div>
-                    <div class="ms-4 px-4 py-3 rounded bg-light text-start" data-kt-element="message-text">
-                        <div class="d-flex flex-column align-items-start">
-                            <div class="d-flex align-items-center" style="height: 24px;">
-                                <div class="spinner-grow spinner-grow-sm bg-primary"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('pages.agents.chat.snippet.ai-template')
         </template>
-
-        <div class="card-body">
-            <div class="scroll-y me-n5 pe-5 h-300px h-lg-auto">
-                <div id="chat-container"></div>
-            </div>
+        <div class="formatted-content w-100" id="chat-container">
+            @if ($library)
+                @foreach ($conversation as $message)
+                    @if ($message->role == 'user')
+                        @include('pages.agents.chat.snippet.user-template')
+                    @else
+                        @include('pages.agents.chat.snippet.ai-template', ['message' => $message])
+                    @endif
+                @endforeach
+            @endif
         </div>
     </section>
-    <section class="mt-auto">
+    <section class="position-sticky bottom-0 w-100 py-4 bg-white bg-gradient rounded">
         <form data-element="form" x-ref="form" @submit.prevent="submit">
             <div class="position-relative search-content rounded d-flex align-items-center">
                 <div class="input-wrapper rounded bg-white grow-wrap w-100 ps-3" :data-replicated-value="prompt">
@@ -76,7 +50,7 @@
                     </x-button>
                 </div>
             </div>
-            <input type="hidden" id="reference" name="reference" value="">
+            <input type="hidden" id="reference" name="reference" value="{{ $library->uuid ?? '' }}">
         </form>
     </section>
 @endsection

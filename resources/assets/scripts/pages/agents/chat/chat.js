@@ -7,7 +7,6 @@ import { EventSourceParserStream } from "eventsource-parser/stream";
 import { notification } from "../../../helpers/notification";
 
 export function chat() {
-    console.log("Chat initialized");
     Alpine.data("chat", (conversation = null) => ({
         conversation: null,
         prompt: null,
@@ -32,7 +31,7 @@ export function chat() {
         },
 
         format(message) {
-            return message ? markdownToHtml(message.content) : "";
+            return message ? markdownToHtml(message) : "";
         },
 
         async submit() {
@@ -62,16 +61,19 @@ export function chat() {
                 content: this.prompt,
                 reference: data.get("reference") ?? null,
             };
-
+            // Add first user message to the conversation
             this.conversation.messages.push(message);
-
             this.cloneMessageTemplate(message.content, "user");
 
+            // Clear the prompt after sending the message and save the previous one in case of an error
             this.temporaryPrompt = this.prompt;
-            this.prompt = ""; // Reset the prompt
+            this.prompt = "";
 
             this.watingStream = true;
+            // Create a new conversation for the assistant on load mode
             this.cloneMessageTemplate(null, "assistant");
+
+            // Ask the assistant (perform the API request)
             this.ask(data, this.assistant);
         },
 
@@ -86,11 +88,11 @@ export function chat() {
                 .content.cloneNode(true);
 
             let messageText = template.querySelector(
-                "[data-kt-element='message-text']"
+                "[data-message-element='content']"
             );
 
             if (content !== null) {
-                messageText.textContent = content;
+                messageText.innerHTML = this.format(content);
             }
 
             document.querySelector("#chat-container").appendChild(template);
@@ -103,12 +105,14 @@ export function chat() {
         updateMessageContent(content) {
             // Find the last assistant message
             let messageElements = document.querySelectorAll(".message-ai");
+
             if (messageElements.length > 0) {
                 let lastMessageElement =
                     messageElements[messageElements.length - 1];
+
                 lastMessageElement.querySelector(
-                    "[data-kt-element='message-text']"
-                ).textContent = content;
+                    "[data-message-element='content']"
+                ).innerHTML = this.format(content);
             }
         },
 
@@ -203,9 +207,31 @@ export function chat() {
             let reference = document.querySelector('[name="reference"]');
             reference.value = conversation.uuid;
 
+            // Add the title to the .page-heading element
+            this.typing(
+                conversation.title,
+                document.querySelector(".page-heading")
+            );
+
             let url = new URL(window.location.href);
             url.pathname = "/agent/chat/" + conversation.uuid;
             window.history.pushState({}, "", url);
+        },
+
+        typing(text, outputElement, speed = 40) {
+            let index = 0;
+
+            // Clear the output element
+            outputElement.textContent = "";
+
+            function type() {
+                if (index < text.length) {
+                    outputElement.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
         },
 
         enter(e) {

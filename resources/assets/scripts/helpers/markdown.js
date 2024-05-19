@@ -33,6 +33,9 @@ function escapeHtml(text) {
 }
 
 function convertMarkdownToHtml(text) {
+    if (!text) {
+        return ;
+    }
     // add ending code block tags when missing
     let code_block_count = (text.match(/```/g) || []).length;
     if (code_block_count % 2 !== 0) {

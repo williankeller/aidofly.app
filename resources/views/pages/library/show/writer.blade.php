@@ -27,7 +27,7 @@
     </section>
 
     <section class="p-3 p-sm-5 card mb-3">
-        <div class="editor" x-html="format(library.content)"></div>
+        <div class="formatted-content" x-html="format(library.content)"></div>
         <div class="original-prompt mt-4">
             @if ($prompt->get('largeContent'))
                 <div class="content-preview" x-ref="contentPreview" x-tooltip.raw="{{ __('Toggle full prompt') }}"
