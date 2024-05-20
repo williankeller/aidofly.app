@@ -73,7 +73,7 @@
                                             <div class="text-white fw-bold" x-text="content.initials"></div>
                                         </template>
                                         <template x-if="content.resource.icon">
-                                            <i :class="content.resource.icon"></i>
+                                            <i :class="content.resource.icon" class="ti"></i>
                                         </template>
                                     </a>
                                 </template>

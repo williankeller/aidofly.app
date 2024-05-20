@@ -37,6 +37,11 @@
     @extend .text-success;
 }
 
+.bg-chat {
+    @extend .bg-info;
+    @extend .text-info;
+}
+
 .original-prompt {
     color: var(--bs-secondary-color);
 

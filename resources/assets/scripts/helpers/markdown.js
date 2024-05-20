@@ -100,6 +100,7 @@ export function markdownToHtml(text) {
 
         let copy = document.createElement("span");
         copy.classList.add("copy");
+        copy.classList.add("fs-5");
 
         let icon = document.createElement("i");
         icon.classList.add("ti", "ti-copy");

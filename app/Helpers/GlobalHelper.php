@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Js;
 
 if (!function_exists('locale')) {
 
@@ -99,5 +100,20 @@ if (!function_exists('numberFormat')) {
         }
 
         return $formatted;
+    }
+}
+
+if (!function_exists('xData')) {
+
+    /**
+     * Generate xData for the view
+     *
+     * @param string $function
+     * @param array $params
+     * @return string
+     */
+    function xData(string $function, array $params = []): string
+    {
+        return "$function(" . Js::from($params) . ")";
     }
 }

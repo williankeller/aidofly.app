@@ -5,16 +5,19 @@ import api from "../../../helpers/api";
 import { markdownToHtml } from "../../../helpers/markdown";
 import { EventSourceParserStream } from "eventsource-parser/stream";
 import { notification } from "../../../helpers/notification";
+import { typing } from "../../../helpers/typing";
 
 export function chat() {
     Alpine.data("chat", (conversation = null) => ({
         conversation: null,
         prompt: null,
         isProcessing: false,
+        isLoadingConversation: false,
         autoScroll: false,
         temporaryPrompt: null,
         promptUpdated: false,
         watingStream: false,
+        isNewChat: true,
 
         init() {
             window.addEventListener("scroll", () => {
@@ -28,6 +31,40 @@ export function chat() {
             });
 
             this.$watch("prompt", () => (this.promptUpdated = true));
+
+            if (conversation.uuid) {
+                this.loadConversation(conversation.uuid);
+            }
+        },
+
+        async loadConversation(uuid) {
+            this.isNewChat = false;
+            try {
+                this.isLoadingConversation = true;
+                // Make the API call and wait for the response
+                const response = await api.get(
+                    `/agent/chat/conversation/${uuid}`
+                );
+                const list = await response.json();
+
+                // Destructure the 'data' from the list and parse the content
+                const { data } = list;
+                const messages = JSON.parse(data.content);
+
+                // Process each message in the conversation
+                messages.forEach((message) => {
+                    this.cloneMessageTemplate(message.content, message.role);
+                });
+
+                // Select the conversation after processing messages
+                this.select(data);
+                this.isLoadingConversation = false;
+            } catch (error) {
+                this.error("The conversation could not be found.");
+            }
+
+            // Ensure autoScroll is set to true after attempting to load the conversation
+            this.autoScroll = true;
         },
 
         format(message) {
@@ -74,7 +111,7 @@ export function chat() {
             this.cloneMessageTemplate(null, "assistant");
 
             // Ask the assistant (perform the API request)
-            this.ask(data, this.assistant);
+            this.sendMessage(data, this.assistant);
         },
 
         cloneMessageTemplate(content, role) {
@@ -116,19 +153,14 @@ export function chat() {
             }
         },
 
-        async ask(data, assistant) {
+        async sendMessage(data, assistant) {
             try {
-                let response = await api.post("/agent/chat/", data);
-
-                // Get the readable stream from the response body
+                const response = await api.post("/agent/chat/", data);
                 const stream = response.body
                     .pipeThrough(new TextDecoderStream())
                     .pipeThrough(new EventSourceParserStream());
-
-                // Get the reader from the stream
                 const reader = stream.getReader();
 
-                // Temporary message
                 let message = {
                     object: "message",
                     id: "temp",
@@ -141,59 +173,70 @@ export function chat() {
                 };
                 let pushed = false;
 
-                window.scrollTo(0, document.body.scrollHeight);
                 this.autoScroll = true;
                 this.promptUpdated = false;
                 this.watingStream = false;
 
+                // Keep reading data from the stream
                 while (true) {
-                    if (this.autoScroll) {
-                        window.scrollTo(0, document.body.scrollHeight);
-                    }
-
+                    this.handleAutoScroll();
                     const { value, done } = await reader.read();
                     if (done) {
                         this.isProcessing = false;
                         break;
                     }
-
-                    if (value.event == "token") {
-                        message.content += JSON.parse(value.data);
-
-                        if (!pushed) {
-                            this.conversation.messages.push(message);
-                            pushed = true;
-                        }
-                        this.updateMessageContent(message.content);
-
-                        continue;
-                    }
-
-                    if (value.event == "message") {
-                        let conversation = JSON.parse(value.data);
-
-                        this.select(conversation);
-
-                        this.isProcessing = false;
-                        continue;
-                    }
-
-                    if (value.event == "error") {
-                        this.prompt = this.temporaryPrompt;
-                        this.error(value.data);
-                        break;
-                    }
+                    this.processStreamEvent(value, message, pushed);
                 }
             } catch (error) {
-                this.prompt = this.temporaryPrompt;
-                this.error(error);
+                this.error('An error occurred while sending the message');
             }
+        },
+
+        handleAutoScroll() {
+            if (this.autoScroll) {
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        },
+
+        processStreamEvent(value, message, pushed) {
+            switch (value.event) {
+                case "token":
+                    this.handleToken(value.data, message, pushed);
+                    break;
+                case "message":
+                    this.handleMessage(value.data);
+                    break;
+                case "error":
+                    this.handleError(value.data);
+                    break;
+            }
+        },
+
+        handleToken(data, message, pushed) {
+            message.content += JSON.parse(data);
+            if (!pushed) {
+                this.conversation.messages.push(message);
+                pushed = true;
+            }
+            this.updateMessageContent(message.content);
+        },
+
+        handleMessage(data) {
+            let conversation = JSON.parse(data);
+            this.select(conversation);
+            this.isProcessing = false;
+        },
+
+        handleError(error) {
+            this.prompt = this.temporaryPrompt;
+            this.error(error);
         },
 
         error(msg) {
             this.isProcessing = false;
+            this.isLoadingConversation = false;
+            this.isNewChat = true;
             notification(msg);
-            console.error(msg);
         },
 
         createConversation() {
@@ -207,8 +250,7 @@ export function chat() {
             let reference = document.querySelector('[name="reference"]');
             reference.value = conversation.uuid;
 
-            // Add the title to the .page-heading element
-            this.typing(
+            typing(
                 conversation.title,
                 document.querySelector(".page-heading")
             );
@@ -216,22 +258,6 @@ export function chat() {
             let url = new URL(window.location.href);
             url.pathname = "/agent/chat/" + conversation.uuid;
             window.history.pushState({}, "", url);
-        },
-
-        typing(text, outputElement, speed = 40) {
-            let index = 0;
-
-            // Clear the output element
-            outputElement.textContent = "";
-
-            function type() {
-                if (index < text.length) {
-                    outputElement.textContent += text.charAt(index);
-                    index++;
-                    setTimeout(type, speed);
-                }
-            }
-            type();
         },
 
         enter(e) {
@@ -251,41 +277,6 @@ export function chat() {
             navigator.clipboard.writeText(message.content).then(() => {
                 notification("Copied to clipboard!", "success");
             });
-        },
-
-        textSelect(e) {
-            this.$refs.quote.classList.remove("flex");
-
-            let selection = window.getSelection();
-
-            if (selection.rangeCount <= 0) {
-                return;
-            }
-
-            let range = selection.getRangeAt(0);
-            let text = range.toString();
-
-            if (text.trim() == "") {
-                return;
-            }
-
-            e.stopPropagation();
-
-            let startNode = range.startContainer;
-            let startOffset = range.startOffset;
-
-            let rect;
-            if (startNode.nodeType === Node.TEXT_NODE) {
-                // Create a temporary range to get the exact position of the start
-                let tempRange = document.createRange();
-                tempRange.setStart(startNode, startOffset);
-                tempRange.setEnd(startNode, startOffset + 1); // Add one character to make the range visible
-                rect = tempRange.getBoundingClientRect();
-            } else if (startNode.nodeType === Node.ELEMENT_NODE) {
-                // For element nodes, get the bounding rect directly
-                rect = startNode.getBoundingClientRect();
-            }
-            return;
         },
     }));
 }

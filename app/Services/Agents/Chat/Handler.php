@@ -84,7 +84,7 @@ class Handler extends AbstractHandler
                 cost: $costs->getValue(),
                 tokens: $costs->getTokens()
             );
-            return $instance;
+            return $instance->makeHidden(['content']);
         }
     }
 
@@ -124,9 +124,11 @@ class Handler extends AbstractHandler
         ];
 
         if (isset($params['reference']) && Str::isUuid($params['reference'])) {
-            $library = Library::where('uuid', $params['reference'])
-                ->where('user_id', auth()->user()->id)
-                ->firstOrFail();
+
+            $library = Library::select(['uuid', 'title', 'model', 'cost', 'tokens', 'content'])
+                ->where('uuid', $params['reference'])
+                ->where('user_id', auth()->id())
+                ->first();
 
             $prompts = Json::decode($library->content);
 

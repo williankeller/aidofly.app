@@ -4,9 +4,16 @@
     <x-nav.page-title :title="$metaTitle" :lead="$metaDescription">
         <x-nav.back route="agent.writer.presets.index" />
     </x-nav.page-title>
-    <section class="position-relative d-flex flex-column align-items-center justify-content-center" style="min-height: 50vh">
-        @if (!$library)
-            <template x-if="!conversation">
+    <section class="position-relative d-flex flex-column align-items-center "
+        :class="isNewChat ? 'justify-content-center' : ''" style="min-height: 50vh">
+        <template id="message-user-template">
+            @include('pages.agents.chat.snippet.user-template')
+        </template>
+        <template id="message-ai-template">
+            @include('pages.agents.chat.snippet.ai-template')
+        </template>
+        <div class="formatted-content w-100" id="chat-container">
+            <template x-if="isNewChat && !conversation">
                 <div class="text-center my-auto">
                     <div class="d-flex align-items-center justify-content-center">
                         <div class="icon icon-lg bg-gradient bg-info-subtle">
@@ -17,23 +24,42 @@
                     <p class="text-muted">@lang('Text with our defaut chatbot')</p>
                 </div>
             </template>
-        @endif
-        <template id="message-user-template">
-            @include('pages.agents.chat.snippet.user-template')
-        </template>
-        <template id="message-ai-template">
-            @include('pages.agents.chat.snippet.ai-template')
-        </template>
-        <div class="formatted-content w-100" id="chat-container">
-            @if ($library)
-                @foreach ($conversation as $message)
-                    @if ($message->role == 'user')
-                        @include('pages.agents.chat.snippet.user-template')
-                    @else
-                        @include('pages.agents.chat.snippet.ai-template', ['message' => $message])
-                    @endif
-                @endforeach
-            @endif
+            <template x-if="isLoadingConversation">
+                <x-content.placeholder :count="2" :columns="true">
+                    <div class="d-flex justify-content-end mb-4">
+                        <div class="d-flex flex-column align-items-end col-6">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-2">
+                                    <span class="placeholder col-3"></span>
+                                </div>
+                                <div class="icon icon-sm placeholder">
+                                    <div class="text-primary"></div>
+                                </div>
+                            </div>
+                            <div class="me-4 px-4 py-3 rounded bg-light w-100 text-end">
+                                <div class="placeholder rounded col-12"></div>
+                                <div class="placeholder rounded col-6"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start mb-4">
+                        <div class="d-flex flex-column align-items-start col-8">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="icon icon-sm placeholder">
+                                    <div class="text-primary"></div>
+                                </div>
+                                <div class="ms-2">
+                                    <span class="placeholder col-3"></span>
+                                </div>
+                            </div>
+                            <div class="ms-4 px-4 py-3 rounded bg-light w-100 text-start">
+                                <div class="placeholder rounded col-12"></div>
+                                <div class="placeholder rounded col-6"></div>
+                            </div>
+                        </div>
+                    </div>
+                </x-content.placeholder>
+            </template>
         </div>
     </section>
     <section class="position-sticky bottom-0 w-100 py-4 bg-white bg-gradient rounded">
@@ -50,7 +76,7 @@
                     </x-button>
                 </div>
             </div>
-            <input type="hidden" id="reference" name="reference" value="{{ $library->uuid ?? '' }}">
+            <input type="hidden" id="reference" name="reference" value="{{ $uuid }}">
         </form>
     </section>
 @endsection

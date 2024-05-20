@@ -94,7 +94,6 @@
 
         .copy {
             cursor: pointer;
-            @extend .fs-5;
             color: var(--bs-secondary-color);
             &:hover {
                 color: var(--bs-body-color);
@@ -108,5 +107,11 @@
 
     > *:last-child {
         margin-bottom: 0;
+    }
+
+    p {
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }

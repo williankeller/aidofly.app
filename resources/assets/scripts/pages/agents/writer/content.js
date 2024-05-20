@@ -7,6 +7,7 @@ import populate from "populate.js";
 import { markdownToHtml } from "../../../helpers/markdown";
 import { notification } from "../../../helpers/notification";
 import { EventSourceParserStream } from "eventsource-parser/stream";
+import { typingInput } from "../../../helpers/typing";
 
 export function content() {
     Alpine.data("content", (preset = null, doc = null) => ({
@@ -108,6 +109,10 @@ export function content() {
                 this.docs.pop();
                 this.index = this.docs.length > 1 ? this.docs.length - 1 : 0;
             }
+        },
+
+        typing(content) {
+            typingInput(content, document.querySelector("#title"));
         },
 
         format(content) {

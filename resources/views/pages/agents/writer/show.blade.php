@@ -83,6 +83,7 @@
                     </div>
                 </div>
             @endif
+
             <div class="submit-button">
                 <x-button class="w-100">
                     <i class="fs-4 ti ti-sparkles"></i>
@@ -113,9 +114,10 @@
             <div class="row d-flex align-items-center">
                 <template x-if="docs[index].uuid">
                     <div class="col-lg-11">
-                        <div class="h4 grow-wrap mb-0" :data-replicated-value="docs[index].title">
+                        <div class="h4 grow-wrap mb-0">
                             <textarea id="title" name="title" aria-label="@lang('Title')" placeholder="@lang('Untitled document')"
-                                autocomplete="off" x-model="docs[index].title" rows="1" class="d-block w-100 p-0 text-body border-0 bg-white"></textarea>
+                                autocomplete="off" x-model="typing(docs[index].title)" rows="1"
+                                class="d-block w-100 p-0 text-body border-0 bg-white"></textarea>
                         </div>
                     </div>
                 </template>
@@ -192,12 +194,14 @@
                     </div>
                 </div>
             </template>
-
-            <button class="btn btn-primary d-block mt-5 d-flex align-items-center justify-content-center" type="button"
-                @click="submit(docs[index].params)" x-tooltip.raw="@lang('Generate a new version')" :disabled="isProcessing">
-                <i class="fs-4 ti ti-sparkles"></i>
-                <span class="ms-2">@lang('Regenerate')</span>
-            </button>
+            <template x-if="!showForm">
+                <button class="btn btn-primary d-block mt-5 d-flex align-items-center justify-content-center"
+                    type="button" @click="submit(docs[index].params)" x-tooltip.raw="@lang('Generate a new version')"
+                    :disabled="isProcessing">
+                    <i class="fs-4 ti ti-sparkles"></i>
+                    <span class="ms-2">@lang('Regenerate')</span>
+                </button>
+            </template>
         </div>
     </template>
 @endsection

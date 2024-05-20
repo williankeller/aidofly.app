@@ -8,8 +8,6 @@
                 <div class="text-primary fw-bold small">{{ $authUser->initials }}</div>
             </div>
         </div>
-        <div class="me-4 px-4 py-3 rounded bg-light mw-lg-400px text-end" data-message-element="content">
-            <div>{!! (markdownToHtml($message->content ?? '')) !!}</div>
-        </div>
+        <div class="me-4 px-4 py-3 rounded bg-light mw-lg-400px text-end" data-message-element="content"></div>
     </div>
 </div>
