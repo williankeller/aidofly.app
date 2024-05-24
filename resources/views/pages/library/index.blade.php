@@ -9,7 +9,7 @@
                     <input type="search" class="w-100 border-0 bg-white" placeholder="@lang('Search your library...')" autocomplete="off"
                         x-model="params.search" id="search" aria-label="@lang('Search')" />
                 </div>
-                <div class="px-2 icon position-absolute d-flex align-items-center">
+                <div class="px-2 position-absolute d-flex align-items-center">
                     <i class="fs-3 ti ti-search" :class="{ 'd-none': isLoading }"></i>
                     <div class="m-2 spinner-grow spinner-grow-sm" :class="{ 'd-block': isLoading }" role="status">
                         <span class="visually-hidden">Loading...</span>
