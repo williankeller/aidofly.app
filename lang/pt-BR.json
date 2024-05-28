@@ -144,5 +144,19 @@
     "Saved to library": "Salvo na biblioteca",
     "See in your library": "Ver na sua biblioteca",
     "See prompt": "Ver instrução",
-    "Generate a new version": "Gerar uma nova versão"
+    "Generate a new version": "Gerar uma nova versão",
+    "Product": "Produto",
+    "Describe your product, e.g., a collection of handcrafted jewelry": "Descreva seu produto, por exemplo, uma coleção de joias artesanais",
+    "Your new handmade jewelry collection": "Sua nova coleção de joias artesanais",
+    "Target audience": "Público-alvo",
+    "Fashion enthusiasts": "Entusiastas da moda",
+    "Define your target audience, e.g., fashion enthusiasts": "Defina seu público-alvo, por exemplo, entusiastas da moda",
+    "Voice tone": "Tom de voz",
+    "Professional": "Profissional",
+    "Funny": "Engraçado",
+    "Casual": "Informal",
+    "Excited": "Animado",
+    "Sarcastic": "Sarcástico",
+    "Dramatic": "Dramático",
+    "Secretive": "Secreto"
 }

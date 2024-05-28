@@ -9,14 +9,12 @@
                     <h2 class="ls-tight fw-bolder h1 text-white mb-3">@lang('Transform Your Brainstorm Ideas into Reality')</h2>
                     <p class="text-white text-opacity-75 lead">@lang('Welcome back to the threshold of innovation. Log in now to begin shaping the future with every word you generate!')</p>
                 </div>
-
             </div>
         </section>
-        
         <section
             class="col-12 col-md-9 col-lg-7 offset-lg-5 border-left-lg min-h-lg-screen d-flex flex-column justify-content-center py-lg-5 px-lg-5 position-relative">
             <div class="mx-auto px-3 py-md-5 px-md-0 py-5 col-12 col-sm-9 col-lg-9 col-xxl-6">
-                <div class="mb-4">
+                <div class="mb-5 mb-lg-4 text-center text-lg-start">
                     <x-image src="/logo/aidofly.png" alt="{{ config('app.name') }} logo" width="45" height="45" />
                     <h2 class="mt-3 ls-tight fw-bolder h3">
                         <span>@lang('Hey, Hello')</span>
@@ -53,9 +51,7 @@
             </div>
         </section>
     </div>
-    <div class="position-fixed end-0 top-0 px-3">
-        @include('pages.auth.snippets.locale')
-    </div>
+    @include('pages.auth.snippets.locale')
 @endsection
 
 @push('script-stack-after')

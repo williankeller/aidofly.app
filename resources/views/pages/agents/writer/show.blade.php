@@ -17,18 +17,18 @@
                             <label @class(['form-label', 'required' => $p->required]) for="{{ $id }}">{{ __($p->label) }}</label>
                             @if ($p->multiline)
                                 <div class="w-100">
-                                    <textarea id="{{ $id }}" name="{{ $p->name }}" placeholder="{{ $p->placeholder }}" class="form-control"
+                                    <textarea id="{{ $id }}" name="{{ $p->name }}" placeholder="{{ __($p->placeholder) }}" class="form-control"
                                         tabindex="0" dir="auto" rows="4" autocomplete="off" @required($p->required)>{{ $p->value }}</textarea>
                                 </div>
                             @else
                                 <input type="text" id="{{ $id }}" name="{{ $p->name }}"
-                                    placeholder="{{ $p->placeholder }}" class="form-control" autocomplete="off"
+                                    placeholder="{{ __($p->placeholder) }}" class="form-control" autocomplete="off"
                                     value="{{ $p->value }}" @required($p->required)>
                             @endif
                             @if ($p->info)
                                 <div class="mt-1 d-flex align-items-center text-sm text-muted">
                                     <i class="ti ti-info-square-rounded-filled text-muted"></i>
-                                    <small class="ms-1 text-muted">{{ $p->info }}</small>
+                                    <small class="ms-1 text-muted">{{ __($p->info) }}</small>
                                 </div>
                             @endif
                         </div>
