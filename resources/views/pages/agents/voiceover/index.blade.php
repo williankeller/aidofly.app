@@ -6,13 +6,13 @@
     <section class="voiceover" data-state="initial" :data-state="state">
         <x-content.placeholder :count="3" :columns="true">
             <div class="col-lg-4 d-flex align-items-stretch">
-                <div class="card mb-2 p-3 w-100 d-block">
+                <div class="card mb-2 p-4 w-100 d-block">
                     <div class="d-block placeholder col-6 h4 rounded"></div>
-                    <div class="d-block mt-3 placeholder col-2 placeholder-sm rounded"></div>
+                    <div class="d-block mt-3 placeholder col-4 placeholder-sm rounded"></div>
                     <div class="d-block mt-3 placeholder col-3 rounded"></div>
-                    <div class="d-flex mt-4" style="height: 34px;">
-                        <div class="placeholder col-5 placeholder-lg rounded"></div>
-                        <div class="placeholder col-7 placeholder-lg rounded ms-2"></div>
+                    <div class="mt-4">
+                        <div class="placeholder col-12 placeholder-lg rounded" style="height: 34px;"></div>
+                        <div class="placeholder col-12 placeholder-lg rounded mt-2" style="height: 40px;"></div>
                     </div>
                 </div>
             </div>
@@ -43,9 +43,8 @@
                             </template>
                         </div>
                         <component-wave :src="voice.sample" state="pause">
-                            <div class="card-backdrop position-absolute top-0 start-0 p-4 w-100 h-100 rounded">
-                                <button type="button" play-pause
-                                    class="btn btn-light btn-try mb-2 p-1 w-100">
+                            <div class="mt-3">
+                                <button type="button" play-pause class="btn btn-light btn-try mb-2 p-1 w-100">
                                     <div class="play d-flex align-items-center justify-content-center fw-normal">
                                         <i class="ti ti-player-play me-1"></i>
                                         <span>@lang('Try it')</span>
@@ -56,7 +55,7 @@
                                     <div class="wave" wave></div>
                                 </button>
                                 <a x-bind:href="`{{ route('agent.voiceover.show', '') }}/${voice.uuid}`"
-                                    class="btn btn-success p-2 d-flex align-items-center justify-content-center">
+                                    class="btn btn-success bg-success bg-opacity-10 border-0 text-success p-2 d-flex align-items-center justify-content-center ">
                                     <i class="fs-6 ti ti-sparkles me-1"></i>
                                     <span>@lang('Use voice')</span>
                                 </a>
