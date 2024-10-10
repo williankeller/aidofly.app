@@ -1,4 +1,7 @@
-# Aidofly
+# AIdoFly
+
+AI-Powered Project leveraging Laravel (PHP) and OpenAI, featuring automated Writer and Voice Over agents.
+This project integrates Laravel's robust framework with OpenAI's API to create AI-driven content generation and voice synthesis, providing seamless text-to-speech and content creation capabilities.
 
 ### File permissions
 
